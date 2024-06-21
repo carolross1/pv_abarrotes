@@ -1,0 +1,151 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #D1C4E9;
+    margin: 17px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-position: center;
+    
+}
+
+.content {
+    background-color: #B39DDB;
+    border: 2px solid #9575CD;
+    padding: 20px;
+    width: 60%;
+    max-width: 1200px;
+    border-radius: 10px;
+    position: relative;
+    background-position: center;
+}
+
+.title {
+    background-color: rgb(92, 10, 185);
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.table-content {
+    margin-top: 20px;
+}
+
+.CodigoBarras {
+    display: flex;
+    justify-content: flex-start; /* Alinear a la izquierda */
+    align-items: center; /* Alinear verticalmente */
+    margin-bottom: 10px;
+}
+
+.CodigoBarras .barcode-icon {
+    margin-right: 10px; /* Espacio entre la silueta y el input */
+}
+
+.CodigoBarras input {
+    padding: 10px;
+    border: 1px solid #BDBDBD;
+    border-radius: 5px;
+    width: 40%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: rgb(92, 10, 185);
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.totals, .payment {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.totals-left, .payment-left {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.totals-right, .payment-right {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 30%;
+}
+
+.totals div, .payment div {
+    background-color: blanchedalmond;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px ;
+    margin-bottom: 5px;
+    text-align: initial;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.buttons button, .buttons select {
+    background-color: #E1BEE7;
+    border: none;
+    padding: 20px 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.buttons button:hover, .buttons select:hover {
+    background-color: #CE93D8;
+}
+
+.bottom-buttons-menu-notifications {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+}
+
+.bottom-buttons-menu-notifications button {
+    background-color: #E1BEE7;
+    border: none;
+    padding: 20px 190px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.bottom-buttons-menu-notifications button:hover {
+    background-color: #CE93D8;
+}
+
+.bottom-buttons .notification-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+}
+
+.bottom-buttons .notification-button .fa-bell {
+    font-size: 24px;
+}
+
+/* Estilo específico para el tamaño del ícono */
+.barcode-icon .fa-barcode {
+    font-size: 32px; /* Ajustar el tamaño del icono según sea necesario */
+}

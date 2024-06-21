@@ -1,0 +1,42 @@
+.editar-proveedor-page {
+    padding: 20px;
+    background-color: #ed95ff;
+}
+
+.editar-proveedor-page h1 {
+    color: #48257f;
+    font-size: 2em;
+    text-align: center;
+}
+
+.editar-proveedor-page form {
+    max-width: 400px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.editar-proveedor-page form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.editar-proveedor-page form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #5b3d99;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.editar-proveedor-page form button:hover {
+    background-color: #48257f;
+}

@@ -1,0 +1,95 @@
+<!--HU05-CRUD-Inventario Interfaz No.1
+Carmen Catalina Delgado Manzano-->
+<div class="inventariosfrecuentes-container">
+  <div class="inventariosfrecuentes-content-wrapper">
+      <div class="inventariosfrecuentes-sidebar">
+          <div class="title-categorias">
+              <h2>Categorías de Inventario</h2>
+          </div>
+          <div class="color-body">
+            <div class="radio-options">
+              <div class="radio-option" style="margin-bottom: 20px;">
+                <input type="radio" id="nuevoInventario" name="inventario" (change)="redirectTo('/inventario')" value="Nuevo Inventario">
+                <label for="nuevoInventario">Nuevo Inventario</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="inventarioFrecuente" name="inventario" (change)="redirectTo('/inventariofrecuente')" value="Inventario Frecuente">
+                <label for="inventarioFrecuente">Inventario Frecuente</label>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="inventariosfrecuentes-main-content">
+          <h2>Nuevo Inventario Selectivo</h2>
+          <div>
+              <label for="descripcion">Descripción de Inventario: </label>
+              <div class="description-categoria">
+                  <span id="descripcion">Seleccione una categoría</span>
+              </div>
+          </div>
+          <div class="conteiner-articulos">
+              <table class="inventory-table">
+                  <thead>
+                      <tr>
+                          <th>Artículo</th>
+                          <th>Descripción</th>
+                          <th>Físico</th>
+                          <th>Faltante</th>
+                          <th>Sobrante</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Aquí van los datos de la tabla -->
+                  </tbody>
+              </table>
+          </div>
+          <div class="buttons">
+              <button onclick="exportarPDF()">Exportar en PDF</button>
+              <button onclick="exportarCSV()">Exportar en CSV</button>
+              <button onclick="guardarIncompleto()">Guardar Incompleto</button>
+              <button onclick="guardar()">Guardar</button>
+              <button onclick="imprimir()">Imprimir</button>
+              <button onclick="salir()">Salir</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script>
+  function borrarCategoria() {
+      alert('Borrar categoría');
+  }
+
+  function modificarCategoria() {
+      alert('Modificar categoría');
+  }
+
+  function seleccionarCategoria(element) {
+      const descripcion = document.getElementById('descripcion');
+      descripcion.innerText = element.value;
+  }
+
+  function exportarPDF() {
+      alert('Exportar en PDF');
+  }
+
+  function exportarCSV() {
+      alert('Exportar en CSV');
+  }
+
+  function guardarIncompleto() {
+      alert('Guardar incompleto');
+  }
+
+  function guardar() {
+      alert('Guardar');
+  }
+
+  function imprimir() {
+      alert('Imprimir');
+  }
+
+  function salir() {
+      alert('Salir');
+  }
+</script>

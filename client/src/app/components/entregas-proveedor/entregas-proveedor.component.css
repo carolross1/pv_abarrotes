@@ -1,0 +1,74 @@
+.registrar-entrega-page {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.registrar-entrega-page h1 {
+    color: #48257f;
+    text-align: center;
+}
+
+.registrar-entrega-page form {
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.registrar-entrega-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.registrar-entrega-page th,
+.registrar-entrega-page td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.registrar-entrega-page th {
+    background-color: #5b3d99;
+    color: white;
+}
+
+.registrar-entrega-page input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.validate-btn, .save-btn {
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.validate-btn {
+    background-color: #5b3d99;
+}
+
+.save-btn {
+    background-color: #48257f;
+}
+
+.validate-btn:hover {
+    background-color: #3c2e6f;
+}
+
+.save-btn:hover {
+    background-color: #371f66;
+}

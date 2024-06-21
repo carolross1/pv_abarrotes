@@ -1,0 +1,66 @@
+.reportes-page {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.reportes-page h1 {
+    color: #48257f;
+    text-align: center;
+}
+
+.reportes-page .reportes-filtros {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.reportes-page .reportes-filtros button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #5b3d99;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reportes-page .reportes-filtros button:hover {
+    background-color: #48257f;
+}
+
+.reportes-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.reportes-page th, 
+.reportes-page td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.reportes-page th {
+    background-color: #5b3d99;
+    color: white;
+}
+
+.reportes-page .reportes-descarga {
+    display: flex;
+    justify-content: center;
+}
+
+.reportes-page .reportes-descarga button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #5b3d99;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reportes-page .reportes-descarga button:hover {
+    background-color: #48257f;
+}

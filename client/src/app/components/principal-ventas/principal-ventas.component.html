@@ -1,0 +1,88 @@
+
+<!-- HU01-CRUD Interfaz venta diaria 
+ Hugo Daniel Godoy Solano-->
+<div class="content">
+    <div class="title">Ventas</div>
+    <div class="contenidotabla">
+        <div class="CodigoBarras">
+            <div class="barcode-icon">
+                <!-- Silueta del código de barras (puedes usar un icono o imagen) -->
+                <i class="fas fa-barcode"></i>
+            </div>
+            <input type="text" placeholder="Código de barras">
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>IVA</th>
+                    <th>Precio</th>
+                    <th>%Desc</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="totals">
+        <div class="totals-left">
+            <div class="subtotal">
+                <label>Subtotal:</label>
+            </div>
+            <div class="total">
+                <label>Total de venta:</label>
+            </div>
+            <div class="amount">
+                <label>Cantidad:</label>
+            </div>
+        </div>
+        <div class="totals-right">
+            <div class="received">
+                <label>Recibido:</label>
+            </div>
+            <div class="change">
+                <label>Cambio:</label>
+            </div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button>Pagar</button>
+        <button>%Desc</button>
+        <select>
+            <option>Cambiar Forma de pago</option>
+            <option>Tarjeta de Crédito</option>
+            <option>Tarjeta de Débito</option>
+        </select>
+    </div>
+    <div class="bottom-buttons-menu-notifications">
+        <button routerLink="/menu">Menú</button>
+        <div class="notification-button">
+            <button routerLink="/notificacion"><i class="fas fa-bell"></i></button>
+    </div>
+</div>

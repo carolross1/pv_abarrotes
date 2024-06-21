@@ -1,0 +1,91 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #5b3d99;
+    color: white;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+td button {
+    background-color: #5b3d99;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+td button:hover {
+    background-color: #48257f;
+}
+
+.provider-options button {
+    width: 45%;
+    padding: 10px;
+    background-color: #5b3d99;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.provider-options button:hover {
+    background-color: #48257f;
+}
+/* Barra de navegación */
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5b3d99;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.2em;
+}
+
+.navbar a:hover {
+    color: #d4c1f3;
+}
+
+.navbar i {
+    margin-right: 8px;
+}
+/* Asegurar que el contenido no esté cubierto por la barra de navegación */
+.container, .login-container, .order-container, .provider-container, .delivery-container, 
+.provider-edit-container, .provider-delete-container {
+    margin-top: 60px; /* Ajustar según el tamaño de la barra de navegación */
+}
+
+
+.forgot-password:hover {
+    text-decoration: underline; /* Añadir subrayado al pasar el ratón */
+    color: #48257f; /* Cambiar el color cuando se pasa el cursor */
+}

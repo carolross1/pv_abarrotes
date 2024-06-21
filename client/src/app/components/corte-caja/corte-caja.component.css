@@ -1,0 +1,102 @@
+.centered-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Space between form and report */
+  width: 100%; /* Ensure the container takes full width */
+}
+
+.corte-caja-container, .reporte-ventas-container {
+  width: 80%; /* Adjust width as needed */
+  max-width: 800px; /* Max width to avoid stretching too much */
+  border-radius: 15px; /* Rounded borders */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for better visual separation */
+  background-color: #ffffff; /* Fondo blanco para la tarjeta */
+}
+
+.card-header {
+  background-color: #957DAD; /* Color de fondo del header */
+  color: #ffffff; /* Color del texto del header */
+  border-radius: 15px 15px 0 0; /* Ensure the top corners are rounded */
+  padding: 10px; /* Add padding for better spacing */
+  text-align: center; /* Center the text */
+  font-size: 24px; /* Increase the font size */
+}
+
+.card-body {
+  padding: 20px; /* Add padding inside the card body */
+}
+
+.form-group {
+  margin-bottom: 20px; /* Add space between form groups */
+  width: 100%; /* Make sure form group takes full width */
+}
+
+.form-group label {
+  display: block; /* Ensure label is displayed as a block element */
+  font-weight: bold;
+  margin-bottom: 5px; /* Add some space below the label */
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-row .form-group:not(:last-child) {
+  margin-right: 20px; /* Add space between the columns */
+}
+
+.form-control {
+  border-radius: 8px; /* Increase border radius */
+  padding: 10px; /* Add padding for larger input fields */
+  font-size: 16px; /* Increase font size for better readability */
+  width: 95%;
+}
+
+.btn-purple {
+  background-color: #D291BC; /* Color del botón */
+  border-color: #D291BC;
+  color: #ffffff;
+  border-radius: 8px; /* Ensure button has rounded borders */
+  padding: 10px 20px; /* Add padding for a larger button */
+  font-size: 16px; /* Increase font size */
+  display: block;
+  margin: 0 auto; /* Center the button */
+}
+
+.btn-purple:hover {
+  background-color: #B565A7; /* Color del botón al hacer hover */
+  border-color: #B565A7;
+}
+
+.table {
+  margin-top: 20px; /* Add space above the table */
+}
+
+.table thead {
+  background-color: #957DAD; /* Color de fondo del encabezado de la tabla */
+  color: #ffffff; /* Color del texto del encabezado de la tabla */
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6;
+  border-radius: 15px; /* Ensure table has rounded borders */
+}
+
+.table-bordered td, .table-bordered th {
+  border: 1px solid #dee2e6;
+}
+
+.text-white {
+  color: #ffffff ;
+}
+
+.bg-lightpurple {
+  background-color: #957DAD;
+}

@@ -1,0 +1,32 @@
+<!-- HU02-CRUD Interfaz proveedores
+ Ríos Ríos Carol Guadalupe -->
+<div class="navbar">
+    <a href="index.html"><i class="fas fa-home"></i>Inicio</a>
+    <a href="pedidos.html"><i class="fas fa-box-open"></i>Pedidos</a>
+    <a href="proveedores.html"><i class="fas fa-users"></i>Proveedores</a>
+    <a href="entregas.html"><i class="fas fa-truck"></i>Entregas</a>
+</div>
+
+<div class="provider-container">
+    <h1>Registrar Proveedores</h1>
+    <form>
+        <label for="nombreProveedor">Nombre del Proveedor</label>
+        <input type="text" id="nombreProveedor" name="nombreProveedor" required>
+        
+        <label for="idProveedor">ID Proveedor</label>
+        <input type="text" id="idProveedor" name="idProveedor" required>
+        
+        <label for="telefonoProveedor">Teléfono del Proveedor</label>
+        <input type="text" id="telefonoProveedor" name="telefonoProveedor" required>
+        
+        <label for="direccionProveedor">Dirección del Proveedor</label>
+        <input type="text" id="direccionProveedor" name="direccionProveedor" required>
+        
+        <button type="button">Registrar</button>
+    </form>
+    
+    <div class="provider-options">
+        <button onclick="location.href='editarprovedor'">Editar Proveedor</button>
+        <button onclick="location.href='eliminarproveedor'">Eliminar Proveedor</button>
+    </div>
+</div>

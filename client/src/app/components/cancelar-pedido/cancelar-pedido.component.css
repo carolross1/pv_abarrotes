@@ -1,0 +1,60 @@
+.cancelar-page {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.cancelar-page h1 {
+    color: #48257f;
+    text-align: center;
+}
+
+.cancelar-page form {
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.cancelar-page form label {
+    display: block;
+    margin-bottom: 10px;
+    color: #48257f;
+}
+
+.cancelar-page form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.cancelar-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.cancelar-page th,
+.cancelar-page td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.cancelar-page th {
+    background-color:coral
+}
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5b3d99;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
