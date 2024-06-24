@@ -1,6 +1,48 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #9173cc;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+}
+
+.navbar a:hover {
+    color: #d4c1f3;
+}
+
+.navbar i {
+    margin-right: 8px;
+}
+.flecha{
+    margin-top: 90px;
+    font-size: 24px;
+  color: #000;
+  text-decoration: none;
+  margin-left: 30px;
+}
 .reportes-page {
     padding: 20px;
     background-color: #f9f9f9;
+    margin-top: 70px;
+    max-width: 1700px; 
+    max-height: 1000;
+    border-radius: 8px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    height: 800px;
+    
 }
 
 .reportes-page h1 {
@@ -32,6 +74,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    margin-top: 30px;
 }
 
 .reportes-page th, 
@@ -63,4 +106,6 @@
 
 .reportes-page .reportes-descarga button:hover {
     background-color: #48257f;
+    
 }
+

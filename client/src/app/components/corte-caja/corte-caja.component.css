@@ -1,41 +1,43 @@
+
 .centered-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px; /* Space between form and report */
-  width: 100%; /* Ensure the container takes full width */
+  gap: 20px; 
+  width: 100%; 
+  padding: 90px;
 }
 
 .corte-caja-container, .reporte-ventas-container {
-  width: 80%; /* Adjust width as needed */
-  max-width: 800px; /* Max width to avoid stretching too much */
-  border-radius: 15px; /* Rounded borders */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for better visual separation */
-  background-color: #ffffff; /* Fondo blanco para la tarjeta */
+  width: 80%; 
+  max-width: 800px; 
+  border-radius: 15px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  background-color: #ffffff; 
 }
 
 .card-header {
-  background-color: #957DAD; /* Color de fondo del header */
-  color: #ffffff; /* Color del texto del header */
-  border-radius: 15px 15px 0 0; /* Ensure the top corners are rounded */
-  padding: 10px; /* Add padding for better spacing */
-  text-align: center; /* Center the text */
-  font-size: 24px; /* Increase the font size */
+  background-color: #957DAD; 
+  color: #ffffff; 
+  border-radius: 15px 15px 0 0;
+  padding: 10px; 
+  text-align: center; 
+  font-size: 24px; 
 }
 
 .card-body {
-  padding: 20px; /* Add padding inside the card body */
+  padding: 20px; 
 }
 
 .form-group {
-  margin-bottom: 20px; /* Add space between form groups */
-  width: 100%; /* Make sure form group takes full width */
+  margin-bottom: 20px; 
+  width: 100%;
 }
 
 .form-group label {
-  display: block; /* Ensure label is displayed as a block element */
+  display: block;
   font-weight: bold;
-  margin-bottom: 5px; /* Add some space below the label */
+  margin-bottom: 5px;
 }
 
 .form-row {
@@ -49,44 +51,44 @@
 }
 
 .form-row .form-group:not(:last-child) {
-  margin-right: 20px; /* Add space between the columns */
+  margin-right: 20px;
 }
 
 .form-control {
-  border-radius: 8px; /* Increase border radius */
-  padding: 10px; /* Add padding for larger input fields */
-  font-size: 16px; /* Increase font size for better readability */
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px; 
   width: 95%;
 }
 
 .btn-purple {
-  background-color: #D291BC; /* Color del botón */
+  background-color: #D291BC; 
   border-color: #D291BC;
   color: #ffffff;
-  border-radius: 8px; /* Ensure button has rounded borders */
-  padding: 10px 20px; /* Add padding for a larger button */
-  font-size: 16px; /* Increase font size */
+  border-radius: 8px; 
+  padding: 10px 20px; 
+  font-size: 16px;
   display: block;
-  margin: 0 auto; /* Center the button */
+  margin: 0 auto;
 }
 
 .btn-purple:hover {
-  background-color: #B565A7; /* Color del botón al hacer hover */
+  background-color: #B565A7; 
   border-color: #B565A7;
 }
 
 .table {
-  margin-top: 20px; /* Add space above the table */
+  margin-top: 20px;
 }
 
 .table thead {
-  background-color: #957DAD; /* Color de fondo del encabezado de la tabla */
-  color: #ffffff; /* Color del texto del encabezado de la tabla */
+  background-color: #957DAD; 
+  color: #ffffff; 
 }
 
 .table-bordered {
   border: 1px solid #dee2e6;
-  border-radius: 15px; /* Ensure table has rounded borders */
+  border-radius: 15px;
 }
 
 .table-bordered td, .table-bordered th {
@@ -99,4 +101,39 @@
 
 .bg-lightpurple {
   background-color: #957DAD;
+}
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #9173cc;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+}
+
+.navbar a:hover {
+  color: #d4c1f3;
+}
+
+.navbar i {
+  margin-right: 8px;
+}
+.flecha{
+  margin-top: 90px;
+  font-size: 24px;
+color: #000;
+text-decoration: none;
+margin-left: 30px;
 }

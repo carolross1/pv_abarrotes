@@ -1,5 +1,5 @@
 .notificaciones-container {
-  padding: 20px;
+  padding: 90px;
   background-color: #d0b4f1; /* color morado global */
 }
 
@@ -84,3 +84,38 @@ h2 {
 .notification-card.resolved .status {
   color: #e08031; /* color para resuelto */
 }
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #9173cc;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+}
+
+.navbar a:hover {
+  color: #d4c1f3;
+}
+
+.navbar i {
+  margin-right: 8px;
+}
+.flecha{
+  margin-top: 90px;
+  font-size: 24px;
+color: #000;
+text-decoration: none;
+margin-left: 30px;
+} 

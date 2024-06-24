@@ -1,77 +1,75 @@
-
-<!-- HU01-CRUD Interfaz venta diaria 
- Hugo Daniel Godoy Solano-->
-<div class="content">
-    <div class="title">Ventas</div>
-    <div class="contenidotabla">
-        <div class="CodigoBarras">
+<div class="sales-content">
+    <div class="sales-title">Ventas</div>
+    <div class="sales-table-content">
+        <div class="sales-barcode">
             <div class="barcode-icon">
-                <!-- Silueta del código de barras (puedes usar un icono o imagen) -->
                 <i class="fas fa-barcode"></i>
             </div>
             <input type="text" placeholder="Código de barras">
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>IVA</th>
-                    <th>Precio</th>
-                    <th>%Desc</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="sales-table-container">
+            <table class="sales-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>IVA</th>
+                        <th>Precio</th>
+                        <th>%Desc</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="totals">
+    <div class="sales-totals">
         <div class="totals-left">
-            <div class="subtotal">
+            <div class="totals-subtotal">
                 <label>Subtotal:</label>
             </div>
-            <div class="total">
+            <div class="totals-total">
                 <label>Total de venta:</label>
             </div>
-            <div class="amount">
+            <div class="totals-amount">
                 <label>Cantidad:</label>
             </div>
         </div>
         <div class="totals-right">
-            <div class="received">
+            <div class="totals-received">
                 <label>Recibido:</label>
             </div>
-            <div class="change">
+            <div class="totals-change">
                 <label>Cambio:</label>
             </div>
         </div>
     </div>
-    <div class="buttons">
+    <div class="sales-buttons">
         <button>Pagar</button>
         <button>%Desc</button>
         <select>
@@ -80,9 +78,8 @@
             <option>Tarjeta de Débito</option>
         </select>
     </div>
-    <div class="bottom-buttons-menu-notifications">
+    <div class="sales-bottom-buttons">
         <button routerLink="/menu">Menú</button>
-        <div class="notification-button">
-            <button routerLink="/notificacion"><i class="fas fa-bell"></i></button>
+        <button routerLink="/notificacion"><i class="fas fa-bell"></i></button>
     </div>
 </div>

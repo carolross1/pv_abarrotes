@@ -1,6 +1,12 @@
 .cancelar-page {
-    padding: 20px;
+    padding: 40px;
     background-color: #f9f9f9;
+    margin-top: 100px;
+    max-width: 1700px; 
+    max-height: 1000;
+    border-radius: 8px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    height: 800px;
 }
 
 .cancelar-page h1 {
@@ -9,12 +15,13 @@
 }
 
 .cancelar-page form {
-    margin: auto;
+    margin: 90px;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    
 }
 
 .cancelar-page form label {
@@ -32,9 +39,12 @@
 }
 
 .cancelar-page table {
-    width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 30px; 
+    margin-bottom: 20px;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
 }
 
 .cancelar-page th,
@@ -51,10 +61,29 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #5b3d99;
+    background-color: #9173cc;
     padding: 10px;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
+    position: -webkit-sticky; 
+    position: sticky;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+}
+
+.navbar a:hover {
+    color: #d4c1f3;
+}
+
+.navbar i {
+    margin-right: 8px;
 }

@@ -1,5 +1,23 @@
 <!--HU05-CRUD-Inventario Interfaz No.1
 Carmen Catalina Delgado Manzano-->
+<div class="navbar">
+  <a [routerLink]="['/login']"><i class="fas fa-sign-in-alt"></i> Inicio de sesión</a>
+  <a [routerLink]="['/principal']"><i class="fas fa-home"></i> Página principal</a>
+  <a [routerLink]="['/clientesfrecuentes']"><i class="fas fa-users"></i> Clientes frecuentes</a>
+  <a [routerLink]="['/pedidosaproveedor']"><i class="fas fa-shopping-cart"></i> Pedidos</a>
+  <a [routerLink]="['/proveedores']"><i class="fas fa-truck"></i> Proveedores</a>
+  <a [routerLink]="['/entregasproveedor']"><i class="fas fa-shipping-fast"></i> Entregas</a>
+  <a [routerLink]="['/inventarios']"><i class="fas fa-boxes"></i> Inventarios</a>
+  <a [routerLink]="['/cortedecaja']"><i class="fas fa-cash-register"></i> Corte Caja</a>
+  <a [routerLink]="['/reportes']"><i class="fas fa-chart-line"></i> Informes</a>
+  
+</div>
+
+<div class="flecha">
+  <a routerLink="/menu" class="back-icon">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+</div>
 <div class="inventariosfrecuentes-container">
   <div class="inventariosfrecuentes-content-wrapper">
       <div class="inventariosfrecuentes-sidebar">
@@ -30,7 +48,7 @@ Carmen Catalina Delgado Manzano-->
           <div class="conteiner-articulos">
               <table class="inventory-table">
                   <thead>
-                      <tr>
+                      <tr class="table header">
                           <th>Artículo</th>
                           <th>Descripción</th>
                           <th>Físico</th>
@@ -39,8 +57,56 @@ Carmen Catalina Delgado Manzano-->
                       </tr>
                   </thead>
                   <tbody>
-                      <!-- Aquí van los datos de la tabla -->
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                      </tr>
+
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                      </tr>
+
                   </tbody>
+                  <tfoot>
+                    <tr class="table-footer">
+                        <td colspan="3">Total</td>
+                        <td id="totalFaltante">0</td>
+                        <td id="totalSobrante">0</td>
+                    </tr>
+                </tfoot>
               </table>
           </div>
           <div class="buttons">

@@ -1,10 +1,21 @@
-<div class="navbar_idx">
-    <a href="index.html"><i class="fas fa-home"></i>Inicio</a>
-    <a href="pedidos-a-proveedor.components.html"><i class="fas fa-box-open"></i>Pedidos</a>
-    <a href="proveedores.components.html"><i class="fas fa-users"></i>Proveedores</a>
-    <a href="entregas-proveedor.html"><i class="fas fa-truck"></i>Entregas</a>
-</div>
 
+
+<div class="navbar">
+    <a [routerLink]="['/login']"><i class="fas fa-sign-in-alt"></i> Inicio de sesión</a>
+    <a [routerLink]="['/principal']"><i class="fas fa-home"></i> Página principal</a>
+    <a [routerLink]="['/clientesfrecuentes']"><i class="fas fa-users"></i> Clientes frecuentes</a>
+    <a [routerLink]="['/pedidosaproveedor']"><i class="fas fa-shopping-cart"></i> Pedidos</a>
+    <a [routerLink]="['/proveedores']"><i class="fas fa-truck"></i> Proveedores</a>
+    <a [routerLink]="['/entregasproveedor']"><i class="fas fa-shipping-fast"></i> Entregas</a>
+    <a [routerLink]="['/inventario']"><i class="fas fa-boxes"></i> Inventarios</a>
+    <a [routerLink]="['/cortedecaja']"><i class="fas fa-cash-register"></i> Corte Caja</a>
+    <a [routerLink]="['/reportes']"><i class="fas fa-chart-line"></i> Informes</a>
+  </div>
+  <div class="flecha">
+    <a routerLink="/menu" class="back-icon">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+  </div>
 
 <div class="container pedidos-page">
     <h1><i class="fas fa-shopping-cart"></i> Pedidos</h1>
@@ -12,7 +23,7 @@
     <div id="product-list" class="product-list">
         <!-- Producto 1 -->
         <div class="product-item">
-            <img src="producto1.jpg" alt="Producto 1">
+            <img src="/client/src/assets/producto1.jpg" alt="Producto 1">
             <div class="product-info">
                 <h2>Producto 1</h2>
                 <p>Descripción del producto 1.</p>
@@ -26,7 +37,7 @@
 
         <!-- Producto 2 -->
         <div class="product-item">
-            <img src="producto2.jpg" alt="Producto 2">
+            <img src="/client/src/assets/producto2.jpg" alt="Producto 2">
             <div class="product-info">
                 <h2>Producto 2</h2>
                 <p>Descripción del producto 2.</p>
@@ -40,7 +51,7 @@
 
         <!-- Producto 3 -->
         <div class="product-item">
-            <img src="producto3.jpg" alt="Producto 3">
+            <img src="/client/src/assets/producto3.jpg" alt="Producto 3">
             <div class="product-info">
                 <h2>Producto 3</h2>
                 <p>Descripción del producto 3.</p>

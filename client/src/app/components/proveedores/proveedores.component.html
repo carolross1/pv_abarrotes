@@ -1,12 +1,19 @@
-<!-- HU02-CRUD Interfaz proveedores
- Ríos Ríos Carol Guadalupe -->
 <div class="navbar">
-    <a href="index.html"><i class="fas fa-home"></i>Inicio</a>
-    <a href="pedidos.html"><i class="fas fa-box-open"></i>Pedidos</a>
-    <a href="proveedores.html"><i class="fas fa-users"></i>Proveedores</a>
-    <a href="entregas.html"><i class="fas fa-truck"></i>Entregas</a>
+    <a [routerLink]="['/login']"><i class="fas fa-sign-in-alt"></i> Inicio de sesión</a>
+    <a [routerLink]="['/principal']"><i class="fas fa-home"></i> Página principal</a>
+    <a [routerLink]="['/clientesfrecuentes']"><i class="fas fa-users"></i> Clientes frecuentes</a>
+    <a [routerLink]="['/pedidosaproveedor']"><i class="fas fa-shopping-cart"></i> Pedidos</a>
+    <a [routerLink]="['/proveedores']"><i class="fas fa-truck"></i> Proveedores</a>
+    <a [routerLink]="['/entregasproveedor']"><i class="fas fa-shipping-fast"></i> Entregas</a>
+    <a [routerLink]="['/inventarios']"><i class="fas fa-boxes"></i> Inventarios</a>
+    <a [routerLink]="['/cortedecaja']"><i class="fas fa-cash-register"></i> Corte Caja</a>
+    <a [routerLink]="['/reportes']"><i class="fas fa-chart-line"></i> Informes</a>
 </div>
-
+<div class="flecha">
+    <a routerLink="/menu" class="back-icon">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+  </div>
 <div class="provider-container">
     <h1>Registrar Proveedores</h1>
     <form>
@@ -22,11 +29,13 @@
         <label for="direccionProveedor">Dirección del Proveedor</label>
         <input type="text" id="direccionProveedor" name="direccionProveedor" required>
         
-        <button type="button">Registrar</button>
+        <div class="form-button-container">
+            <button type="button">Registrar</button>
+        </div>
     </form>
     
     <div class="provider-options">
-        <button onclick="location.href='editarprovedor'">Editar Proveedor</button>
-        <button onclick="location.href='eliminarproveedor'">Eliminar Proveedor</button>
+        <button class="provider-option-btn" onclick="location.href='editarprovedor'">Editar Proveedor</button>
+        <button class="provider-option-btn" onclick="location.href='eliminarproveedor'">Eliminar Proveedor</button>
     </div>
 </div>

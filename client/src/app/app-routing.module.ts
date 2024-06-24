@@ -15,11 +15,13 @@ import { PedidosAProveedorComponent } from './components/pedidos-a-proveedor/ped
 import { ProveedoresComponent } from './components/proveedores/proveedores.component';
 import { CancelarPedidoComponent } from './components/cancelar-pedido/cancelar-pedido.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
+import { ClientesFrecuentesComponent } from './components/clientes-frecuentes/clientes-frecuentes.component';
+import { ListaClientesFrecuentesComponent } from './components/lista-clientes-frecuentes/lista-clientes-frecuentes.component';
 
 const routes: Routes = [
   {
     path:'',
-    redirectTo:'/principal',
+    redirectTo:'/login',
     pathMatch:'full'
   },
   {
@@ -75,8 +77,15 @@ const routes: Routes = [
   {
     path:'reportes', 
     component:ReportesComponent
+  },
+  {
+    path:'clientesfrecuentes', 
+    component:ClientesFrecuentesComponent
+  },
+  {
+    path:'listaclientesf', 
+    component:ListaClientesFrecuentesComponent
   }
-
 ];
 
 @NgModule({

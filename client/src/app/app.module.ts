@@ -18,6 +18,8 @@ import { LoginComponent } from './components/login/login.component';
 import { ProveedoresComponent } from './components/proveedores/proveedores.component';
 import { CancelarPedidoComponent } from './components/cancelar-pedido/cancelar-pedido.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
+import { ClientesFrecuentesComponent } from './components/clientes-frecuentes/clientes-frecuentes.component';
+import { ListaClientesFrecuentesComponent } from './components/lista-clientes-frecuentes/lista-clientes-frecuentes.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { ReportesComponent } from './components/reportes/reportes.component';
     LoginComponent,
     ProveedoresComponent,
     CancelarPedidoComponent,
-    ReportesComponent
+    ReportesComponent,
+    ClientesFrecuentesComponent,
+    ListaClientesFrecuentesComponent,
   ],
   imports: [
     BrowserModule,

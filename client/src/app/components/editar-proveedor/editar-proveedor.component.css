@@ -1,8 +1,16 @@
 .editar-proveedor-page {
     padding: 20px;
-    background-color: #ed95ff;
+    background-color: #c39aca;
+    margin-top: 100px;
+    width: 50%;
 }
-
+.flecha{
+    margin-top: 90px;
+    font-size: 24px;
+  color: #000;
+  text-decoration: none;
+  margin-left: 30px;
+}
 .editar-proveedor-page h1 {
     color: #48257f;
     font-size: 2em;
@@ -10,10 +18,10 @@
 }
 
 .editar-proveedor-page form {
-    max-width: 400px;
+    max-width: 700px;
     margin: auto;
     background-color: #fff;
-    padding: 20px;
+    padding: 40px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -28,15 +36,44 @@
 
 .editar-proveedor-page form button {
     width: 100%;
-    padding: 10px;
+    padding: 20px;
     background-color: #5b3d99;
     border: none;
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
+
 }
 
 .editar-proveedor-page form button:hover {
     background-color: #48257f;
+}
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #9173cc;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+}
+
+.navbar a:hover {
+    color: #d4c1f3;
+}
+
+.navbar i {
+    margin-right: 8px;
 }
