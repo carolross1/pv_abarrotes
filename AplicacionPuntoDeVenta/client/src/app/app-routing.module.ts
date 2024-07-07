@@ -1,22 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CorteCajaComponent } from './components/corte-caja/corte-caja.component';
-import { InventarioComponent } from './components/inventario/inventario.component';
-import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
+import { CorteCajaComponent } from './components/hu03-corte-caja/corte-caja/corte-caja.component';
+import { InventarioComponent } from './components/hu05-inventario/inventario/inventario.component';
+import { NotificacionesComponent } from './components/hu07-notificacion/notificaciones/notificaciones.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { PrincipalVentasComponent } from './components/principal-ventas/principal-ventas.component';
+import { PrincipalVentasComponent } from './components/hu01-venta-diaria/principal-ventas/principal-ventas.component';
 import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
-import { InventariosFrecuentesComponent } from './components/inventarios-frecuentes/inventarios-frecuentes.component';
-import { EditarProveedorComponent } from './components/editar-proveedor/editar-proveedor.component';
-import { EliminarProveedorComponent } from './components/eliminar-proveedor/eliminar-proveedor.component';
-import { EntregasProveedorComponent } from './components/entregas-proveedor/entregas-proveedor.component';
+import { InventariosFrecuentesComponent } from './components/hu05-inventario/inventarios-frecuentes/inventarios-frecuentes.component';
+import { EntregasProveedorComponent } from './components/hu02-proveedores/entregas-proveedor/entregas-proveedor.component';
 import { LoginComponent } from './components/login/login.component';
-import { PedidosAProveedorComponent } from './components/pedidos-a-proveedor/pedidos-a-proveedor.component';
-import { ProveedoresComponent } from './components/proveedores/proveedores.component';
-import { CancelarPedidoComponent } from './components/cancelar-pedido/cancelar-pedido.component';
-import { ReportesComponent } from './components/reportes/reportes.component';
-import { ClientesFrecuentesComponent } from './components/clientes-frecuentes/clientes-frecuentes.component';
-import { ListaClientesFrecuentesComponent } from './components/lista-clientes-frecuentes/lista-clientes-frecuentes.component';
+import { PedidosAProveedorComponent } from './components/hu02-proveedores/pedidos-a-proveedor/pedidos-a-proveedor.component';
+import { ProveedorFormComponent } from './components/hu02-proveedores/proveedores/proveedores.component';
+import { CancelarPedidoComponent } from './components/hu02-proveedores/cancelar-pedido/cancelar-pedido.component';
+import { ReportesComponent } from './components/hu04-reportes/reportes/reportes.component';
+import { ClientesFrecuentesComponent } from './components/hu06-cliente-frecuente/clientes-frecuentes/clientes-frecuentes.component';
+import { ListaClientesFrecuentesComponent } from './components/hu06-cliente-frecuente/lista-clientes-frecuentes/lista-clientes-frecuentes.component'; 
+import { ProveedoresListComponent } from './components/hu02-proveedores/proveedores-list/proveedores-list.component';
+import { FacturaComponent } from './components/hu01-venta-diaria/factura/factura.component';
+import { DescuentoComponent } from './components/hu01-venta-diaria/descuento/descuento.component';
 
 const routes: Routes = [
   {
@@ -47,14 +48,6 @@ const routes: Routes = [
     component:CorteCajaComponent,
   },
   {
-    path:'editarprovedor', 
-    component:EditarProveedorComponent
-  },
-  {
-    path:'eliminarproveedor', 
-    component:EliminarProveedorComponent
-  },
-  {
     path:'entregasproveedor', 
     component:EntregasProveedorComponent
   },
@@ -67,8 +60,16 @@ const routes: Routes = [
     component:PedidosAProveedorComponent
   },
   {
+    path:'proveedores/add', 
+    component:ProveedorFormComponent
+  },
+  {
     path:'proveedores', 
-    component:ProveedoresComponent
+    component:ProveedoresListComponent
+  },
+  {
+    path:'proveedores/edit/:id_Proveedor', 
+    component:ProveedoresListComponent
   },
   {
     path:'cancelarpedido', 
@@ -85,6 +86,15 @@ const routes: Routes = [
   {
     path:'listaclientesf', 
     component:ListaClientesFrecuentesComponent
+  }, 
+  {
+    path:'formulariofactura', 
+    component:FacturaComponent
+  },
+
+  {
+    path:'gestiondescuento',
+    component:DescuentoComponent
   }
 ];
 
