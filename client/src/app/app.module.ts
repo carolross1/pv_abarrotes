@@ -3,52 +3,37 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // Importa FormsModule
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CorteCajaComponent } from './components/corte-caja/corte-caja.component';
-import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
-import { InventarioComponent } from './components/inventario/inventario.component';
-import { MenuComponent } from './components/menu/menu.component';
-import { RouterModule } from '@angular/router';
-import { PrincipalVentasComponent } from './components/principal-ventas/principal-ventas.component';
-import { InventariosFrecuentesComponent } from './components/inventarios-frecuentes/inventarios-frecuentes.component';
-import { EditarProveedorComponent } from './components/editar-proveedor/editar-proveedor.component';
-import { EliminarProveedorComponent } from './components/eliminar-proveedor/eliminar-proveedor.component';
-import { EntregasProveedorComponent } from './components/entregas-proveedor/entregas-proveedor.component';
-import { PedidosAProveedorComponent } from './components/pedidos-a-proveedor/pedidos-a-proveedor.component';
+import { HttpClientModule} from '@angular/common/http';
+import { Hu01VentaDiariaModule } from './components/hu01-venta-diaria/hu01-venta-diaria/hu01-venta-diaria.module';
+import { Hu02ProveedoresModule } from './components/hu02-proveedores/hu02-proveedores/hu02-proveedores.module';
+import { Hu03CorteCajaModule } from './components/hu03-corte-caja/hu03-corte-caja/hu03-corte-caja.module';
+import { Hu04ReportesModule } from './components/hu04-reportes/hu04-reportes/hu04-reportes.module';
+import { Hu05InventarioModule } from './components/hu05-inventario/hu05-inventario/hu05-inventario.module';
+import { Hu06ClienteFrecuenteModule } from './components/hu06-cliente-frecuente/hu06-cliente-frecuente/hu06-cliente-frecuente.module';
 import { LoginComponent } from './components/login/login.component';
-import { ProveedoresComponent } from './components/proveedores/proveedores.component';
-import { CancelarPedidoComponent } from './components/cancelar-pedido/cancelar-pedido.component';
-import { ReportesComponent } from './components/reportes/reportes.component';
-import { ClientesFrecuentesComponent } from './components/clientes-frecuentes/clientes-frecuentes.component';
-import { ListaClientesFrecuentesComponent } from './components/lista-clientes-frecuentes/lista-clientes-frecuentes.component';
-
-
+import { MenuComponent } from './components/menu/menu.component';
+import { Hu07NotificacionModule } from './components/hu07-notificacion/hu07-notificacion/hu07-notificacion.module';
+import { ProveedoresService } from './services/proveedores.service';
 @NgModule({
   declarations: [
     AppComponent,
-    CorteCajaComponent,
-    NotificacionesComponent,
-    InventarioComponent,
-    MenuComponent,
-    PrincipalVentasComponent,
-    InventariosFrecuentesComponent,
-    EditarProveedorComponent,
-    EliminarProveedorComponent,
-    EntregasProveedorComponent,
-    PedidosAProveedorComponent,
-    LoginComponent,
-    ProveedoresComponent,
-    CancelarPedidoComponent,
-    ReportesComponent,
-    ClientesFrecuentesComponent,
-    ListaClientesFrecuentesComponent,
+   MenuComponent,
+   LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,// Agrega FormsModule aquí
-
+    FormsModule,
+    HttpClientModule,
+    Hu01VentaDiariaModule,
+    Hu02ProveedoresModule,
+    Hu03CorteCajaModule,
+    Hu04ReportesModule,
+    Hu05InventarioModule,
+    Hu06ClienteFrecuenteModule,
+    Hu07NotificacionModule,
   ],
-  providers: [],
+  providers: [ProveedoresService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
