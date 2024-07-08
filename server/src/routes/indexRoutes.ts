@@ -8,7 +8,7 @@ class IndexRoutes{
     this.config();
   }
   config():void{
-    this.router.get('/',(req,resp)=>resp.send("soy Yo"));
+    this.router.get('/',(req,resp)=>resp.send("soy yo"));
 
   }
 
