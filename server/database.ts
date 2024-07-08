@@ -10,3 +10,4 @@ pool.getConnection().then (connection=>{
 
 });
 export default pool;
+

@@ -14,6 +14,7 @@ class CorteCajaController {
             FROM Venta
             WHERE id_Usuario = ? AND id_Venta BETWEEN ? AND ?;
         `;
+        
         const [ventasResult] = await pool.query(ventasQuery, [id_Usuario, id_Venta_Primero, id_Venta_Ultimo]);
         const total_Ventas = ventasResult[0].total_Ventas;
 
