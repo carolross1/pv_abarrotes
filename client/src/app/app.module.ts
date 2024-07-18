@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule
+import { FormsModule,ReactiveFormsModule } from '@angular/forms'; // Importa FormsModule
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
@@ -14,6 +14,10 @@ import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { Hu07NotificacionModule } from './components/hu07-notificacion/hu07-notificacion/hu07-notificacion.module';
 import { ProveedoresService } from './services/proveedores.service';
+import { ProductoServiceModule} from './services/productos/productos.module';
+import { ProductoModule } from './components/producto/producto.module';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +28,7 @@ import { ProveedoresService } from './services/proveedores.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     Hu01VentaDiariaModule,
     Hu02ProveedoresModule,
@@ -32,8 +37,10 @@ import { ProveedoresService } from './services/proveedores.service';
     Hu05InventarioModule,
     Hu06ClienteFrecuenteModule,
     Hu07NotificacionModule,
+    ProductoServiceModule, 
+    ProductoModule
   ],
-  providers: [ProveedoresService],
+  providers: [ProveedoresService,ProductoServiceModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

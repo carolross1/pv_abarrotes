@@ -1,6 +1,30 @@
 
+
+DROP DATABASE ng_punto_de_venta;
+
+
 CREATE DATABASE ng_punto_de_venta;
 USE ng_punto_de_venta; 
+
+
+-- Crea la tabla Categoria
+CREATE TABLE Categoria (
+    id_Categoria INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL
+);
+
+-- Crea la tabla Producto
+CREATE TABLE  Producto (
+    id_Producto INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    id_Categoria INT NOT NULL,
+    precio_Compra DECIMAL(10, 2) NOT NULL,
+    precio_Venta DECIMAL(10, 2) NOT NULL,
+    utilidad DECIMAL(10, 2) AS (precio_Venta - precio_Compra) STORED,
+    cantidad_Stock INT NOT NULL,
+    cant_Minima INT NOT NULL,
+    CONSTRAINT fk_categoria FOREIGN KEY (id_Categoria) REFERENCES Categoria(id_Categoria)
+);
 
 -- Estructura de tabla para la tabla `cliente_frecuente`
 --

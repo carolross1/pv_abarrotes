@@ -1,0 +1,118 @@
+.container {
+    padding: 20px;
+    background-color: #d6bdec;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-height:max-content;
+    max-width: 890px;
+    margin-top: 40px;
+  }
+  
+  h2, h3 {
+    color: #333;
+  }
+  
+  .table {
+    margin-top: 20px;
+  }
+  
+  .table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+  .btn {
+    margin-right: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px; 
+    width: 100%;
+  }
+  
+  .form-control {
+    width:90%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #e8dede;
+    display: block;
+    
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border-color: #49bd51;
+
+  }
+  
+  .btn-secondary {
+    background-color: #D291BC; 
+    border-color: #D291BC;
+    color: #ffffff;
+    border-radius: 8px; 
+    padding: 10px 27px; 
+    font-size: 16px;
+    margin: 0 auto;
+
+  }
+  .mt-3,.btn-info{
+    background-color: #d8a4c6; 
+    border-color: #f3b4de;
+    color: #ffffff;
+    border-radius: 8px; 
+    padding: 10px 20px; 
+    font-size: 16px;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+  .btn-primary {
+    background-color: #D291BC; 
+    border-color: #D291BC;
+    color: #ffffff;
+    border-radius: 8px; 
+    padding: 10px 50px; 
+    font-size: 16px;
+    display: block;
+    margin: 0 auto;
+
+  }
+  .btn-warning{
+    background-color: #D291BC; 
+    border-color: #D291BC;
+    border-radius: 8px; 
+    padding: 10px 50px; 
+    font-size: 16px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 5px;
+
+  }
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 8px; 
+    padding: 10px 50px; 
+    font-size: 16px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 5px;
+  }
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .table-striped {
+    width: 100%;
+  }
+  .table-striped th, .table-striped td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  .table-striped th {
+    background-color: #9575cd;
+    color: white;
+  }
+  .table-striped tbody tr:hover {
+    background-color: #e1bee7;
+  }

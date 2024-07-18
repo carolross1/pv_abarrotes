@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import cortecajaRoutes from './routes/cortecajaRoutes';
 import indexRoutes from './routes/indexRoutes';
-
+import productoRoutes from './routes/productoRoutes'; 
 
 class Server{
 public app:Application;
@@ -25,6 +25,7 @@ constructor(){
     routes():void{
         this.app.use('/',indexRoutes);
         this.app.use('/api/cortecaja',cortecajaRoutes);
+        this.app.use('/api/productos', productoRoutes);
     }
     start():void{
         this.app.listen(this.app.get('port'),()=>{

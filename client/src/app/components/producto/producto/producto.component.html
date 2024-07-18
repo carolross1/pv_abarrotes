@@ -1,0 +1,94 @@
+<div class="container">
+  <h1 class="my-4">Gestión de Productos</h1>
+
+  <!-- Formulario para agregar/editar productos -->
+  <form (ngSubmit)="guardarProducto()" #productoForm="ngForm" class="mb-4">
+    <!-- Campos del formulario -->
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" [(ngModel)]="producto.nombre" name="nombre" class="form-control" required #nombre="ngModel" />
+      <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger">
+        <div *ngIf="nombre.errors?.['required']">El nombre es obligatorio.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="id_Categoria">Categoría</label>
+       <input type="number" id="id_Categoria" [(ngModel)]="producto.id_Categoria" name="id_Categoria" class="form-control" required #idCategoria="ngModel" />
+      <div *ngIf="idCategoria.invalid && (idCategoria.dirty || idCategoria.touched)" class="text-danger">
+        <div *ngIf="idCategoria.errors?.['required']">La categoría es obligatoria.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="precio_Compra">Precio de Compra</label>
+      <input type="number" id="precio_Compra" [(ngModel)]="producto.precio_Compra" name="precio_Compra" class="form-control" required #precioCompra="ngModel" />
+      <div *ngIf="precioCompra.invalid && (precioCompra.dirty || precioCompra.touched)" class="text-danger">
+        <div *ngIf="precioCompra.errors?.['required']">El precio de compra es obligatorio.</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="precio_Venta">Precio de Venta</label>
+      <input type="number" id="precio_Venta" [(ngModel)]="producto.precio_Venta" name="precio_Venta" class="form-control" required #precioVenta="ngModel" />
+      <div *ngIf="precioVenta.invalid && (precioVenta.dirty || precioVenta.touched)" class="text-danger">
+        <div *ngIf="precioVenta.errors?.['required']">El precio de venta es obligatorio.</div>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="cantidad_Stock">Cantidad en Stock</label>
+      <input type="number" id="cantidad_Stock" [(ngModel)]="producto.cantidad_Stock" name="cantidad_Stock" class="form-control" required min="1" #cantidadStock="ngModel" />
+      <div *ngIf="cantidadStock.invalid && (cantidadStock.dirty || cantidadStock.touched)" class="text-danger">
+        <div *ngIf="cantidadStock.errors?.['required']">La cantidad en stock es obligatoria.</div>
+        <div *ngIf="cantidadStock.errors?.['min']">La cantidad en stock no puede ser menor o igual a 0.</div>
+      </div> 
+    </div>
+    <div class="form-group">
+      <label for="cant_Minima">Cantidad Mínima</label>
+      <input type="number" id="cant_Minima" [(ngModel)]="producto.cant_Minima" name="cant_Minima" class="form-control" required #cantMinima="ngModel" />
+      <div *ngIf="cantMinima.invalid && (cantMinima.dirty || cantMinima.touched)" class="text-danger">
+        <div *ngIf="cantMinima.errors?.['required']">La cantidad mínima es obligatoria.</div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="productoForm.invalid">{{ editando ? 'Actualizar' : 'Agregar' }}</button>
+    <button type="button" class="btn btn-secondary mt-3" (click)="cancelarEdicion()" *ngIf="editando">Cancelar</button>
+  </form>
+
+  <!-- Botón para ver productos -->
+  <button class="btn btn-info mt-3" (click)="mostrarProductos = !mostrarProductos">
+    {{ mostrarProductos ? 'Ocultar Productos' : 'Ver Productos' }}
+  </button>
+
+  <!-- Tabla de productos -->
+  <table class="table table-striped" *ngIf="mostrarProductos">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Categoría</th>
+        <th scope="col">Precio de Compra</th>
+        <th scope="col">Precio de Venta</th>
+        <th scope="col">Utilidad</th>
+        <th scope="col">Cantidad en Stock</th>
+        <th scope="col">Cantidad Mínima</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.id_Categoria }}</td>
+        <td>{{ producto.precio_Compra | currency }}</td>
+        <td>{{ producto.precio_Venta | currency }}</td>
+        <td>{{ producto.utilidad | currency }}</td>
+        <td>{{ producto.cantidad_Stock }}</td>
+        <td>{{ producto.cant_Minima }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editarProducto(producto)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="borrarProducto(producto.id_Producto)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
