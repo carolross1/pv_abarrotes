@@ -6,13 +6,18 @@
     <!-- Campos del formulario -->
     <div class="form-group">
       <label for="nombre">Nombre</label>
-      <label for="nombre">Nombre</label>
       <input type="text" id="nombre" [(ngModel)]="producto.nombre" name="nombre" class="form-control" required #nombre="ngModel" />
       <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger">
         <div *ngIf="nombre.errors?.['required']">El nombre es obligatorio.</div>
       </div>
     </div>
-
+    <div class="form-group">
+      <label for="id_Categoria">Código de barras</label>
+       <input type="number" id="codigo_Barras" [(ngModel)]="producto.codigo_Barras" name="codigo_Barras" class="form-control" required #codigo_Barras="ngModel" />
+      <div *ngIf="codigo_Barras.invalid && (codigo_Barras.dirty || codigo_Barras.touched)" class="text-danger">
+        <div *ngIf="codigo_Barras.errors?.['required']">El codigo de barras es obligatorio</div>
+      </div>
+    </div>
     <div class="form-group">
       <label for="id_Categoria">Categoría</label>
        <input type="number" id="id_Categoria" [(ngModel)]="producto.id_Categoria" name="id_Categoria" class="form-control" required #idCategoria="ngModel" />

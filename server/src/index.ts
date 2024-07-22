@@ -26,6 +26,7 @@ constructor(){
         this.app.use('/',indexRoutes);
         this.app.use('/api/cortecaja',cortecajaRoutes);
         this.app.use('/api/productos', productoRoutes);
+        
     }
     start():void{
         this.app.listen(this.app.get('port'),()=>{

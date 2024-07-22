@@ -1,6 +1,5 @@
 .notificaciones-container {
   padding: 90px;
-  background-color: #d0b4f1; /* color morado global */
 }
 
 h2 {
@@ -24,10 +23,11 @@ h2 {
   margin-bottom: 20px;
   border-radius: 5px;
   position: relative;
+  border-radius: 25px;
 }
 
 .notification-card.not-attended {
-  background-color: #cb5862;
+  background-color: #df8189;
   border-color: #44090f;
 }
 
@@ -41,6 +41,7 @@ h2 {
   grid-template-columns: 1fr 1fr 1fr; /* Tres columnas iguales */
   align-items: center;
   text-align: center;
+  border-radius: 20px;
 }
 .notification-header {
   border-bottom: 2px solid #ccc; /* Línea separadora debajo de los encabezados */

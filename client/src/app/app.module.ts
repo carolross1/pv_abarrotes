@@ -16,6 +16,7 @@ import { Hu07NotificacionModule } from './components/hu07-notificacion/hu07-noti
 import { ProveedoresService } from './services/proveedores.service';
 import { ProductoServiceModule} from './services/productos/productos.module';
 import { ProductoModule } from './components/producto/producto.module';
+import { ProductoService } from './services/productos/producto.service';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { ProductoModule } from './components/producto/producto.module';
     ProductoServiceModule, 
     ProductoModule
   ],
-  providers: [ProveedoresService,ProductoServiceModule],
+  providers: [ProveedoresService,ProductoServiceModule,ProductoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

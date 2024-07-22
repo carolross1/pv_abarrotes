@@ -1,3 +1,33 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #9173cc;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    position: -webkit-sticky; 
+    position: sticky;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+}
+
+.navbar a:hover {
+    color: #d4c1f3;
+}
+
+.navbar i {
+    margin-right: 8px;
+}
 .pedidos-page {
     padding: 20px;
     background-color: #f9f9f9;
@@ -79,34 +109,7 @@
 .pedidos-page .order-buttons button:hover {
     background-color: #48257f;
 }
-.navbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #9173cc;
-    padding: 10px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
 
-.navbar a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
-}
-
-.navbar a:hover {
-    color: #d4c1f3;
-}
-
-.navbar i {
-    margin-right: 8px;
-}
 .flecha{
     margin-top: 90px;
     font-size: 24px;

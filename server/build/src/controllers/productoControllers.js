@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProducto = exports.updateProducto = exports.createProducto = exports.getProductos = void 0;
+exports.getProductosBajoStock = exports.deleteProducto = exports.updateProducto = exports.createProducto = exports.getProductos = void 0;
 const database_1 = __importDefault(require("../../database"));
 const getProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -56,3 +56,20 @@ const deleteProducto = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.deleteProducto = deleteProducto;
+const getProductosBajoStock = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const productos = yield database_1.default.query('SELECT * FROM producto WHERE cantidad_Stock < cant_Minima');
+        console.log('Productos bajo stock:', productos);
+        if (productos.length === 0) {
+            res.status(404).json({ text: 'No hay productos con bajo stock' });
+        }
+        else {
+            res.json(productos);
+        }
+    }
+    catch (error) {
+        console.error('Error al obtener productos bajo stock:', error);
+        res.status(500).json({ message: 'Error al obtener productos bajo stock', error });
+    }
+});
+exports.getProductosBajoStock = getProductosBajoStock;

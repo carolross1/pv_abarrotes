@@ -11,12 +11,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = require("../database");
 class ProductoController {
+
+
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const productos = yield database_1.default.query('SELECT * FROM producto');
             res.json(productos);
         });
     }
+
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
@@ -48,7 +51,23 @@ class ProductoController {
             yield database_1.default.query('DELETE FROM producto WHERE id_Producto = ?', [id]);
             res.json({ message: 'El producto fue eliminado' });
         });
+ 
     }
+    getProductosBajoStock(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            
+            const productos = yield database_1.default.query('SELECT * FROM producto WHERE cantidad_Stock < cant_Minima');
+            if (productos.length > 0) {
+                res.json(productos);
+            } else {
+                res.status(404).json({ text: 'No hay productos con bajo stock' });
+            }
+        });
+    }
+    
 }
+
+
+
 const productoController = new ProductoController();
 exports.default = productoController;
