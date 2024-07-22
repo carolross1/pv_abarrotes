@@ -79,7 +79,15 @@
         </select>
     </div>
     <div class="sales-bottom-buttons">
-        <button routerLink="/menu">Menú</button>
-        <button routerLink="/notificacion"><i class="fas fa-bell"></i></button>
-    </div>
-</div>
+        <div class="sales-bottom-buttons">
+            <button routerLink="/menu">Menú</button>
+            <button routerLink="/notificacion">
+                <i class="fas fa-bell"></i>
+                <!-- Mostrar el número de notificaciones solo si es mayor que 0 -->
+                <span *ngIf="numeroNotificaciones > 0" class="notification-badge">
+                  {{ numeroNotificaciones }}
+                </span>
+            </button>
+          </div>
+        </div>
+        

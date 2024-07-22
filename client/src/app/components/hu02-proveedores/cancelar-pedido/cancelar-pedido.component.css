@@ -8,6 +8,36 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
     height: 800px;
 }
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #9173cc;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    position: -webkit-sticky; 
+    position: sticky;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+}
+
+.navbar a:hover {
+    color: #d4c1f3;
+}
+
+.navbar i {
+    margin-right: 8px;
+}
 
 .cancelar-page h1 {
     color: #48257f;
@@ -56,34 +86,4 @@
 
 .cancelar-page th {
     background-color:coral
-}
-.navbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #9173cc;
-    padding: 10px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    position: -webkit-sticky; 
-    position: sticky;
-}
-
-.navbar a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
-}
-
-.navbar a:hover {
-    color: #d4c1f3;
-}
-
-.navbar i {
-    margin-right: 8px;
 }

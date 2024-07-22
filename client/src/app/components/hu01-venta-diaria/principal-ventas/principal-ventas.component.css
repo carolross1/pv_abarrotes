@@ -125,6 +125,7 @@
     align-items: center;
     margin-top: 40px;
     width: 100%;
+    position: relative;
 }
 
 .sales-bottom-buttons button {
@@ -155,8 +156,20 @@
 
 .sales-bottom-buttons .notification-button .fa-bell {
     font-size: 24px;
+    position: relative;
 }
 
 .barcode-icon .fa-barcode {
     font-size: 32px;
+}
+.notification-badge {
+    background-color: red; /* O el color que prefieras */
+    color: white;
+    border-radius: 50%;
+    padding: 0.7em 1em;
+    font-size: 0.75em;
+    position: absolute;
+    top: 0;
+    
+    right: -0.7em;  
 }

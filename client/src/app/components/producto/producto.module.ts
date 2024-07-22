@@ -3,6 +3,7 @@ import {FormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ProductoComponent } from './producto/producto.component';
+import { ProductoService } from '../../services/productos/producto.service';
 import { RouterModule } from '@angular/router';
 
 
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     FormsModule,
   ],
+  providers: [ProductoService], 
   exports: [
  ProductoComponent
   ]

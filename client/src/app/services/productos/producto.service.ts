@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Producto } from '../../models/Producto';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
-  private apiUrl = 'http://localhost:3000/api/productos';  // Ajusta la URL según sea necesario
+  private apiUrl = 'http://localhost:3000/api/productos'; 
   
   constructor(private http: HttpClient) { }
 
@@ -16,8 +17,12 @@ export class ProductoService {
 
   getProducto(id: number): Observable<Producto> {
     return this.http.get<Producto>(`${this.apiUrl}/${id}`);
+  
   }
-
+  getProductosBajoStock(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.apiUrl}/bajo-stock`);
+  }
+  
   createProducto(producto: Producto): Observable<Producto> {
     return this.http.post<Producto>(this.apiUrl, producto);
   }
@@ -29,4 +34,8 @@ export class ProductoService {
   deleteProducto(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  actualizarProducto(producto: Producto): Observable<Producto> {
+    return this.http.put<Producto>(`${this.apiUrl}/${producto.id_Producto}`, producto);
+  }
+
 }

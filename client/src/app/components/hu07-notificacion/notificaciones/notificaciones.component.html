@@ -1,7 +1,7 @@
 
 <!--HU07-CRUD Notificación Productos Escasos
 Delgado Manzano Carmen Catalina-->
-<!--<div class="navbar">
+<div class="navbar">
   <a [routerLink]="['/login']"><i class="fas fa-sign-in-alt"></i> Inicio de sesión</a>
   <a [routerLink]="['/principal']"><i class="fas fa-home"></i> Página principal</a>
   <a [routerLink]="['/clientesfrecuentes']"><i class="fas fa-users"></i> Clientes frecuentes</a>
@@ -11,64 +11,26 @@ Delgado Manzano Carmen Catalina-->
   <a [routerLink]="['/inventarios']"><i class="fas fa-boxes"></i> Inventarios</a>
   <a [routerLink]="['/cortedecaja']"><i class="fas fa-cash-register"></i> Corte Caja</a>
   <a [routerLink]="['/reportes']"><i class="fas fa-chart-line"></i> Informes</a>
-</div>-->
+</div>
 <div class="flecha">
   <a routerLink="/principal" class="back-icon">
     <i class="fas fa-arrow-left"></i>
   </a>
 </div>
 <div class="notificaciones-container">
-    <h2>NOTIFICACIONES</h2>
-    
-    <div class="notification-date">
-      <span>09/06/2024</span>
+  <h2>NOTIFICACIONES</h2>
+  <div *ngFor="let producto of productos" class="notification-card not-attended">
+    <div class="notification-header">
+      <span class="product">Producto</span>
+      <span class="description">Descripción</span>
+      <span class="quantity">Cantidad disponible</span>
     </div>
-    <div class="notification-card not-attended">
-      <div class="notification-header">
-        <span class="product">Producto</span>
-        <span class="description">Descripción</span>
-        <span class="quantity">Cantidad</span>
-      </div>
-      <div class="notification-content">
-        <span class="product-id">34342153</span>
-        <span class="product-desc">Jabón Zote</span>
-        <span class="product-qty">1</span>
-      </div>
-      <button class="order-button">Realizar Pedido</button>
-      <span class="status">No atendido</span>
+    <div class="notification-content">
+      <span class="product-id">{{ producto.codigo_Barras }}</span>
+      <span class="product-desc">{{ producto.nombre }}</span>
+      <span class="product-qty">{{ producto.cantidad_Stock }}</span>
     </div>
-    
-    <div class="notification-date">
-      <span>05/06/2024</span>
-    </div>
-    <div class="notification-card not-attended">
-      <div class="notification-header">
-        <span class="product">Producto</span>
-        <span class="description">Descripción</span>
-        <span class="quantity">Cantidad</span>
-      </div>
-      <div class="notification-content">
-        <span class="product-id">98322312</span>
-        <span class="product-desc">Arroz Zeli</span>
-        <span class="product-qty">0</span>
-      </div>
-      <button class="order-button">Realizar Pedido</button>
-      <span class="status">No atendido</span>
-    </div>
-    
-    <div class="notification-card resolved">
-      <div class="notification-header">
-        <span class="product">Producto</span>
-        <span class="description">Descripción</span>
-        <span class="quantity">Cantidad</span>
-      </div>
-      <div class="notification-content">
-        <span class="product-id">47732312</span>
-        <span class="product-desc">Electrolit Mora Azul</span>
-        <span class="product-qty">2</span>
-      </div>
-      <button class="order-button">Realizar Pedido</button>
-      <span class="status">Resuelto</span>
-    </div>
+    <button class="order-button" routerLink="/pedidosaproveedor">Realizar Pedido</button>
+    <span class="status">No atendido</span>
   </div>
-  
+</div>
