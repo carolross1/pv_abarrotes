@@ -22,7 +22,7 @@ CREATE TABLE producto (
     utilidad DECIMAL(10, 2) AS (precio_Venta - precio_Compra) STORED,
     cantidad_Stock INT NOT NULL,
     cant_Minima INT NOT NULL,
-    codigo_barras INT NOT NULL UNIQUE,
+    codigo_Barras INT NOT NULL UNIQUE,
     CONSTRAINT fk_categoria FOREIGN KEY (id_Categoria) REFERENCES Categoria(id_Categoria)
 );
 -- Estructura de tabla para la tabla `cliente_frecuente`
