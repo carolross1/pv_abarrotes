@@ -1,3 +1,20 @@
+<div class="navbar">
+  <a [routerLink]="['/login']"><i class="fas fa-sign-in-alt"></i> Inicio de sesión</a>
+  <a [routerLink]="['/principal']"><i class="fas fa-home"></i> Página principal</a>
+  <a [routerLink]="['/clientesfrecuentes']"><i class="fas fa-users"></i> Clientes frecuentes</a>
+  <a [routerLink]="['/pedidosaproveedor']"><i class="fas fa-shopping-cart"></i> Pedidos</a>
+  <a [routerLink]="['/proveedores']"><i class="fas fa-truck"></i> Proveedores</a>
+  <a [routerLink]="['/entregasproveedor']"><i class="fas fa-shipping-fast"></i> Entregas</a>
+  <a [routerLink]="['/inventarios']"><i class="fas fa-boxes"></i> Inventarios</a>
+  <a [routerLink]="['/cortedecaja']"><i class="fas fa-cash-register"></i> Corte Caja</a>
+  <a [routerLink]="['/reportes']"><i class="fas fa-chart-line"></i> Informes</a>
+</div>
+<div class="flecha">
+  <a routerLink="/principal" class="back-icon">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+</div>
+
 <div class="container">
   <h1 class="my-4">Gestión de Productos</h1>
 
@@ -6,13 +23,18 @@
     <!-- Campos del formulario -->
     <div class="form-group">
       <label for="nombre">Nombre</label>
-      <label for="nombre">Nombre</label>
       <input type="text" id="nombre" [(ngModel)]="producto.nombre" name="nombre" class="form-control" required #nombre="ngModel" />
       <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger">
         <div *ngIf="nombre.errors?.['required']">El nombre es obligatorio.</div>
       </div>
     </div>
-
+    <div class="form-group">
+      <label for="id_Categoria">Código de barras</label>
+       <input type="number" id="codigo_Barras" [(ngModel)]="producto.codigo_Barras" name="codigo_Barras" class="form-control" required #codigo_Barras="ngModel" />
+      <div *ngIf="codigo_Barras.invalid && (codigo_Barras.dirty || codigo_Barras.touched)" class="text-danger">
+        <div *ngIf="codigo_Barras.errors?.['required']">El codigo de barras es obligatorio</div>
+      </div>
+    </div>
     <div class="form-group">
       <label for="id_Categoria">Categoría</label>
        <input type="number" id="id_Categoria" [(ngModel)]="producto.id_Categoria" name="id_Categoria" class="form-control" required #idCategoria="ngModel" />
@@ -66,6 +88,7 @@
     <thead class="thead-dark">
       <tr>
         <th scope="col">Nombre</th>
+        <th scope="col">Codigo de barras</th>
         <th scope="col">Categoría</th>
         <th scope="col">Precio de Compra</th>
         <th scope="col">Precio de Venta</th>
@@ -78,6 +101,7 @@
     <tbody>
       <tr *ngFor="let producto of productos">
         <td>{{ producto.nombre }}</td>
+        <td>{{ producto.codigo_Barras }}</td>
         <td>{{ producto.id_Categoria }}</td>
         <td>{{ producto.precio_Compra | currency }}</td>
         <td>{{ producto.precio_Venta | currency }}</td>

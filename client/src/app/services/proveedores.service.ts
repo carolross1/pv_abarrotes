@@ -10,7 +10,6 @@ export class ProveedoresService {
   private API_URI = 'http://localhost:3000/proveedores';
 
   constructor(private http: HttpClient) {}
-
   getProveedores(): Observable<Proveedor[]> {
     return this.http.get<Proveedor[]>(this.API_URI);
   }

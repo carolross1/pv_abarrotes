@@ -7,14 +7,13 @@ CREATE DATABASE ng_punto_de_venta;
 USE ng_punto_de_venta; 
 
 
--- Crea la tabla Categoria
-CREATE TABLE Categoria (
+-- Crea la tabla Categoria //YA ESTA CORRECTA
+CREATE TABLE categoria (
     id_Categoria INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL
 );
-
--- Crea la tabla Producto
-CREATE TABLE  Producto (
+-- Crea la tabla Producto //YA ESTA CORRECTA
+CREATE TABLE producto (
     id_Producto INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL UNIQUE,
     id_Categoria INT NOT NULL,
@@ -23,11 +22,11 @@ CREATE TABLE  Producto (
     utilidad DECIMAL(10, 2) AS (precio_Venta - precio_Compra) STORED,
     cantidad_Stock INT NOT NULL,
     cant_Minima INT NOT NULL,
+    codigo_barras INT NOT NULL UNIQUE,
     CONSTRAINT fk_categoria FOREIGN KEY (id_Categoria) REFERENCES Categoria(id_Categoria)
 );
-
 -- Estructura de tabla para la tabla `cliente_frecuente`
---
+--SIN CAMBIOS
 CREATE TABLE `cliente_frecuente` (
   `id_Cliente` varchar(10) NOT NULL,
   `nombre` varchar(100) NOT NULL,
@@ -68,25 +67,20 @@ DELIMITER ;
 
 --
 -- Estructura de tabla para la tabla `corte_caja`
---
+--YA ESTA CORRECTA
 
 CREATE TABLE `corte_caja` (
   `id_Corte_Caja` int(11) NOT NULL,
   `id_Usuario` varchar(10) NOT NULL,
-  `id_Venta_Primero` varchar(8) NOT NULL,
   `fecha_Inicio` datetime NOT NULL,
-  `fecha_Termino` datetime NOT NULL,
-  `total_Ventas` int(11) NOT NULL,
-  `monto_Entregar` decimal(10,2) NOT NULL,
-  `fecha_Corte` datetime NOT NULL,
-  `id_Venta_Ultimo` varchar(8) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT fk_Usuario FOREIGN KEY (id_Usuario) REFERENCES usuario(id_Usuario)
+) 
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `detalle_pedido`
---
+--NO ESTA REVISADA
 
 CREATE TABLE `detalle_pedido` (
   `id_Detalle` int(11) NOT NULL,
@@ -100,7 +94,7 @@ CREATE TABLE `detalle_pedido` (
 
 --
 -- Estructura de tabla para la tabla `detalle_reporte`
---
+--NO ESTA REVISADA
 
 CREATE TABLE `detalle_reporte` (
   `id_Detalle` int(11) NOT NULL,
@@ -115,17 +109,15 @@ CREATE TABLE `detalle_reporte` (
 
 --
 -- Estructura de tabla para la tabla `detalle_venta`
---
+--YA ESTA  REVISADA
 
 CREATE TABLE `detalle_venta` (
   `id_Detalle` int(11) NOT NULL,
   `id_Venta` varchar(8) NOT NULL,
   `id_Producto` int(11) NOT NULL,
-  `cant_Productos` int(11) NOT NULL,
-  `precio_Unitario` decimal(10,2) NOT NULL,
   `descuento` decimal(10,2) DEFAULT NULL,
-  `importe_Total` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT fk_id_Venta FOREIGN KEY (id_Venta) REFERENCES venta(id_Categoria)
+) 
 
 -- --------------------------------------------------------
 
@@ -170,15 +162,10 @@ CREATE TABLE `factura` (
 
 CREATE TABLE `inventario` (
   `id_Inventario` int(11) NOT NULL,
-  `id_Producto` int(11) NOT NULL,
-  `id_Categoria` int(11) NOT NULL,
-  `cantidad_Fisica` int(11) NOT NULL,
-  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `faltante` int(11) DEFAULT NULL,
-  `sobrante` int(11) DEFAULT NULL,
-  `valor_Sobrante` decimal(10,2) DEFAULT NULL,
-  `valor_Faltante` decimal(10,2) DEFAULT NULL,
-  `total` decimal(10,2) DEFAULT NULL
+  `id_Usuario` varchar(10) NOT NULL,
+  fecha_Inicio DATETIME NOT NULL,
+  fecha_Termino DATETIME NOT NULL,
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -346,10 +333,7 @@ ALTER TABLE `cliente_frecuente`
 --
 ALTER TABLE `corte_caja`
   ADD PRIMARY KEY (`id_Corte_Caja`),
-  ADD KEY `id_Usuario` (`id_Usuario`),
-  ADD KEY `id_Venta` (`id_Venta_Primero`),
-  ADD KEY `fk_id_Venta_Ultimo` (`id_Venta_Ultimo`);
-
+  ADD KEY `id_Usuario` (`id_Usuario`);
 --
 -- Indices de la tabla `detalle_pedido`
 --

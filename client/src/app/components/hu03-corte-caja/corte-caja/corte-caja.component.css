@@ -7,7 +7,36 @@
   width: 100%; 
   padding: 90px;
 }
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #9173cc;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  position: -webkit-sticky; 
+  position: sticky;
+}
 
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+}
+
+.navbar a:hover {
+  color: #d4c1f3;
+}
+
+.navbar i {
+  margin-right: 8px;
+}
 .corte-caja-container, .reporte-ventas-container {
   width: 80%; 
   max-width: 800px; 
@@ -102,34 +131,7 @@
 .bg-lightpurple {
   background-color: #957DAD;
 }
-.navbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #9173cc;
-  padding: 10px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
 
-.navbar a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 1.2em;
-  display: flex;
-  align-items: center;
-}
-
-.navbar a:hover {
-  color: #d4c1f3;
-}
-
-.navbar i {
-  margin-right: 8px;
-}
 .flecha{
   margin-top: 90px;
   font-size: 24px;

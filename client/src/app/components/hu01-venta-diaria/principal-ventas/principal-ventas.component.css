@@ -1,19 +1,17 @@
-
 .sales-content {
-    background-color: #B39DDB;
-    border: 2px solid #9575CD;
+    background-color: #ccbaef;
+    border: 2px solid #a790cf;
     padding: 20px;
-    width: 90%;
-    max-width: 1900px;
+    width: 100%;
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: relative;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-top: 220px;
+    margin: 0; /* Quita el margen para que ocupe toda la pantalla */
+    box-sizing: border-box; /* Incluye padding y border en el cálculo de width y height */
+    overflow: hidden; /* Oculta el desbordamiento */
 }
-
 .sales-title {
     background-color: rgb(92, 10, 185);
     padding: 18px;
@@ -24,9 +22,15 @@
     color: white;
     font-size: xx-large;
 }
-
+.barcode-input {
+    font-size: 1.9em; 
+    padding: 10px;
+    width: 100%; 
+}
 .sales-table-content {
     margin-top: 30px;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .sales-barcode {
@@ -39,16 +43,13 @@
 .sales-barcode .barcode-icon {
     margin-right: 10px;
 }
-
 .sales-barcode input {
-    padding: 20px;
+    padding: 40px;
     border: 1px solid #BDBDBD;
     border-radius: 5px;
     width: 40%;
 
-
 }
-
 .sales-table-container {
     max-height: 300px;
     overflow-y: auto;
@@ -58,24 +59,32 @@
 .sales-table {
     width: 100%;
     border-collapse: collapse;
+    line-height: 26px;
+    border-color: rgb(218, 217, 216);
+    border-style:groove;
 }
 
 .sales-table thead {
     background-color: rgb(92, 10, 185);
     color: white;
+    position: sticky; /* Mantener el encabezado fijo */
+    top: 0;
+    z-index: 1; /* Asegurar que el encabezado esté por encima de otras filas */
 }
 
 .sales-table th, 
 .sales-table td {
     padding: 10px;
-    border: 1px solid black;
+    border: 1px solid rgb(245, 240, 240);
     text-align: center;
 }
 
 .sales-totals {
-    display: flex;
+    display:flexbox;
     justify-content: space-between;
-    margin-top: 50px;
+    margin-top: 100px;
+    width: 50em;
+    font-size: 1.4em;
 }
 
 .totals-left, 
@@ -83,29 +92,41 @@
     display: flex;
     flex-direction: column;
     width: 45%;
-    
 }
 
 .totals-left div, 
 .totals-right div {
-    background-color: blanchedalmond;
-    padding: 12px;
+    background-color: rgb(235, 190, 235);
+    padding: 20px;
     border: 1px solid black;
     border-radius: 5px;
     margin-bottom: 5px;
     text-align: initial;
     margin-top: 7px;
+
 }
 
+.recibido-input {
+    font-size: 1.9em; 
+    padding: 4px; 
+    width: 70%; 
+
+}
+.cambio-input {
+    font-size: 1.4em;    
+}
 .sales-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    height: 4em;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 .sales-buttons button, 
 .sales-buttons select {
-    background-color: #E1BEE7;
+    background-color: #D291BC;
     border: none;
     padding: 10px 20px;
     border-radius: 10px;
@@ -125,10 +146,11 @@
     align-items: center;
     margin-top: 40px;
     width: 100%;
+    position: relative;
 }
 
 .sales-bottom-buttons button {
-    background-color: #E1BEE7;
+    background-color: #D291BC;
     border: none;
     padding: 20px 0;
     border-radius: 10px;
@@ -155,8 +177,19 @@
 
 .sales-bottom-buttons .notification-button .fa-bell {
     font-size: 24px;
+    position: relative;
 }
 
 .barcode-icon .fa-barcode {
-    font-size: 32px;
+    font-size: 150px;
+}
+.notification-badge {
+    background-color: red; /* O el color que prefieras */
+    color: white;
+    border-radius: 50%;
+    padding: 0.7em 1em;
+    font-size: 0.75em;
+    position: absolute;
+    top: 0;   
+    right: -0.7em;  
 }

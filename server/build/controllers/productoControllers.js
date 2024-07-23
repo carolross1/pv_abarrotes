@@ -11,12 +11,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = require("../database");
 class ProductoController {
+
+
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const productos = yield database_1.default.query('SELECT * FROM producto');
             res.json(productos);
         });
     }
+
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
@@ -48,7 +51,39 @@ class ProductoController {
             yield database_1.default.query('DELETE FROM producto WHERE id_Producto = ?', [id]);
             res.json({ message: 'El producto fue eliminado' });
         });
+ 
+    }
+    getProductosBajoStock(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            
+            const productos = yield database_1.default.query('SELECT * FROM producto WHERE cantidad_Stock < cant_Minima');
+            if (productos.length > 0) {
+                res.json(productos);
+            } else {
+                res.status(404).json({ text: 'No hay productos con bajo stock' });
+            }
+        });
+    }
+    updateStock(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const { cantidad } = req.body;
+
+            try {
+                // Verifica que la cantidad sea un número
+                if (isNaN(cantidad)) {
+                    return res.status(400).json({ message: 'Cantidad no válida' });
+                }
+
+                // Actualiza el stock del producto
+                yield database_1.default.query('UPDATE producto SET cantidad_Stock = ? WHERE id_Producto = ?', [cantidad, id]);
+                res.json({ message: 'Stock actualizado' });
+            } catch (error) {
+                res.status(500).json({ message: 'Error al actualizar stock', error });
+            }
+        });
     }
 }
+
 const productoController = new ProductoController();
 exports.default = productoController;

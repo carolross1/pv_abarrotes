@@ -20,10 +20,12 @@ export class ProductoComponent implements OnInit {
     precio_Venta: 0,
     utilidad: 0,
     cantidad_Stock: 0,
-    cant_Minima: 0
+    cant_Minima: 0,
+    codigo_Barras:0
   };
   editando: boolean = false;
   mostrarProductos: boolean = false;
+  
   constructor(private productoService: ProductoService) { }
 
   ngOnInit() {
@@ -34,8 +36,6 @@ export class ProductoComponent implements OnInit {
   cargarProductos() {
     this.productoService.getProductos().subscribe(data => this.productos = data);
   }
-
-
   guardarProducto() {
     
       if (this.editando) {
@@ -70,7 +70,8 @@ export class ProductoComponent implements OnInit {
       precio_Venta: 0,
       utilidad: 0,
       cantidad_Stock: 0,
-      cant_Minima: 0
+      cant_Minima: 0,
+      codigo_Barras:0
     };
   }
 }
