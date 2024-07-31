@@ -23,55 +23,37 @@ Carmen Catalina Delgado Manzano-->
     <div class="card-body center-content">
       <div class="form-group">
         <label for="id_Usuario">Clave Empleado</label>
-        <input type="text" class="form-control" id="id_Usuario"[(ngModel)]="id_Usuario">
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="id_Venta_Primero">Clave de su Primer Ticket</label>
-          <input type="text" class="form-control" id="id_Venta_Primero"[(ngModel)]="id_Venta_Primero">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="id_Venta_Ultimo">Clave de su Último Ticket</label>
-          <input type="text" class="form-control" id="id_Venta_Ultimo"[(ngModel)]="id_Venta_Ultimo">
-        </div>
+        <input type="text" class="form-control" id="id_Usuario" [(ngModel)]="id_Usuario">
       </div>
       <div class="form-group">
-        <label for="fecha_Inicio">Fecha de Inicio</label>
-        <input type="date" class="form-control" id="fecha_Inicio"[(ngModel)]="fecha_Inicio">
+        <label for="fecha">Fecha</label>
+        <input type="date" class="form-control" id="fecha" [(ngModel)]="fecha">
       </div>
       <button type="button" class="btn btn-purple btn-block" (click)="corteDeCaja()">Corte de Caja</button>
     </div>
   </div>
 
-   <!-- Segunda parte: Reporte de Ventas (solo se muestra si showReport es verdadero) -->
-   <div *ngIf="showReport" class="container corte-caja-container card">
-        
-        <div class="card-header">REPORTE DE VENTAS</div>
-        <div class="card-body">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Caja</th>
-                <th>Nombre Empleado</th>
-                <th>Total de Ventas</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha de Término</th>
-                <th>Monto a Entregar</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{reportData.id_Corte_Caja}}</td>
-                <td>{{reportData.id_Usuario}}</td>
-                <td>{{reportData.total_Ventas}}</td>
-                <td>{{reportData.fecha_Inicio}}</td>
-                <td>{{reportData.fecha_Termino}}</td>
-                <td>{{reportData.monto_Entregar}}</td>
-              </tr>
-            </tbody>
-          </table>
-          <br>
-          <button type="button" class="btn btn-purple btn-block" (click)="closeReport()">Salir</button>
-        </div>
-      </div>
+  <!-- Segunda parte: Reporte de Ventas (solo se muestra si showReport es verdadero) -->
+  <div *ngIf="showReport" class="container corte-caja-container card">
+    <div class="card-header">REPORTE DE VENTAS</div>
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Total de Ventas</th>
+            <th>Monto a Entregar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ reportData.fecha }}</td>
+            <td>{{ reportData.total_Ventas }}</td>
+            <td>{{ reportData.monto_Entregar }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-purple btn-block" (click)="closeReport()">Salir</button>
     </div>
+  </div>
+</div>

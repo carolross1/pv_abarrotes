@@ -1,22 +1,8 @@
-import {Router} from 'express';
-import corteCajaController from '../controllers/cortecajaControllers';
+import { Router } from 'express';
+import { getCorteDeCaja } from '../controllers/cortecajaControllers';
 
-class CortecajaRoutes{
+const router = Router();
 
-  public router:Router=Router();
+router.post('/corteCaja', getCorteDeCaja);
 
-  constructor(){
-    this.config();
-  }
-  config():void{
-    this.router.post('/corte-caja', corteCajaController.corteDeCaja);
-
-  }
-
-}
-const cortecajaRoutes=new CortecajaRoutes();
-export default cortecajaRoutes.router; 
-
-
-
-
+export default router;

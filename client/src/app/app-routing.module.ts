@@ -19,6 +19,7 @@ import { ProveedoresListComponent } from './components/hu02-proveedores/proveedo
 import { FacturaComponent } from './components/hu01-venta-diaria/factura/factura.component';
 import { DescuentoComponent } from './components/hu01-venta-diaria/descuento/descuento.component';
 import { ProductoComponent } from './components/producto/producto/producto.component';
+import { ListaCategoriasComponent } from './components/producto/categoria/lista-categorias/lista-categorias.component';
 
 const routes: Routes = [
   {
@@ -100,6 +101,10 @@ const routes: Routes = [
   {
     path:'productos',
     component:ProductoComponent
+  },
+  {
+    path:'categoria',
+    component:ListaCategoriasComponent
   }
 ];
 

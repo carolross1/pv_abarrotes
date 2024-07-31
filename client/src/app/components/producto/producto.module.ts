@@ -5,11 +5,14 @@ import { CommonModule } from '@angular/common';
 import { ProductoComponent } from './producto/producto.component';
 import { ProductoService } from '../../services/productos/producto.service';
 import { RouterModule } from '@angular/router';
+import { ListaCategoriasComponent } from './categoria/lista-categorias/lista-categorias.component';
+import { CategoriaService } from '../../services/categoria/categoria.service';
 
 
 @NgModule({
   declarations: [
-    ProductoComponent
+    ProductoComponent,
+    ListaCategoriasComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +20,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     FormsModule,
   ],
-  providers: [ProductoService], 
+  providers: [ProductoService,CategoriaService], 
   exports: [
  ProductoComponent
   ]

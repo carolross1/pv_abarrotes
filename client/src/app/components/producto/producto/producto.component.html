@@ -37,7 +37,9 @@
     </div>
     <div class="form-group">
       <label for="id_Categoria">Categoría</label>
-       <input type="number" id="id_Categoria" [(ngModel)]="producto.id_Categoria" name="id_Categoria" class="form-control" required #idCategoria="ngModel" />
+      <select id="id_Categoria" [(ngModel)]="producto.id_Categoria" name="id_Categoria" class="form-control" required #idCategoria="ngModel">
+        <option *ngFor="let categoria of categorias" [value]="categoria.id_Categoria">{{ categoria.nombre }}</option>
+      </select>
       <div *ngIf="idCategoria.invalid && (idCategoria.dirty || idCategoria.touched)" class="text-danger">
         <div *ngIf="idCategoria.errors?.['required']">La categoría es obligatoria.</div>
       </div>

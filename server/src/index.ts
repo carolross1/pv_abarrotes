@@ -4,6 +4,9 @@ import cors from 'cors';
 import cortecajaRoutes from './routes/cortecajaRoutes';
 import indexRoutes from './routes/indexRoutes';
 import productoRoutes from './routes/productoRoutes'; 
+import ventasRoutes from './routes/ventasRoutes';
+import categoriaRoutes from './routes/categoriaRoutes';
+import facturaRoutes from './routes/facturaRoutes';
 
 class Server{
 public app:Application;
@@ -26,6 +29,11 @@ constructor(){
         this.app.use('/',indexRoutes);
         this.app.use('/api/cortecaja',cortecajaRoutes);
         this.app.use('/api/productos', productoRoutes);
+        this.app.use('/api/ventas',ventasRoutes);
+        this.app.use('/api/categorias',categoriaRoutes);
+        this.app.use('/api/facturas', facturaRoutes); 
+
+
         
     }
     start():void{

@@ -2,6 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ProductoService } from '../../../services/productos/producto.service';
 import { Producto } from '../../../models/Producto';  
+import { CategoriaService } from '../../../services/categoria/categoria.service';
+import { Categoria } from '../../../models/Categoria';
 
 @Component({
   selector: 'app-producto',
@@ -23,18 +25,24 @@ export class ProductoComponent implements OnInit {
     cant_Minima: 0,
     codigo_Barras:0
   };
+  categorias: Categoria[]=[];
   editando: boolean = false;
   mostrarProductos: boolean = false;
   
-  constructor(private productoService: ProductoService) { }
+  constructor(private productoService: ProductoService,private categoriaService:CategoriaService) { }
 
   ngOnInit() {
 
     this.cargarProductos();
+    this.getCategorias();
   }
   
   cargarProductos() {
     this.productoService.getProductos().subscribe(data => this.productos = data);
+  }
+
+  getCategorias(): void {
+    this.categoriaService.getCategorias().subscribe(categorias => this.categorias = categorias);
   }
   guardarProducto() {
     

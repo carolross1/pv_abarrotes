@@ -1,6 +1,7 @@
 
 import { Component,ViewEncapsulation} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { CorteCajaService } from '../../../services/corte-caja/corte-caja.service';
+import { CorteDeCajaReporte } from '../../../models/CorteCaja';
 
 @Component({
   selector: 'app-corte-caja',
@@ -9,43 +10,30 @@ import { HttpClient } from '@angular/common/http';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class CorteCajaComponent {
-  id_Corte_Caja: number = 1;
   id_Usuario: string = '';
-  id_Venta_Primero: string = '';
-  id_Venta_Ultimo: string = '';
-  fecha_Inicio: string = '';
-  fecha_Termino: string = '';
-  total_Ventas: number = 0;
-  monto_Entregar: number = 0;
-  fecha_Corte: string = '';
+  fecha: string = ''; // Asegúrate de que esta fecha esté en formato 'YYYY-MM-DD'
+  reportData: CorteDeCajaReporte = {
+    fecha: '',
+    total_Ventas: 0,
+    monto_Entregar: 0
+  };
   showReport: boolean = false;
-  reportData: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private corteCajaService: CorteCajaService) {}
 
   corteDeCaja() {
-    const corteData = {
-      id_Usuario: this.id_Usuario,
-      id_Venta_Primero: this.id_Venta_Primero,
-      id_Venta_Ultimo: this.id_Venta_Ultimo,
-      fecha_Inicio: this.fecha_Inicio
-    };
-
-    this.http.post('http://localhost:3000/api/cortecaja', corteData).subscribe((response: any) => {
-      this.showReport = true;
-      this.reportData = response;
-    });
+    // Asegúrate de que `fecha` esté en formato 'YYYY-MM-DD'
+    this.corteCajaService.getCorteDeCaja(this.id_Usuario, this.fecha)
+      .subscribe(data => {
+        this.reportData = data;
+        this.showReport = true;
+      }, error => {
+        console.error('Error al obtener el corte de caja', error);
+      });
   }
 
   closeReport() {
     this.showReport = false;
   }
 }
-
-
-
-
-
-
-
  

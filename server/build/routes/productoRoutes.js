@@ -2,22 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const productoControllers_1 = require("../controllers/productoControllers");
-
-class ProductoRoutes {
-    constructor() {
-        this.router = express_1.Router();
-        this.config();
-    }
-    config() {
-        this.router.get('/bajo-stock', productoControllers_1.default.getProductosBajoStock);
-        this.router.get('/', productoControllers_1.default.list);
-        this.router.get('/:id', productoControllers_1.default.getOne);
-        this.router.post('/', productoControllers_1.default.create);
-        this.router.put('/:id', productoControllers_1.default.update);
-        this.router.delete('/:id', productoControllers_1.default.delete);
-        this.router.put('/actualizar-stock/:id', productoControllers_1.default.updateStock);
-       
-    }
-}
-const productoRoutes = new ProductoRoutes();
-exports.default = productoRoutes.router;
+const productoControllers_2 = require("../controllers/productoControllers");
+const router = (0, express_1.Router)();
+router.get('/bajo-stock', productoControllers_2.getProductosBajoStock);
+router.get('/', productoControllers_1.getProductos);
+router.post('/', productoControllers_1.createProducto);
+router.put('/:id', productoControllers_1.updateProducto);
+router.delete('/:id', productoControllers_1.deleteProducto);
+router.put('/actualizar-stock/:id', productoControllers_1.updateStock);
+exports.default = router;

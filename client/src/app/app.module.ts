@@ -17,6 +17,7 @@ import { ProveedoresService } from './services/proveedores.service';
 import { ProductoServiceModule} from './services/productos/productos.module';
 import { ProductoModule } from './components/producto/producto.module';
 import { ProductoService } from './services/productos/producto.service';
+import { VentaService } from './services/principal-ventas/venta.service';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { ProductoService } from './services/productos/producto.service';
     ProductoServiceModule, 
     ProductoModule
   ],
-  providers: [ProveedoresService,ProductoServiceModule,ProductoService],
+  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,9 @@
 import { Component,OnInit} from '@angular/core';
 import { ProductoService } from '../../../services/productos/producto.service';
+import { VentaService } from '../../../services/principal-ventas/venta.service';
 import { Producto } from '../../../models/Producto';
+import { Venta } from '../../../models/Venta';
+import { DetalleVenta } from '../../../models/DetalleVenta';
 import{jsPDF} from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
@@ -27,7 +30,7 @@ export class PrincipalVentasComponent implements OnInit {
   private debounceTimer: any;
 
 
-  constructor(private productoService: ProductoService) {}
+  constructor(private productoService: ProductoService,private ventaService:VentaService) {}
 
   ngOnInit(): void {
     this.productoService.getProductosBajoStock().subscribe(
@@ -108,13 +111,14 @@ export class PrincipalVentasComponent implements OnInit {
   
   calcularTotales() {
     this.subtotal = this.ventaProductos.reduce((acc, producto) => acc + producto.precio_Venta *  (producto.cantidad ?? 0), 0);
+    this.aplicarDescuento(); 
     this.totalVenta = this.subtotal; 
 }
   
   
   actualizarStockProducto(codigoBarras: number, cantidad: number) {
     this.productoService.updateStock(codigoBarras, cantidad).subscribe(
-        response => {
+        response => { 
             console.log('Stock actualizado:', response);
         },
         error => {
@@ -123,11 +127,12 @@ export class PrincipalVentasComponent implements OnInit {
     );
 }
   pagar() {
+    console.log('pagando');
     if (this.ventaProductos.length === 0) {
       alert('No hay productos en el carrito. No se puede realizar el pago.');
-      return; 
+      return;
     }
-  
+
     if (this.recibido >= this.totalVenta) {
       this.cambio = this.recibido - this.totalVenta;
       this.cambioFinal = this.cambio; 
@@ -136,23 +141,63 @@ export class PrincipalVentasComponent implements OnInit {
       this.ventaProductos.forEach(producto => {
         const productoEnStock = this.productos.find(p => p.codigo_Barras === producto.codigo_Barras);
         if (productoEnStock) {
-        const nuevaCantidad = producto.cantidad_Stock - (producto.cantidad||0);
-        this.actualizarStockProducto(producto.id_Producto, nuevaCantidad);
+          const nuevaCantidad = producto.cantidad_Stock - (producto.cantidad || 0);
+          this.actualizarStockProducto(producto.id_Producto, nuevaCantidad);
         }
       });
-       // Mostrar el cuadro de confirmación
-    const generateTicket = window.confirm('¿Deseas generar un ticket?');
 
-    if (generateTicket) {
-      this.generarTicket();
+      // Mostrar el cuadro de confirmación
+      const generarTicket = window.confirm('¿Deseas generar un ticket?');
+      this.registrarVenta(generarTicket);
+      this.vaciarVenta();
+    } else {
+      alert('La cantidad recibida es menor al total de la venta');
     }
-
-    this.vaciarVenta();
-  } else {
-    alert('La cantidad recibida es menor al total de la venta');
   }
-}
-  
+
+  registrarVenta(generarTicket:boolean) {
+    const venta: Omit<Venta, 'id_Venta'> = {
+      id_Usuario: 'USR001', // Aquí va el ID del empleado
+      fecha: new Date(),
+      metodo_Pago: this.formaPago = "Efectivo",
+      caja: 1 
+    };
+
+    this.ventaService.registrarVenta(venta).subscribe({
+      next: response => {
+        console.log('Respuesta del servidor:', response);
+        const idVenta = response.id_Venta; // Recibir el ID de venta del servidor
+        
+
+       // Asegúrate de que los detalles contienen el idVenta
+      const detallesConIdVenta: any = this.ventaProductos.map(producto => ({
+        id_Venta: this.ventaService.registrarVenta,//Mandar a llamar la variable
+        id_Producto: this.ventaService.registrarVenta,//Mandar a llamar la variable,
+        cantidad: this.totalVenta,
+        descuento: this.tipoDescuento// Ajusta según sea necesario
+      }));
+
+      // Imprimir los detalles que se van a enviar
+      console.log('Detalles a enviar:', detallesConIdVenta);
+
+        // Enviar los detalles de venta con el ID de venta correcto
+        this.ventaService.registrarDetalles(detallesConIdVenta).subscribe({
+          next: response => {
+            console.log('Detalles de venta registrados:', response);
+            if (generarTicket) {
+              this.generarTicket(idVenta); // Usar el ID de venta generado
+            }
+          },
+          error: error => {
+            console.error('Error al registrar los detalles de la venta:', error);
+          }
+        });
+      },
+      error: error => {
+        console.error('Error al registrar la venta:', error);
+      }
+    });
+  }
 
   vaciarVenta() {
     this.ventaProductos = [];
@@ -163,9 +208,9 @@ export class PrincipalVentasComponent implements OnInit {
     this.formaPago = '';
   }
 
-  generarTicket() {
+  generarTicket(idVenta: string) {
     const doc = new jsPDF();
-    doc.text('Ticket de Venta', 10, 10);
+    console.log('Generando ticket para la venta con ID:', idVenta);
     doc.text(`Total: ${this.totalVenta}`, 10, 20);
      doc.text(`Descuento: ${this.subtotal - this.totalVenta}`, 10, 30);
     doc.text(`Recibido: ${this.recibido}`, 10, 40);
@@ -179,10 +224,8 @@ export class PrincipalVentasComponent implements OnInit {
     });
   
     doc.save('ticket.pdf');
-    this.vaciarVenta();  
   }
   
-
   aplicarDescuento() {
     let descuento = 0;
   

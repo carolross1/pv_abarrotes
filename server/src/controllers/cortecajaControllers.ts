@@ -1,43 +1,37 @@
 import { Request, Response } from 'express';
-import pool from '../../database';
+import pool from '../database';
 
-class CorteCajaController {
-    public async corteDeCaja(req: Request, res: Response): Promise<void> {
-        const { id_Usuario, id_Venta_Primero, id_Venta_Ultimo, fecha_Inicio } = req.body;
+export const getCorteDeCaja = async (req: Request, res: Response) => {
+  const { id_Usuario, fecha } = req.body;
 
-        // Obtener la fecha de término (fecha actual)
-        const fecha_Termino = new Date();
+  try {
+    // Convertir la fecha a formato YYYY-MM-DD
+    const fechaInicio = new Date(fecha).toISOString().slice(0, 10);
 
-        // Consulta para obtener el total de ventas entre el primer y último ticket
-        const ventasQuery = `
-            SELECT SUM(total) as total Ventas
-            FROM Venta
-            WHERE id_Usuario = ? AND id_Venta BETWEEN ? AND ?;
-        `;
-        
-        const [ventasResult] = await pool.query(ventasQuery, [id_Usuario, id_Venta_Primero, id_Venta_Ultimo]);
-        const total_Ventas = ventasResult[0].total_Ventas;
+    // Obtener las ventas del usuario en la fecha especificada, considerando solo la fecha
+    const ventas = await pool.query(
+      'SELECT id_Venta FROM venta WHERE id_Usuario = ? AND DATE(fecha) = ?',
+      [id_Usuario, fechaInicio]
+    );
 
-        
-        const monto_Entregar = total_Ventas;  // Corregir
+    // Calcular total_Ventas y monto_Entregar
+    let total_Ventas = ventas.length;
+    let monto_Entregar = 0;
 
-        // Insertar en la tabla CorteCaja
-        const insertQuery = `
-            INSERT INTO Corte_Caja (id_Usuario, fecha_Inicio, fecha_Termino, total_Ventas, monto_Entregar)
-            VALUES (?, ?, ?, ?, ?);
-        `;
-        await pool.query(insertQuery, [id_Usuario, fecha_Inicio, fecha_Termino, total_Ventas, monto_Entregar]);
+    for (const venta of ventas) {
+      const detalles = await pool.query(
+        'SELECT cantidad, descuento FROM detalle_venta WHERE id_Venta = ?',
+        [venta.id_Venta]
+      );
 
-        res.json({
-            caja: 1, 
-            nombre: id_Usuario,  
-            total_Ventas,
-            fecha_Inicio,
-            fecha_Termino,
-            monto_Entregar
-        });
+      for (const detalle of detalles) {
+        monto_Entregar += (detalle.cantidad) - (detalle.descuento || 0);
+      }
     }
-}
 
-const corteCajaController = new CorteCajaController();
-export default corteCajaController;
+    res.status(200).json({ fecha: fechaInicio, total_Ventas, monto_Entregar });
+  } catch (error) {
+    console.error('Error al obtener el corte de caja:', error);
+    res.status(500).json({ message: 'Error al obtener el corte de caja' });
+  }
+};

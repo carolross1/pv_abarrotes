@@ -12,6 +12,10 @@ CREATE TABLE categoria (
     id_Categoria INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL
 );
+ALTER TABLE categoria
+ADD CONSTRAINT unique_nombre UNIQUE (nombre);
+
+
 -- Crea la tabla Producto //YA ESTA CORRECTA
 CREATE TABLE producto (
     id_Producto INT PRIMARY KEY AUTO_INCREMENT,
@@ -25,19 +29,187 @@ CREATE TABLE producto (
     codigo_barras INT NOT NULL UNIQUE,
     CONSTRAINT fk_categoria FOREIGN KEY (id_Categoria) REFERENCES Categoria(id_Categoria)
 );
--- Estructura de tabla para la tabla `cliente_frecuente`
---SIN CAMBIOS
-CREATE TABLE `cliente_frecuente` (
-  `id_Cliente` varchar(10) NOT NULL,
+
+-- Estructura de tabla para la tabla `usuario`
+
+CREATE TABLE `usuario` (
+  `id_Usuario` varchar(10) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `apellido` varchar(50) NOT NULL,
+  `telefono` varchar(13) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `contrasena` varchar(13) NOT NULL,
+  `tipo_Usuario` varchar(50) NOT NULL,
+);
+
+-- Estructura de tabla para la tabla `corte_caja`
+--YA ESTA CORRECTA
+
+CREATE TABLE `corte_caja` (
+  `id_Corte_Caja` int(11) NOT NULL,
+  `id_Usuario` varchar(10) NOT NULL,
+  `fecha_Inicio` datetime NOT NULL,
+   `monto_Inicio` int  NOT NULL,
+  CONSTRAINT fk_Usuario FOREIGN KEY (id_Usuario) REFERENCES usuario(id_Usuario)
+);
+
+-- Estructura de tabla para la tabla `venta`
+CREATE TABLE `venta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_Venta` varchar(8) NOT NULL,
+  `id_Usuario` varchar(10) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `metodo_Pago` varchar(50) NOT NULL,
+  `caja` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_Venta` (`id_Venta`),
+  KEY `id_Usuario` (`id_Usuario`),
+  CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`id_Usuario`) REFERENCES `usuario` (`id_Usuario`)      
+);
+
+-- Estructura de tabla para la tabla `detalle_venta`
+
+CREATE TABLE `detalle_venta` (
+  `id_Detalle` int(11) NOT NULL AUTO_INCREMENT,
+  `id_Venta` varchar(8) NOT NULL,
+  `id_Producto` int(11) NOT NULL,
+  `descuento` decimal(10,2) DEFAULT NULL,
+  `cantidad` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_Detalle`),
+  KEY `id_Producto` (`id_Producto`),
+  KEY `detalle_venta_ibfk_1` (`id_Venta`),
+  CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`id_Venta`) REFERENCES `venta` (`id_Venta`),   
+  CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_Producto`) REFERENCES `producto` (`id_Producto`)
+);
+
+-- Estructura de tabla para la tabla `factura`
+--
+
+CREATE TABLE `factura` (
+  `id_Factura` int(11) NOT NULL AUTO_INCREMENT,
+  `id_Venta` varchar(8) NOT NULL,
+  `RFC` varchar(13) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `apellidos` varchar(100) NOT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `telefono` varchar(13) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `estado` varchar(50) NOT NULL,
+  `municipio` varchar(50) NOT NULL,
+  `codigo_Postal` varchar(5) NOT NULL,
+  `direccion` text NOT NULL,
+  `fecha_Factura` datetime NOT NULL,
+  `total` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id_Factura`),
+  FOREIGN KEY (`id_Venta`) REFERENCES `venta`(`id_Venta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Disparadores `cliente_frecuente`
---
+ALTER TABLE `factura`
+ADD CONSTRAINT `unique_id_Venta`
+UNIQUE (`id_Venta`);
+
+
+-- Crear la tabla `Inventario`
+CREATE TABLE `inventario` (
+  `id_Inventario` INT AUTO_INCREMENT NOT NULL,
+  `id_Usuario` VARCHAR(10) NOT NULL,
+  `Fecha_Inicio` DATETIME NOT NULL,
+  `Fecha_Termino` DATETIME NOT NULL,
+  PRIMARY KEY (`id_Inventario`),
+  FOREIGN KEY (`id_Usuario`) REFERENCES `usuario`(`id_Usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Crear la tabla `Detalle_Inventario`
+CREATE TABLE `detalle_inventario` (
+  `id_Inventario` INT NOT NULL,
+  `id_Producto` INT NOT NULL,
+  `cantidad_Fisica` INT NOT NULL,
+  FOREIGN KEY (`id_Inventario`) REFERENCES `Inventario`(`id_Inventario`),
+  FOREIGN KEY (`id_Producto`) REFERENCES `producto`(`id_Producto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE `cliente_frecuente` (
+  `id_Cliente` INT AUTO_INCREMENT NOT NULL,
+  `nombre` VARCHAR(100) NOT NULL,
+  `apellidos` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) UNIQUE,
+  `telefono` VARCHAR(13) NOT NULL UNIQUE,
+  PRIMARY KEY (`id_Cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `venta_cliente_frecuente` (
+  `id_Cliente` VARCHAR(10) NOT NULL,
+  `id_Venta` VARCHAR(8) NOT NULL,
+  PRIMARY KEY (`id_Cliente`, `id_Venta`),
+  FOREIGN KEY (`id_Cliente`) REFERENCES `cliente_frecuente`(`id_Cliente`),
+  FOREIGN KEY (`id_Venta`) REFERENCES `venta`(`id_Venta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `proveedor` (
+  `id_Proveedor` INT AUTO_INCREMENT NOT NULL,
+  `nombre` VARCHAR(100) NOT NULL,
+  `apellidos` VARCHAR(100) NOT NULL,
+  `telefono` VARCHAR(13) NOT NULL UNIQUE,
+  `empresa` VARCHAR(100),
+  PRIMARY KEY (`id_Proveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----no se aun 
 DELIMITER $$
 CREATE TRIGGER `trg_valida_email_cliente` BEFORE INSERT ON `cliente_frecuente` FOR EACH ROW BEGIN
     DECLARE msg VARCHAR(255);
@@ -63,169 +235,8 @@ END
 $$
 DELIMITER ;
 
--- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `corte_caja`
---YA ESTA CORRECTA
 
-CREATE TABLE `corte_caja` (
-  `id_Corte_Caja` int(11) NOT NULL,
-  `id_Usuario` varchar(10) NOT NULL,
-  `fecha_Inicio` datetime NOT NULL,
-  CONSTRAINT fk_Usuario FOREIGN KEY (id_Usuario) REFERENCES usuario(id_Usuario)
-) 
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `detalle_pedido`
---NO ESTA REVISADA
-
-CREATE TABLE `detalle_pedido` (
-  `id_Detalle` int(11) NOT NULL,
-  `id_Pedido` varchar(10) NOT NULL,
-  `id_Producto` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `precio_Unitario` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `detalle_reporte`
---NO ESTA REVISADA
-
-CREATE TABLE `detalle_reporte` (
-  `id_Detalle` int(11) NOT NULL,
-  `id_Producto` int(11) NOT NULL,
-  `id_Reporte` int(11) NOT NULL,
-  `precio_Unitario` decimal(10,2) NOT NULL,
-  `pzas_Producto` int(11) NOT NULL,
-  `precio_Total` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `detalle_venta`
---YA ESTA  REVISADA
-
-CREATE TABLE `detalle_venta` (
-  `id_Detalle` int(11) NOT NULL,
-  `id_Venta` varchar(8) NOT NULL,
-  `id_Producto` int(11) NOT NULL,
-  `descuento` decimal(10,2) DEFAULT NULL,
-  CONSTRAINT fk_id_Venta FOREIGN KEY (id_Venta) REFERENCES venta(id_Categoria)
-) 
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `entrega_producto`
---
-
-CREATE TABLE `entrega_producto` (
-  `id_Entrega` int(11) NOT NULL,
-  `id_Usuario` varchar(10) NOT NULL,
-  `id_Proveedor` int(11) NOT NULL,
-  `fecha_Entrega` datetime NOT NULL,
-  `id_Producto` int(11) NOT NULL,
-  `cantidad_Producto` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `factura`
---
-
-CREATE TABLE `factura` (
-  `id_Factura` int(11) NOT NULL,
-  `id_Venta` varchar(8) NOT NULL,
-  `RFC` varchar(13) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `apellidos` varchar(100) NOT NULL,
-  `estado` varchar(50) NOT NULL,
-  `municipio` varchar(50) NOT NULL,
-  `codigo_Postal` varchar(5) NOT NULL,
-  `direccion` text NOT NULL,
-  `fecha_Factura` datetime NOT NULL,
-  `total` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `inventario`
---
-
-CREATE TABLE `inventario` (
-  `id_Inventario` int(11) NOT NULL,
-  `id_Usuario` varchar(10) NOT NULL,
-  fecha_Inicio DATETIME NOT NULL,
-  fecha_Termino DATETIME NOT NULL,
-  
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `inventario_categoria`
---
-
-CREATE TABLE `inventario_categoria` (
-  `id_Categoria` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `pedido_digital`
---
-
-CREATE TABLE `pedido_digital` (
-  `id_Pedido` varchar(10) NOT NULL,
-  `id_Proveedor` int(11) NOT NULL,
-  `fecha_Pedido` datetime NOT NULL,
-  `fecha_Entrega` datetime DEFAULT NULL,
-  `total` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `producto`
---
-
-CREATE TABLE `producto` (
-  `id_Producto` int(11) NOT NULL,
-  `id_Categoria` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `descripcion` text DEFAULT NULL,
-  `precio_Compra` decimal(10,2) NOT NULL,
-  `precio_Venta` decimal(10,2) NOT NULL,
-  `utilidad` decimal(10,2) NOT NULL,
-  `cantidad_Stock` int(11) NOT NULL,
-  `cant_Minima` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `proveedor`
---
-
-CREATE TABLE `proveedor` (
-  `id_Proveedor` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `apellidos` varchar(100) NOT NULL,
-  `telefono` varchar(13) NOT NULL,
-  `empresa` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
 -- Disparadores `proveedor`
 --
 DELIMITER $$
@@ -241,40 +252,6 @@ END
 $$
 DELIMITER ;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `reporte`
---
-
-CREATE TABLE `reporte` (
-  `id_Reporte` int(11) NOT NULL,
-  `fecha` datetime NOT NULL,
-  `hora` time NOT NULL,
-  `tipo_Reporte` varchar(50) NOT NULL,
-  `total_Ventas` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuario`
---
-
-CREATE TABLE `usuario` (
-  `id_Usuario` varchar(10) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `telefono` varchar(13) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `contrasena` varchar(13) NOT NULL,
-  `tipo_Usuario` varchar(50) NOT NULL,
-  `intento_Fallido` int(11) DEFAULT 0,
-  `ultimo_Intento` datetime DEFAULT NULL,
-  `ultimo_Acceso` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
 -- Disparadores `usuario`
 --
 DELIMITER $$
@@ -302,207 +279,4 @@ END
 $$
 DELIMITER ;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `venta`
---
-
-CREATE TABLE `venta` (
-  `id_Venta` varchar(18) NOT NULL,
-  `id_Usuario` varchar(10) DEFAULT NULL,
-  `id_Cliente` varchar(10) NOT NULL,
-  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `metodo_Pago` varchar(20) DEFAULT NULL,
-  `total` decimal(10,2) NOT NULL,
-  `caja` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `cliente_frecuente`
---
-ALTER TABLE `cliente_frecuente`
-  ADD PRIMARY KEY (`id_Cliente`);
-
---
--- Indices de la tabla `corte_caja`
---
-ALTER TABLE `corte_caja`
-  ADD PRIMARY KEY (`id_Corte_Caja`),
-  ADD KEY `id_Usuario` (`id_Usuario`);
---
--- Indices de la tabla `detalle_pedido`
---
-ALTER TABLE `detalle_pedido`
-  ADD PRIMARY KEY (`id_Detalle`),
-  ADD KEY `id_Pedido` (`id_Pedido`),
-  ADD KEY `id_Producto` (`id_Producto`);
-
---
--- Indices de la tabla `detalle_reporte`
---
-ALTER TABLE `detalle_reporte`
-  ADD PRIMARY KEY (`id_Detalle`),
-  ADD KEY `id_Producto` (`id_Producto`),
-  ADD KEY `id_Reporte` (`id_Reporte`);
-
---
--- Indices de la tabla `detalle_venta`
---
-ALTER TABLE `detalle_venta`
-  ADD PRIMARY KEY (`id_Detalle`),
-  ADD KEY `id_Venta` (`id_Venta`),
-  ADD KEY `id_Producto` (`id_Producto`);
-
---
--- Indices de la tabla `entrega_producto`
---
-ALTER TABLE `entrega_producto`
-  ADD PRIMARY KEY (`id_Entrega`),
-  ADD KEY `id_Usuario` (`id_Usuario`),
-  ADD KEY `id_Proveedor` (`id_Proveedor`),
-  ADD KEY `id_Producto` (`id_Producto`);
-
---
--- Indices de la tabla `factura`
---
-ALTER TABLE `factura`
-  ADD PRIMARY KEY (`id_Factura`),
-  ADD KEY `id_Venta` (`id_Venta`);
-
---
--- Indices de la tabla `inventario`
---
-ALTER TABLE `inventario`
-  ADD PRIMARY KEY (`id_Inventario`),
-  ADD KEY `id_Producto` (`id_Producto`),
-  ADD KEY `id_Categoria` (`id_Categoria`);
-
---
--- Indices de la tabla `inventario_categoria`
---
-ALTER TABLE `inventario_categoria`
-  ADD PRIMARY KEY (`id_Categoria`);
-
---
--- Indices de la tabla `pedido_digital`
---
-ALTER TABLE `pedido_digital`
-  ADD PRIMARY KEY (`id_Pedido`),
-  ADD KEY `id_Proveedor` (`id_Proveedor`);
-
---
--- Indices de la tabla `producto`
---
-ALTER TABLE `producto`
-  ADD PRIMARY KEY (`id_Producto`),
-  ADD KEY `id_Categoria` (`id_Categoria`);
-
---
--- Indices de la tabla `proveedor`
---
-ALTER TABLE `proveedor`
-  ADD PRIMARY KEY (`id_Proveedor`);
-
---
--- Indices de la tabla `reporte`
---
-ALTER TABLE `reporte`
-  ADD PRIMARY KEY (`id_Reporte`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id_Usuario`),
-  ADD UNIQUE KEY `telefono` (`telefono`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `uk_elementosunicos` (`telefono`,`email`);
-
---
--- Indices de la tabla `venta`
---
-ALTER TABLE `venta`
-  ADD PRIMARY KEY (`id_Venta`),
-  ADD KEY `id_Usuario` (`id_Usuario`),
-  ADD KEY `id_Cliente` (`id_Cliente`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `detalle_pedido`
---
-ALTER TABLE `detalle_pedido`
-  MODIFY `id_Detalle` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `detalle_reporte`
---
-ALTER TABLE `detalle_reporte`
-  MODIFY `id_Detalle` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `detalle_venta`
---
-ALTER TABLE `detalle_venta`
-  MODIFY `id_Detalle` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `entrega_producto`
---
-ALTER TABLE `entrega_producto`
-  MODIFY `id_Entrega` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `factura`
---
-ALTER TABLE `factura`
-  MODIFY `id_Factura` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `inventario`
---
-ALTER TABLE `inventario`
-  MODIFY `id_Inventario` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `inventario_categoria`
---
-ALTER TABLE `inventario_categoria`
-  MODIFY `id_Categoria` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `proveedor`
---
-ALTER TABLE `proveedor`
-  MODIFY `id_Proveedor` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `reporte`
---
-ALTER TABLE `reporte`
-  MODIFY `id_Reporte` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `corte_caja`
---
-ALTER TABLE `corte_caja`
-  ADD CONSTRAINT `fk_id_Venta_Ultimo` FOREIGN KEY (`id_Venta_Ultimo`) REFERENCES `venta` (`id_Venta`);
-
---
--- Filtros para la tabla `pedido_digital`
---
-ALTER TABLE `pedido_digital`
-  ADD CONSTRAINT `pedido_digital_ibfk_1` FOREIGN KEY (`id_Proveedor`) REFERENCES `proveedor` (`id_Proveedor`);
-COMMIT;
-DESCRIBE corte_caja; 
+-- ----

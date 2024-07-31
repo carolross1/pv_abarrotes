@@ -8,82 +8,80 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const database_1 = require("../database");
-class ProductoController {
-
-
-    list(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const productos = yield database_1.default.query('SELECT * FROM producto');
+exports.updateStock = exports.getProductosBajoStock = exports.deleteProducto = exports.updateProducto = exports.createProducto = exports.getProductos = void 0;
+const database_1 = __importDefault(require("../database"));
+const getProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const productos = yield database_1.default.query('SELECT * FROM producto');
+        res.json(productos);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error al obtener productos', error });
+    }
+});
+exports.getProductos = getProductos;
+const createProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield database_1.default.query('INSERT INTO producto SET ?', [req.body]);
+        res.json({ message: 'Producto creado' });
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error al crear producto', error });
+    }
+});
+exports.createProducto = createProducto;
+const updateProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        yield database_1.default.query('UPDATE producto SET ? WHERE id_Producto = ?', [req.body, id]);
+        res.json({ message: 'Producto actualizado' });
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error al actualizar producto', error });
+    }
+});
+exports.updateProducto = updateProducto;
+const deleteProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        yield database_1.default.query('DELETE FROM producto WHERE id_Producto = ?', [id]);
+        res.json({ message: 'Producto eliminado' });
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error al eliminar producto', error });
+    }
+});
+exports.deleteProducto = deleteProducto;
+const getProductosBajoStock = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const productos = yield database_1.default.query('SELECT * FROM producto WHERE cantidad_Stock < cant_Minima');
+        console.log('Productos bajo stock:', productos);
+        if (productos.length === 0) {
+            res.status(404).json({ text: 'No hay productos con bajo stock' });
+        }
+        else {
             res.json(productos);
-        });
+        }
     }
-
-    getOne(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            const productos = yield database_1.default.query('SELECT * FROM producto WHERE id_Producto = ?', [id]);
-            if (productos.length > 0) {
-                res.json(productos[0]);
-            }
-            else {
-                res.status(404).json({ text: 'El producto no existe' });
-            }
-        });
+    catch (error) {
+        console.error('Error al obtener productos bajo stock:', error);
+        res.status(500).json({ message: 'Error al obtener productos bajo stock', error });
     }
-    create(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO producto set ?', [req.body]);
-            res.json({ message: 'Producto Guardado' });
-        });
+});
+exports.getProductosBajoStock = getProductosBajoStock;
+const updateStock = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const { cantidad } = req.body;
+    try {
+        yield database_1.default.query('UPDATE producto SET cantidad_Stock = ? WHERE id_Producto = ?', [cantidad, id]);
+        res.json({ message: 'Stock actualizado' });
     }
-    update(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('UPDATE producto set ? WHERE id_Producto = ?', [req.body, id]);
-            res.json({ message: 'El producto fue actualizado' });
-        });
+    catch (error) {
+        res.status(500).json({ message: 'Error al actualizar stock', error });
     }
-    delete(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('DELETE FROM producto WHERE id_Producto = ?', [id]);
-            res.json({ message: 'El producto fue eliminado' });
-        });
- 
-    }
-    getProductosBajoStock(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            
-            const productos = yield database_1.default.query('SELECT * FROM producto WHERE cantidad_Stock < cant_Minima');
-            if (productos.length > 0) {
-                res.json(productos);
-            } else {
-                res.status(404).json({ text: 'No hay productos con bajo stock' });
-            }
-        });
-    }
-    updateStock(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            const { cantidad } = req.body;
-
-            try {
-                // Verifica que la cantidad sea un número
-                if (isNaN(cantidad)) {
-                    return res.status(400).json({ message: 'Cantidad no válida' });
-                }
-
-                // Actualiza el stock del producto
-                yield database_1.default.query('UPDATE producto SET cantidad_Stock = ? WHERE id_Producto = ?', [cantidad, id]);
-                res.json({ message: 'Stock actualizado' });
-            } catch (error) {
-                res.status(500).json({ message: 'Error al actualizar stock', error });
-            }
-        });
-    }
-}
-
-const productoController = new ProductoController();
-exports.default = productoController;
+});
+exports.updateStock = updateStock;

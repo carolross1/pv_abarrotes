@@ -7,7 +7,7 @@ class IndexRoutes {
         this.config();
     }
     config() {
-        this.router.get('/', (req, resp) => resp.send("soy Yo"));
+        this.router.get('/', (req, resp) => resp.send("soy yo"));
     }
 }
 const indexRoutes = new IndexRoutes();

@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Lista de categorías</h2>
+  
+  <!-- Campo para buscar categorías -->
+  <div class="search-container">
+    <div class="search-input-container">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" class="search-input">
+      <button (click)="searchCategorias()" class="search-button">
+        <i class="fa fa-search"></i> Buscar
+      </button>
+    </div>
+  </div>
+
+  <!-- Campo para agregar una nueva categoría -->
+  <div class="add-container">
+    <h2>Crear nueva categoria</h2> 
+    <input type="text" [(ngModel)]="nombreCategoria" placeholder="Nombre de la nueva categoría" class="search-input">
+    <button (click)="addCategoria()" class="add-button">Nueva categoría</button>
+  </div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let categoria of categorias">
+        <td>
+          <ng-container *ngIf="!categoria.editing">{{ categoria.nombre }}</ng-container>
+          <ng-container *ngIf="categoria.editing">
+            <input [(ngModel)]="categoria.nombre" class="edit-input">
+            <button (click)="saveCategoria(categoria)" class="save-button">Guardar</button>
+          </ng-container>
+        </td>
+        <td>
+          <button (click)="editCategoria(categoria)" class="edit-button">✎</button>
+        </td>
+        <td>
+          <button (click)="deleteCategoria(categoria.id_Categoria!)" class="delete-button">🗑</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
