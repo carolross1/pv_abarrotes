@@ -1,57 +1,91 @@
+/* Asegura que el contenedor de login esté centrado en la pantalla y no se extienda más allá de la altura de la ventana */
+body, html {
+    margin: 0;
+    height: 95%;
+}
 
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh; /* Ocupa el 100% de la altura de la ventana */
+}
 
 .index-page {
     background-color: #d0b4f1;
-    padding: 30px;
-    max-width: 600px;
-    margin: auto;
+    padding: 10px;
+    max-width: 350px; /* Reducido el tamaño máximo */
+    width: 100%; /* Asegura que el contenedor tenga el 100% del ancho disponible */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    height: 900px;
-    margin-top:100px;
-    
-
+    height: auto; /* Ajustado para que se ajuste al contenido */
+    box-sizing: border-box; /* Incluye padding y border en el cálculo del width */
 }
 
 .index-page h1 {
     color: #5b3d99;
-    margin-bottom: 20px;
+    font-size: 24px; /* Tamaño del título */
+    margin-bottom: 10px; /* Reducido el margen inferior */
+}
+
+.index-page h2 {
+    color: #5b3d99;
+    font-size: 20px; /* Tamaño del subtítulo */
+    margin-bottom: 20px; /* Aumentado el margen inferior para separación */
+}
+
+.index-page .logo {
+    width: 150px; /* Tamaño del logo */
+    height: auto; /* Mantener proporciones */
+    margin-bottom: 10px; /* Reducido margen inferior */
 }
 
 .index-page input[type="text"], 
 .index-page input[type="password"] {
-    width: 94%;
-    padding: 20px;
-    margin: 80px 0 10px 0;
+    width: calc(100% - 24px); /* Ajustado para que los inputs no salgan del contenedor */
+    padding: 12px; /* Ajustado el padding */
+    margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 9px;
- 
+    font-size: 14px; /* Tamaño de la fuente */
+    box-sizing: border-box; /* Incluye padding y border en el cálculo del width */
 }
 
 .index-page button {
-    width: 100%;
-    padding: 20px;
+    width: calc(100% - 24px); /* Ajustado para que el botón no salga del contenedor */
+    padding: 12px; /* Ajustado el padding */
     background-color: #5b3d99;
     border: none;
-    color: #788cff;
+    color: #ffffff;
     border-radius: 9px;
     cursor: pointer;
-    margin: 70px 0;
-    font-size:large;
-
+    margin: 20px 0; /* Reducido margen */
+    font-size: medium; /* Tamaño de la fuente */
+    box-sizing: border-box; /* Incluye padding y border en el cálculo del width */
 }
 
 .index-page button:hover {
     background-color: #48257f;
 }
 
-.index-page .forgot-password {
+.index-page .forgot-password,
+.index-page .register {
     display: block;
-    margin-top: 300px;
+    margin-top: 10px; /* Reducido margen superior */
     color: #5b3d99;
 }
 
-.index-page .forgot-password:hover {
-    text-decoration: underline;
+.index-page .forgot-password:hover,
+.index-page .register:hover {
+    text-decoration: underline;
+}
+
+.index-page .register {
+    margin-top: 20px; /* Aumentado margen superior para separación */
+}
+
+.index-page .register span {
+    font-weight: bold;
+    color: #5b3d99;
 }

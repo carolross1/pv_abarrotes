@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Factura } from '../../../models/Factura';
 import { FacturaService } from '../../../services/factura/factura.service';
 import jsPDF from 'jspdf';
@@ -8,7 +7,7 @@ import autoTable from 'jspdf-autotable';
 @Component({
   selector: 'app-factura',
   templateUrl: './factura.component.html',
-  styleUrl: './factura.component.css'
+  styleUrls: ['./factura.component.css']  // Corregido: styleUrls en lugar de styleUrl
 })
 export class FacturaComponent {
   factura: Factura = {
@@ -23,6 +22,8 @@ export class FacturaComponent {
     fecha_Factura: '',
     total: 0
   };
+
+  dropdownOpen: { [key: string]: boolean } = {}; // Estado de los desplegables
 
   constructor(private facturaService: FacturaService) {}
 
@@ -60,5 +61,17 @@ export class FacturaComponent {
     }); 
 
     doc.save('factura.pdf');
+  }
+
+  // Método para alternar el estado de los desplegables
+  toggleDropdown(key: string): void {
+    // Primero, cerrar cualquier otro desplegable que esté abierto
+    for (const dropdownKey in this.dropdownOpen) {
+      if (dropdownKey !== key) {
+        this.dropdownOpen[dropdownKey] = false;
+      }
+    }
+    // Alternar el estado del desplegable actual
+    this.dropdownOpen[key] = !this.dropdownOpen[key];
   }
 }

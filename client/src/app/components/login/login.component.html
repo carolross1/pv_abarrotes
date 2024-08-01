@@ -1,11 +1,21 @@
 <!--HU08-CRUD Login (Empleado, Administrador)
 Carol Rios Rios-->
-<div class="container index-page">
-    <h1>Inicio de Sesión</h1>
-    <form>
-        <input type="text" placeholder="Usuario" required>
-        <input type="password" placeholder="Contraseña" required>
-        <button type="submit" routerLink="/principal">Iniciar Sesión</button>
+<div class="login-container">
+    <div class="login-box index-page">
+        <img src="https://images.vexels.com/content/200165/preview/store-icon-stroke-bb4ae2.png" alt="Logo Abarrotes el Perrón" class="logo">
+        <h1>ABARROTES EL PERRÓN</h1>
+        <h2>Iniciar Sesión</h2>
+        <form>
+            <div class="textbox">
+                <input type="text" placeholder="Usuario" required>
+            </div>
+            <div class="textbox">
+                <input type="password" placeholder="Contraseña" required>
+            </div>
+            <button type="submit" routerLink="/principal">Iniciar Sesión</button>
+        </form>
         <a href="#" class="forgot-password">¿Olvidó su contraseña?</a>
-    </form>
+        <a href="#" class="register">¿No tienes una cuenta? <span>Regístrate aquí</span></a>
+    </div>
 </div>
+
