@@ -16,6 +16,9 @@ export class ProveedorFormComponent implements OnInit {
     empresa: ''
   };
 
+  // Estado para los desplegables (si fuera necesario en este componente)
+  dropdownOpen: { [key: string]: boolean } = {};
+
   constructor(
     private proveedoresService: ProveedoresService,
     private router: Router,
@@ -56,5 +59,17 @@ export class ProveedorFormComponent implements OnInit {
         }
       );
     }
+  }
+
+  // Método para alternar el estado de los desplegables
+  toggleDropdown(key: string): void {
+    // Primero, cerrar cualquier otro desplegable que esté abierto
+    for (const dropdownKey in this.dropdownOpen) {
+      if (dropdownKey !== key) {
+        this.dropdownOpen[dropdownKey] = false;
+      }
+    }
+    // Alternar el estado del desplegable actual
+    this.dropdownOpen[key] = !this.dropdownOpen[key];
   }
 }

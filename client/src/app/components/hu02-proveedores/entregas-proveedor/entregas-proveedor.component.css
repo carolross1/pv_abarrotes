@@ -68,52 +68,21 @@
     display: block;
 }
 
-/* Asegura la responsividad */
+/* Ensuring responsiveness */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
     }
 }
-
-.navbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #9173cc;
-    padding: 10px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    position: -webkit-sticky; 
-    position: sticky;
-}
-
-.navbar a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
-}
-
-.navbar a:hover {
-    color: #d4c1f3;
-}
-
-.navbar i {
-    margin-right: 8px;
-}
+/*Estilos para entregas*/
 .registrar-entrega-page {
-    padding: 20px;
+    padding: 10px;
     background-color: #f9f9f9;
-    margin-top: 100px;
-    max-width: 1700px; 
-    max-height: 1000;
+    margin: auto; /* Centra el contenedor horizontalmente */
+    max-width: 800px; /* Ajusta el ancho máximo para centrado */
     border-radius: 8px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    height: 800px;
+    margin-top: 60px; /* Ajusta el margen superior para separarlo del navbar */
 }
 
 .registrar-entrega-page h1 {
@@ -128,6 +97,7 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    max-width: 100%; /* Se ajusta al ancho del contenedor */
 }
 
 .registrar-entrega-page table {
@@ -154,41 +124,36 @@
     margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
-.button-group {
+.registrar-entrega-page .button-group {
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    justify-content: center;
+    gap: 10px;
 }
 
-.validate-btn, .save-btn {
+.validate-btn,
+.save-btn {
+    background-color: #5b3d99;
+    color: white;
     padding: 10px 20px;
     border: none;
-    color: #fff;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.validate-btn {
-    background-color: #5b3d99;
-}
-
-.save-btn {
+.validate-btn:hover,
+.save-btn:hover {
     background-color: #48257f;
 }
 
-.validate-btn:hover {
-    background-color: #3c2e6f;
+/* Para el selector de fecha y hora */
+.datetime {
+    text-align: right;
+    color: #48257f;
 }
 
-.save-btn:hover {
-    background-color: #371f66;
-}
-.flecha{
-    margin-top: 90px;
-    font-size: 24px;
-  color: #000;
-  text-decoration: none;
-  margin-left: 30px;
+.datetime p {
+    margin: 0;
 }

@@ -8,6 +8,8 @@ import { Proveedor } from '../../../models/Proveedores';
   styleUrls: ['./proveedores-list.component.css']
 })
 export class ProveedoresListComponent implements OnInit {
+  dropdownOpen: { [key: string]: boolean } = {}; // Inicializa un objeto para manejar el estado de los desplegables
+
   proveedores: Proveedor[] = [];
 
   constructor(private proveedoresService: ProveedoresService) {}
@@ -21,6 +23,17 @@ export class ProveedoresListComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  toggleDropdown(key: string): void {
+    // Primero, cerrar cualquier otro desplegable que esté abierto
+    for (const dropdownKey in this.dropdownOpen) {
+      if (dropdownKey !== key) {
+        this.dropdownOpen[dropdownKey] = false;
+      }
+    }
+    // Alternar el estado del desplegable actual
+    this.dropdownOpen[key] = !this.dropdownOpen[key];
   }
 
   deleteProveedor(id_Proveedor?: number): void {
