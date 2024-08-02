@@ -1,49 +1,87 @@
-
 <div class="navbar">
-    <a [routerLink]="['/login']"><i class="fas fa-sign-in-alt"></i> Inicio de sesión</a>
-    <a [routerLink]="['/principal']"><i class="fas fa-home"></i> Página principal</a>
-    <a [routerLink]="['/clientesfrecuentes']"><i class="fas fa-users"></i> Clientes frecuentes</a>
-    <a [routerLink]="['/pedidosaproveedor']"><i class="fas fa-shopping-cart"></i> Pedidos</a>
-    <a [routerLink]="['/proveedores']"><i class="fas fa-truck"></i> Proveedores</a>
-    <a [routerLink]="['/entregasproveedor']"><i class="fas fa-shipping-fast"></i> Entregas</a>
-    <a [routerLink]="['/inventarios']"><i class="fas fa-boxes"></i> Inventarios</a>
-    <a [routerLink]="['/cortedecaja']"><i class="fas fa-cash-register"></i> Corte Caja</a>
-    <a [routerLink]="['/reportes']"><i class="fas fa-chart-line"></i> Informes</a>
+  <!-- Logo Redirigiendo al Inicio de Sesión -->
+  <a href="/login" class="logo-link">
+    <img src="https://images.vexels.com/content/200165/preview/store-icon-stroke-bb4ae2.png" alt="Logo Abarrotes el Perrón" class="logo">
+  </a>
+  
+  <div class="nav-group">
+    <button class="dropdown-btn" [ngClass]="{'active': dropdownOpen['ventas-compras']}" (click)="toggleDropdown('ventas-compras')">
+      Ventas & Compras <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="dropdown-container" *ngIf="dropdownOpen['ventas-compras']">
+      <a routerLink="/principal"><i class="fas fa-home"></i> Ventas</a>
+      <a routerLink="/pedidosaproveedor"><i class="fas fa-shopping-cart"></i> Compras</a>
+      <a routerLink="/formulariofactura"><i class="fas fa-file-invoice"></i> Factura</a>
+    </div>
   </div>
-  <div class="flecha">
-    <a routerLink="/menu" class="back-icon">
-      <i class="fas fa-arrow-left"></i>
-    </a>
+  
+  <div class="nav-group">
+    <button class="dropdown-btn" [ngClass]="{'active': dropdownOpen['proveedores-entregas']}" (click)="toggleDropdown('proveedores-entregas')">
+      Proveedores & Entregas <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="dropdown-container" *ngIf="dropdownOpen['proveedores-entregas']">
+      <a routerLink="/proveedores"><i class="fas fa-truck"></i> Proveedores</a>
+      <a routerLink="/entregasproveedor"><i class="fas fa-shipping-fast"></i> Entregas</a>
+    </div>
   </div>
+  
+  <div class="nav-group">
+    <button class="dropdown-btn" [ngClass]="{'active': dropdownOpen['inventarios-reportes']}" (click)="toggleDropdown('inventarios-reportes')">
+      Inventarios & Reportes <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="dropdown-container" *ngIf="dropdownOpen['inventarios-reportes']">
+      <a routerLink="/inventarios"><i class="fas fa-boxes"></i> Inventarios</a>
+      <a routerLink="/cortedecaja"><i class="fas fa-cash-register"></i> Corte Caja</a>
+      <a routerLink="/reportes"><i class="fas fa-chart-line"></i> Informes</a>
+    </div>
+  </div>
+  
+  <div class="nav-group">
+    <button class="dropdown-btn" [ngClass]="{'active': dropdownOpen['otros']}" (click)="toggleDropdown('otros')">
+      Otros <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="dropdown-container" *ngIf="dropdownOpen['otros']">
+      <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
+      <a routerLink="/gestiondescuento"><i class="fas fa-percentage"></i> Descuento Por Mayoreo</a>
+      <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
+      <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
+      <a routerLink="/login"><i class="fas fa-sign-in-alt"></i> Inicio de Sesión</a>
+    </div>
+  </div>
+</div>
+<!--REGISTRAR ENTREGAS DE PRODUCTOS-->
 <div class="container registrar-entrega-page">
-    <h1><i class="fas fa-box"></i> Registrar Entrega de Productos</h1>
-    
-    <form>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID Proveedor</th>
-                    <th>Número de Factura</th>
-                    <th>ID Usuario</th>
-                    <th>Código de Producto</th>
-                    <th>Fecha Entrega</th>
-                    <th>Cantidad de producto</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="number" placeholder="ID Proveedor" required></td>
-                    <td><input type="number" placeholder="ID Grupo" required></td>
-                    <td><input type="date" placeholder="Fecha Entrega" required></td>
-                    <td><input type="text" placeholder="Número de Factura" required></td>
-                    <td><input type="number" placeholder="ID de Venta" required></td>
-                    <td><input type="text" placeholder="Código de Producto" required></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="button-group">
+  <h1><i class="fas fa-box"></i> Registrar Entrega de Productos</h1>
+
+  
+  <form>
+    <table>
+      <thead>
+        <th>Fecha y Hora</th>
+        <td><input type="datetime-local" required></td>
+        <tr>
+          
+          <th>Número de Factura</th>
+          <th>Recibido por</th>
+          <th>Código de Producto</th>
+          <th>Cantidad de producto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          
+          <td><input type="number" placeholder="Número de Factura" required></td>
+          <td><input type="text" placeholder="Usuario que recibe" required></td>
+          <td><input type="text" placeholder="Código de Producto" required></td>
+          <td><input type="number" placeholder="Cantidad de producto" required></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+      <br>
+    <div class="button-group">
             <button type="button" class="validate-btn">Validar Datos</button>
-            <button type="submit" class="save-btn">Guardar Información</button>
-        </div>
-    </form>
+      <button type="submit" class="save-btn">Guardar Información</button>
+    </div>
+  </form>
 </div>

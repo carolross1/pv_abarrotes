@@ -1,114 +1,149 @@
-
-.navbar a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 1.2em;
+/* Estilos para el contenedor del logo */
+.logo-container {
   display: flex;
   align-items: center;
+  justify-content: center; /* Centra el logo horizontalmente */
+  margin-right: 30px; /* Ajusta el margen para mover el contenedor a la derecha */
 }
 
-.navbar a:hover {
-  color: #d4c1f3;
+/* Estilos para el logo */
+.logo {
+  height: 50px; /* Ajusta la altura del logo */
+  width: auto; /* Mantiene la proporción de la imagen */
 }
 
-.navbar i {
-  margin-right: 8px;
-}
 .navbar {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #9173cc;
+  flex-wrap: wrap;
+  background-color: #5b3d99; /* Color de fondo de la barra de navegación */
   padding: 10px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
+  justify-content: center; /* Centra el contenido horizontalmente */
 }
-.flecha{
-    margin-top: 90px;
-    font-size: 24px;
-  color: #000;
-  text-decoration: none;
-  margin-left: 30px;
-}
-  .container {
-    margin-top: 100px;
-    margin: 20px;
-    background-color: #f3e5f5;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 1750px; 
-    max-height: 1000;
-    height: 800px;
-  }
-  
-  h2 {
-    color: #7e57c2;
-    font-weight: bold;
-  }
-  
-  .custom-table {
-    width: 100%;
-    /* border-collapse: collapse;*/
-  }
-  
-  .custom-table th, .custom-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .custom-table th {
-    background-color: #9575cd;
-    color: white;
-  }
-  
-  .custom-table tbody tr:hover {
-    background-color: #e1bee7;
-  }
-  
-  .btn {
-    background-color: #ba68c8;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .btn:hover {
-    background-color: #ab47bc;
-  }
-  
-  .btn i {
-    margin-right: 5px;
-  }
-  
-  .btn-danger {
-    background-color: #e57373;
-    margin: 0 8px;
 
-  }
-  
-  .btn-danger:hover {
-    background-color: #ef5350;
-    margin-left: 30px;
-  }
-  
-  .table-responsive {
-    overflow-x: auto;
-  }
-  .container-page button {
-    width: 100%;
-    padding: 20px;
-    background-color: #b69bec;
-    border: none;
-    color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
+.nav-group {
+  position: relative;
+  margin-right: 10px;
+}
+
+.dropdown-btn {
+  background-color: #5b3d99; /* Color de fondo del botón del desplegable */
+  color: #fff; /* Color del texto */
+  border: none;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-btn i {
+  margin-left: 5px;
+}
+
+.dropdown-container {
+  display: none;
+  background-color: #d0b4f1; /* Color de fondo del contenedor del desplegable */
+  border-radius: 5px;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  z-index: 1;
+}
+
+.dropdown-container a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc; /* Borde inferior */
+}
+
+.dropdown-container a:hover {
+  background-color: #bfa8e3; /* Color de fondo al pasar el ratón */
+}
+
+.dropdown-btn.active + .dropdown-container {
+  display: block;
+}
+
+/* Estilos para el contenedor de proveedores */
+.container {
+  margin: 60px auto; /* Centra el contenedor horizontalmente y ajusta el margen superior */
+  background-color: #f9f9f9; /* Color de fondo del contenedor */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 1200px; /* Ajusta el ancho máximo del contenedor */
+  /* Ajuste de alto eliminado para evitar restricciones de altura innecesarias */
+}
+
+h2 {
+  color: #5b3d99; /* Color del título */
+  font-weight: bold;
+  text-align: center; /* Centra el texto del título */
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse; /* Quita los espacios entre las celdas */
+}
+
+.custom-table th, .custom-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+  background-color: #5b3d99; /* Fondo de la cabecera de la tabla */
+  color: white;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #e1bee7; /* Color de fondo al pasar el ratón sobre las filas */
+}
+
+.btn {
+  background-color: #ba68c8; /* Color de fondo del botón */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #ab47bc; /* Color de fondo al pasar el ratón */
+}
+
+.btn i {
+  margin-right: 5px;
+}
+
+.btn-danger {
+  background-color: #e57373;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #ef5350; /* Color de fondo al pasar el ratón */
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.container-page button {
+  width: 100%;
+  padding: 20px;
+  background-color: #b69bec;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
 }
