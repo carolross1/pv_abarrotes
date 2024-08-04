@@ -1,81 +1,164 @@
-.register-h1-custom {
-    text-align: center;
+/* Estilos para el contenedor del logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 30px;
 }
-.register-form-custom {
-    width: 70%;
-    margin: 40px auto;
-    padding: 20px;
-    border: 1px solid #000;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 550px;
-  
 
+/* Estilos para el logo */
+.logo {
+  height: 50px;
+  width: auto;
 }
-.register-label-custom {
-    display: block;
-    margin-bottom: 10px;
-    font-size:larger;
-    
-    
+
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #5b3d99;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  justify-content: flex-start; /* Alinea el contenido a la izquierda */
+  align-items: center;
 }
+
+.nav-group {
+  position: relative;
+  margin-right: 10px;
+}
+
+.dropdown-btn {
+  background-color: #5b3d99;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-btn i {
+  margin-left: 5px;
+}
+
+.dropdown-container {
+  display: none;
+  background-color: #d0b4f1;
+  border-radius: 5px;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  z-index: 1;
+  max-height: 300px; /* Agregar altura máxima */
+  overflow-y: auto; /* Habilitar scroll si el contenido es muy largo */
+}
+
+.dropdown-container a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.dropdown-container a:hover {
+  background-color: #bfa8e3;
+}
+
+.dropdown-btn.active + .dropdown-container {
+  display: block;
+}
+
+/* Ensuring responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start; /* Alinea el contenido a la izquierda en dispositivos móviles */
+  }
+}
+
+/* Estilos para el cuerpo del registro de clientes frecuentes */
+.register-body-custom {
+  margin-top: 90px; /* Espacio superior para evitar sobreposición con la barra de navegación */
+  padding: 20px; /* Aumento del padding para mejor espacio interno */
+  background-color: #f5f5f5; /* Fondo claro para contraste */
+  width: 80%; /* Ajusta el ancho del contenedor */
+  max-width: 600px; /* Ancho máximo para un tamaño más contenido */
+  height: auto; /* Altura automática para adaptarse al contenido */
+  margin-left: auto; /* Centrando horizontalmente */
+  margin-right: auto; /* Centrando horizontalmente */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+  display: flex; /* Usar flexbox para centrar el contenido */
+  flex-direction: column; /* Colocar los elementos en columna */
+  align-items: center; /* Centrar los elementos horizontalmente */
+  justify-content: center; /* Centrar verticalmente el contenido */
+}
+
+/* Ajustes para el formulario dentro del contenedor */
+.register-form-custom {
+  width: 100%; /* Ancho completo del contenedor */
+  max-width: 500px; /* Ancho máximo del formulario */
+  padding: 20px; /* Padding para el formulario */
+  border: 1px solid #ddd; /* Borde sutil */
+  border-radius: 8px; /* Bordes redondeados */
+  background-color: #fff; /* Fondo blanco para contraste */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+}
+
+/* Estilos para los botones dentro del formulario */
+.register-submit-custom {
+  background-color: #5b3d99; /* Color de fondo del botón */
+  color: #fff; /* Color del texto */
+  padding: 12px 25px; /* Padding ajustado */
+  border: none;
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer;
+  margin: 5px; /* Margen ajustado entre botones */
+  font-size: 0.9em; /* Tamaño de fuente reducido */
+}
+/* Estilo para el título */
+.register-h1-custom {
+  text-align: center;
+  color: #5b3d99; /* Color morado */
+}
+.register-submit-custom:hover {
+  background-color: #c779fc; /* Color al pasar el mouse */
+}
+
+/* Ajustes para los inputs del formulario */
 .register-input-custom[type="text"],
 .register-input-custom[type="email"],
 .register-input-custom[type="tel"] {
-    width: 96%;
-    padding: 10px;
-    margin-bottom: 50px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 20px;
- 
+  width: calc(100% - 22px); /* Ocupa todo el ancho menos el padding */
+  padding: 10px; /* Padding para los inputs */
+  margin-bottom: 15px; /* Separación entre campos */
+  border: 1px solid #ccc; /* Borde sutil */
+  border-radius: 4px; /* Bordes redondeados */
+}
 
+/* Ajustes para las etiquetas del formulario */
+.register-label-custom {
+  display: block;
+  margin-bottom: 8px; /* Margen reducido entre etiqueta y campo */
+  font-size: 1em; /* Tamaño de fuente estándar */
+  color: #333; /* Color del texto */
 }
-.register-submit-custom {
-    background-color: #c382d2;
-    color: #fff;
-    padding: 13px 29px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px; 
 
+/* Asegurar la responsividad */
+@media (max-width: 768px) {
+  .register-body-custom {
+    width: 95%; /* Ajustar el ancho en pantallas pequeñas */
+  }
+
+  .register-form-custom {
+    width: 100%; /* Ajustar el ancho del formulario */
+  }
 }
-.register-submit-custom:hover {
-    background-color: #c779fc;
-}
-.flecha{
-    margin-top: 90px;
-    font-size: 24px;
-  color: #000;
-  text-decoration: none;
-  margin-left: 30px;
-} 
-.navbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #9173cc;
-    padding: 10px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-  }
-  
-  .navbar a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar a:hover {
-    color: #d4c1f3;
-  }
-  
-  .navbar i {
-    margin-right: 8px;
-  }

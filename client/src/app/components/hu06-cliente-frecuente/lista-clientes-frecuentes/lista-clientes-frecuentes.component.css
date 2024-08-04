@@ -1,75 +1,164 @@
-.list-body-mod {
-    background-color: #D8BFD8;
-    font-family: Arial, sans-serif;
-    margin: 20px;
+/* Estilos para el contenedor del logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 30px;
 }
-.list-h1-mod {
-    text-align: center;
-    margin-top: 100px;
+
+/* Estilos para el logo */
+.logo {
+  height: 50px;
+  width: auto;
 }
-.client-list-mod {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-}
-.client-list-mod th, .client-list-mod td {
-    border: 1px solid #000;
-    padding: 10px;
-    text-align: left;
-}
-.client-list-mod th {
-    background-color: #f2f2f2;
-}
-.button-mod {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.update-button-mod {
-    background-color: #FFA500;
-    color: white;
-}
-.delete-button-mod {
-    background-color: #FF0000;
-    color: white;
-}
-.history-button-mod {
-    background-color: #0000FF;
-    color: white;
-}
+
 .navbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #9173cc;
-    padding: 10px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #5b3d99;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.navbar a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
+.nav-group {
+  position: relative;
+  margin-right: 10px;
 }
 
-.navbar a:hover {
-    color: #d4c1f3;
+.dropdown-btn {
+  background-color: #5b3d99;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
 }
 
-.navbar i {
-    margin-right:8px;
+.dropdown-btn i {
+  margin-left: 5px;
 }
-.flecha{
-    margin-top: 90px;
-    font-size: 24px;
-  color: #000;
+
+.dropdown-container {
+  display: none;
+  background-color: #d0b4f1;
+  border-radius: 5px;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  z-index: 1;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dropdown-container a {
+  display: block;
+  padding: 10px;
+  color: #333;
   text-decoration: none;
-  margin-left: 30px;
-} 
+  border-bottom: 1px solid #ccc;
+}
+
+.dropdown-container a:hover {
+  background-color: #bfa8e3;
+}
+
+.dropdown-btn.active + .dropdown-container {
+  display: block;
+}
+
+/* Ensuring responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Estilos para la lista de clientes frecuentes */
+.main-container {
+  margin-top: 100px;
+  padding: 20px;
+  background-color: #f3e5f5; /* Fondo coherente con otras pantallas */
+  border-radius: 10px;
+  margin-right: 80px;
+  margin-left: 80px;
+}
+
+.list-h2-mod {
+  text-align: center;
+  color: #5b3d99; /* Color coherente con otras pantallas */
+  font-size: 1.5rem; /* Tamaño del texto del título */
+  margin-bottom: 20px; /* Espacio debajo del título */
+  display: block; /* Asegúrate de que el elemento sea visible */
+  visibility: visible; /* Asegúrate de que el elemento sea visible */
+  opacity: 1; /* Asegúrate de que el elemento no esté oculto */
+}
+
+.client-list-container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.client-list-mod {
+  width: 100%;
+  max-width: 1000px;
+  border-collapse: collapse;
+  background-color: #fff; /* Color de fondo para la tabla */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.client-list-mod th, .client-list-mod td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.client-list-mod th {
+  background-color: #5b3d99; /* Color morado para los encabezados */
+  color: white;
+}
+
+.client-list-mod td {
+  background-color: #f9f9f9;
+}
+
+.client-list-mod tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.client-list-mod tr:hover {
+  background-color: #ddd;
+}
+
+/* Estilos para los botones */
+.button-mod {
+  padding: 5px 10px;
+  margin: 2px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.update-button-mod {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.delete-button-mod {
+  background-color: #f44336;
+  color: white;
+}

@@ -15,6 +15,11 @@ export class EntregasProveedorComponent {
     'otros': false
   };
 
+  // Propiedad para almacenar las filas de productos
+  productos: any[] = [
+    { numeroFactura: '', recibidoPor: '', codigoProducto: '', cantidadProducto: '' }
+  ];
+
   // Método para alternar el estado de los desplegables
   toggleDropdown(key: string): void {
     // Primero, cerrar cualquier otro desplegable que esté abierto
@@ -25,5 +30,10 @@ export class EntregasProveedorComponent {
     }
     // Alternar el estado del desplegable actual
     this.dropdownOpen[key] = !this.dropdownOpen[key];
+  }
+
+  // Método para agregar una nueva fila
+  addRow(): void {
+    this.productos.push({ numeroFactura: '', recibidoPor: '', codigoProducto: '', cantidadProducto: '' });
   }
 }

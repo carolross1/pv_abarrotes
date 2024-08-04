@@ -1,166 +1,200 @@
-/* Barra de navegación */
+/* Estilos para el contenedor del logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 30px;
+}
+
+/* Estilos para el logo */
+.logo {
+  height: 50px;
+  width: auto;
+}
+
 .navbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #9173cc;
-    padding: 10px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #5b3d99;
+  padding: 10px;
 }
 
-.navbar a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
+.nav-group {
+  position: relative;
+  margin-right: 10px;
 }
 
-.navbar a:hover {
-    color: #d4c1f3;
+.dropdown-btn {
+  background-color: #5b3d99;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
 }
 
-.navbar i {
-    margin-right: 8px;
+.dropdown-btn i {
+  margin-left: 5px;
 }
-.flecha{
-    margin-top: 90px;
-    font-size: 24px;
-  color: #000;
+
+.dropdown-container {
+  display: none;
+  background-color: #d0b4f1;
+  border-radius: 5px;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  z-index: 1;
+}
+
+.dropdown-container a {
+  display: block;
+  padding: 10px;
+  color: #333;
   text-decoration: none;
-  margin-left: 30px;
+  border-bottom: 1px solid #ccc;
 }
+
+.dropdown-container a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-container a:hover {
+  background-color: #b894e6;
+}
+
+.dropdown-btn.active + .dropdown-container {
+  display: block;
+}
+
+/* ESTILOS INVENTARIOS */
 .inventariosfrecuentes-container {
-    display: flex;
-    padding: 50px 2%;
-   box-sizing:border-box;
-    font-family: Arial, sans-serif;
-    margin: 50px 30px 50px 40px;
-    background-color: bisque;
-    width: 95%;
-    overflow: hidden;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 40px;
+  padding: 40px; /* Espaciado interno */
+  width: 85%; /* Ancho del contenedor */
+  max-width: 1000px; /* Ancho máximo para evitar que sea demasiado grande en pantallas grandes */
+  border-radius: 8px;
+  background-color: #ebe8f1; /* Color de fondo coherente con las otras pantallas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle un poco de profundidad */
+  margin-left: auto; /* Centrado horizontal */
+  margin-right: auto; /* Centrado horizontal */
 }
 
 .inventariosfrecuentes-content-wrapper {
-    display: flex;
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-}
-
-.description-categoria {
-    background-color: antiquewhite;
-    margin: 5px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 95%;
+  max-width: 1200px;
 }
 
 .inventariosfrecuentes-sidebar {
-    width: 25%;
-    background-color: #f4f4f4;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-
-}
-
-.inventariosfrecuentes-sidebar h2 {
-    margin-top: 0;
-}
-
-.inventariosfrecuentes-sidebar .radio-options {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-}
-
-.radio-option {
-    display: flex;
-    align-items: center;
-   
-}
-
-.radio-option input[type="radio"] {
-    margin-right: 15px;
-}
-.radio-options .radio-option{
-    margin-top: 100px; 
-}
-
-.radio-options .radio-option + .radio-option {
-
-    margin-top: 70px; 
-}
-
-.inventariosfrecuentes-main-content {
-    flex: 1;
-    padding: 20px;
-}
-
-.inventariosfrecuentes-main-content h2 {
-    margin-top: 0;
-}
-
-.inventory-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.inventory-table th, 
-.inventory-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-}
-
-
-.buttons button {
-    flex: 1;
-    margin-right: 10px;
-    padding: 10px;
-    cursor: pointer;
-    justify-content: center; 
-    margin-top: 40px; 
-    background-color: #c691d2; 
-}
-
-.buttons button:last-child {
-    margin-right: 0;
- 
+  flex: 1;
+  background-color: #d0b4f1;
+  border-radius: 10px 0 0 10px;
+  padding: 20px;
 }
 
 .title-categorias {
-    background-color: rgb(179, 142, 223);
-    height: 5%;
-    text-align: center;
-    margin: 5px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+  text-align: center;
+  font-size: 16px; /* Tamaño del texto reducido para coherencia */
+  font-weight: bold;
+  margin: 20px 0; /* Espacio alrededor del título */
+  color: #48257f; /* Color morado para el título */
+  border: 2px solid #5b3d99; /* Borde morado para coherencia */
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .color-body {
-    background-color: antiquewhite;
-    height: 700px;
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin-top: 10px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.radio-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-option {
+  margin-bottom: 10px;
+}
+
+.radio-option input[type="radio"] {
+  margin-right: 10px;
+}
+
+.inventariosfrecuentes-main-content {
+  flex: 3;
+  padding: 20px;
+}
+
+.inventariosfrecuentes-main-content h2 {
+  font-size: 24px; /* Tamaño del texto coherente con otras pantallas */
+  color: #5b3d99; /* Color morado */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.description-categoria {
+  font-size: 18px;
+  background-color: #f3e9ff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .conteiner-articulos {
-    max-height: 500px;
-    overflow-y:flex;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color: #fff;
-    padding: 20px;
-    max-height:700px;
-    height: 600px;
+  margin-bottom: 20px;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inventory-table th, .inventory-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.inventory-table th {
+  background-color: #5b3d99;
+  color: white;
+}
+
+.table-footer {
+  background-color: #f2f2f2;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.buttons button {
+  background-color: #5b3d99;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.buttons button:hover {
+  background-color: #4a2e82;
 }

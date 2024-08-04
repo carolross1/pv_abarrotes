@@ -1,48 +1,91 @@
-
-.centered-container {
+/* Estilos para el contenedor del logo */
+.logo-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 20px; 
-  width: 100%; 
-  padding: 90px;
+  justify-content: center; /* Centra el logo horizontalmente */
+  margin-right: 30px; /* Ajusta el margen para mover el contenedor a la derecha */
 }
+
+/* Estilos para el logo */
+.logo {
+  height: 50px; /* Ajusta la altura del logo */
+  width: auto; /* Mantiene la proporción de la imagen */
+}
+
 .navbar {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #9173cc;
+  flex-wrap: wrap;
+  background-color: #5b3d99;
   padding: 10px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  position: -webkit-sticky; 
-  position: sticky;
 }
 
-.navbar a {
+.nav-group {
+  position: relative;
+  margin-right: 10px;
+}
+
+.dropdown-btn {
+  background-color: #5b3d99;
   color: #fff;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 1.2em;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
   display: flex;
   align-items: center;
 }
 
-.navbar a:hover {
-  color: #d4c1f3;
+.dropdown-btn i {
+  margin-left: 5px;
 }
 
-.navbar i {
-  margin-right: 8px;
+.dropdown-container {
+  display: none;
+  background-color: #d0b4f1;
+  border-radius: 5px;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  z-index: 1;
 }
+
+.dropdown-container a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.dropdown-container a:hover {
+  background-color: #bfa8e3;
+}
+
+.dropdown-btn.active + .dropdown-container {
+  display: block;
+}
+
+/* Ensuring responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: column;
+  }
+}
+
+/*ESTILOS PARA EL CORTE DE CAJA*/
 .corte-caja-container, .reporte-ventas-container {
-  width: 80%; 
-  max-width: 800px; 
-  border-radius: 15px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  background-color: #ffffff; 
+
+    margin: 60px auto; /* Centra el contenedor horizontalmente y ajusta el margen superior */
+    background-color: #f9f9f9; /* Color de fondo del contenedor */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    max-width: 1200px; /* Ajusta el ancho máximo del contenedor */
+    /* Ajuste de alto eliminado para evitar restricciones de altura innecesarias */
 }
 
 .card-header {
