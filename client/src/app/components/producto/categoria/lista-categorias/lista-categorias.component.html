@@ -4,7 +4,7 @@
   <!-- Campo para buscar categorías -->
   <div class="search-container">
     <div class="search-input-container">
-      <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" class="search-input">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" class="search-input" (input)="searchCategorias()">
       <button (click)="searchCategorias()" class="search-button">
         <i class="fa fa-search"></i> Buscar
       </button>

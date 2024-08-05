@@ -11,6 +11,7 @@ Carmen Catalina Delgado Manzano-->
   <a [routerLink]="['/cortedecaja']"><i class="fas fa-cash-register"></i> Corte Caja</a>
   <a [routerLink]="['/reportes']"><i class="fas fa-chart-line"></i> Informes</a>
 </div>
+
 <div class="flecha">
   <a routerLink="/menu" class="back-icon">
     <i class="fas fa-arrow-left"></i>
@@ -25,31 +26,44 @@ Carmen Catalina Delgado Manzano-->
         <label for="id_Usuario">Clave Empleado</label>
         <input type="text" class="form-control" id="id_Usuario" [(ngModel)]="id_Usuario">
       </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="id_Venta_Primero">Monto inicial</label>
+          <input type="text" class="form-control" id="monto_Inical" [(ngModel)]="montoInicial" [disabled]="!esCorteInicial">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="id_Venta_Ultimo">Monto final</label>
+          <input type="text" class="form-control" id="monto_Final" [(ngModel)]="montoFinal" [disabled]="esCorteInicial">
+        </div>
+      </div>
       <div class="form-group">
         <label for="fecha">Fecha</label>
         <input type="date" class="form-control" id="fecha" [(ngModel)]="fecha">
       </div>
-      <button type="button" class="btn btn-purple btn-block" (click)="corteDeCaja()">Corte de Caja</button>
-    </div>
-  </div>
+      <button type="button" class="btn btn-purple btn-block" (click)="corteDeCaja()"
+              [disabled]="esCorteFinal">{{ esCorteInicial ? 'Corte de Caja Inicial' : 'Corte de Caja Parcial' }}</button>
+      <button type="button" class="btn btn-danger btn-block" (click)="registrarCorteFinal()" 
+              [disabled]="esCorteInicial || esCorteFinal">Registrar Corte Final</button>
+            </div>
+          
 
   <!-- Segunda parte: Reporte de Ventas (solo se muestra si showReport es verdadero) -->
-  <div *ngIf="showReport" class="container corte-caja-container card">
+  <div *ngIf="showCorteDetails" class="container corte-caja-container card">
     <div class="card-header">REPORTE DE VENTAS</div>
     <div class="card-body">
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Fecha</th>
-            <th>Total de Ventas</th>
-            <th>Monto a Entregar</th>
+            <th>EFECTIVO TOTAL EN CAJA:</th>
+            <th>EFECTIVO PARCIALMENTE ENTREGADO:</th>
+            <th>EFECTIVO ACTUAL EN CAJA: </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{{ reportData.fecha }}</td>
-            <td>{{ reportData.total_Ventas }}</td>
-            <td>{{ reportData.monto_Entregar }}</td>
+            <td>{{ montoEnCaja.montoEsperado | currency }}</td>
+            <td>{{ montoEnCaja.montoParcialEntregado | currency }}</td>
+            <td>{{ montoEnCaja.diferencia | currency }}</td>
           </tr>
         </tbody>
       </table>

@@ -1,8 +1,13 @@
 import { Router } from 'express';
-import { getCorteDeCaja } from '../controllers/cortecajaControllers';
+import {registrarCorteInicial,registrarCorteParcial,registrarCorteFinal} from '../controllers/cortecajaControllers';
 
 const router = Router();
 
-router.post('/corteCaja', getCorteDeCaja);
+
+router.post('/corte-inicial',registrarCorteInicial);
+router.post('/corte-parcial', registrarCorteParcial);
+router.post('/corte-final', registrarCorteFinal);
+
+
 
 export default router;

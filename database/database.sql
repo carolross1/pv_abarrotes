@@ -41,17 +41,79 @@ CREATE TABLE `usuario` (
   `contrasena` varchar(13) NOT NULL,
   `tipo_Usuario` varchar(50) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE usuario ADD COLUMN salt VARCHAR(100);
+ALTER TABLE usuario
+MODIFY COLUMN id_Usuario INT AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE usuario
+MODIFY COLUMN contrasena VARCHAR(255) NOT NULL;
+
+
+DELIMITER //
+
+CREATE FUNCTION HashPasswordConSalt(password VARCHAR(60), salt VARCHAR(100))
+RETURNS CHAR(64)
+BEGIN
+    DECLARE hash CHAR(64);
+    SET hash = SHA2(CONCAT(password, salt), 256);
+    RETURN hash;
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE TRIGGER trg_PasswwdIn
+AFTER INSERT ON usuario
+FOR EACH ROW
+BEGIN
+    DECLARE generatedSalt VARCHAR(100);
+    
+    -- Generar salt
+    SET generatedSalt = UUID();
+
+    -- Actualizar usuario con salt y hashed password
+    UPDATE usuario
+    SET 
+        salt = generatedSalt,
+        contrasena = HashPasswordConSalt(NEW.contrasena, generatedSalt)
+    WHERE id_Usuario = NEW.id_Usuario;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER trg_PasswwdIn
+AFTER INSERT ON usuario
+FOR EACH ROW
+BEGIN
+    DECLARE generatedSalt VARCHAR(100);
+    
+    -- Generar salt
+    SET generatedSalt = UUID();
+
+    -- Actualizar usuario con salt y hashed password
+    UPDATE usuario
+    SET 
+        salt = generatedSalt,
+        contrasena = HashPasswordConSalt(contrasena, generatedSalt)
+    WHERE id_Usuario = NEW.id_Usuario;
+END //
+
+DELIMITER ;
 
 -- Estructura de tabla para la tabla `corte_caja`
 --YA ESTA CORRECTA
 CREATE TABLE `corte_caja` (
-      `id_Corte_Caja` int(11) NOT NULL PRIMARY KEY,
-     `id_Usuario` varchar(10) NOT NULL,
-    `fecha_Inicio` datetime NOT NULL,
-    `monto_Inicio` int  NOT NULL,
-   CONSTRAINT fk_Usuario FOREIGN KEY (id_Usuario) REFERENCES Usuario(id_Usuario)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
+  `id_Corte_Caja` INT AUTO_INCREMENT PRIMARY KEY,  -- Identificador único del corte
+  `id_Usuario` VARCHAR(10) NOT NULL,  -- Identificador del usuario (empleado)
+  `monto_Inicial` DECIMAL(10, 2) NOT NULL,  -- Monto inicial del corte (al iniciar el turno o el último monto final)
+  `monto_Final` DECIMAL(10, 2) DEFAULT NULL,  -- Monto final del corte
+  `fecha` DATE NOT NULL,  -- Fecha del corte
+  `ultimo_Corte` BOOLEAN DEFAULT FALSE,  -- Indicador si es el último corte del turno
+  CONSTRAINT fk_Usuario FOREIGN KEY (id_Usuario) REFERENCES usuario(id_Usuario)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Estructura de tabla para la tabla `venta`
 CREATE TABLE `venta` (
@@ -81,6 +143,11 @@ CREATE TABLE `detalle_venta` (
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`id_Venta`) REFERENCES `venta` (`id_Venta`),   
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_Producto`) REFERENCES `producto` (`id_Producto`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `detalle_venta`
+ADD COLUMN `total_venta` DECIMAL(10, 2) NOT NULL;
+
+
 
 -- Estructura de tabla para la tabla `factura`
 --

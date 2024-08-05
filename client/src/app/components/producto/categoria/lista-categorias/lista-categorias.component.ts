@@ -43,7 +43,7 @@ export class ListaCategoriasComponent implements OnInit {
 
   searchCategorias(): void {
     if (this.searchTerm.trim()) {
-      this.categorias = this.categorias.filter(c => c.nombre.includes(this.searchTerm));
+      this.categorias = this.categorias.filter(c => c.nombre.toLowerCase().includes(this.searchTerm.toLowerCase()));
     } else {
       this.getCategorias(); // Restablecer la lista si no hay término de búsqueda
     }

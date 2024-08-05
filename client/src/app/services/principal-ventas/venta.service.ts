@@ -25,7 +25,7 @@ export class VentaService {
         })
       );
   }
-  
+
   registrarDetalles(detalles: DetalleVenta[]): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/detalle/create`, detalles)
       .pipe(
