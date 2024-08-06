@@ -11,6 +11,7 @@ export class ListaCategoriasComponent implements OnInit {
   categorias: Categoria[] = [];
   nombreCategoria: string = '';
   searchTerm: string = '';
+  dropdownOpen: { [key: string]: boolean } = {};
 
   constructor(private categoriaService: CategoriaService) {}
 
@@ -64,5 +65,16 @@ export class ListaCategoriasComponent implements OnInit {
     this.categoriaService.updateCategoria(categoria).subscribe(updatedCategoria => {
       this.getCategorias(); // Volver a obtener la lista actualizada
     });
+  }
+
+  toggleDropdown(menu: string): void {
+    // Cerrar cualquier otro desplegable abierto
+    for (let key in this.dropdownOpen) {
+      if (key !== menu) {
+        this.dropdownOpen[key] = false;
+      }
+    }
+    // Alternar el estado del desplegable actual
+    this.dropdownOpen[menu] = !this.dropdownOpen[menu];
   }
 }

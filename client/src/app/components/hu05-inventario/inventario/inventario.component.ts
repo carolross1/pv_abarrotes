@@ -7,6 +7,19 @@ import { Router } from '@angular/router'; // Asegúrate de importar Router
   styleUrls: ['./inventario.component.css'] // Cambiado de styleUrl a styleUrls
 })
 export class InventarioComponent {
+  dropdownOpen: { [key: string]: boolean } = {}; // Estado de los menús desplegables
+  
+  toggleDropdown(key: string): void {
+    // Primero, cerrar cualquier otro desplegable que esté abierto
+    for (const dropdownKey in this.dropdownOpen) {
+      if (dropdownKey !== key) {
+        this.dropdownOpen[dropdownKey] = false;
+      }
+    }
+    // Alternar el estado del desplegable actual
+    this.dropdownOpen[key] = !this.dropdownOpen[key];
+  }
+
   
   // Inyecta el Router en el constructor
   constructor(private router: Router) {}

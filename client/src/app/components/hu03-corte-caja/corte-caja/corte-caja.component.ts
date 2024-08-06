@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CorteCajaService } from '../../../services/corte-caja/corte-caja.service';
 import { LoginService } from '../../../services/login/login.service';
@@ -21,6 +22,21 @@ export class CorteCajaComponent implements OnInit {
   showReport: boolean = false;
   showCorteDetails: boolean = false; // Variable para mostrar los detalles del corte
   reportData: any;
+
+
+  dropdownOpen: { [key: string]: boolean } = {}; // Estado de los menús desplegables
+  
+  toggleDropdown(key: string): void {
+    // Primero, cerrar cualquier otro desplegable que esté abierto
+    for (const dropdownKey in this.dropdownOpen) {
+      if (dropdownKey !== key) {
+        this.dropdownOpen[dropdownKey] = false;
+      }
+    }
+    // Alternar el estado del desplegable actual
+    this.dropdownOpen[key] = !this.dropdownOpen[key];
+  }
+ 
 
   constructor(private corteCajaService: CorteCajaService, private router:Router, private LoginService:LoginService) {}
 
@@ -161,3 +177,4 @@ export class CorteCajaComponent implements OnInit {
       }
     }
   }
+

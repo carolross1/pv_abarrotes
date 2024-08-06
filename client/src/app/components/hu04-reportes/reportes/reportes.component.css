@@ -1,100 +1,137 @@
-.navbar {
+/* Estilos para el contenedor del logo */
+.logo-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: #9173cc;
+    justify-content: center; /* Centra el logo horizontalmente */
+    margin-right: 30px; /* Ajusta el margen para mover el contenedor a la derecha */
+  }
+  
+  /* Estilos para el logo */
+  .logo {
+    height: 50px; /* Ajusta la altura del logo */
+    width: auto; /* Mantiene la proporción de la imagen */
+  }
+  
+  .navbar {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #5b3d99;
     padding: 10px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.navbar a {
+  }
+  
+  .nav-group {
+    position: relative;
+    margin-right: 10px;
+  }
+  
+  .dropdown-btn {
+    background-color: #5b3d99;
     color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 1.2em;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
     display: flex;
     align-items: center;
-}
-
-.navbar a:hover {
-    color: #d4c1f3;
-}
-
-.navbar i {
-    margin-right: 8px;
-}
-.flecha{
-    margin-top: 90px;
-    font-size: 24px;
-  color: #000;
-  text-decoration: none;
-  margin-left: 30px;
-}
-.reportes-page {
+  }
+  
+  .dropdown-btn i {
+    margin-left: 5px;
+  }
+  
+  .dropdown-container {
+    display: none;
+    background-color: #d0b4f1;
+    border-radius: 5px;
+    padding: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 150px;
+    z-index: 1;
+  }
+  
+  .dropdown-container a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .dropdown-container a:hover {
+    background-color: #bfa8e3;
+  }
+  
+  .dropdown-btn.active + .dropdown-container {
+    display: block;
+  }
+  
+  /* Ensuring responsiveness */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+    }
+  }
+  
+  /* Estilos para Reportes */
+  .reportes-page {
     padding: 20px;
     background-color: #f9f9f9;
-    margin-top: 70px;
-    max-width: 1700px; 
-    max-height: 1000;
-    border-radius: 8px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    height: 800px;
-    
-}
-
-.reportes-page h1 {
+    margin: 60px auto; /* Centra el contenedor horizontalmente y ajusta el margen superior */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 1200px; /* Ajusta el ancho máximo del contenedor */
+  }
+  
+  .reportes-page h1 {
     color: #48257f;
     text-align: center;
-}
-
-.reportes-page .reportes-filtros {
+  }
+  
+  .reportes-filtros {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-}
-
-.reportes-page .reportes-filtros button {
+  }
+  
+  .reportes-filtros label {
     margin: 0 10px;
-    padding: 10px 20px;
-    background-color: #5b3d99;
-    border: none;
-    color: #fff;
+    align-self: center;
+  }
+  
+  .reportes-filtros input {
+    padding: 5px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    cursor: pointer;
-}
-
-.reportes-page .reportes-filtros button:hover {
-    background-color: #48257f;
-}
-
-.reportes-page table {
+    margin: 0 10px;
+  }
+  
+  table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
     margin-top: 30px;
-}
-
-.reportes-page th, 
-.reportes-page td {
+  }
+  
+  th, td {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
-}
-
-.reportes-page th {
+  }
+  
+  th {
     background-color: #5b3d99;
     color: white;
-}
-
-.reportes-page .reportes-descarga {
+  }
+  
+  .reportes-descarga {
     display: flex;
     justify-content: center;
-}
-
-.reportes-page .reportes-descarga button {
+  }
+  
+  .reportes-descarga .btn {
     margin: 0 10px;
     padding: 10px 20px;
     background-color: #5b3d99;
@@ -102,10 +139,9 @@
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.reportes-page .reportes-descarga button:hover {
-    background-color: #48257f;
-    
-}
-
+  }
+  
+  .reportes-descarga .btn:hover {
+    background-color: #48257f;
+  }
+  
