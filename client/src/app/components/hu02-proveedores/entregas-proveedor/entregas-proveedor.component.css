@@ -79,9 +79,10 @@
     padding: 10px;
     background-color: #f9f9f9;
     margin: auto; /* Centra el contenedor horizontalmente */
-    max-width: 800px; /* Ajusta el ancho máximo para centrado */
+    max-width: 1000px; /* Ajusta el ancho máximo para centrado */
+    height: auto;
     border-radius: 8px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 0 10px rgba(187, 172, 172, 0.1); 
     margin-top: 60px; /* Ajusta el margen superior para separarlo del navbar */
 }
 

@@ -1,22 +1,59 @@
 <!--HU03-CRUD-Corte de caja
 Carmen Catalina Delgado Manzano-->
 <div class="navbar">
-  <a [routerLink]="['/login']"><i class="fas fa-sign-in-alt"></i> Inicio de sesión</a>
-  <a [routerLink]="['/principal']"><i class="fas fa-home"></i> Página principal</a>
-  <a [routerLink]="['/clientesfrecuentes']"><i class="fas fa-users"></i> Clientes frecuentes</a>
-  <a [routerLink]="['/pedidosaproveedor']"><i class="fas fa-shopping-cart"></i> Pedidos</a>
-  <a [routerLink]="['/proveedores']"><i class="fas fa-truck"></i> Proveedores</a>
-  <a [routerLink]="['/entregasproveedor']"><i class="fas fa-shipping-fast"></i> Entregas</a>
-  <a [routerLink]="['/inventarios']"><i class="fas fa-boxes"></i> Inventarios</a>
-  <a [routerLink]="['/cortedecaja']"><i class="fas fa-cash-register"></i> Corte Caja</a>
-  <a [routerLink]="['/reportes']"><i class="fas fa-chart-line"></i> Informes</a>
-</div>
-<div class="flecha">
-  <a routerLink="/menu" class="back-icon">
-    <i class="fas fa-arrow-left"></i>
+  <!-- Logo Redirigiendo al MENU -->
+  <a href="/menu" class="logo-link">
+    <img src="https://images.vexels.com/content/200165/preview/store-icon-stroke-bb4ae2.png" alt="Logo Abarrotes el Perrón" class="logo">
   </a>
+  
+  <div class="nav-group">
+    <button class="dropdown-btn" [ngClass]="{'active': dropdownOpen['ventas-compras']}" (click)="toggleDropdown('ventas-compras')">
+      Ventas & Compras <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="dropdown-container" *ngIf="dropdownOpen['ventas-compras']">
+      <a routerLink="/principal"><i class="fas fa-home"></i> Ventas</a>
+      <a routerLink="/pedidosaproveedor"><i class="fas fa-shopping-cart"></i> Compras</a>
+      <a routerLink="/formulariofactura"><i class="fas fa-file-invoice"></i> Factura</a>
+    </div>
+  </div>
+  
+  <div class="nav-group">
+    <button class="dropdown-btn" [ngClass]="{'active': dropdownOpen['proveedores-entregas']}" (click)="toggleDropdown('proveedores-entregas')">
+      Proveedores & Entregas <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="dropdown-container" *ngIf="dropdownOpen['proveedores-entregas']">
+      <a routerLink="/proveedores"><i class="fas fa-truck"></i> Proveedores</a>
+      <a routerLink="/entregasproveedor"><i class="fas fa-shipping-fast"></i> Entregas</a>
+    </div>
+  </div>
+  
+  <div class="nav-group">
+    <button class="dropdown-btn" [ngClass]="{'active': dropdownOpen['inventarios-reportes']}" (click)="toggleDropdown('inventarios-reportes')">
+      Inventarios & Reportes <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="dropdown-container" *ngIf="dropdownOpen['inventarios-reportes']">
+      <a routerLink="/inventarios"><i class="fas fa-boxes"></i> Inventarios</a>
+      <a routerLink="/cortedecaja"><i class="fas fa-cash-register"></i> Corte Caja</a>
+      <a routerLink="/reportes"><i class="fas fa-chart-line"></i> Informes</a>
+    </div>
+  </div>
+  
+  <div class="nav-group">
+    <button class="dropdown-btn" [ngClass]="{'active': dropdownOpen['otros']}" (click)="toggleDropdown('otros')">
+      Otros <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="dropdown-container" *ngIf="dropdownOpen['otros']">
+      <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
+      <a routerLink="/gestiondescuento"><i class="fas fa-percentage"></i> Descuento Por Mayoreo</a>
+      <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
+      <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
+      <a routerLink="/login"><i class="fas fa-sign-in-alt"></i> Inicio de Sesión</a>
+    </div>
+  </div>
 </div>
 
+
+<!--CORTE DE CAJA-->
 <div class="centered-container">
   <div class="corte-caja-container card">
     <div class="card-header">CORTE DE CAJA</div>
@@ -24,6 +61,14 @@ Carmen Catalina Delgado Manzano-->
       <div class="form-group">
         <label for="id_Usuario">Clave Empleado</label>
         <input type="text" class="form-control" id="id_Usuario" [(ngModel)]="id_Usuario">
+      </div>
+      <div class="form-group">
+        <label for="monto_Inicia">Monto Inicia</label>
+        <input type="number" class="form-control" id="monto_Inicia" [(ngModel)]="monto_Inicia">
+      </div>
+      <div class="form-group">
+        <label for="monto_Termina">Monto Inicia</label>
+        <input type="number" class="form-control" id="monto_Termina" [(ngModel)]="monto_Termina">
       </div>
       <div class="form-group">
         <label for="fecha">Fecha</label>
@@ -42,6 +87,7 @@ Carmen Catalina Delgado Manzano-->
           <tr>
             <th>Fecha</th>
             <th>Total de Ventas</th>
+            <th>Monto con el que inici</th>
             <th>Monto a Entregar</th>
           </tr>
         </thead>

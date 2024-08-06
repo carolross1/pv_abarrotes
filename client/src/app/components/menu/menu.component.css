@@ -1,6 +1,6 @@
 .menu-container {
   background-color: #E0BBE4;
-  padding: 20px;
+  padding: 0px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-  margin-top: 90px;
+  margin-top: 30px;
 }
 
 .back-icon {

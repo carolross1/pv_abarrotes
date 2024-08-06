@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ProductoService } from '../../../services/productos/producto.service';
 import { Producto } from '../../../models/Producto';  
@@ -8,10 +8,9 @@ import { Categoria } from '../../../models/Categoria';
 @Component({
   selector: 'app-producto',
   templateUrl:'./producto.component.html',
-  styleUrl: './producto.component.css'
+  styleUrls: ['./producto.component.css'] // Corregido de styleUrl a styleUrls
 })
 export class ProductoComponent implements OnInit {
-
 
   productos: Producto[] = [];
   producto: Producto = {
@@ -23,16 +22,18 @@ export class ProductoComponent implements OnInit {
     utilidad: 0,
     cantidad_Stock: 0,
     cant_Minima: 0,
-    codigo_Barras:0
+    codigo_Barras: 0
   };
-  categorias: Categoria[]=[];
+  categorias: Categoria[] = [];
   editando: boolean = false;
   mostrarProductos: boolean = false;
   
-  constructor(private productoService: ProductoService,private categoriaService:CategoriaService) { }
+  // Agrega una propiedad para manejar el estado de los menús desplegables
+  dropdownOpen: { [key: string]: boolean } = {};
+
+  constructor(private productoService: ProductoService, private categoriaService: CategoriaService) { }
 
   ngOnInit() {
-
     this.cargarProductos();
     this.getCategorias();
   }
@@ -44,20 +45,20 @@ export class ProductoComponent implements OnInit {
   getCategorias(): void {
     this.categoriaService.getCategorias().subscribe(categorias => this.categorias = categorias);
   }
+
   guardarProducto() {
-    
-      if (this.editando) {
-        this.productoService.updateProducto(this.producto).subscribe(() => {
-          this.cargarProductos();
-          this.cancelarEdicion();
-        });
-      } else {
-        this.productoService.createProducto(this.producto).subscribe(() => {
-          this.cargarProductos();
-          this.cancelarEdicion();
-        });
-      }
-    } 
+    if (this.editando) {
+      this.productoService.updateProducto(this.producto).subscribe(() => {
+        this.cargarProductos();
+        this.cancelarEdicion();
+      });
+    } else {
+      this.productoService.createProducto(this.producto).subscribe(() => {
+        this.cargarProductos();
+        this.cancelarEdicion();
+      });
+    }
+  } 
 
   editarProducto(producto: Producto) {
     this.producto = { ...producto };
@@ -79,7 +80,19 @@ export class ProductoComponent implements OnInit {
       utilidad: 0,
       cantidad_Stock: 0,
       cant_Minima: 0,
-      codigo_Barras:0
+      codigo_Barras: 0
     };
+  }
+
+  // Método para alternar el estado de los menús desplegables
+  toggleDropdown(menu: string): void {
+    // Cierra todos los menús desplegables
+    Object.keys(this.dropdownOpen).forEach(key => {
+      if (key !== menu) {
+        this.dropdownOpen[key] = false;
+      }
+    });
+    // Alterna el menú desplegable actual
+    this.dropdownOpen[menu] = !this.dropdownOpen[menu];
   }
 }

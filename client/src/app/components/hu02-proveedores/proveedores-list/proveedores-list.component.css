@@ -15,9 +15,8 @@
 .navbar {
   display: flex;
   flex-wrap: wrap;
-  background-color: #5b3d99; /* Color de fondo de la barra de navegación */
+  background-color: #5b3d99;
   padding: 10px;
-  justify-content: center; /* Centra el contenido horizontalmente */
 }
 
 .nav-group {
@@ -26,8 +25,8 @@
 }
 
 .dropdown-btn {
-  background-color: #5b3d99; /* Color de fondo del botón del desplegable */
-  color: #fff; /* Color del texto */
+  background-color: #5b3d99;
+  color: #fff;
   border: none;
   padding: 10px;
   text-align: center;
@@ -43,7 +42,7 @@
 
 .dropdown-container {
   display: none;
-  background-color: #d0b4f1; /* Color de fondo del contenedor del desplegable */
+  background-color: #d0b4f1;
   border-radius: 5px;
   padding: 0;
   position: absolute;
@@ -58,15 +57,22 @@
   padding: 10px;
   color: #333;
   text-decoration: none;
-  border-bottom: 1px solid #ccc; /* Borde inferior */
+  border-bottom: 1px solid #ccc;
 }
 
 .dropdown-container a:hover {
-  background-color: #bfa8e3; /* Color de fondo al pasar el ratón */
+  background-color: #bfa8e3;
 }
 
 .dropdown-btn.active + .dropdown-container {
   display: block;
+}
+
+/* Ensuring responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: column;
+  }
 }
 
 /* Estilos para el contenedor de proveedores */
