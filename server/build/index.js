@@ -13,6 +13,7 @@ const ventasRoutes_1 = __importDefault(require("./routes/ventasRoutes"));
 const categoriaRoutes_1 = __importDefault(require("./routes/categoriaRoutes"));
 const facturaRoutes_1 = __importDefault(require("./routes/facturaRoutes"));
 const loginRoutes_1 = __importDefault(require("./routes/loginRoutes"));
+const reportesRoutes_1 = __importDefault(require("./routes/reportesRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -35,6 +36,7 @@ class Server {
         this.app.use('/api/categorias', categoriaRoutes_1.default);
         this.app.use('/api/facturas', facturaRoutes_1.default);
         this.app.use('/api/login', loginRoutes_1.default);
+        this.app.use('/api/reportes', reportesRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

@@ -56,9 +56,10 @@
     
     <div class="reportes-filtros">
       <label for="fechaDesde">Desde:</label>
-      <input type="date" id="fechaDesde" name="fechaDesde">
+      <input type="date" id="fechaDesde" [(ngModel)]="fechaDesde" name="fechaDesde">
       <label for="fechaHasta">Hasta:</label>
-      <input type="date" id="fechaHasta" name="fechaHasta">
+      <input type="date" id="fechaHasta" [(ngModel)]="fechaHasta" name="fechaHasta">
+      <button (click)="obtenerReportes(fechaDesde,fechaHasta)">Obtener Reportes</button>
     </div>
   
     <table>
@@ -66,30 +67,24 @@
         <tr>
           <th>Producto</th>
           <th>Precio Unitario</th>
-          <th>Precio Total del Producto</th>
-          <th>Total de Ventas</th>
+          <th>Unidades vendidas</th>
+          <th>Total de ventas</th>
+          <th>Ganancias</th>
         </tr>
       </thead>
       <tbody>
-        <!-- Aquí se podrían agregar dinámicamente los reportes -->
-        <tr>
-          <td>Producto A</td>
-          <td>$10.00</td>
-          <td>$100.00</td>
-          <td>$500.00</td>
+        <tr *ngFor="let reporte of reportes">
+          <td>{{ reporte.producto }}</td>
+          <td>{{ reporte.precioUnitario | currency }}</td>
+          <td>{{ reporte.cantidadTotal | currency }}</td>
+          <td>{{ reporte.precioTotalProducto | currency }}</td>
+          <td>{{ reporte.ganancias | currency }}</td>
         </tr>
         <tr>
-          <td>Producto B</td>
-          <td>$20.00</td>
-          <td>$200.00</td>
-          <td>$1000.00</td>
+          <tr class="total-g">
+          <td colspan="4"><strong>Total de ganancias:</strong></td>
+          <td>{{ totalGanancias | currency }}</td>
         </tr>
       </tbody>
     </table>
-  
-    <div class="reportes-descarga">
-      <button class="btn pdf-btn">Descargar como PDF</button>
-      <button class="btn csv-btn">Descargar como CSV</button>
-    </div>
   </div>
-  
