@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ReporteService } from '../../../services/reportes/reportes.service';
+import { Reportes } from '../../../models/Reportes';
 
 @Component({
   selector: 'app-reportes',
@@ -6,9 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './reportes.component.css'
 })
 export class ReportesComponent {
+  fechaDesde: string='';
+  fechaHasta: string='';
+  reportes: Reportes[] = [];
+  totalGanancias: number=0; 
 
-  dropdownOpen: { [key: string]: boolean } = {}; // Estado de los menús desplegables
+  constructor(private reportesService: ReporteService) {}
   
+  dropdownOpen: { [key: string]: boolean } = {}; // Estado de los menús desplegables
   toggleDropdown(key: string): void {
     // Primero, cerrar cualquier otro desplegable que esté abierto
     for (const dropdownKey in this.dropdownOpen) {
@@ -19,4 +26,22 @@ export class ReportesComponent {
     // Alternar el estado del desplegable actual
     this.dropdownOpen[key] = !this.dropdownOpen[key];
   }
+
+
+  obtenerReportes(fechaDesde: string, fechaHasta: string): void {
+    this.reportesService.obtenerReporte(fechaDesde, fechaHasta).subscribe(
+      data => {
+        this.reportes = data;
+        console.log('Reportes obtenidos:', this.reportes);
+        this.calcularTotalGanancias();
+      },
+      error => {
+        console.error('Error obteniendo reportes:', error);
+      }
+    );
+}
+
+calcularTotalGanancias() {
+  this.totalGanancias = this.reportes.reduce((sum, reporte) => sum + reporte.ganancias, 0);
+}
 }

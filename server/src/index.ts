@@ -8,6 +8,7 @@ import ventasRoutes from './routes/ventasRoutes';
 import categoriaRoutes from './routes/categoriaRoutes';
 import facturaRoutes from './routes/facturaRoutes';
 import loginRoutes from './routes/loginRoutes';
+import reportesRoutes from './routes/reportesRoutes';
 
 class Server{
 public app:Application;
@@ -34,8 +35,7 @@ constructor(){
         this.app.use('/api/categorias',categoriaRoutes);
         this.app.use('/api/facturas', facturaRoutes); 
         this.app.use('/api/login', loginRoutes); 
-
-
+        this.app.use('/api/reportes',reportesRoutes);
         
     }
     start():void{
