@@ -36,7 +36,7 @@ export const createVenta = async (req: Request, res: Response) => {
 
 export const registrarDetallesVenta = async (req: Request, res: Response) => {
   const detalles = req.body; // Asume que `req.body` es un array de detalles de venta
-  //const detalles= DetalleVenta[]
+ 
 console.log('ARRAYS:',detalles);
 
   try {

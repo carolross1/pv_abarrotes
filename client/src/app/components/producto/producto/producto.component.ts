@@ -13,6 +13,8 @@ import { Categoria } from '../../../models/Categoria';
 export class ProductoComponent implements OnInit {
 
   productos: Producto[] = [];
+  filteredProductos: Producto[] = []; 
+  searchTerm: string = '';
   producto: Producto = {
     id_Producto: 0,
     nombre: '',
@@ -27,6 +29,7 @@ export class ProductoComponent implements OnInit {
   categorias: Categoria[] = [];
   editando: boolean = false;
   mostrarProductos: boolean = false;
+
   
   // Agrega una propiedad para manejar el estado de los menús desplegables
   dropdownOpen: { [key: string]: boolean } = {};
@@ -39,7 +42,10 @@ export class ProductoComponent implements OnInit {
   }
   
   cargarProductos() {
-    this.productoService.getProductos().subscribe(data => this.productos = data);
+    this.productoService.getProductos().subscribe(data => {
+      this.productos = data;
+      this.filteredProductos = data; // INICIALIZAR LA LISTA FILTRADA
+    });
   }
 
   getCategorias(): void {
@@ -94,5 +100,12 @@ export class ProductoComponent implements OnInit {
     });
     // Alterna el menú desplegable actual
     this.dropdownOpen[menu] = !this.dropdownOpen[menu];
+  }
+  searchProductos(): void {
+    if (this.searchTerm.trim()) {
+      this.filteredProductos = this.productos.filter(p => p.nombre.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    } else {
+      this.filteredProductos = this.productos; // RESTABLECER LA LISTA SI NO HAY TÉRMINO DE BÚSQUEDA
+    }
   }
 }
