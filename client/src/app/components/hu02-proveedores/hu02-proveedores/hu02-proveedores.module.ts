@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CancelarPedidoComponent } from '../cancelar-pedido/cancelar-pedido.component';
 import { EntregasProveedorComponent } from '../entregas-proveedor/entregas-proveedor.component';
 import { PedidosAProveedorComponent } from '../pedidos-a-proveedor/pedidos-a-proveedor.component';
-import { ProveedorFormComponent } from '../proveedores/proveedores.component';
-import { ProveedoresListComponent } from '../proveedores-list/proveedores-list.component';
+import { ListaProveedoresComponent } from '../proveedores-list/proveedores-list.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -13,8 +12,7 @@ import { FormsModule } from '@angular/forms';
 CancelarPedidoComponent,
 PedidosAProveedorComponent,
 EntregasProveedorComponent,
-ProveedoresListComponent,
-ProveedorFormComponent
+ListaProveedoresComponent,
 
   ],
   imports: [
@@ -26,8 +24,8 @@ ProveedorFormComponent
     CancelarPedidoComponent,
 PedidosAProveedorComponent,
 EntregasProveedorComponent,
-ProveedoresListComponent,
-ProveedorFormComponent
+ListaProveedoresComponent,
+
   ]
 })
 export class Hu02ProveedoresModule { }

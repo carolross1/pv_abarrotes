@@ -1,3 +1,4 @@
+
 import express,{Application} from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -9,6 +10,7 @@ import categoriaRoutes from './routes/categoriaRoutes';
 import facturaRoutes from './routes/facturaRoutes';
 import loginRoutes from './routes/loginRoutes';
 import reportesRoutes from './routes/reportesRoutes';
+import proveedoresListRoutes from './routes/proveedores-listRoutes';
 
 class Server{
 public app:Application;
@@ -36,6 +38,7 @@ constructor(){
         this.app.use('/api/facturas', facturaRoutes); 
         this.app.use('/api/login', loginRoutes); 
         this.app.use('/api/reportes',reportesRoutes);
+        this.app.use('/api/proveedores',proveedoresListRoutes);
         
     }
     start():void{
@@ -47,3 +50,4 @@ constructor(){
     }
 const server=new Server();
 server.start(); 
+
