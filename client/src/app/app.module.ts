@@ -18,6 +18,7 @@ import { ProductoServiceModule} from './services/productos/productos.module';
 import { ProductoModule } from './components/producto/producto.module';
 import { ProductoService } from './services/productos/producto.service';
 import { VentaService } from './services/principal-ventas/venta.service';
+import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { VentaService } from './services/principal-ventas/venta.service';
     AppComponent,
    MenuComponent,
    LoginComponent,
+   NuevoUsuarioComponent,
   ],
   imports: [
     BrowserModule,

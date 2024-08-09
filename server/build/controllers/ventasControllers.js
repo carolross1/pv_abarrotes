@@ -42,7 +42,6 @@ const createVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.createVenta = createVenta;
 const registrarDetallesVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const detalles = req.body; // Asume que `req.body` es un array de detalles de venta
-    //const detalles= DetalleVenta[]
     console.log('ARRAYS:', detalles);
     try {
         // Usa una transacción para insertar múltiples detalles

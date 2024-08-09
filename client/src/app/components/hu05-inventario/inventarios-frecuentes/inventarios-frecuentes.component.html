@@ -1,3 +1,4 @@
+
 <!--HU05-CRUD-Inventario Interfaz No.2
 Carmen Catalina Delgado Manzano-->
 
@@ -57,362 +58,55 @@ Carmen Catalina Delgado Manzano-->
 
 <div class="inventariosfrecuentes-container">
     <div class="inventariosfrecuentes-content-wrapper">
-        <div class="inventariosfrecuentes-sidebar">
-            <div class="title-categorias">
-            <h2>Categorías de Inventario</h2>
-        </div>
-        <div class="color-body">
-          <ul id="categorias-list">
-            <li><input type="checkbox"> Categoría 1</li>
-            <li><input type="checkbox"> Categoría 2</li>
-            <li><input type="checkbox"> Categoría 3</li>
-            <li><input type="checkbox"> Categoría 1</li>
-            <li><input type="checkbox"> Categoría 2</li>
-            <li><input type="checkbox"> Categoría 3</li>
-            <li><input type="checkbox"> Categoría 1</li>
-            <li><input type="checkbox"> Categoría 2</li>
-            <li><input type="checkbox"> Categoría 1</li>
-            <li><input type="checkbox"> Categoría 2</li>
-            <li><input type="checkbox"> Categoría 3</li>
-            <li><input type="checkbox"> Categoría 1</li>
-            <li><input type="checkbox"> Categoría 2</li>
-            <li><input type="checkbox"> Categoría 3</li>
-            <!-- Agrega más categorías según sea necesario -->
-        </ul>
-        </div>
-            <div class="buttons">
-                <button onclick="borrarCategoria()">Borrar</button>
-                <button onclick="modificarCategoria()">Modificar</button>
-                <button onclick="seleccionarCategoria()">Seleccionar</button>
-            </div>
-        </div>
         <div class="inventariosfrecuentes-main-content">
             <h2>Nuevo Inventario Selectivo</h2>
             <div>
-                <label for="descripcion">Descripción de Inventario: </label>
-                <div class="description-categoria">
-                <span id="descripcion">Seleccione una categoría</span>
+
+              <div class="form-group mb-4">
+                <label for="searchTerm">Nombre de Producto</label>
+              <input type="text" [(ngModel)]="searchTerm" (input)="searchProductos()" (keydown)="onKeyDown($event)" class="form-control"  placeholder="Ingrese el nombre del producto">
+              </div>
+              <div class="form-group mb-4">
+              <label for="searchTermC">Codigo de barras</label>
+              <input type="text" [(ngModel)]="searchTermC" (input)="searchProductos()" (keydown)="onKeyDown($event)" class="form-control"  placeholder="Ingrese codigo de barras del producto">
             </div>
+              <div class="buttons">
+                <button (click)="guardarDetallesYcerrarInventario()">Cerrar Inventario</button>
+              </div>
             </div>
+          
             <div class="conteiner-articulos">
             <table class="inventory-table">
-                <thead>
-                    <tr>
-                        <th>Artículo</th>
-                        <th>Descripción</th>
-                        <th>Físico</th>
-                        <th>Faltante</th>
-                        <th>Sobrante</th>
-                    </tr>
-                </thead>
                 <tbody>
-                    <tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr>
-                      <tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr>
-                      <tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr>
-                      <tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr>
-                      <tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr>
-                      <tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr>
-                      <tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr>
-                      <tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr>
-                      <tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr>
-                      <tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr><tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr><tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr><tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr><tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr><tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr><tr>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-
-                      </tr>
-                      <tr>
-                        <td>February</td>
-                        <td>$80</td>
-                        <td>January</td>
-                        <td>$100</td>
-                        <td>$100</td>
-                      </tr>
+                  <div>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Producto</th>
+                          <th>Stock</th>
+                          <th>Físico</th>
+                          <th>Faltante</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let producto of productosFiltrados">
+                            <td>{{ producto.nombre }}</td>
+                          <td>{{ producto.nuevaCantidadStock !== undefined ? producto.nuevaCantidadStock : producto.cantidad_Stock }}</td>
+                          <td>
+                            <input type="number" [(ngModel)]="producto.cantidadFisica" (ngModelChange)="onCantidadFisicaChange(producto) "  #cantidadFisicaInput />
+                          </td>
+                          <td>{{ calcularFaltante(producto) }}</td>
+                          <td>
+                            <button (click)="editarStock(producto)">Actualizar Stock</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table> 
+                  </div>
                 </tbody>
-                <tfoot>
-                  <tr class="table-footer">
-                      <td colspan="3">Total</td>
-                      <td id="totalFaltante">0</td>
-                      <td id="totalSobrante">0</td>
-                  </tr>
-              </tfoot>
             </table>
         </div>
-            <div class="buttons">
-                <button onclick="exportarPDF()">Exportar en PDF</button>
-                <button onclick="exportarCSV()">Exportar en CSV</button>
-                <button onclick="guardarIncompleto()">Guardar Incompleto</button>
-                <button onclick="guardar()">Guardar</button>
-                <button onclick="imprimir()">Imprimir</button>
-                <button onclick="salir()">Salir</button>
-            </div>
         </div>
     </div>
 </div>
-
-<script>
-    function borrarCategoria() {
-        // Lógica para borrar una categoría
-        alert('Borrar categoría');
-    }
-
-    function modificarCategoria() {
-        // Lógica para modificar una categoría
-        alert('Modificar categoría');
-    }
-
-    function seleccionarCategoria(element) {
-        // Deseleccionar todas las categorías
-        const categorias = document.querySelectorAll('#categorias-list li');
-        categorias.forEach(categoria => categoria.classList.remove('selected'));
-
-        // Seleccionar la categoría clicada
-        element.classList.add('selected');
-
-        // Actualizar la descripción del inventario
-        const descripcion = document.getElementById('descripcion');
-        descripcion.innerText = element.innerText;
-    }
-
-    function exportarPDF() {
-        // Lógica para exportar en PDF
-        alert('Exportar en PDF');
-    }
-
-    function exportarCSV() {
-        // Lógica para exportar en CSV
-        alert('Exportar en CSV');
-    }
-
-    function guardarIncompleto() {
-        // Lógica para guardar incompleto
-        alert('Guardar incompleto');
-    }
-
-    function guardar() {
-        // Lógica para guardar
-        alert('Guardar');
-    }
-
-    function imprimir() {
-        // Lógica para imprimir
-        alert('Imprimir');
-    }
-
-    function salir() {
-        // Lógica para salir
-        alert('Salir');
-    }
-</script>

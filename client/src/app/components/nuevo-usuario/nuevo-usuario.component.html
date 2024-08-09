@@ -1,0 +1,68 @@
+<form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="id_Usuario">ID Usuario:</label>
+      <input id="id_Usuario" formControlName="id_Usuario" />
+      <div *ngIf="createUserForm.get('id_Usuario')?.invalid && (createUserForm.get('id_Usuario')?.touched || createUserForm.get('id_Usuario')?.dirty)">
+        <small *ngIf="createUserForm.get('id_Usuario')?.errors?.['required']">ID Usuario es obligatorio.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" formControlName="nombre" />
+      <div *ngIf="createUserForm.get('nombre')?.invalid && (createUserForm.get('nombre')?.touched || createUserForm.get('nombre')?.dirty)">
+        <small *ngIf="createUserForm.get('nombre')?.errors?.['required']">Nombre es obligatorio.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="apellido">Apellido:</label>
+      <input id="apellido" formControlName="apellido" />
+      <div *ngIf="createUserForm.get('apellido')?.invalid && (createUserForm.get('apellido')?.touched || createUserForm.get('apellido')?.dirty)">
+        <small *ngIf="createUserForm.get('apellido')?.errors?.['required']">Apellido es obligatorio.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="telefono">Teléfono:</label>
+      <input id="telefono" formControlName="telefono" />
+      <div *ngIf="createUserForm.get('telefono')?.invalid && (createUserForm.get('telefono')?.touched || createUserForm.get('telefono')?.dirty)">
+        <small *ngIf="createUserForm.get('telefono')?.errors?.['required']">Teléfono es obligatorio.</small>
+        <small *ngIf="createUserForm.get('telefono')?.errors?.['pattern']">Teléfono debe ser un número válido de 10 a 13 dígitos.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" />
+      <div *ngIf="createUserForm.get('email')?.invalid && (createUserForm.get('email')?.touched || createUserForm.get('email')?.dirty)">
+        <small *ngIf="createUserForm.get('email')?.errors?.['required']">Email es obligatorio.</small>
+        <small *ngIf="createUserForm.get('email')?.errors?.['email']">Email no es válido.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="contrasena">Contraseña:</label>
+      <input id="contrasena" type="password" formControlName="contrasena" />
+      <div *ngIf="createUserForm.get('contrasena')?.invalid && (createUserForm.get('contrasena')?.touched || createUserForm.get('contrasena')?.dirty)">
+        <small *ngIf="createUserForm.get('contrasena')?.errors?.['required']">Contraseña es obligatoria.</small>
+        <small *ngIf="createUserForm.get('contrasena')?.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</small>
+        <small *ngIf="createUserForm.get('contrasena')?.errors?.['pattern']">La contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="tipo_Usuario">Tipo de Usuario:</label>
+      <select id="tipo_Usuario" formControlName="tipo_Usuario">
+        <option value="">Seleccione un tipo de usuario</option>
+        <option value="Usuario">Usuario</option>
+        <option value="Admin">Admin</option>
+      </select>
+      <div *ngIf="createUserForm.get('tipo_Usuario')?.invalid && (createUserForm.get('tipo_Usuario')?.touched || createUserForm.get('tipo_Usuario')?.dirty)">
+        <small *ngIf="createUserForm.get('tipo_Usuario')?.errors?.['required']">Tipo de Usuario es obligatorio.</small>
+      </div>
+    </div>
+  
+    <button type="submit" [disabled]="createUserForm.invalid">Registrar Usuario</button>
+  </form>
+  

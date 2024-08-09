@@ -17,7 +17,7 @@ import { ClientesFrecuentesComponent } from './components/hu06-cliente-frecuente
 import { ListaClientesFrecuentesComponent } from './components/hu06-cliente-frecuente/lista-clientes-frecuentes/lista-clientes-frecuentes.component'; 
 import { ProveedoresListComponent } from './components/hu02-proveedores/proveedores-list/proveedores-list.component';
 import { FacturaComponent } from './components/hu01-venta-diaria/factura/factura.component';
-import { DescuentoComponent } from './components/hu01-venta-diaria/descuento/descuento.component';
+import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 import { ProductoComponent } from './components/producto/producto/producto.component';
 import { ListaCategoriasComponent } from './components/producto/categoria/lista-categorias/lista-categorias.component';
 
@@ -35,11 +35,11 @@ const routes: Routes = [
     path:'menu', 
     component:MenuComponent
   },
+  { path: 'inventariofrecuente/:id', 
+    component: InventariosFrecuentesComponent, 
+  },
   { path: 'inventarios', 
     component: InventarioComponent, 
-  },
-  { path: 'inventariofrecuente', 
-    component: InventariosFrecuentesComponent, 
   },
   {
     path:'notificacion', 
@@ -95,8 +95,8 @@ const routes: Routes = [
   },
 
   {
-    path:'gestiondescuento',
-    component:DescuentoComponent
+    path:'usuario',
+    component:NuevoUsuarioComponent
   },
   {
     path:'productos',
