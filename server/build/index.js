@@ -17,7 +17,6 @@ const reportesRoutes_1 = __importDefault(require("./routes/reportesRoutes"));
 const proveedores_listRoutes_1 = __importDefault(require("./routes/proveedores-listRoutes"));
 const inventarioRoutes_1 = __importDefault(require("./routes/inventarioRoutes"));
 const usuarioRoutes_1 = __importDefault(require("./routes/usuarioRoutes"));
-
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
