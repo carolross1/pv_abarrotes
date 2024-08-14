@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-cancelar-pedido',
   templateUrl: './cancelar-pedido.component.html',
   styleUrls: ['./cancelar-pedido.component.css']
 })
+
 export class CancelarPedidoComponent {
+
+  constructor(private loginService:LoginService){}
+
   // Declaración de la propiedad dropdownOpen
   dropdownOpen: { [key: string]: boolean } = {
     'ventas-compras': false,
@@ -24,5 +29,13 @@ export class CancelarPedidoComponent {
     }
     // Alternar el estado del desplegable actual
     this.dropdownOpen[key] = !this.dropdownOpen[key];
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }

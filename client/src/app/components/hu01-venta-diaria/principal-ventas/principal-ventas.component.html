@@ -74,11 +74,9 @@
       *ngIf="dropdownOpen['otros']"
     >
       <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
-      <a routerLink="/gestiondescuento"><i class="fas fa-percentage"></i> Descuento Por Mayoreo</a>
+      <a routerLink="/usuario"><i class="fas fa-percentage"></i> Agregar Usuario</a>
       <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
       <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
-      <a routerLink="/login"><i class="fas fa-sign-in-alt"></i> Inicio de Sesión</a>
-      <!-- Agrega este enlace para cerrar sesión -->
   <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
     </div>
   </div>
@@ -164,3 +162,6 @@
           placeholder="Descuento (%)" />
     </div>
 </div>
+
+
+

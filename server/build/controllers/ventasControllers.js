@@ -41,24 +41,21 @@ const createVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.createVenta = createVenta;
 const registrarDetallesVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const detalles = req.body; // Asume que `req.body` es un array de detalles de venta
-    //const detalles= DetalleVenta[]
-    console.log('ARRAYS:', detalles);
+    const detalle = req.body;
+    console.log('Detalle recibido:', detalle);
     try {
-        // Usa una transacción para insertar múltiples detalles
+        // Usa una transacción para asegurar la integridad
         yield database_1.default.query('START TRANSACTION'); // Iniciar transacción
-        for (const detalle of detalles) {
-            const { id_Venta, id_Producto, descuento, cantidad, total_venta } = detalle;
-            console.log('Insertando detalle:', id_Venta, id_Producto, descuento, cantidad, total_venta);
-            yield database_1.default.query('INSERT INTO detalle_venta (id_Venta, id_Producto, descuento, cantidad, total_venta) VALUES (?, ?, ?, ?, ?)', [id_Venta, id_Producto, descuento, cantidad, total_venta]);
-        }
+        const { id_Venta, id_Producto, descuento, cantidad, total_venta } = detalle;
+        console.log('Insertando detalle:', id_Venta, id_Producto, descuento, cantidad, total_venta);
+        yield database_1.default.query('INSERT INTO detalle_venta (id_Venta, id_Producto, descuento, cantidad, total_venta) VALUES (?, ?, ?, ?, ?)', [id_Venta, id_Producto, descuento, cantidad, total_venta]);
         yield database_1.default.query('COMMIT'); // Confirmar transacción
-        res.status(200).json({ success: true, message: 'Detalles de venta registrados con éxito' });
+        res.status(200).json({ success: true, message: 'Detalle de venta registrado con éxito' });
     }
     catch (error) {
         yield database_1.default.query('ROLLBACK'); // Revertir transacción en caso de error
-        console.error('Error al registrar detalles de venta:', error);
-        res.status(500).json({ message: 'Error al registrar los detalles de venta' });
+        console.error('Error al registrar detalle de venta:', error);
+        res.status(500).json({ message: 'Error al registrar el detalle de venta' });
     }
 });
 exports.registrarDetallesVenta = registrarDetallesVenta;

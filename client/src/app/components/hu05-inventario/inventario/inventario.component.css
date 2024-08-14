@@ -1,4 +1,3 @@
-/* Estilos para el contenedor del logo */
 .logo-container {
   display: flex;
   align-items: center;
@@ -116,6 +115,23 @@
   padding: 10px;
 }
 
+.crear-inventario-container label {
+  font-size: 14px;
+  color: #000; /* Color negro para el texto de las etiquetas */
+  display: block;
+  margin-bottom: 5px;
+}
+
+.crear-inventario-container input[type="date"],
+.crear-inventario-container input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #bdc3c7;
+  font-size: 14px; /* Tamaño de fuente consistente */
+}
+
 .color-body {
   background-color: white;
   border-radius: 10px;
@@ -126,14 +142,6 @@
 .radio-options {
   display: flex;
   flex-direction: column;
-}
-
-.radio-option {
-  margin-bottom: 10px;
-}
-
-.radio-option input[type="radio"] {
-  margin-right: 10px;
 }
 
 .inventariosfrecuentes-main-content {
@@ -148,27 +156,8 @@
   margin-bottom: 20px;
 }
 
-.description-categoria {
-  font-size: 18px;
-  background-color: #f3e9ff;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 20px;
-}
-
 .conteiner-articulos {
   margin-bottom: 20px;
-}
-
-.inventory-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.inventory-table th, .inventory-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
 }
 
 .inventory-table th {

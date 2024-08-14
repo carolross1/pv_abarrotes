@@ -29,8 +29,12 @@ export const addCategoria = async (req: Request, res: Response): Promise<Respons
 export const deleteCategoria = async (req: Request, res: Response): Promise<Response> => {
   const { idCategoria } = req.params;
   try {
-    await pool.query('DELETE FROM categoria WHERE id_Categoria = ?', [idCategoria]);
-    return res.status(204).json();
+    const result = await pool.query('DELETE FROM categoria WHERE id_Categoria = ?', [idCategoria]);
+    if (result.affectedRows > 0) {
+      return res.status(200).json({ message: 'Categoría eliminada exitosamente' });
+    } else {
+      return res.status(404).json({ message: 'Categoría no encontrada' });
+    }
   } catch (err) {
     const error = err as CustomError;
     return res.status(500).json({ error: error.message });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProveedoresService } from '../../../services/Proveedores/proveedores-list.service';
 import { Proveedor } from '../../../models/Proveedores-list';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-proveedores-list',
@@ -16,7 +17,8 @@ export class ListaProveedoresComponent implements OnInit {
   searchTerm: string = '';
   dropdownOpen: { [key: string]: boolean } = {};
 
-  constructor(private proveedorService: ProveedoresService) {}
+
+  constructor(private proveedorService: ProveedoresService,private loginService:LoginService) {}
 
   ngOnInit(): void {
     this.getProveedores();
@@ -65,6 +67,7 @@ export class ListaProveedoresComponent implements OnInit {
     }
   }
 
+
   deleteProveedor(idProveedor: number): void { // Cambia el tipo a `number`
     this.proveedorService.deleteProveedor(idProveedor).subscribe(() => {
       this.getProveedores(); // Volver a obtener la lista actualizada
@@ -91,5 +94,13 @@ export class ListaProveedoresComponent implements OnInit {
     }
     // Alternar el estado del desplegable actual
     this.dropdownOpen[menu] = !this.dropdownOpen[menu];
+
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }

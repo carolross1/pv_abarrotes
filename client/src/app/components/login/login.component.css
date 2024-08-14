@@ -12,14 +12,14 @@ body, html {
 }
 
 .index-page {
-    background-color: #d0b4f1;
+    background-color: #d8d5db;
     padding: 10px;
     max-width: 350px; /* Reducido el tamaño máximo */
-    width: 100%; /* Asegura que el contenedor tenga el 100% del ancho disponible */
+    width: 800px; /* Asegura que el contenedor tenga el 100% del ancho disponible */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    height: auto; /* Ajustado para que se ajuste al contenido */
+    height: 620px; /* Ajustado para que se ajuste al contenido */
     box-sizing: border-box; /* Incluye padding y border en el cálculo del width */
 }
 

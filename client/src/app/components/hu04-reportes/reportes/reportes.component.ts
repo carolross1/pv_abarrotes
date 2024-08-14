@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ReporteService } from '../../../services/reportes/reportes.service';
 import { Reportes } from '../../../models/Reportes';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-reportes',
@@ -13,7 +14,7 @@ export class ReportesComponent {
   reportes: Reportes[] = [];
   totalGanancias: number=0; 
 
-  constructor(private reportesService: ReporteService) {}
+  constructor(private reportesService: ReporteService, private loginService:LoginService) {}
   
   dropdownOpen: { [key: string]: boolean } = {}; // Estado de los menús desplegables
   toggleDropdown(key: string): void {
@@ -43,5 +44,13 @@ export class ReportesComponent {
 
 calcularTotalGanancias() {
   this.totalGanancias = this.reportes.reduce((sum, reporte) => sum + reporte.ganancias, 0);
+}
+logout() {
+  const logoutRealizado = this.loginService.logout();
+  if (!logoutRealizado) { 
+    return;
+  }
+  
+  console.log('Cierre de sesión realizado correctamente.');
 }
 }

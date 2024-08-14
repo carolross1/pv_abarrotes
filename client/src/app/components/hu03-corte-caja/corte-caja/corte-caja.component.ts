@@ -1,32 +1,168 @@
-
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CorteCajaService } from '../../../services/corte-caja/corte-caja.service';
+import { CorteCaja } from '../../../models/CorteCaja';
 import { LoginService } from '../../../services/login/login.service';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-corte-caja',
   templateUrl: './corte-caja.component.html',
-  styleUrl:'./corte-caja.component.css',
-  encapsulation: ViewEncapsulation.Emulated
+  styleUrls: ['./corte-caja.component.css']
 })
 export class CorteCajaComponent implements OnInit {
+    corte: any[] = [];
+
+  corteActual: CorteCaja = {
+    id_Corte: 0,
+    fecha: '',
+    hora_Inicio: '',
+    hora_Fin:'',
+    saldo_Inicial: 0,
+    ingresos: 0,
+    egresos: 0,
+    saldo_Final: 0,
+    id_Usuario: ''
+  };
+  saldo_Inicial: number = 0;
+  saldo_Final: number = 0;
   id_Usuario: string = '';
-  montoInicial: number = 0;
-  montoFinal: number = 0;
-  montoEnCaja: any={};
-  fecha: string = '';
-  esCorteInicial: boolean = true;
-  esCorteParcial: boolean = false;
-  esCorteFinal: boolean = false;
-  showReport: boolean = false;
-  showCorteDetails: boolean = false; // Variable para mostrar los detalles del corte
-  reportData: any;
+  fecha= '';
+  hora_Inicio='';
+  showCorteDetails: boolean = false;
 
+  public dropdownOpen: { [key: string]: boolean } = {}; // Estado de los desplegables
 
-  dropdownOpen: { [key: string]: boolean } = {}; // Estado de los menús desplegables
-  
-  toggleDropdown(key: string): void {
+  constructor(private corteCajaService: CorteCajaService, private loginService: LoginService,private router:Router) { }
+
+  ngOnInit(): void {
+    this.fecha= new Date().toISOString().split('T')[0];
+    this.hora_Inicio= new Date().toTimeString().split(' ')[0];
+    const currentUser = this.loginService.getCurrentUser();
+    this.id_Usuario= currentUser.id_Usuario;
+    console.log('Usuario actual:', currentUser);
+  }
+
+  iniciarCorte(): void {
+    const id_Usuario = this.id_Usuario;
+    console.log('Este es el usuario:', id_Usuario);
+
+    // Verificar si ya existe un corte abierto para este usuario
+    this.corteCajaService.obtenerCorteAbierto(id_Usuario).subscribe(
+        response => {
+            if (response && response.id_Corte) {
+                // Si hay un corte abierto, mostrar un mensaje
+                alert('Ya tienes un corte de caja abierto. Debes cerrarlo antes de iniciar uno nuevo.');
+            } else {
+                // Si no hay cortes abiertos, proceder con el inicio de un nuevo corte
+                console.log('No hay cortes abiertos, iniciando nuevo corte.');
+
+                const data = {
+                    fecha: this.fecha,
+                    hora_Inicio: this.hora_Inicio,
+                    saldo_Inicial: this.saldo_Inicial,
+                    id_Usuario: this.id_Usuario
+                };
+
+                this.corteCajaService.iniciarCorte(data).subscribe(
+                    response => {
+                        if (response.success) {
+                          //  alert('Corte inicial realizado con éxito');
+                            this.router.navigate(['/principal']);
+                        } else {
+                            alert('Corte inicial realizado con éxito.');
+                            this.router.navigate(['/principal']);
+                        }
+                    },
+                    (error: HttpErrorResponse) => {
+                        console.error('Error al realizar el corte inicial:', error);
+                        alert('Error al realizar el corte inicial.');
+                    }
+                );
+            }
+        },
+        (error: HttpErrorResponse) => {
+            if (error.status === 404) {
+                // Si obtenemos un 404, tratamos esto como la ausencia de un corte abierto
+                console.log('No hay corte abierto para el usuario. Procediendo con el nuevo corte.');
+
+                const data = {
+                    fecha: this.fecha,
+                    hora_Inicio: this.hora_Inicio,
+                    saldo_Inicial: this.saldo_Inicial,
+                    id_Usuario: this.id_Usuario
+                };
+
+                this.corteCajaService.iniciarCorte(data).subscribe(
+                    response => {
+                        if (response.success) {
+                            //alert('Corte inicial realizado con éxito');
+                            //this.router.navigate(['/principal']);
+                        } else {
+                          alert('Corte inicial realizado con éxito.');
+                          this.router.navigate(['/principal']);
+                        }
+                    },
+                    (error: HttpErrorResponse) => {
+                        console.error('Error al realizar el corte inicial:', error);
+                        alert('Error al realizar el corte inicial.');
+                    }
+                );
+            } else {
+                // Manejo de otros errores
+                console.error('Error al verificar el corte abierto:', error);
+                alert('Ocurrió un error al verificar si hay un corte abierto. Error: ' + (error.message || error));
+            }
+        }
+    );
+}
+    cerrarUltimoCorte() {
+        const id_Usuario = this.id_Usuario;
+        console.log('ES EL ID CORRECTO',id_Usuario);
+
+        this.corteCajaService.obtenerCorteAbierto(id_Usuario).subscribe(
+            response => {
+                const id_Corte = response.id_Corte;
+    
+                // Ahora, enviar el id_Corte para cerrar el corte
+                this.corteCajaService.cerrarCorte({ id_Corte }).subscribe(
+                    response => {
+                        if (response.success) {
+                            console.log('Corte cerrado con éxito.');
+                            alert('SEPA QUE PASE');
+                        } else {
+                            alert('Corte cerrado con éxito');
+                            this.obtenerCorteActual();
+                        }
+                    },
+                    error => {
+                        console.error('Error al cerrar el corte:', error);
+                        alert('Error al cerrar el corte.');
+                    }
+                );
+            },
+            error => {
+                console.error('Error al obtener el corte abierto:', error);
+                alert('Error al obtener el corte abierto.');
+            }
+        );
+    }
+    
+    obtenerCorteActual(): void {
+        this.corteCajaService.obtenerCorteActual().subscribe(
+          data => {
+            this.corteActual = data;
+            console.log('Corte actual obtenido:', this.corteActual);
+            this.showCorteDetails = true;
+          },
+          error => {
+            console.error('Error al obtener el corte actual:', error);
+          }
+        );
+      }
+    
+
+  toggleDropdown(key: string) {
     // Primero, cerrar cualquier otro desplegable que esté abierto
     for (const dropdownKey in this.dropdownOpen) {
       if (dropdownKey !== key) {
@@ -36,145 +172,21 @@ export class CorteCajaComponent implements OnInit {
     // Alternar el estado del desplegable actual
     this.dropdownOpen[key] = !this.dropdownOpen[key];
   }
- 
 
-  constructor(private corteCajaService: CorteCajaService, private router:Router, private LoginService:LoginService) {}
-
-  ngOnInit() {
-    this.verificarEstadoCorte();
+logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
-
-  verificarEstadoCorte() {
-    const estadoCorte = localStorage.getItem('estadoCorte');
-    if (estadoCorte) {
-      this.esCorteInicial = estadoCorte === 'inicial';
-      this.esCorteParcial = estadoCorte === 'parcial';
-      this.esCorteFinal = estadoCorte === 'final';
-    } else {
-      this.esCorteInicial = true;
-      this.esCorteParcial = false;
-      this.esCorteFinal = false;
-    }
-  }
-
-  corteDeCaja() {
-    if (this.esCorteInicial) {
-      this.realizarCorteInicial();
-    } else if (this.esCorteParcial) {
-      this.realizarCorteParcial();
-    } else if (this.esCorteFinal) {
-      this.registrarCorteFinal();
-    }
-  }
-
-    realizarCorteInicial() {
-      const data = {
-        id_Usuario: this.id_Usuario,
-        monto_Inicial: this.montoInicial,
-        fecha: this.fecha
-      };
-  
-      this.corteCajaService.registrarMontoInicial(data).subscribe(
-        response => {
-          if (response.success) {
-            console.log('Corte inicial realizado con éxito.');
-            localStorage.setItem('estadoCorte', 'parcial');
-            this.esCorteInicial = false;
-            this.esCorteParcial = true;
-           // this.obtenerMontoEnCaja();
-            alert('Corte inicial realizado con éxito.');
-          } else {
-            alert('Error al realizar el corte inicial.');
-          }
-        },
-        error => {
-          console.error('Error al realizar el corte inicial:', error);
-          alert('Error al realizar el corte inicial.');
-        }
-      );
-    }
-    realizarCorteParcial() {
-      const data = {
-        id_Usuario: this.id_Usuario,
-        monto_Inicial: this.montoInicial,
-        monto_Final: this.montoFinal,
-        fecha: this.fecha
-      };
-  
-      this.corteCajaService.registrarCorteParcial(data).subscribe(
-        response => {
-          if (response.success) {
-           // this.montoEnCaja=response.montoCaja;
-            console.log('Corte parcial realizado con éxito.'/*this.montoEnCaja*/);
-            this.obtenerMontoEnCaja();
-            this.showCorteDetails = true; // Mostrar los detalles del corte
-            alert('Corte parcial realizado con éxito.');
-          } else {
-            alert('Error al realizar el corte parcial.');
-          }
-        },
-        error => {
-          console.error('Error al realizar el corte parcial:', error);
-          alert('Error al realizar el corte parcial.');
-        }
-      );
-    }
-  
-    registrarCorteFinal() {
-      const data = {
-        id_Usuario: this.id_Usuario,
-        monto_Final: this.montoFinal,
-        fecha: this.fecha
-      };
-  
-      this.corteCajaService.registrarCorteFinal(data).subscribe(
-        response => {
-          if (response.success) {
-            console.log('Corte final realizado con éxito.');
-            localStorage.removeItem('estadoCorte'); // Elimina el estado para que no se pida un nuevo corte final innecesariamente
-            this.esCorteInicial = false;
-            this.esCorteParcial = false;
-            this.esCorteFinal = true;
-            this.obtenerMontoEnCaja();
-            this.showCorteDetails = true; // Mostrar los detalles del corte
-            alert('Corte final realizado con éxitoddd.');
-          } else {
-            alert('Error al realizar el corte final.');
-          }
-        },
-        error => {
-          console.error('Error al realizar el corte final:', error);
-          alert('Error al realizar el corte final.');
-        }
-      );
-    }
-    obtenerMontoEnCaja() {
-      // Suponiendo que `id_Usuario` y `fecha` ya están definidos en el componente
-      const data = { id_Usuario: this.id_Usuario, fecha: this.fecha };
-      this.corteCajaService.registrarCorteFinal(data).subscribe(
-        response => {
-          if (response.success) {
-            this.montoEnCaja = response.montoCaja;
-            console.log('Monto en caja obtenido:', this.montoEnCaja);
-          } else {
-            console.error('Error al obtener el monto en caja:', response.message);
-          }
-        },
-        error => {
-          console.error('Error al obtener el monto en caja:', error);
-        }
-      );
-    }
-    closeReport() {
-      this.showCorteDetails = false; // Ocultar el reporte de ventas
-      if (this.esCorteFinal) {
-        // Eliminar datos de sesión o token de autenticación
-        localStorage.removeItem('token');
-        sessionStorage.removeItem('token');
-        // O cualquier otro dato de sesión que estés utilizando
-        // Redirigir al inicio de sesión
-        this.router.navigate(['/login']);
-      }
-    }
-  }
-
+  closeReport() {
+    this.showCorteDetails = false; // Ocultar el reporte de ventas
+   
+      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
+      this.router.navigate(['/login']);
+   
+}
+}

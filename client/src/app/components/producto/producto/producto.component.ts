@@ -4,6 +4,7 @@ import { ProductoService } from '../../../services/productos/producto.service';
 import { Producto } from '../../../models/Producto';  
 import { CategoriaService } from '../../../services/categoria/categoria.service';
 import { Categoria } from '../../../models/Categoria';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-producto',
@@ -13,6 +14,8 @@ import { Categoria } from '../../../models/Categoria';
 export class ProductoComponent implements OnInit {
 
   productos: Producto[] = [];
+  filteredProductos: Producto[] = []; 
+  searchTerm: string = '';
   producto: Producto = {
     id_Producto: 0,
     nombre: '',
@@ -27,11 +30,14 @@ export class ProductoComponent implements OnInit {
   categorias: Categoria[] = [];
   editando: boolean = false;
   mostrarProductos: boolean = false;
+
   
   // Agrega una propiedad para manejar el estado de los menús desplegables
   dropdownOpen: { [key: string]: boolean } = {};
 
-  constructor(private productoService: ProductoService, private categoriaService: CategoriaService) { }
+  constructor(private productoService: ProductoService, 
+    private categoriaService: CategoriaService,
+  private loginService:LoginService) { }
 
   ngOnInit() {
     this.cargarProductos();
@@ -39,7 +45,10 @@ export class ProductoComponent implements OnInit {
   }
   
   cargarProductos() {
-    this.productoService.getProductos().subscribe(data => this.productos = data);
+    this.productoService.getProductos().subscribe(data => {
+      this.productos = data;
+      this.filteredProductos = data; // INICIALIZAR LA LISTA FILTRADA
+    });
   }
 
   getCategorias(): void {
@@ -94,5 +103,20 @@ export class ProductoComponent implements OnInit {
     });
     // Alterna el menú desplegable actual
     this.dropdownOpen[menu] = !this.dropdownOpen[menu];
+  }
+  searchProductos(): void {
+    if (this.searchTerm.trim()) {
+      this.filteredProductos = this.productos.filter(p => p.nombre.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    } else {
+      this.filteredProductos = this.productos; // RESTABLECER LA LISTA SI NO HAY TÉRMINO DE BÚSQUEDA
+    }
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }
