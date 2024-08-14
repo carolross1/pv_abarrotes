@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from '../../../../services/categoria/categoria.service';
 import { Categoria } from '../../../../models/Categoria';
+import { LoginService } from '../../../../services/login/login.service';
 
 @Component({
   selector: 'app-lista-categorias',
@@ -13,7 +14,7 @@ export class ListaCategoriasComponent implements OnInit {
   searchTerm: string = '';
   dropdownOpen: { [key: string]: boolean } = {};
 
-  constructor(private categoriaService: CategoriaService) {}
+  constructor(private categoriaService: CategoriaService,private loginService:LoginService) {}
 
   ngOnInit(): void {
     this.getCategorias();
@@ -76,5 +77,13 @@ export class ListaCategoriasComponent implements OnInit {
     }
     // Alternar el estado del desplegable actual
     this.dropdownOpen[menu] = !this.dropdownOpen[menu];
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }

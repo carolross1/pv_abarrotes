@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProveedoresService } from '../../../services/proveedores.service';
 import { Proveedor } from '../../../models/Proveedores';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-proveedores-list',
@@ -12,7 +13,7 @@ export class ProveedoresListComponent implements OnInit {
 
   proveedores: Proveedor[] = [];
 
-  constructor(private proveedoresService: ProveedoresService) {}
+  constructor(private proveedoresService: ProveedoresService,private loginService:LoginService) {}
 
   ngOnInit(): void {
     this.proveedoresService.getProveedores().subscribe(
@@ -49,5 +50,13 @@ export class ProveedoresListComponent implements OnInit {
     } else {
       console.error('Error: id_Proveedor es indefinido');
     }
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }

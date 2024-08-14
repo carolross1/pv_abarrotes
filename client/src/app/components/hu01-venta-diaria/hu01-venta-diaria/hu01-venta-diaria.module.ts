@@ -7,7 +7,6 @@ import { FacturaComponent } from '../factura/factura.component';
 import { Hu07NotificacionModule } from '../../hu07-notificacion/hu07-notificacion/hu07-notificacion.module';
 
 
-
 @NgModule({
   declarations: [   
     PrincipalVentasComponent,FacturaComponent],
@@ -16,9 +15,7 @@ import { Hu07NotificacionModule } from '../../hu07-notificacion/hu07-notificacio
     CommonModule,
     RouterModule,
     Hu07NotificacionModule,
-    FormsModule
-
-    
+    FormsModule,
   ],
   exports: [
    PrincipalVentasComponent, FacturaComponent

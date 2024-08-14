@@ -18,7 +18,7 @@ export class InventarioComponent implements OnInit{
   constructor(
     private inventarioService: InventarioService,
     private router: Router,
-    private loginService: LoginService,
+    private loginService: LoginService
   ) { }
 
   ngOnInit(): void {
@@ -50,5 +50,13 @@ export class InventarioComponent implements OnInit{
   // Define el método redirectTo que utiliza el Router para navegar a la URL proporcionada
   redirectTo(url: string): void {
     this.router.navigate([url]);
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }

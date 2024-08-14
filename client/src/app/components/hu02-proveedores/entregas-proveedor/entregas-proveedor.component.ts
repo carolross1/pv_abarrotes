@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-entregas-proveedor',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./entregas-proveedor.component.css']
 })
 export class EntregasProveedorComponent {
+  constructor(private loginService:LoginService){}
 
   // Propiedad para manejar el estado de los desplegables
   dropdownOpen: { [key: string]: boolean } = {
@@ -35,5 +37,13 @@ export class EntregasProveedorComponent {
   // Método para agregar una nueva fila
   addRow(): void {
     this.productos.push({ numeroFactura: '', recibidoPor: '', codigoProducto: '', cantidadProducto: '' });
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }

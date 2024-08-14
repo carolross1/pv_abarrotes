@@ -40,8 +40,13 @@ exports.addCategoria = addCategoria;
 const deleteCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { idCategoria } = req.params;
     try {
-        yield database_1.default.query('DELETE FROM categoria WHERE id_Categoria = ?', [idCategoria]);
-        return res.status(204).json();
+        const result = yield database_1.default.query('DELETE FROM categoria WHERE id_Categoria = ?', [idCategoria]);
+        if (result.affectedRows > 0) {
+            return res.status(200).json({ message: 'Categoría eliminada exitosamente' });
+        }
+        else {
+            return res.status(404).json({ message: 'Categoría no encontrada' });
+        }
     }
     catch (err) {
         const error = err;

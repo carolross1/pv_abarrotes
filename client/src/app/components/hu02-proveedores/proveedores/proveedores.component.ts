@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProveedoresService } from '../../../services/proveedores.service';
 import { Proveedor } from '../../../models/Proveedores';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-proveedores',
@@ -22,7 +23,8 @@ export class ProveedorFormComponent implements OnInit {
   constructor(
     private proveedoresService: ProveedoresService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private loginService:LoginService
   ) {}
 
   ngOnInit(): void {
@@ -71,5 +73,13 @@ export class ProveedorFormComponent implements OnInit {
     }
     // Alternar el estado del desplegable actual
     this.dropdownOpen[key] = !this.dropdownOpen[key];
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }

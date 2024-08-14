@@ -4,6 +4,7 @@ import { InventarioService } from '../../../services/inventario/inventario.servi
 import { ProductoService } from '../../../services/productos/producto.service';
 import { Producto } from '../../../models/Producto';
 import { Router } from '@angular/router';
+import { LoginService } from '../../../services/login/login.service';
 
 
 
@@ -24,7 +25,8 @@ export class InventariosFrecuentesComponent implements OnInit {
     private productoService: ProductoService,
     private inventarioService: InventarioService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loginService:LoginService
   ) { }
   ngOnInit(): void {
     const idInventarioParam = this.route.snapshot.paramMap.get('id');
@@ -169,5 +171,12 @@ editarStock(producto: any): void {
     // Alternar el estado del desplegable actual
     this.dropdownOpen[key] = !this.dropdownOpen[key];
   }
-
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
+  }
 }

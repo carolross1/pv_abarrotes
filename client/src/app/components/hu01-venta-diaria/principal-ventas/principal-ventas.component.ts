@@ -104,6 +104,7 @@
       const productoEnVenta = this.ventaProductos.find(p => p.codigo_Barras === producto.codigo_Barras);
       if (productoEnVenta) {
         productoEnVenta.cantidad = (productoEnVenta.cantidad || 0) + cantidad;
+        console.error('Este es el resultado de toal de los productos jejejee',productoEnVenta);
       } else {
         this.ventaProductos.push({ ...producto, cantidad: cantidad });
       }
@@ -174,41 +175,46 @@
         next: response => {
           console.log('Respuesta del servidor:', response);
           const idVenta = response.idVenta;
-          console.log('ID de la venta en mi front:', idVenta); // Agregar este log para ver el ID de la venta
+          console.log('ID de la venta en mi front:', idVenta);
 
-      
-      // Asegúrate de que los detalles contienen el idVenta
-          const detallesConIdVenta: DetalleVenta[] = this.ventaProductos.map(producto => ({
-            id_Venta: idVenta,
-            id_Producto: producto.id_Producto,
-            descuento: this.tipoDescuento === 'custom' ? this.descuentoPersonalizado : Number(this.tipoDescuento), // Asegúrate de que 'descuento' sea un número
-            cantidad: producto.cantidad ?? 0,
-            total_venta: this.totalVenta // Añadir total_venta
-          }));
-
-          // Imprimir los detalles que se van a enviar
-          console.log('Detalles a enviarRRRRRR:', detallesConIdVenta);
-
-          // Enviar los detalles de venta con el ID de venta correcto
-          this.ventaService.registrarDetalles(detallesConIdVenta).subscribe({
-            next: response => {
-              console.log('Detalles de venta registrados:', response);
-              if (generarTicket) {
-                this.generarTicket(idVenta); // Usar el ID de venta generado
+          this.ventaProductos.forEach(producto => {
+            const totalProducto = producto.precio_Venta * (producto.cantidad ?? 0); 
+            
+            const detalleVenta: DetalleVenta = {
+              id_Venta: idVenta,
+              id_Producto: producto.id_Producto,
+              descuento: this.tipoDescuento === 'custom' ? this.descuentoPersonalizado : Number(this.tipoDescuento), 
+              cantidad: producto.cantidad ?? 0,
+              total_venta: totalProducto 
+            };
+    
+            // Imprimir el detalle que se va a enviar
+            console.log('Detalle a enviar:', detalleVenta);
+    
+            // Llamar al servicio para registrar el detalle de la venta individualmente
+            this.ventaService.registrarDetalle(detalleVenta).subscribe({
+              next: response => {
+                console.log('Detalle de venta registrado:', response);
+              },
+              error: error => {
+                console.error('Error al registrar el detalle de la venta:', error);
               }
-              this.vaciarVenta();
-            },
-            error: error => {
-              console.error('Error al registrar los detalles de la venta55:', error);
-            }
+            });
           });
+    
+          // Generar ticket si es necesario
+          if (generarTicket) {
+            this.generarTicket(idVenta); // Usar el ID de venta generado
+          }
+    
+          // Vaciar la venta para preparar una nueva
+          this.vaciarVenta();
         },
         error: error => {
-          console.error('Error al registrar la venta422:', error);
+          console.error('Error al registrar la venta:', error);
         }
       });
     }
-
     vaciarVenta() {
       this.ventaProductos = [];
       this.subtotal = 0;
@@ -263,7 +269,11 @@
 
   }
   logout() {
-    this.loginService.logout();
-    this.router.navigate(['/login']);
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
   }

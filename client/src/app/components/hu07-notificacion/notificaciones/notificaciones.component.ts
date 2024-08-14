@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ProductoService } from '../../../services/productos/producto.service';
 import { Producto } from '../../../models/Producto';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-notificaciones',
@@ -21,7 +22,7 @@ export class NotificacionesComponent implements OnInit {
 
   @Output() notificacionesNoAtendidas = new EventEmitter<number>();
 
-  constructor(private productoService: ProductoService) { }
+  constructor(private productoService: ProductoService,private loginService:LoginService) { }
 
   ngOnInit(): void {
     this.getProductosBajoStock();
@@ -51,5 +52,13 @@ export class NotificacionesComponent implements OnInit {
     }
     // Alternar el estado del desplegable actual
     this.dropdownOpen[key] = !this.dropdownOpen[key];
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -32,10 +33,13 @@ export class LoginComponent {
           }
         } else {
           this.message = response.message;
+  
         }
       },
       error => {
         this.message = 'Error al iniciar sesión';
+        console.error(error);
+
         console.error(error);
       }
     );

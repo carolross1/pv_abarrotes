@@ -1,0 +1,36 @@
+<!-- Tabla para mostrar usuarios -->
+<div class="main-container">
+    <div class="container">
+      <h2>Lista de Usuarios</h2>
+     <!-- <button (click)="addUser()">Agregar Usuario</button>-->
+      <!-- Tabla de usuarios -->
+      <table>
+        <thead>
+          <tr>
+            <th>ID Usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>Tipo de Usuario</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of Usuario">
+            <td>{{ usuario.id_Usuario }}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.apellido }}</td>
+            <td>{{ usuario.telefono }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.tipo_Usuario }}</td>
+            <td>
+                <td>
+                    <button (click)="editUser(usuario.id_Usuario)" class="edit-button">✎</button>
+                    <button (click)="deleteUser(usuario.id_Usuario)" class="delete-button">🗑</button>
+                  </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

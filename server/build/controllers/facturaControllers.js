@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteFactura = exports.updateFactura = exports.createFactura = exports.getFacturas = void 0;
+exports.obtenerTotalVenta = exports.obtenerDetallesVenta = exports.deleteFactura = exports.updateFactura = exports.createFactura = exports.getFacturas = void 0;
 const database_1 = __importDefault(require("../database"));
 const getFacturas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -56,3 +56,41 @@ const deleteFactura = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteFactura = deleteFactura;
+const obtenerDetallesVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_Venta } = req.params;
+    try {
+        // Consulta a la base de datos para obtener los detalles de la venta
+        const total = yield database_1.default.query(`SELECT id_Producto, descuento, cantidad, total_venta
+         FROM detalle_venta
+         WHERE id_Venta = ?`, [id_Venta]);
+        // Enviar la respuesta con los detalles obtenidos
+        res.status(200).json(total);
+    }
+    catch (error) {
+        console.error('Error al obtener detalles de venta:', error);
+        res.status(500).json({ message: 'Error al obtener detalles de venta' });
+    }
+});
+exports.obtenerDetallesVenta = obtenerDetallesVenta;
+const obtenerTotalVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id_Venta } = req.params;
+    try {
+        // Consulta para obtener el total de la venta
+        const result = yield database_1.default.query(`
+        SELECT SUM(total_venta) as total
+        FROM detalle_venta
+        WHERE id_Venta = ?
+      `, [id_Venta]);
+        if (result.length > 0) {
+            res.json({ total: result[0].total || 0 });
+        }
+        else {
+            res.status(404).json({ message: 'Venta no encontrada' });
+        }
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al obtener el total de la venta' });
+    }
+});
+exports.obtenerTotalVenta = obtenerTotalVenta;

@@ -1,14 +1,32 @@
-import { Component } from '@angular/core';
+import { Component,HostListener } from '@angular/core';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'
+import { LoginService } from './services/login/login.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
+
 export class AppComponent {
-  title = 'client';
+  
+ title = 'client';
+
+  constructor(private loginservice:LoginService){
+  }
+/*  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any): void {
+    const estadoCorte = localStorage.getItem('estadoCorte');
+    if (estadoCorte && estadoCorte !== 'final') {
+      $event.returnValue = 'Tienes un corte de caja pendiente. ¿Estás seguro de que quieres salir?';
+    }
+  }*/
+
+ /* logout() {
+    this.loginservice.logout();
+  }*/
+
 
   generatePDF() {
     // Crear una nueva instancia de jsPDF
@@ -30,6 +48,8 @@ export class AppComponent {
     // Guardar el PDF con un nombre específico
     doc.save('sample.pdf');
   }
+
+
   }
 
   

@@ -1,0 +1,11 @@
+.error-message {
+    color: #af1919;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.error-message i {
+    margin-right: 5px;
+}

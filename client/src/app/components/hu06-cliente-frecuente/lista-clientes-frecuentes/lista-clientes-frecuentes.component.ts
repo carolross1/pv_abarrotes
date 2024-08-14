@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-lista-clientes-frecuentes',
@@ -10,7 +11,7 @@ export class ListaClientesFrecuentesComponent implements OnInit {
   dropdownOpen: { [key: string]: boolean } = {};
   clients: any[] = []; // Arreglo para almacenar los datos de los clientes
 
-  constructor() {}
+  constructor(private loginService:LoginService) {}
 
   ngOnInit(): void {
     // Cargar clientes desde localStorage al inicializar el componente
@@ -51,5 +52,13 @@ export class ListaClientesFrecuentesComponent implements OnInit {
     this.clients.splice(index, 1);
     localStorage.setItem('clients', JSON.stringify(this.clients));
     this.loadClients(); // Recargar la lista después de eliminar
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }
