@@ -13,7 +13,7 @@ import { Hu06ClienteFrecuenteModule } from './components/hu06-cliente-frecuente/
 import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { Hu07NotificacionModule } from './components/hu07-notificacion/hu07-notificacion/hu07-notificacion.module';
-import { ProveedoresService } from './services/proveedores.service';
+import { ProveedoresService } from './services/Proveedores/proveedores-list.service';
 import { ProductoServiceModule} from './services/productos/productos.module';
 import { ProductoModule } from './components/producto/producto.module';
 import { ProductoService } from './services/productos/producto.service';
@@ -21,11 +21,14 @@ import { VentaService } from './services/principal-ventas/venta.service';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 import { ListaUsuariosComponent } from './components/nuevo-usuario/lista-usuarios/lista-usuarios.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
    MenuComponent,
    LoginComponent,
+
    NuevoUsuarioComponent,
    ListaUsuariosComponent,
   ],
@@ -44,6 +47,7 @@ import { ListaUsuariosComponent } from './components/nuevo-usuario/lista-usuario
     Hu07NotificacionModule,
     ProductoServiceModule, 
     ProductoModule,
+
   ],
   providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService],
   bootstrap: [AppComponent]

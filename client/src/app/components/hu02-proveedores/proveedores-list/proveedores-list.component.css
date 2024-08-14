@@ -2,33 +2,39 @@
 .logo-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* Centra el logo horizontalmente */
-  margin-right: 30px; /* Ajusta el margen para mover el contenedor a la derecha */
+  justify-content: center;
+  margin-right: 20px;
 }
 
 /* Estilos para el logo */
 .logo {
-  height: 50px; /* Ajusta la altura del logo */
-  width: auto; /* Mantiene la proporción de la imagen */
+  height: 40px;
+  width: auto;
 }
 
 .navbar {
   display: flex;
   flex-wrap: wrap;
   background-color: #5b3d99;
-  padding: 10px;
+  padding: 8px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .nav-group {
   position: relative;
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
 .dropdown-btn {
   background-color: #5b3d99;
   color: #fff;
   border: none;
-  padding: 10px;
+  padding: 8px;
   text-align: center;
   cursor: pointer;
   border-radius: 5px;
@@ -48,13 +54,15 @@
   position: absolute;
   top: 100%;
   left: 0;
-  min-width: 150px;
+  min-width: 140px;
   z-index: 1;
+  max-height: 250px;
+  overflow-y: auto;
 }
 
 .dropdown-container a {
   display: block;
-  padding: 10px;
+  padding: 8px;
   color: #333;
   text-decoration: none;
   border-bottom: 1px solid #ccc;
@@ -71,85 +79,165 @@
 /* Ensuring responsiveness */
 @media (max-width: 768px) {
   .navbar {
-      flex-direction: column;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
-/* Estilos para el contenedor de proveedores */
-.container {
-  margin: 60px auto; /* Centra el contenedor horizontalmente y ajusta el margen superior */
-  background-color: #f9f9f9; /* Color de fondo del contenedor */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  max-width: 1200px; /* Ajusta el ancho máximo del contenedor */
-  /* Ajuste de alto eliminado para evitar restricciones de altura innecesarias */
+/* ESTILOS LISTA CATEGORIAS */
+.main-container, .container {
+  margin-top: 80px; /* Espacio superior para evitar sobreposición con la barra de navegación */
+  padding: 15px; /* Reducción del padding para ajustar tamaño */
+  background-color: #f5f5f5; /* Fondo claro para contraste */
+  width: 90%; /* Ajuste de ancho */
+  height: auto; /* Altura automática para adaptarse al contenido */
+  margin-left: auto; /* Centrando horizontalmente */
+  margin-right: auto; /* Centrando horizontalmente */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+  display: flex; /* Usar flexbox para centrar el contenido */
+  flex-direction: column; /* Colocar los elementos en columna */
+  align-items: center; /* Centrar los elementos horizontalmente */
+  justify-content: center; /* Centrar verticalmente el contenido */
 }
 
 h2 {
-  color: #5b3d99; /* Color del título */
-  font-weight: bold;
-  text-align: center; /* Centra el texto del título */
+  margin-bottom: 15px;
+  font-size: 22px;
+  color: #48257f; /* Color del texto */
 }
 
-.custom-table {
-  width: 100%;
-  border-collapse: collapse; /* Quita los espacios entre las celdas */
+.search-container, .add-container {
+  margin-bottom: 15px;
 }
 
-.custom-table th, .custom-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.search-input-container {
+  display: flex;
+  align-items: center;
 }
 
-.custom-table th {
-  background-color: #5b3d99; /* Fondo de la cabecera de la tabla */
-  color: white;
+.search-input {
+  padding: 8px;
+  border: 1px solid #a790cf; /* Color del borde */
+  border-radius: 4px;
+  width: 85%;
+  font-size: 14px;
+  margin-right: 8px;
+  background-color: #ccbaef; /* Color de fondo */
 }
 
-.custom-table tbody tr:hover {
-  background-color: #e1bee7; /* Color de fondo al pasar el ratón sobre las filas */
-}
-
-.btn {
-  background-color: #ba68c8; /* Color de fondo del botón */
-  color: white;
+.search-button {
+  padding: 8px 12px;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 14px;
+  background-color: #5b3d99; /* Color de fondo */
+  color: white;
+  display: flex;
+  align-items: center;
 }
 
-.btn:hover {
-  background-color: #ab47bc; /* Color de fondo al pasar el ratón */
-}
-
-.btn i {
+.search-button i {
   margin-right: 5px;
 }
 
-.btn-danger {
-  background-color: #e57373;
+.search-button:hover {
+  background-color: #48257f; /* Color de fondo al pasar el mouse */
+}
+
+.add-input {
+  padding: 8px;
+  border: 1px solid #a790cf; /* Color del borde */
+  border-radius: 4px;
+  width: calc(100% - 110px);
+  font-size: 14px;
+  background-color: #ccbaef; /* Color de fondo */
+}
+
+.add-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #5b3d99; /* Color de fondo */
+  color: white;
+  margin-left: 8px;
+  margin-top: 1%;
+}
+
+.add-button:hover {
+  background-color: #48257f; /* Color de fondo al pasar el mouse */
+}
+
+.edit-input {
+  padding: 8px;
+  border: 1px solid #a790cf; /* Color del borde */
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #ccbaef; /* Color de fondo */
+}
+
+.save-button, .edit-button, .delete-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
   color: white;
 }
 
-.btn-danger:hover {
-  background-color: #ef5350; /* Color de fondo al pasar el ratón */
+.save-button {
+  background-color: #28a745;
 }
 
-.table-responsive {
-  overflow-x: auto;
+.save-button:hover {
+  background-color: #218838;
 }
 
-.container-page button {
-  width: 100%;
-  padding: 20px;
-  background-color: #b69bec;
-  border: none;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
+.edit-button {
+  background-color: #007bff;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-button {
+  background-color: #dc3545;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+table {
+  width: 85%;
+  margin-top: 15px;
+  border: 1px;
+}
+
+thead th {
+  background-color: #5b3d99; /* Color de fondo para el encabezado */
+  color: white;
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+td button {
+  margin-right: 5px;
 }

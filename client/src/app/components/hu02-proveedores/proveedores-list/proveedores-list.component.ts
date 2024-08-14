@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProveedoresService } from '../../../services/proveedores.service';
-import { Proveedor } from '../../../models/Proveedores';
+import { ProveedoresService } from '../../../services/Proveedores/proveedores-list.service';
+import { Proveedor } from '../../../models/Proveedores-list';
 import { LoginService } from '../../../services/login/login.service';
 
 @Component({
@@ -8,49 +8,93 @@ import { LoginService } from '../../../services/login/login.service';
   templateUrl: './proveedores-list.component.html',
   styleUrls: ['./proveedores-list.component.css']
 })
-export class ProveedoresListComponent implements OnInit {
-  dropdownOpen: { [key: string]: boolean } = {}; // Inicializa un objeto para manejar el estado de los desplegables
-
+export class ListaProveedoresComponent implements OnInit {
   proveedores: Proveedor[] = [];
+  nombreProveedor: string = '';
+  apellidoProveedor: string = '';
+  telefonoProveedor: number | null = null;
+  empresaProveedor: string = '';
+  searchTerm: string = '';
+  dropdownOpen: { [key: string]: boolean } = {};
 
-  constructor(private proveedoresService: ProveedoresService,private loginService:LoginService) {}
+
+  constructor(private proveedorService: ProveedoresService,private loginService:LoginService) {}
 
   ngOnInit(): void {
-    this.proveedoresService.getProveedores().subscribe(
-      data => {
-        this.proveedores = data;
-      },
-      error => {
-        console.error(error);
-      }
-    );
+    this.getProveedores();
   }
 
-  toggleDropdown(key: string): void {
-    // Primero, cerrar cualquier otro desplegable que esté abierto
-    for (const dropdownKey in this.dropdownOpen) {
-      if (dropdownKey !== key) {
-        this.dropdownOpen[dropdownKey] = false;
-      }
-    }
-    // Alternar el estado del desplegable actual
-    this.dropdownOpen[key] = !this.dropdownOpen[key];
+  getProveedores(): void {
+    this.proveedorService.getProveedores().subscribe(proveedores => {
+      this.proveedores = proveedores;
+    });
   }
-
-  deleteProveedor(id_Proveedor?: number): void {
-    if (id_Proveedor !== undefined) {
-      this.proveedoresService.deleteProveedor(id_Proveedor.toString()).subscribe(
+  addProveedor(): void {
+    if (this.nombreProveedor.trim() && this.apellidoProveedor.trim() && this.telefonoProveedor !== null && this.empresaProveedor.trim()) {
+      const newProveedor: Omit<Proveedor, 'id_Proveedor'> = {
+        nombre: this.nombreProveedor,
+        apellidos: this.apellidoProveedor,
+        telefono: this.telefonoProveedor.toString(),
+        empresa: this.empresaProveedor,
+        editing: false // Asignar false como valor por defecto
+      };
+      this.proveedorService.addProveedor(newProveedor).subscribe(
         () => {
-          this.proveedores = this.proveedores.filter(proveedor => proveedor.id_Proveedor !== id_Proveedor);
+          this.getProveedores(); // Volver a obtener la lista actualizada
+          this.resetForm(); // Limpiar los campos de entrada
         },
         error => {
-          console.error(error);
+          console.error('Error al agregar al proveedor', error);
         }
       );
     } else {
-      console.error('Error: id_Proveedor es indefinido');
+      console.error('Todos los campos son obligatorios.');
     }
   }
+
+  resetForm(): void {
+    this.nombreProveedor = '';
+    this.apellidoProveedor = '';
+    this.telefonoProveedor = null;
+    this.empresaProveedor = '';
+  }
+
+  searchProveedores(): void {
+    if (this.searchTerm.trim()) {
+      this.proveedores = this.proveedores.filter(c => c.nombre.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    } else {
+      this.getProveedores(); // Restablecer la lista si no hay término de búsqueda
+    }
+  }
+
+
+  deleteProveedor(idProveedor: number): void { // Cambia el tipo a `number`
+    this.proveedorService.deleteProveedor(idProveedor).subscribe(() => {
+      this.getProveedores(); // Volver a obtener la lista actualizada
+    });
+  }
+
+  editProveedor(proveedor: Proveedor): void {
+    proveedor.editing = true;
+  }
+
+  saveProveedor(proveedor: Proveedor): void {
+    proveedor.editing = false;
+    this.proveedorService.updateProveedor(proveedor.id_Proveedor, proveedor).subscribe(() => {
+      this.getProveedores(); // Volver a obtener la lista actualizada
+    });
+  }
+
+  toggleDropdown(menu: string): void {
+    // Cerrar cualquier otro desplegable abierto
+    for (let key in this.dropdownOpen) {
+      if (key !== menu) {
+        this.dropdownOpen[key] = false;
+      }
+    }
+    // Alternar el estado del desplegable actual
+    this.dropdownOpen[menu] = !this.dropdownOpen[menu];
+
   logout() {
     const logoutRealizado = this.loginService.logout();
     if (!logoutRealizado) { 
