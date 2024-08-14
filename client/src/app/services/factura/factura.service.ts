@@ -14,4 +14,12 @@ export class FacturaService {
   createFactura(factura: Factura): Observable<Factura> {
     return this.http.post<Factura>(this.apiUrl, factura);
   }
+  getDetallesVenta(id_Venta: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/detalles/${id_Venta}`);
+  }
+  getTotalPorTicket(id_Venta: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/total/${id_Venta}`);
+  }
+
+
 }

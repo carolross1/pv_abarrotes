@@ -45,7 +45,7 @@
       <a routerLink="/gestiondescuento"><i class="fas fa-percentage"></i> Descuento Por Mayoreo</a>
       <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
       <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
-      <a routerLink="/login"><i class="fas fa-sign-in-alt"></i> Inicio de Sesión</a>
+      <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
     </div>
   </div>
 </div>
@@ -57,7 +57,7 @@
     <div class="form-row">
       <div>
         <label class="etiqueta-bloque" for="Numero de Ticket">Número de Ticket:</label>
-        <input type="text" id="Numero de Ticket" name="Numero de Ticket" class="entrada-texto" [(ngModel)]="factura.id_Venta" required>
+        <input type="text" id="Numero de Ticket" name="Numero de Ticket" class="entrada-texto"  [(ngModel)]="factura.id_Venta" (ngModelChange)="actualizarTotal()" required>
       </div>
       <div>
         <label class="etiqueta-bloque" for="rfc">RFC:</label>

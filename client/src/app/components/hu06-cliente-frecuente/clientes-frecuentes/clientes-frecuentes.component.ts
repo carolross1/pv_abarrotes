@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-clientes-frecuentes',
@@ -10,7 +11,7 @@ export class ClientesFrecuentesComponent {
   // Objeto para mantener el estado de los desplegables
   dropdownOpen: { [key: string]: boolean } = {};
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private loginService:LoginService){}
 
   ngOnInit(): void {}
 
@@ -27,5 +28,13 @@ export class ClientesFrecuentesComponent {
 
   verListaClientes(): void {
     this.router.navigate(['/listaclientesf']);
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }

@@ -26,12 +26,12 @@ export class VentaService {
       );
   }
 
-  registrarDetalles(detalles: DetalleVenta[]): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/detalle/create`, detalles)
+  registrarDetalle(detalle: DetalleVenta): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/detalle/create`, detalle)
       .pipe(
-        tap(response => console.log('Respuesta del servidor al registrar detalles de venta:', response)),
+        tap(response => console.log('Respuesta del servidor al registrar detalle de venta:', response)),
         catchError(error => {
-          console.error('Error al registrar detalles de venta: dddd', error);
+          console.error('Error al registrar detalle de venta:', error);
           return throwError(error);
         })
       );

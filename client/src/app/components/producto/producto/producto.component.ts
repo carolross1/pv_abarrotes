@@ -4,6 +4,7 @@ import { ProductoService } from '../../../services/productos/producto.service';
 import { Producto } from '../../../models/Producto';  
 import { CategoriaService } from '../../../services/categoria/categoria.service';
 import { Categoria } from '../../../models/Categoria';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-producto',
@@ -34,7 +35,9 @@ export class ProductoComponent implements OnInit {
   // Agrega una propiedad para manejar el estado de los menús desplegables
   dropdownOpen: { [key: string]: boolean } = {};
 
-  constructor(private productoService: ProductoService, private categoriaService: CategoriaService) { }
+  constructor(private productoService: ProductoService, 
+    private categoriaService: CategoriaService,
+  private loginService:LoginService) { }
 
   ngOnInit() {
     this.cargarProductos();
@@ -107,5 +110,13 @@ export class ProductoComponent implements OnInit {
     } else {
       this.filteredProductos = this.productos; // RESTABLECER LA LISTA SI NO HAY TÉRMINO DE BÚSQUEDA
     }
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.');
   }
 }

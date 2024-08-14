@@ -7,4 +7,6 @@ router.get('/', facturaControllers_1.getFacturas);
 router.post('/', facturaControllers_1.createFactura);
 router.put('/:id', facturaControllers_1.updateFactura);
 router.delete('/:id', facturaControllers_1.deleteFactura);
+router.get('/detalles/:id_Venta', facturaControllers_1.obtenerDetallesVenta);
+router.get('/total/:id_Venta', facturaControllers_1.obtenerTotalVenta);
 exports.default = router;

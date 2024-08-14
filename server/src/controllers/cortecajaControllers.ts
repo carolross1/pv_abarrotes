@@ -1,119 +1,146 @@
 import { Request, Response } from 'express';
 import pool from '../database';
 
-export const registrarCorteInicial = async (req: Request, res: Response) => {
-  const { id_Usuario, monto_Inicial, fecha } = req.body;
+export const iniciarCorte = async (req: Request, res: Response): Promise<void> => {
+    const connection = await pool.getConnection();
+    try {
+        const { fecha, hora_Inicio, saldo_Inicial, id_Usuario } = req.body;
+        const nuevoCorte = {
+            fecha,
+            hora_Inicio,
+            saldo_Inicial,
+            id_Usuario,
+            cerrado: false
+        };
 
-  try {
-    await pool.query('INSERT INTO corte_caja (id_Usuario, monto_Inicial, fecha, tipo) VALUES (?, ?, ?, ?)', [id_Usuario, monto_Inicial, fecha, 'inicial']);
-    res.status(200).json({ success: true });
-  } catch (error) {
-    console.error('Error al registrar el corte inicial:', error);
-    res.status(500).json({ success: false, message: 'Error al registrar el corte inicial' });
-  }
+        const result = await connection.query('INSERT INTO corte_caja SET ?', [nuevoCorte]);
+        res.json({ message: 'Corte de caja iniciado', id_Corte: result.insertId });
+    } catch (error) {
+        res.status(500).json({ message: 'Error con el corte', error });
+    } finally {
+        connection.release();
+    }
 };
 
-export const registrarCorteParcial = async (req: Request, res: Response) => {
-  const { id_Usuario, monto_Final, fecha } = req.body;
 
-  try {
-    await pool.query('INSERT INTO corte_caja (id_Usuario, monto_Final, fecha, tipo) VALUES (?, ?, ?, ?)', [id_Usuario, monto_Final, fecha, 'parcial']);
-    const montoCaja = await obtenerMontoEnCaja(id_Usuario, fecha);
-    res.status(200).json({ success: true, montoCaja });
-  } catch (error) {
-    console.error('Error al registrar el corte parcial:', error);
-    res.status(500).json({ success: false, message: 'Error al registrar el corte parcial' });
-  }
+export const obtenerCorteAbierto = async (req: Request, res: Response): Promise<void> => {
+    try {
+       
+        const { id_Usuario } = req.params;
+        console.log('Recibiendo solicitud para obtener corte abierto:', req.params.id_Usuario);
+        const result = await pool.query(
+            'SELECT id_Corte FROM corte_caja WHERE id_Usuario = ? AND cerrado = FALSE',
+            [id_Usuario]
+        );
+
+        if (result.length > 0) {
+            res.json({ id_Corte: result[0].id_Corte });
+        } else {
+            res.status(404).json({ message: 'No se encontró un corte abierto para este usuario.' });
+        }
+    } catch (error) {
+        console.error('Error al obtener el corte abierto:', error);
+        res.status(500).json({ message: 'Error al obtener el corte abierto', error });
+    }
 };
+export const cerrarCorte = async (req: Request, res: Response): Promise<void> => {
+    const connection = await pool.getConnection();
+    try {
+        const { id_Corte } = req.body;
+        console.log('ID de Corte recibido:', id_Corte);
 
-export const registrarCorteFinal = async (req: Request, res: Response) => {
-  const { id_Usuario, monto_Final, fecha } = req.body;
+        // Obtener el saldo inicial
+        const corteResult = await connection.query('SELECT saldo_Inicial FROM corte_caja WHERE id_Corte = ?', [id_Corte]);
+        console.log('Resultado de la consulta de saldo inicial:', corteResult);
 
-  try {
-    await pool.query('INSERT INTO corte_caja (id_Usuario, monto_Final, fecha, tipo) VALUES (?, ?, ?, ?)', [id_Usuario, monto_Final, fecha, 'final']);
-    const montoCaja = await obtenerMontoEnCaja(id_Usuario, fecha);
-    res.status(200).json({ success: true, montoCaja });
-  } catch (error) {
-    console.error('Error al registrar el corte final:', error);
-    res.status(500).json({ success: false, message: 'Error al registrar el corte final' });
-  }
+        if (Array.isArray(corteResult) && corteResult.length > 0) {
+            const saldo_Inicial = corteResult[0].saldo_Inicial;
+            console.log('Saldo Inicial recuperado:', saldo_Inicial);
+            res.json({ message:'Corte cerrado con un saldo inicial:',saldo_Inicial });
+
+            // Procesamiento adicional en segundo plano
+            setImmediate(async () => {
+                const connection = await pool.getConnection(); 
+                try {
+                    // Calcular ingresos desde la tabla de DetalleVenta
+                    const ingresosResult = await connection.query(
+                        `SELECT SUM(dv.total_venta) AS total_ventas
+                        FROM detalle_venta as dv
+                        INNER JOIN venta as v
+                        ON dv.id_Venta = v.id_Venta
+                        WHERE DATE(v.fecha) =  (SELECT DATE(fecha) FROM corte_caja WHERE id_Corte = ?)`,
+                        [id_Corte]
+                    );
+                    console.log('Resultado de la consulta de ingresos:', ingresosResult);
+
+                    const totalIngresos = ingresosResult[0]?.total_ventas || 0;
+                    console.log('Total de Ingresos:', totalIngresos);
+
+                    // Calcular egresos desde la tabla de Retiros
+                    const egresosResult = await connection.query(
+                        `SELECT SUM(monto) AS totalEgresos
+                        FROM Retiros
+                       WHERE fecha = (SELECT fecha FROM corte_caja WHERE id_Corte = ?)`,
+                        [id_Corte]
+                    );
+                    console.log('Resultado de la consulta de egresos:', egresosResult);
+
+                    const totalEgresos = egresosResult[0]?.totalEgresos || 0;
+                    console.log('Total de Egresos:', totalEgresos);
+
+                    // Calcular el saldo final
+                    const saldo_Final = saldo_Inicial + totalIngresos - totalEgresos;
+                    console.log('Saldo Final calculado:', saldo_Final);
+
+                    // Actualizar la tabla corte_caja con los nuevos valores
+                    await connection.query(
+                        `UPDATE corte_caja
+                        SET hora_Fin = CURTIME(), ingresos = ?, egresos = ?, saldo_Final = ?, cerrado = TRUE 
+                        WHERE id_Corte = ?`,
+                        [totalIngresos, totalEgresos, saldo_Final, id_Corte]
+                    );
+
+                    console.log('Corte de caja cerrado', saldo_Final);
+
+                } catch (error) {
+                    console.error('Error al cerrar el corte en segundo plano:', error);
+                } finally {
+                    connection.release(); // Asegúrate de liberar la conexión
+                }
+            });
+
+        } else {
+            console.error('No se encontró saldo inicial para el corte con id:', id_Corte);
+            res.status(500).json({ message: 'No se pudo recuperar el saldo inicial para el corte.' });
+        }
+
+    } catch (error) {
+        console.error('Error al cerrar el corte:', error);
+        res.status(500).json({ message: 'Error al cerrar el corte', error });
+    } finally {
+        if (connection) {
+            connection.release();
+        }
+    }
 };
-
-const obtenerMontoEnCaja = async (id_Usuario: string, fecha: string) => {
-  try {
-    const fechaInicio = new Date(fecha).toISOString().slice(0, 10);
-
-    // Obtener el monto inicial del día
-    const [corteInicial] = await pool.query(
-      'SELECT monto_Inicial FROM corte_caja WHERE id_Usuario = ? AND tipo = ? AND DATE(fecha) = ? LIMIT 1',
-      [id_Usuario, 'inicial', fechaInicio]
-    );
-
-    if (!corteInicial) {
-      throw new Error('No se encontró el corte inicial para el día especificado');
+export const obtenerCorteActual = async (req: Request, res: Response): Promise<void> => {
+    const connection = await pool.getConnection();
+    try {
+        const corte = await connection.query('SELECT * FROM corte_caja WHERE cerrado = TRUE ORDER BY id_Corte DESC LIMIT 1');
+        res.json(corte[0]);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener el corte actual', error });
+    } finally {
+        connection.release();
     }
-
-    const montoInicial = corteInicial.monto_Inicial;
-    console.log('Monto Inicial:', montoInicial);
-
-    // Obtener los cortes parciales del día
-    const cortesParciales = await pool.query(
-      'SELECT monto_Final FROM corte_caja WHERE id_Usuario = ? AND tipo = ? AND DATE(fecha) = ?',
-      [id_Usuario, 'parcial', fechaInicio]
-    );
-
-    let montoParcialEntregado = 0;
-    for (const corte of cortesParciales) {
-      montoParcialEntregado += corte.monto_Final;
-    }
-    console.log('Monto Parcial Entregado:', montoParcialEntregado);
-
-    // Obtener las ventas del usuario en la fecha especificada
-    const ventas = await pool.query(
-      'SELECT id_Venta FROM venta WHERE id_Usuario = ? AND DATE(fecha) = ?',
-      [id_Usuario, fechaInicio]
-    );
-
-    let montoVentas = 0;
-    const ventasMap = new Map();
-    
-    for (const venta of ventas) {
-      const detalles = await pool.query(
-        'SELECT total_venta, descuento FROM detalle_venta WHERE id_Venta = ?',
-        [venta.id_Venta]
-      );
-      if (detalles.length > 0) {
-        const ultimoDetalle = detalles[detalles.length - 1];
-        ventasMap.set(venta.id_Venta, {
-          total_venta: ultimoDetalle.total_venta,
-          descuento: ultimoDetalle.descuento
-        });
-      }
-    }
-    for (const [id_Venta, { total_venta, descuento }] of ventasMap.entries()) {
-      console.log('Total Venta:', total_venta, 'Descuento:', descuento);
-      montoVentas += total_venta - (descuento || 0);
-    }
-    
-    console.log('Monto Ventas:', montoVentas);
-
-    // Calcular el monto esperado en caja
-    const montoEsperado = montoInicial + montoVentas;
-    console.log('Monto Esperado:', montoEsperado);
-
-    // Calcular la diferencia
-    const diferencia = montoEsperado - montoParcialEntregado;
-    console.log('Diferencia:', diferencia);
-
-    return {
-      fecha: fechaInicio,
-      total_Ventas: ventas.length,
-      montoEsperado,
-      montoParcialEntregado,
-      diferencia
-    };
-  } catch (error) {
-    console.error('Error al obtener el corte de caja:', error);
-    throw new Error('Error al obtener el corte de caja');
-  }
 };
+/*si alcanzo
+export const obtenerTodosLosCortes = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const result = await pool.query('SELECT * FROM corte_caja');
+        res.json(result);
+    } catch (error) {
+        console.error('Error al obtener los cortes de caja:', error);
+        res.status(500).json({ message: 'Error al obtener los cortes de caja', error });
+    }
+};*/

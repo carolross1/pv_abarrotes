@@ -38,3 +38,43 @@ export const deleteFactura = async (req: Request, res: Response): Promise<void> 
         res.status(500).json({ message: 'Error al eliminar factura', error });
     }
 };
+export const obtenerDetallesVenta = async (req: Request, res: Response) => {
+    const { id_Venta } = req.params;
+  
+    try {
+      // Consulta a la base de datos para obtener los detalles de la venta
+      const total = await pool.query(
+        `SELECT id_Producto, descuento, cantidad, total_venta
+         FROM detalle_venta
+         WHERE id_Venta = ?`,
+        [id_Venta]
+      );
+  
+      // Enviar la respuesta con los detalles obtenidos
+      res.status(200).json(total);
+    } catch (error) {
+      console.error('Error al obtener detalles de venta:', error);
+      res.status(500).json({ message: 'Error al obtener detalles de venta' });
+    }
+  };
+  export const obtenerTotalVenta = async (req: Request, res: Response) => {
+    const { id_Venta } = req.params;
+    
+    try {
+      // Consulta para obtener el total de la venta
+      const result = await pool.query(`
+        SELECT SUM(total_venta) as total
+        FROM detalle_venta
+        WHERE id_Venta = ?
+      `, [id_Venta]);
+  
+      if (result.length > 0) {
+        res.json({ total: result[0].total || 0 });
+      } else {
+        res.status(404).json({ message: 'Venta no encontrada' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error al obtener el total de la venta' });
+    }
+  };
