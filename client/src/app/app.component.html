@@ -1,3 +1,5 @@
-
+<div *ngIf="alerta$ | async as message" class="alerta">
+    {{message}}
+</div>
     <router-outlet/>
 <router-outlet />

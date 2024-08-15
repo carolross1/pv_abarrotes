@@ -2,6 +2,7 @@ import { Component,HostListener } from '@angular/core';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'
 import { LoginService } from './services/login/login.service';
+import { AlertaService } from './services/alertas/alerta.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,9 @@ import { LoginService } from './services/login/login.service';
 })
 
 export class AppComponent {
-  
+  alerta$ = this.alertaService.alerta$;
  title = 'client';
-
-  constructor(private loginservice:LoginService){
+  constructor(private loginservice:LoginService, private alertaService:AlertaService){
   }
 /*  @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): void {
