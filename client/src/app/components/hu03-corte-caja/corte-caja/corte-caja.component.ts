@@ -4,6 +4,8 @@ import { CorteCaja } from '../../../models/CorteCaja';
 import { LoginService } from '../../../services/login/login.service';
 import { Route, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AlertaService } from '../../../services/alertas/alerta.service';
+
 
 @Component({
   selector: 'app-corte-caja',
@@ -33,7 +35,10 @@ export class CorteCajaComponent implements OnInit {
 
   public dropdownOpen: { [key: string]: boolean } = {}; // Estado de los desplegables
 
-  constructor(private corteCajaService: CorteCajaService, private loginService: LoginService,private router:Router) { }
+  constructor(private corteCajaService: CorteCajaService, 
+    private loginService: LoginService,
+    private router:Router,
+  private alertaService:AlertaService) { }
 
   ngOnInit(): void {
     this.fecha= new Date().toISOString().split('T')[0];
@@ -52,7 +57,7 @@ export class CorteCajaComponent implements OnInit {
         response => {
             if (response && response.id_Corte) {
                 // Si hay un corte abierto, mostrar un mensaje
-                alert('Ya tienes un corte de caja abierto. Debes cerrarlo antes de iniciar uno nuevo.');
+               this.alertaService.showNotification('Ya tienes un corte de caja abierto. Debes cerrarlo antes de iniciar uno nuevo.','error')
             } else {
                 // Si no hay cortes abiertos, proceder con el inicio de un nuevo corte
                 console.log('No hay cortes abiertos, iniciando nuevo corte.');
@@ -67,16 +72,17 @@ export class CorteCajaComponent implements OnInit {
                 this.corteCajaService.iniciarCorte(data).subscribe(
                     response => {
                         if (response.success) {
-                          //  alert('Corte inicial realizado con éxito');
+                          this.alertaService.showNotification('Corte inicial realizado con éxito.','success')
                             this.router.navigate(['/principal']);
                         } else {
-                            alert('Corte inicial realizado con éxito.');
+                          this.alertaService.showNotification('Corte inicial realizado con éxito.','success')
                             this.router.navigate(['/principal']);
                         }
                     },
                     (error: HttpErrorResponse) => {
                         console.error('Error al realizar el corte inicial:', error);
-                        alert('Error al realizar el corte inicial.');
+                       this.alertaService.showNotification('Error al realizar el corte inicial.','error')
+                    
                     }
                 );
             }
@@ -99,13 +105,14 @@ export class CorteCajaComponent implements OnInit {
                             //alert('Corte inicial realizado con éxito');
                             //this.router.navigate(['/principal']);
                         } else {
-                          alert('Corte inicial realizado con éxito.');
+                          this.alertaService.showNotification('Corte inicial realizado con éxito.','success')
                           this.router.navigate(['/principal']);
                         }
                     },
                     (error: HttpErrorResponse) => {
                         console.error('Error al realizar el corte inicial:', error);
-                        alert('Error al realizar el corte inicial.');
+                        this.alertaService.showNotification('Error al realizar el corte inicial.','error')
+                  
                     }
                 );
             } else {
@@ -128,22 +135,22 @@ export class CorteCajaComponent implements OnInit {
                 this.corteCajaService.cerrarCorte({ id_Corte }).subscribe(
                     response => {
                         if (response.success) {
-                            console.log('Corte cerrado con éxito.');
-                            alert('SEPA QUE PASE');
+                          this.alertaService.showNotification('Corte cerrado con éxito','success')
+                         
                         } else {
-                            alert('Corte cerrado con éxito');
+                          this.alertaService.showNotification('Corte cerrado con éxito','success')
                             this.obtenerCorteActual();
                         }
                     },
                     error => {
                         console.error('Error al cerrar el corte:', error);
-                        alert('Error al cerrar el corte.');
+                        this.alertaService.showNotification('Error al cerrar el corte.','error');
                     }
                 );
             },
             error => {
                 console.error('Error al obtener el corte abierto:', error);
-                alert('Error al obtener el corte abierto.');
+                this.alertaService.showNotification('Error al cerrar el corte.','error');
             }
         );
     }

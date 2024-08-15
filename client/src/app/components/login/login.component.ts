@@ -22,7 +22,7 @@ export class LoginComponent {
         if (response.success) {
           this.message = 'Inicio de sesión exitoso';
           this.loginService.setCurrentUser(response.usuario);
-          this.alertaService.showNotification('Inicio de sesión exitoso');
+          this.alertaService.showNotification('Inicio de sesión exitoso','success');
           
           // Verificar el valor de tipo_Usuario
           console.log('Usuario logueado:', response.usuario);
@@ -35,13 +35,13 @@ export class LoginComponent {
           }
         } else {
           this.message = response.message;
-          this.alertaService.showNotification(response.message);
+          this.alertaService.showNotification(response.message,'error');
   
         }
       },
       error => {
         this.message = 'Error al iniciar sesión';
-        this.alertaService.showNotification('Error al iniciar sesión'); 
+        this.alertaService.showNotification('Error al iniciar sesión','error'); 
         console.error(error);
       }
     );
