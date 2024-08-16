@@ -26,7 +26,7 @@ CREATE TABLE producto (
     utilidad DECIMAL(10, 2) AS (precio_Venta - precio_Compra) STORED,
     cantidad_Stock INT NOT NULL,
     cant_Minima INT NOT NULL,
-    codigo_barras INT NOT NULL UNIQUE,
+    codigo_Barras INT NOT NULL UNIQUE,
      CONSTRAINT fk_categoria FOREIGN KEY (id_Categoria) REFERENCES Categoria(id_Categoria)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -36,16 +36,12 @@ CREATE TABLE `usuario` (
   `id_Usuario` varchar(10) NOT NULL PRIMARY KEY ,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
-  `telefono` varchar(13) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `contrasena` varchar(13) NOT NULL,
-  `tipo_Usuario` varchar(50) NOT NULL
+  `telefono` varchar(13) NOT NULL UNIQUE,
+  `email` varchar(100) NOT NULL UNIQUE,
+  `contrasena` varchar(255) NOT NULL,
+  `tipo_Usuario` varchar(50) NOT NULL,
+   `salt` varchar(100)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-ALTER TABLE usuario ADD COLUMN salt VARCHAR(100);
-ALTER TABLE usuario
-MODIFY COLUMN id_Usuario INT AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE usuario
-MODIFY COLUMN contrasena VARCHAR(255) NOT NULL;
 
 
 DELIMITER //
@@ -106,7 +102,7 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `corte_caja`
 --YA ESTA CORRECTA
 CREATE TABLE `corte_caja` (
-  `id_Corte_Caja` INT AUTO_INCREMENT PRIMARY KEY,  -- Identificador único del corte
+  `id_Corte` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,  -- Identificador único del corte
   `id_Usuario` VARCHAR(10) NOT NULL,  -- Identificador del usuario (empleado)
   `monto_Inicial` DECIMAL(10, 2) NOT NULL,  -- Monto inicial del corte (al iniciar el turno o el último monto final)
   `monto_Final` DECIMAL(10, 2) DEFAULT NULL,  -- Monto final del corte
