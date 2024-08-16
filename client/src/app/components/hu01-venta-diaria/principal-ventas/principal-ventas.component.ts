@@ -8,6 +8,8 @@
   import { DetalleVenta } from '../../../models/DetalleVenta';
   import { jsPDF } from 'jspdf';
   import autoTable from 'jspdf-autotable';
+  import { AlertaService } from '../../../services/alertas/alerta.service';
+  import Swal from 'sweetalert2';
 
   @Component({
     selector: 'app-principal-ventas',
@@ -29,13 +31,15 @@
     tipoDescuento: string = '0';
     descuentoPersonalizado: number = 0;
     private debounceTimer: any;
+    message:string='';
     public dropdownOpen: { [key: string]: boolean } = {}; // Estado de los desplegables
 
     constructor(
       private productoService: ProductoService,
       private ventaService: VentaService,
       private loginService: LoginService,
-      private router:Router
+      private router:Router,
+      private alertaService:AlertaService
     ) {}
 
     ngOnInit(): void {
@@ -64,10 +68,11 @@
             this.agregarProductoAVenta(producto, 1);
             inputElement.value = '';
           } else {
-            alert('El producto está agotado y no se puede agregar a la venta.');
+            this.alertaService.showNotification('El producto está agotado y no se puede agregar a la venta.','success');
+            
           }
         } else {
-          alert('Producto no encontrado.');
+         this.alertaService.showNotification('Producto no encontrado.','warning');
         }
       }
     }
@@ -87,17 +92,17 @@
             this.agregarProductoAVenta(producto, 1); // Pasar cantidad 1
             inputElement.value = '';
           } else {
-            alert('El producto está agotado y no se puede agregar a la venta.');
+          this.alertaService.showNotification('El producto está agotado y no se puede agregar a la venta.','error');
           }
         } else {
-          alert('Producto no encontrado.');
+          this.alertaService.showNotification('Producto no encontrado.','error');
         }
       }, 700); // Tiempo en milisegundos para el retraso
     }
 
     agregarProductoAVenta(producto: Producto, cantidad: number) {
       if (producto.cantidad_Stock < cantidad) {
-        alert('No hay suficiente stock del producto para la cantidad solicitada.');
+        this.alertaService.showNotification('No hay suficiente stock del producto para la cantidad solicitada.','error');
         return;
       }
 
@@ -136,7 +141,8 @@
     pagar() {
       console.log('pagando');
       if (this.ventaProductos.length === 0) {
-        alert('No hay productos en el carrito. No se puede realizar el pago.');
+        this.message = 'No hay productos en el carrito. No se puede realizar el pago.';
+        this.alertaService.showNotification('No hay productos en el carrito. No se puede realizar el pago.', 'error');
         return;
       }
 
@@ -152,15 +158,23 @@
             this.actualizarStockProducto(producto.id_Producto, nuevaCantidad);
           }
         });
-
-        // Mostrar el cuadro de confirmación
-        const generarTicket = window.confirm('¿Deseas generar un ticket?');
-        this.registrarVenta(generarTicket);
+      
+        Swal.fire({
+          title: '¿Deseas generar un ticket?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Sí',
+          cancelButtonText: 'No'
+        }).then((result) => {
+          const generarTicket = result.isConfirmed;
+          this.registrarVenta(generarTicket);
+        });
+  
       } else {
-        alert('La cantidad recibida es menor al total de la venta');
+        this.alertaService.showNotification('La cantidad recibida es menor al total de la venta', 'warning');
       }
     }
-
+  
       registrarVenta(generarTicket: boolean) {
         const currentUser = this.loginService.getCurrentUser();
         console.log('Usuario actual:', currentUser);

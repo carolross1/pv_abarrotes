@@ -20,8 +20,8 @@ import { ProductoService } from './services/productos/producto.service';
 import { VentaService } from './services/principal-ventas/venta.service';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 import { ListaUsuariosComponent } from './components/nuevo-usuario/lista-usuarios/lista-usuarios.component';
-
-
+import { AlertaService } from './services/alertas/alerta.service';
+                                                                                                                                                                                                                                                                                                                        
 
 @NgModule({
   declarations: [
@@ -49,7 +49,7 @@ import { ListaUsuariosComponent } from './components/nuevo-usuario/lista-usuario
     ProductoModule,
 
   ],
-  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService],
+  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService,AlertaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

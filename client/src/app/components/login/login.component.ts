@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
+import { AlertaService } from '../../services/alertas/alerta.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent {
   contrasena: string = '';
   message: string = '';
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router,private alertaService:AlertaService) {}
 
   login() {
     this.loginService.login(this.usuario, this.contrasena).subscribe(
@@ -21,6 +22,7 @@ export class LoginComponent {
         if (response.success) {
           this.message = 'Inicio de sesión exitoso';
           this.loginService.setCurrentUser(response.usuario);
+          this.alertaService.showNotification('Inicio de sesión exitoso','success');
           
           // Verificar el valor de tipo_Usuario
           console.log('Usuario logueado:', response.usuario);
@@ -33,13 +35,13 @@ export class LoginComponent {
           }
         } else {
           this.message = response.message;
+          this.alertaService.showNotification(response.message,'error');
   
         }
       },
       error => {
         this.message = 'Error al iniciar sesión';
-        console.error(error);
-
+        this.alertaService.showNotification('Error al iniciar sesión','error'); 
         console.error(error);
       }
     );

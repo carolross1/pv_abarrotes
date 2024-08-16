@@ -8,45 +8,45 @@ USE ng_punto_de_venta;
 
 
 -- Crea la tabla Categoria //YA ESTA CORRECTA
-CREATE TABLE categoria (
-    id_Categoria INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-ALTER TABLE categoria
-ADD CONSTRAINT unique_nombre UNIQUE (nombre);
-
+CREATE TABLE `categoria` (
+  `id_Categoria` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_Categoria`),
+  UNIQUE KEY `unique_nombre` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Crea la tabla Producto //YA ESTA CORRECTA
-CREATE TABLE producto (
-    id_Producto INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL UNIQUE,
-    id_Categoria INT NOT NULL,
-    precio_Compra DECIMAL(10, 2) NOT NULL,
-    precio_Venta DECIMAL(10, 2) NOT NULL,
-    utilidad DECIMAL(10, 2) AS (precio_Venta - precio_Compra) STORED,
-    cantidad_Stock INT NOT NULL,
-    cant_Minima INT NOT NULL,
-    codigo_barras INT NOT NULL UNIQUE,
-     CONSTRAINT fk_categoria FOREIGN KEY (id_Categoria) REFERENCES Categoria(id_Categoria)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `producto` (
+  `id_Producto` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL UNIQUE,
+  `id_Categoria` int(11) NOT NULL,
+  `precio_Compra` decimal(10,2) NOT NULL,
+  `precio_Venta` decimal(10,2) NOT NULL,
+  `utilidad` decimal(10,2) GENERATED ALWAYS AS (`precio_Venta` - `precio_Compra`) STORED,
+  `cantidad_Stock` int(11) NOT NULL,
+  `cant_Minima` int(11) NOT NULL,
+  `codigo_Barras` int(11) NOT NULL UNIQUE,
+  PRIMARY KEY (`id_Producto`),
+  UNIQUE KEY `codigo_barras` (`codigo_Barras`),
+  KEY `fk_categoria` (`id_Categoria`),
+  CONSTRAINT `fk_categoria` FOREIGN KEY (`id_Categoria`) REFERENCES `categoria` (`id_Categoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Estructura de tabla para la tabla `usuario`
 
-CREATE TABLE `usuario` (
-  `id_Usuario` varchar(10) NOT NULL PRIMARY KEY ,
+ CREATE TABLE `usuario` (
+  `id_Usuario` varchar(10) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `telefono` varchar(13) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `contrasena` varchar(13) NOT NULL,
-  `tipo_Usuario` varchar(50) NOT NULL
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-ALTER TABLE usuario ADD COLUMN salt VARCHAR(100);
-ALTER TABLE usuario
-MODIFY COLUMN id_Usuario INT AUTO_INCREMENT PRIMARY KEY;
-ALTER TABLE usuario
-MODIFY COLUMN contrasena VARCHAR(255) NOT NULL;
-
+  `contrasena` varchar(255) NOT NULL,
+  `tipo_Usuario` varchar(50) NOT NULL,
+  `salt` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_Usuario`),
+  UNIQUE KEY `telefono` (`telefono`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
 
 DELIMITER //
 
@@ -104,16 +104,22 @@ END //
 DELIMITER ;
 
 -- Estructura de tabla para la tabla `corte_caja`
---YA ESTA CORRECTA
 CREATE TABLE `corte_caja` (
-  `id_Corte_Caja` INT AUTO_INCREMENT PRIMARY KEY,  -- Identificador único del corte
-  `id_Usuario` VARCHAR(10) NOT NULL,  -- Identificador del usuario (empleado)
-  `monto_Inicial` DECIMAL(10, 2) NOT NULL,  -- Monto inicial del corte (al iniciar el turno o el último monto final)
-  `monto_Final` DECIMAL(10, 2) DEFAULT NULL,  -- Monto final del corte
-  `fecha` DATE NOT NULL,  -- Fecha del corte
-  `ultimo_Corte` BOOLEAN DEFAULT FALSE,  -- Indicador si es el último corte del turno
-  CONSTRAINT fk_Usuario FOREIGN KEY (id_Usuario) REFERENCES usuario(id_Usuario)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_Corte` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `hora_Inicio` time NOT NULL,
+  `hora_Fin` time DEFAULT NULL,
+  `saldo_Inicial` decimal(10,2) NOT NULL,
+  `ingresos` decimal(10,2) DEFAULT 0.00,
+  `egresos` decimal(10,2) DEFAULT 0.00,
+  `saldo_Final` decimal(10,2) DEFAULT NULL,
+  `id_Usuario` varchar(100) DEFAULT NULL,
+  `cerrado` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id_Corte`),
+  KEY `id_Usuario` (`id_Usuario`),
+  CONSTRAINT `corte_caja_ibfk_1` FOREIGN KEY (`id_Usuario`) REFERENCES `usuario` (`id_Usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- Estructura de tabla para la tabla `venta`
 CREATE TABLE `venta` (
@@ -130,31 +136,26 @@ CREATE TABLE `venta` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Estructura de tabla para la tabla `detalle_venta`
-
 CREATE TABLE `detalle_venta` (
-  `id_Detalle` int(11) NOT NULL AUTO_INCREMENT ,
+  `id_Detalle` int(11) NOT NULL AUTO_INCREMENT,
   `id_Venta` varchar(8) NOT NULL,
   `id_Producto` int(11) NOT NULL,
   `descuento` decimal(10,2) DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL,
+  `cantidad` int(11) NOT NULL,
+  `total_venta` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id_Detalle`),
   KEY `id_Producto` (`id_Producto`),
   KEY `detalle_venta_ibfk_1` (`id_Venta`),
-  CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`id_Venta`) REFERENCES `venta` (`id_Venta`),   
+  CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`id_Venta`) REFERENCES `venta` (`id_Venta`),
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_Producto`) REFERENCES `producto` (`id_Producto`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-ALTER TABLE `detalle_venta`
-ADD COLUMN `total_venta` DECIMAL(10, 2) NOT NULL;
-
-
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
 
 -- Estructura de tabla para la tabla `factura`
 --
 
 CREATE TABLE `factura` (
-  `id_Factura` int(11) NOT NULL AUTO_INCREMENT ,
-  `id_Venta` varchar(8) NOT NULL,
+  `id_Factura` int(11) NOT NULL AUTO_INCREMENT,
+  `id_Venta` varchar(8) NOT NULL UNIQUE,
   `RFC` varchar(13) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `apellidos` varchar(100) NOT NULL,
@@ -165,23 +166,19 @@ CREATE TABLE `factura` (
   `fecha_Factura` datetime NOT NULL,
   `total` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id_Factura`),
-  FOREIGN KEY (`id_Venta`) REFERENCES `venta`(`id_Venta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`id_Venta`) REFERENCES `venta` (`id_Venta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-ALTER TABLE `factura`
-ADD CONSTRAINT `unique_id_Venta`
-UNIQUE (`id_Venta`);
-
-
--- Crear la tabla `Inventario`
-CREATE TABLE `inventario` (
-  `id_Inventario` INT AUTO_INCREMENT NOT NULL ,
-  `id_Usuario` VARCHAR(10) NOT NULL,
-  `Fecha_Inicio` DATETIME NOT NULL,
-  `Fecha_Termino` DATETIME NOT NULL,
+-- Crear la tabla `Inventario`  
+ inventario | CREATE TABLE `inventario` (
+  `id_Inventario` int(11) NOT NULL AUTO_INCREMENT,
+  `id_Usuario` varchar(10) NOT NULL,
+  `Fecha_Inicio` datetime NOT NULL,
+  `Fecha_Termino` datetime NOT NULL,
   PRIMARY KEY (`id_Inventario`),
-  FOREIGN KEY (`id_Usuario`) REFERENCES `usuario`(`id_Usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  KEY `id_Usuario` (`id_Usuario`),
+  CONSTRAINT `inventario_ibfk_1` FOREIGN KEY (`id_Usuario`) REFERENCES `usuario` (`id_Usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
 
 -- Crear la tabla `Detalle_Inventario`
 CREATE TABLE `detalle_inventario` (
@@ -195,8 +192,8 @@ CREATE TABLE `detalle_inventario` (
 
 CREATE TABLE `cliente_frecuente` (
   `id_Cliente` INT AUTO_INCREMENT NOT NULL,
-  `nombre` VARCHAR(100) NOT NULL,
-  `apellidos` VARCHAR(100) NOT NULL,
+  `nombre` VARCHAR(80) NOT NULL,
+  `apellidos` VARCHAR(50) NOT NULL,
   `email` VARCHAR(100) UNIQUE,
   `telefono` VARCHAR(13) NOT NULL UNIQUE,
   PRIMARY KEY (`id_Cliente`)
@@ -211,14 +208,13 @@ CREATE TABLE `venta_cliente_frecuente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `proveedor` (
-  `id_Proveedor` INT AUTO_INCREMENT NOT NULL,
-  `nombre` VARCHAR(100) NOT NULL,
-  `apellidos` VARCHAR(100) NOT NULL,
-  `telefono` VARCHAR(13) NOT NULL UNIQUE,
-  `empresa` VARCHAR(100),
+  `id_Proveedor` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `apellidos` varchar(100) NOT NULL,
+  `telefono` varchar(13) NOT NULL UNIQUE,
+  `empresa` varchar(100) NOT NULL,
   PRIMARY KEY (`id_Proveedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 -----no se aun 

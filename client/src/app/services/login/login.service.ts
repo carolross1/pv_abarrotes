@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 export interface LogoutResponse {
   success: boolean;
   message?: string;
@@ -35,7 +36,15 @@ export class LoginService {
     // Verificar si el usuario ha realizado un corte final
  const estadoCorte = localStorage.getItem('estadoCorte');
     if (estadoCorte && estadoCorte !== 'final') {
-      alert('No puedes cerrar sesión sin realizar un corte final. REALIZA EL CORTE ANTES DE SALIR');
+      // Mostrar alerta con SweetAlert2
+    Swal.fire({
+      icon: 'warning',
+      title: 'Cierre de sesión no permitido',
+      text: 'No puedes cerrar sesión sin realizar un corte final. REALIZA EL CORTE ANTES DE SALIR',
+      confirmButtonText: 'Aceptar'
+    }).then(() => {
+      this.router.navigate(['/cortedecaja']);
+    });
       this.router.navigate(['/cortedecaja']);
       return false; // Indica que el logout no se realizó
      
@@ -44,7 +53,7 @@ export class LoginService {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
     this.router.navigate(['/login']);
-    return true; // Indica que el logout se realizó con éxito
-  }
+    return true;
  
+}
 }
