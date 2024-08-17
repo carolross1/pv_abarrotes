@@ -53,11 +53,15 @@
 <div class="datos-container">
   <h2 class="titulo-centrado">Datos de Facturación</h2>
 
-  <form (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()" >
     <div class="form-row">
       <div>
         <label class="etiqueta-bloque" for="Numero de Ticket">Número de Ticket:</label>
-        <input type="text" id="Numero de Ticket" name="Numero de Ticket" class="entrada-texto"  [(ngModel)]="factura.id_Venta" (ngModelChange)="actualizarTotal()" required>
+        <input type="text" id="Numero de Ticket" name="Numero de Ticket" class="entrada-texto"  
+        [(ngModel)]="factura.id_Venta" 
+        (ngModelChange)="actualizarTotal()" required
+         readonly="isEditing"
+         [ngClass]="{'readonly': isEditing}">
       </div>
       <div>
         <label class="etiqueta-bloque" for="rfc">RFC:</label>
@@ -134,12 +138,17 @@
       </div>
       <div>
         <label class="etiqueta-bloque" for="total">Total:</label>
-        <input type="number" id="total" name="total" class="entrada-texto" [(ngModel)]="factura.total" required>
+        <input type="number" id="total" name="total" class="entrada-texto" [(ngModel)]="factura.total" required 
+        readonly="isEditing"
+        [ngClass]="{'readonly': isEditing}">
       </div>
     </div>
     <div class="form-buttons">
-      <button type="button" class="boton-accion">Cancelar</button>
-      <button type="submit" class="boton-accion" (click)="generarPDF()">Generar Factura</button>
+      <button type="button" class="boton-accion" routerLink="/facturas" [ngClass]="{isEditing}">Cancelar</button>
+
+      <button type="submit"  class="boton-accion" [ngClass]="{'btn-update': isEditing, 'btn-create': !isEditing}">
+        {{ isEditing ? 'Actualizar Factura' : 'Generar Factura' }}
+      </button>
     </div>
   </form>
 </div>

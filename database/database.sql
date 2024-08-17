@@ -2,12 +2,11 @@
 
 DROP DATABASE ng_punto_de_venta;
 
-
 CREATE DATABASE ng_punto_de_venta;
 USE ng_punto_de_venta; 
 
 
--- Crea la tabla Categoria //YA ESTA CORRECTA
+-- Crea la tabla Categoria 
 CREATE TABLE `categoria` (
   `id_Categoria` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
@@ -15,7 +14,7 @@ CREATE TABLE `categoria` (
   UNIQUE KEY `unique_nombre` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Crea la tabla Producto //YA ESTA CORRECTA
+-- Crea la tabla Producto 
 CREATE TABLE `producto` (
   `id_Producto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL UNIQUE,
@@ -47,6 +46,8 @@ CREATE TABLE `producto` (
   UNIQUE KEY `telefono` (`telefono`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
+
+
 
 DELIMITER //
 
@@ -211,78 +212,50 @@ CREATE TABLE `proveedor` (
   `id_Proveedor` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
   `apellidos` varchar(100) NOT NULL,
-  `telefono` varchar(13) NOT NULL UNIQUE,
+  `email`     varchar(100) NOT NULL UNIQUE,
   `empresa` varchar(100) NOT NULL,
   PRIMARY KEY (`id_Proveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
------no se aun 
-DELIMITER $$
-CREATE TRIGGER `trg_valida_email_cliente` BEFORE INSERT ON `cliente_frecuente` FOR EACH ROW BEGIN
-    DECLARE msg VARCHAR(255);
-    IF NEW.email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}$' THEN
-        SET msg = 'Correo electrónico válido';
-    ELSE
-        SET msg = 'Formato de correo electrónico inválido';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
-    END IF;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `trg_valida_telefono_cliente` BEFORE INSERT ON `cliente_frecuente` FOR EACH ROW BEGIN
-    DECLARE msg VARCHAR(255);
-    IF NEW.telefono REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$' THEN
-        SET msg = 'Teléfono válido';
-    ELSE
-        SET msg = 'Formato de teléfono inválido';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
-    END IF;
-END
-$$
-DELIMITER ;
+-- Tabla entrega_producto
+CREATE TABLE entrega_producto (
+    id_Entrega INT AUTO_INCREMENT PRIMARY KEY,
+    id_Usuario VARCHAR(10) NOT NULL,
+    id_Proveedor INT NOT NULL,
+    fecha DATETIME NOT NULL,
+    id_Factura INT,
+    FOREIGN KEY (id_Usuario) REFERENCES usuario(id_Usuario),
+    FOREIGN KEY (id_Proveedor) REFERENCES proveedor(id_Proveedor)
+);
 
+-- Tabla detalle_entrega
+CREATE TABLE detalle_entrega (
+    id_Entrega INT,
+    id_Producto INT NOT NULL,
+    cantidad INT NOT NULL,
+    total_Venta DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (id_Entrega, id_Producto),
+    FOREIGN KEY (id_Entrega) REFERENCES entrega_producto(id_Entrega),
+    FOREIGN KEY (id_Producto) REFERENCES producto(id_Producto)
+);
 
+-- Tabla pedido_digital 
+CREATE TABLE pedido_digital (
+    id_Pedido VARCHAR(10) PRIMARY KEY,
+    id_Proveedor INT NOT NULL,
+    fecha_Pedido DATETIME NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (id_Proveedor) REFERENCES proveedor(id_Proveedor)
+);
 
--- Disparadores `proveedor`
---
-DELIMITER $$
-CREATE TRIGGER `trg_valida_telefono_proveedor` BEFORE INSERT ON `proveedor` FOR EACH ROW BEGIN
-    DECLARE msg VARCHAR(255);
-    IF NEW.telefono REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$' THEN
-        SET msg = 'Número de teléfono válido';
-    ELSE
-        SET msg = 'Formato de número de teléfono inválido. El formato debe ser ###-###-####';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
-    END IF;
-END
-$$
-DELIMITER ;
-
--- Disparadores `usuario`
---
-DELIMITER $$
-CREATE TRIGGER `trg_valida_email_usuario` BEFORE INSERT ON `usuario` FOR EACH ROW BEGIN
-    DECLARE msg VARCHAR(255);
-    IF NEW.email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}$' THEN
-        SET msg = 'Correo electrónico válido';
-    ELSE
-        SET msg = 'Formato de correo electrónico inválido';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
-    END IF;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `trg_valida_telefono_usuario` BEFORE INSERT ON `usuario` FOR EACH ROW BEGIN
-    DECLARE msg VARCHAR(255);
-    IF NEW.telefono REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$' THEN
-        SET msg = 'Teléfono válido';
-    ELSE
-        SET msg = 'Formato de teléfono inválido';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
-    END IF;
-END
-$$
-DELIMITER ;
+-- Tabla detalle_pedido_digital
+CREATE TABLE detalle_pedido_digital (
+    id_Pedido VARCHAR(10) NOT NULL,
+    id_Producto INT NOT NULL,
+    cantidad INT NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (id_Pedido, id_Producto),
+    FOREIGN KEY (id_Pedido) REFERENCES pedido_digital(id_Pedido),
+    FOREIGN KEY (id_Producto) REFERENCES producto(id_Producto)
+);

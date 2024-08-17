@@ -145,3 +145,21 @@
 .boton-accion:hover {
   opacity: 0.8;
 }
+/*.error-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.entrada-texto.ng-touched.ng-invalid {
+  border-color: red;
+}
+
+.entrada-texto.ng-touched.ng-valid {
+  border-color: green;
+}*/
+.readonly{
+  background-color: #f8c2c2; 
+  color: #050505; 
+  cursor: not-allowed; 
+}

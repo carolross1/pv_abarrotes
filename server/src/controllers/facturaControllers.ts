@@ -9,6 +9,20 @@ export const getFacturas = async (req: Request, res: Response): Promise<void> =>
         res.status(500).json({ message: 'Error al obtener facturas', error });
     }
 };
+export const getFacturaU = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  try {
+    const factura = await pool.query('SELECT * FROM factura WHERE id_Factura = ?', [id]);
+    if (factura.length > 0) {
+      res.json(factura[0]); // Devuelve el primer resultado, si hay más de uno
+    } else {
+      res.status(404).json({ message: 'Factura no encontrada' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'No se obtuvo la factura', error });
+  }
+};
+
 
 export const createFactura = async (req: Request, res: Response): Promise<void> => {
     try {

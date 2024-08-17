@@ -4,6 +4,7 @@ import { FacturaService } from '../../../services/factura/factura.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { LoginService } from '../../../services/login/login.service';
+import { Router,ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-factura',
@@ -25,14 +26,59 @@ export class FacturaComponent implements OnInit {
   };
 detallesVenta:any[]=[];
 
-  dropdownOpen: { [key: string]: boolean } = {}; // Estado de los desplegables
+  dropdownOpen: { [key: string]: boolean } = {}; 
+  isEditing: boolean = false; 
 
-  constructor(private facturaService: FacturaService, private loginService:LoginService) {}
+  constructor(private facturaService: FacturaService,
+     private loginService:LoginService,
+      private router:Router,
+       private route: ActivatedRoute) {}
   ngOnInit(): void {
-    
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.isEditing = true;
+        this.cargarFactura(Number(id));
+      }
+    });
+  }
+  cargarFactura(id: number): void {
+    this.facturaService.getFacturaById(id).subscribe(
+      (factura: Factura) => {
+        this.factura = factura;
+      },
+      error => {
+        console.error('Error al cargar la factura:', error);
+      }
+    );
   }
 
   onSubmit() {
+    if (this.isEditing) {
+      // Si estamos editando, actualizamos la factura existente
+      this.facturaService.updateFactura(this.factura).subscribe(
+        response => {
+          console.log('Factura actualizada:', response);
+  
+          // Obtener detalles de la venta después de actualizar la factura
+          this.facturaService.getDetallesVenta(this.factura.id_Venta).subscribe(
+            detalles => {
+              this.detallesVenta = detalles;
+              const totalVenta = this.detallesVenta.reduce((acc, detalle) => acc + detalle.total_venta, 0);
+              this.factura.total = totalVenta;
+              this.generarPDF(); 
+              this.router.navigate(['/facturas']);
+            },
+            error => {
+              console.error('Error al obtener los detalles de la venta:', error);
+            }
+          );
+        },
+        error => {
+          console.error('Error al actualizar la factura:', error);
+        }
+      );
+    } else {
     this.facturaService.createFactura(this.factura).subscribe(response => {
       console.log('Factura creada:', response);
       this.facturaService.getDetallesVenta(this.factura.id_Venta).subscribe(detalles=>{
@@ -40,16 +86,17 @@ detallesVenta:any[]=[];
         const totalVenta = this.detallesVenta.reduce((acc, detalle) => acc + detalle.total_venta, 0);
         this.factura.total = totalVenta;
       this.generarPDF(); // Generar el PDF después de crear la factura
+      this.router.navigate(['/facturas']);
     }, error => {
       console.error('Error al crear el detalle:', error);
     });
   },error =>{
 
   console.error('error al crear la factura',error);
-  
-  });
 }
-  
+);
+}
+}
 actualizarTotal() {
   if (this.factura.id_Venta) {
     this.facturaService.getTotalPorTicket(this.factura.id_Venta).subscribe(response => {

@@ -21,6 +21,9 @@ import { VentaService } from './services/principal-ventas/venta.service';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 import { ListaUsuariosComponent } from './components/nuevo-usuario/lista-usuarios/lista-usuarios.component';
 import { AlertaService } from './services/alertas/alerta.service';
+import { FacturaListComponent } from './components/hu01-venta-diaria/factura-list/factura-list.component';
+import { FacturaDetailComponent } from './components/hu01-venta-diaria/factura-detail/factura-detail.component';
+import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/venta-list.component';
                                                                                                                                                                                                                                                                                                                         
 
 @NgModule({
@@ -31,6 +34,9 @@ import { AlertaService } from './services/alertas/alerta.service';
 
    NuevoUsuarioComponent,
    ListaUsuariosComponent,
+   FacturaListComponent,
+   FacturaDetailComponent,
+   VentaListComponent,
   ],
   imports: [
     BrowserModule,

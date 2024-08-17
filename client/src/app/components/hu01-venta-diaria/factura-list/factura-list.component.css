@@ -1,0 +1,170 @@
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 30px;
+}
+
+/* Estilos para el logo */
+.logo {
+  height: 50px;
+  width: auto;
+}
+
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #5b3d99;
+  padding: 10px;
+}
+
+.nav-group {
+  position: relative;
+  margin-right: 10px;
+}
+
+.dropdown-btn {
+  background-color: #5b3d99;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-btn i {
+  margin-left: 5px;
+}
+
+.dropdown-container {
+  display: none;
+  background-color: #d0b4f1;
+  border-radius: 5px;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  z-index: 1;
+}
+
+.dropdown-container a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.dropdown-container a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-container a:hover {
+  background-color: #b894e6;
+}
+
+.dropdown-btn.active + .dropdown-container {
+  display: block;
+}
+
+.factura-list-container {
+    padding: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-top: 4em;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+ 
+.edit-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+
+.edit-icon{
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #95dc8d;
+}
+.edit-icon:hover{
+  background-color: #a1c96d;
+}
+
+.btn-purple {
+  background-color: #D291BC; 
+  border-color: #D291BC;
+  color: #ffffff;
+  border-radius: 8px; 
+  padding: 10px 20px; 
+  font-size: 16px;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+.btn-danger{
+  background-color: #D291BC; 
+  border-color: #D291BC;
+  color: #ffffff;
+  border-radius: 8px; 
+  padding: 10px 20px; 
+  font-size: 16px;
+  margin: 0 auto;
+  
+}
+
+.btn-purple:hover {
+  background-color: #B565A7; 
+  border-color: #B565A7;
+}
+
+

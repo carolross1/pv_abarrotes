@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CorteCajaService } from '../../../services/corte-caja/corte-caja.service';
 import { CorteCaja } from '../../../models/CorteCaja';
 import { LoginService } from '../../../services/login/login.service';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertaService } from '../../../services/alertas/alerta.service';
 

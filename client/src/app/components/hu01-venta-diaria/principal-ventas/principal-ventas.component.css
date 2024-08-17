@@ -278,4 +278,13 @@
 .barcode-icon .fa-barcode {
     font-size: 1.8em;
 }
-
+.error {
+    border-radius: 2px solid red; /* Cambia el borde a rojo */
+    background-color: #e79a9a; /* Opcional: fondo ligeramente rojo */
+  }
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    font-size:larger;
+  }
