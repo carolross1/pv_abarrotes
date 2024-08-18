@@ -260,47 +260,6 @@ CREATE TABLE detalle_pedido_digital (
     FOREIGN KEY (id_Producto) REFERENCES producto(id_Producto)
 );
 
-DELIMITER //
-
-CREATE TRIGGER trg_AjusteStockDetalleVenta
-AFTER UPDATE ON detalle_venta
-FOR EACH ROW
-BEGIN
-    -- Ajuste de stock en caso de actualización
-    UPDATE producto
-    SET cantidad_Stock = cantidad_Stock + (OLD.cantidad - NEW.cantidad)
-    WHERE producto.id_Producto = NEW.id_Producto;
-
-    -- Actualización del total de venta
-    UPDATE detalle_venta
-    SET total_venta = NEW.cantidad * (
-        SELECT precio_Venta 
-        FROM producto 
-        WHERE producto.id_Producto = NEW.id_Producto
-    )
-    WHERE id_Detalle = NEW.id_Detalle;
-END//
-
-DELIMITER ;
-
-
-DELIMITER //
-
-CREATE TRIGGER trg_AjusteStockDetalleVentaDelete
-AFTER DELETE ON detalle_venta
-FOR EACH ROW
-BEGIN
-    -- Ajuste de stock en caso de eliminación
-    UPDATE producto
-    SET cantidad_Stock = cantidad_Stock + OLD.cantidad
-    WHERE producto.id_Producto = OLD.id_Producto;
-END//
-
-DELIMITER ;
-
-
-
-
 ------------------------- probaremos con esto 
 
 DELIMITER //
@@ -316,11 +275,7 @@ BEGIN
 END//
 
 DELIMITER ;
-
-
-
-
-
+------segundo
 
 DELIMITER //
 
@@ -336,7 +291,7 @@ END//
 
 DELIMITER ;
 
-
+---tercero
 DELIMITER //
 
 CREATE PROCEDURE proc_ActualizarDetalleVenta (
