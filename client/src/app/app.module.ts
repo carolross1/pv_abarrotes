@@ -24,7 +24,8 @@ import { AlertaService } from './services/alertas/alerta.service';
 import { FacturaListComponent } from './components/hu01-venta-diaria/factura-list/factura-list.component';
 import { FacturaDetailComponent } from './components/hu01-venta-diaria/factura-detail/factura-detail.component';
 import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/venta-list.component';
-                                                                                                                                                                                                                                                                                                                        
+import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-venta/detalle-venta.component';
+                                                                                                                                                                                                                                                                                                                  
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/ve
    FacturaListComponent,
    FacturaDetailComponent,
    VentaListComponent,
+   DetalleVentaComponent,
   ],
   imports: [
     BrowserModule,

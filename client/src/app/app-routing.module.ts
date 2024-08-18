@@ -22,6 +22,8 @@ import { ListaCategoriasComponent } from './components/producto/categoria/lista-
 import { ListaUsuariosComponent } from './components/nuevo-usuario/lista-usuarios/lista-usuarios.component';
 import { FacturaListComponent } from './components/hu01-venta-diaria/factura-list/factura-list.component';
 import { FacturaDetailComponent } from './components/hu01-venta-diaria/factura-detail/factura-detail.component';
+import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/venta-list.component';
+import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-venta/detalle-venta.component';
 const routes: Routes = [
   {
     path:'',
@@ -31,6 +33,14 @@ const routes: Routes = [
   {
     path:'principal',
     component:PrincipalVentasComponent
+  },
+  {
+    path:'ventas',
+    component:VentaListComponent
+  },
+  {
+    path:'detalles/:id_Venta',
+    component:DetalleVentaComponent
   },
   {
     path:'menu', 

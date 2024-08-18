@@ -53,3 +53,9 @@ export class FacturaDetailComponent implements OnInit {
     console.log('Cierre de sesión realizado correctamente.');
   }
 }
+
+
+
+
+
+

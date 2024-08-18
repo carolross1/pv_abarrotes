@@ -5,4 +5,5 @@ export interface DetalleVenta {
   descuento?: number;  
   cantidad:number;   
   total_venta?:number;   
+  editing?: boolean;
   }

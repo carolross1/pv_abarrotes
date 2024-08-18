@@ -134,7 +134,7 @@ CREATE TABLE `venta` (
   UNIQUE KEY `id_Venta` (`id_Venta`),
   KEY `id_Usuario` (`id_Usuario`),
   CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`id_Usuario`) REFERENCES `usuario` (`id_Usuario`)      
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Estructura de tabla para la tabla `detalle_venta`
 CREATE TABLE `detalle_venta` (
@@ -147,9 +147,9 @@ CREATE TABLE `detalle_venta` (
   PRIMARY KEY (`id_Detalle`),
   KEY `id_Producto` (`id_Producto`),
   KEY `detalle_venta_ibfk_1` (`id_Venta`),
-  CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`id_Venta`) REFERENCES `venta` (`id_Venta`),
+  CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`id_Venta`) REFERENCES `venta` (`id_Venta`) ON DELETE CASCADE,
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_Producto`) REFERENCES `producto` (`id_Producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Estructura de tabla para la tabla `factura`
 --
@@ -259,3 +259,113 @@ CREATE TABLE detalle_pedido_digital (
     FOREIGN KEY (id_Pedido) REFERENCES pedido_digital(id_Pedido),
     FOREIGN KEY (id_Producto) REFERENCES producto(id_Producto)
 );
+
+DELIMITER //
+
+CREATE TRIGGER trg_AjusteStockDetalleVenta
+AFTER UPDATE ON detalle_venta
+FOR EACH ROW
+BEGIN
+    -- Ajuste de stock en caso de actualización
+    UPDATE producto
+    SET cantidad_Stock = cantidad_Stock + (OLD.cantidad - NEW.cantidad)
+    WHERE producto.id_Producto = NEW.id_Producto;
+
+    -- Actualización del total de venta
+    UPDATE detalle_venta
+    SET total_venta = NEW.cantidad * (
+        SELECT precio_Venta 
+        FROM producto 
+        WHERE producto.id_Producto = NEW.id_Producto
+    )
+    WHERE id_Detalle = NEW.id_Detalle;
+END//
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE TRIGGER trg_AjusteStockDetalleVentaDelete
+AFTER DELETE ON detalle_venta
+FOR EACH ROW
+BEGIN
+    -- Ajuste de stock en caso de eliminación
+    UPDATE producto
+    SET cantidad_Stock = cantidad_Stock + OLD.cantidad
+    WHERE producto.id_Producto = OLD.id_Producto;
+END//
+
+DELIMITER ;
+
+
+
+
+------------------------- probaremos con esto 
+
+DELIMITER //
+
+CREATE TRIGGER trg_AjusteStockDetalleVenta
+AFTER UPDATE ON detalle_venta
+FOR EACH ROW
+BEGIN
+    -- Ajuste del stock en caso de actualización
+    UPDATE producto
+    SET cantidad_Stock = cantidad_Stock + (OLD.cantidad - NEW.cantidad)
+    WHERE producto.id_Producto = NEW.id_Producto;
+END//
+
+DELIMITER ;
+
+
+
+
+
+
+DELIMITER //
+
+CREATE TRIGGER trg_AjusteStockDetalleVentaDelete
+AFTER DELETE ON detalle_venta
+FOR EACH ROW
+BEGIN
+    -- Ajuste del stock en caso de eliminación
+    UPDATE producto
+    SET cantidad_Stock = cantidad_Stock + OLD.cantidad
+    WHERE producto.id_Producto = OLD.id_Producto;
+END//
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE PROCEDURE proc_ActualizarDetalleVenta (
+    IN p_id_Detalle INT,
+    IN p_cantidad INT,
+    IN p_id_Producto INT,
+    IN p_descuento DECIMAL(10, 2)
+)
+BEGIN
+    DECLARE p_precio_Venta DECIMAL(10, 2);
+    DECLARE p_total_venta DECIMAL(10, 2);
+
+    -- Actualiza el detalle de la venta
+    UPDATE detalle_venta
+    SET cantidad = p_cantidad, id_Producto = p_id_Producto, descuento = p_descuento
+    WHERE id_Detalle = p_id_Detalle;
+
+    -- Obtiene el precio del producto
+    SELECT precio_Venta INTO p_precio_Venta
+    FROM producto
+    WHERE id_Producto = p_id_Producto;
+
+    -- Calcula el total de venta
+    SET p_total_venta = p_cantidad * p_precio_Venta;
+
+    -- Actualiza el total de venta en detalle_venta
+    UPDATE detalle_venta
+    SET total_venta = p_total_venta
+    WHERE id_Detalle = p_id_Detalle;
+END//
+
+DELIMITER ;
