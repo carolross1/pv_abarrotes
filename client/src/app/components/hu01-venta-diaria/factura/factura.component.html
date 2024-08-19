@@ -52,36 +52,64 @@
 
 <div class="datos-container">
   <h2 class="titulo-centrado">Datos de Facturación</h2>
-
-  <form (ngSubmit)="onSubmit()" >
+  <form (ngSubmit)="onSubmit()" #facturaForm="ngForm">
     <div class="form-row">
       <div>
         <label class="etiqueta-bloque" for="Numero de Ticket">Número de Ticket:</label>
         <input type="text" id="Numero de Ticket" name="Numero de Ticket" class="entrada-texto"  
-        [(ngModel)]="factura.id_Venta" 
-        (ngModelChange)="actualizarTotal()" required
-         readonly="isEditing"
-         [ngClass]="{'readonly': isEditing}">
-      </div>
-      <div>
+    [(ngModel)]="factura.id_Venta"
+    (ngModelChange)="actualizarTotal()" required
+    [ngClass]="{'readonly': isEditing}"
+    minlength="8" 
+    maxlength="8"
+    pattern="TKT-\d{4}" 
+    #numeroDeTicket="ngModel">
+          <div *ngIf="numeroDeTicket.invalid && (numeroDeTicket.dirty || numeroDeTicket.touched)" class="error">
+            <div *ngIf="numeroDeTicket.errors?.['required']">Número de Ticket es requerido.</div>
+            <div *ngIf="numeroDeTicket.errors?.['minlength'] || numeroDeTicket.errors?.['maxlength']">Número de Ticket debe tener exactamente 8 caracteres.</div>
+            <div *ngIf="numeroDeTicket.errors?.['pattern']">Número de Ticket debe seguir el formato TKT-0000.</div>
+          </div>
+        </div>
+        <div>
         <label class="etiqueta-bloque" for="rfc">RFC:</label>
-        <input type="text" id="rfc" name="rfc" class="entrada-texto" [(ngModel)]="factura.RFC" required>
+        <input type="text" id="rfc" name="rfc" class="entrada-texto" [(ngModel)]="factura.RFC" required
+        minlength="12" 
+        maxlength="12" 
+        pattern="[A-Z0-9]{12}" 
+        #rfc="ngModel">
+        <div *ngIf="rfc.invalid && (rfc.dirty || rfc.touched)" class="error">
+          <div *ngIf="rfc.errors?.['required']">RFC es requerido.</div>
+          <div *ngIf="rfc.errors?.['pattern']">RFC debe seguir el formato correcto (e.g., ABCD123456EFG).</div>
+        </div>        
       </div>
-    </div>
+      </div>
     <div class="form-row">
       <div>
         <label class="etiqueta-bloque" for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" class="entrada-texto" [(ngModel)]="factura.nombre" required>
-      </div>
-      <div>
+        <input type="text" id="nombre" name="nombre" class="entrada-texto" [(ngModel)]="factura.nombre" required
+        minlength="1"
+        #nombre="ngModel">
+        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="error">
+          <div *ngIf="nombre.errors?.['required']">Nombre es requerido.</div>
+          <div *ngIf="nombre.errors?.['minlength']">Nombre debe tener al menos 1 carácter.</div>
+        </div>
+    </div>
+    <div>
         <label class="etiqueta-bloque" for="apellidos">Apellidos:</label>
-        <input type="text" id="apellidos" name="apellidos" class="entrada-texto" [(ngModel)]="factura.apellidos" required>
+        <input type="text" id="apellidos" name="apellidos" class="entrada-texto" [(ngModel)]="factura.apellidos" required
+        minlength="1"
+        #apellidos="ngModel">
+        <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="error">
+          <div *ngIf="apellidos.errors?.['required']">Apellidos son requeridos.</div>
+          <div *ngIf="apellidos.errors?.['minlength']">Apellidos deben tener al menos 1 carácter.</div>
+        </div>
+        
       </div>
     </div>
     <div class="form-row">
       <div>
         <label class="etiqueta-bloque" for="estado">Estado:</label>
-        <select id="estado" name="estado" class="selector-estados" [(ngModel)]="factura.estado" required>
+        <select id="estado" name="estado" class="selector-estados" [(ngModel)]="factura.estado" required #estado="ngModel">
           <option value="">Selecciona un estado</option>
           <option value="AGU">AGUASCALIENTES</option>
           <option value="BCN">BAJA CALIFORNIA</option>
@@ -115,34 +143,71 @@
           <option value="YUC">YUCATÁN</option>
           <option value="ZAC">ZACATECAS</option>
         </select>
+        <div *ngIf="estado.invalid && (estado.dirty || estado.touched)" class="error">
+          <div *ngIf="estado.errors?.['required']">Estado es requerido.</div>
+        </div>
+        
       </div>
       <div>
         <label class="etiqueta-bloque" for="municipio">Municipio:</label>
-        <input type="text" id="municipio" name="municipio" class="entrada-texto" [(ngModel)]="factura.municipio" required>
+        <input type="text" id="municipio" name="municipio" class="entrada-texto" [(ngModel)]="factura.municipio" required
+        minlength="1"
+          #municipio="ngModel">
+          <div *ngIf="municipio.invalid && (municipio.dirty || municipio.touched)" class="error">
+            <div *ngIf="municipio.errors?.['required']">Municipio es requerido.</div>
+            <div *ngIf="municipio.errors?.['minlength']">Municipio debe tener al menos 1 carácter.</div>
+          </div>
+          
+        </div>
       </div>
-    </div>
     <div class="form-row">
       <div>
         <label class="etiqueta-bloque" for="cp">Código Postal:</label>
-        <input type="text" id="cp" name="cp" class="entrada-texto" [(ngModel)]="factura.codigo_Postal" required>
+        <input type="text" id="cp" name="cp" class="entrada-texto" [(ngModel)]="factura.codigo_Postal" required
+        minlength="5" 
+        maxlength="5" 
+        pattern="\d{5}" 
+        #cp="ngModel">
+        <div *ngIf="cp.invalid && (cp.dirty || cp.touched)" class="error">
+          <div *ngIf="cp.errors?.['required']">Código Postal es requerido.</div>
+          <div *ngIf="cp.errors?.['minlength'] || cp.errors?.['maxlength']">Código Postal debe tener exactamente 5 caracteres.</div>
+          <div *ngIf="cp.errors?.['pattern']">Código Postal debe ser numérico con 5 dígitos.</div>
+        </div>        
       </div>
-      <div>
+      </div>
+     <!-- <div>
         <label class="etiqueta-bloque" for="direccion">Dirección:</label>
-        <input type="text" id="direccion" name="direccion" class="entrada-texto" [(ngModel)]="factura.direccion" required>
-      </div>
-    </div>
+        <input type="text" id="direccion" name="direccion" class="entrada-texto" [(ngModel)]="factura.direccion" required
+        minlength="5" 
+        maxlength="5" 
+        pattern="\d{5}" 
+        #cp="ngModel">
+        <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="error">
+          <div *ngIf="direccion.errors?.['required']">Dirección es requerida.</div>
+          <div *ngIf="direccion.errors?.['minlength']">Dirección debe tener al menos 5 caracteres.</div>
+        </div>        
+      </div>-->
     <div class="form-row">
       <div>
         <label class="etiqueta-bloque" for="fechaFactura">Fecha Factura:</label>
-        <input type="datetime-local" id="fechaFactura" name="fechaFactura" class="entrada-texto" [(ngModel)]="factura.fecha_Factura" required>
+        <input type="datetime-local" id="fechaFactura" name="fechaFactura" class="entrada-texto" [(ngModel)]="factura.fecha_Factura" required
+        #fechaFactura="ngModel">
+        <div *ngIf="fechaFactura.invalid && (fechaFactura.dirty || fechaFactura.touched)" class="error">
+          <div *ngIf="fechaFactura.errors?.['required']">Fecha de Factura es requerida.</div>
+        </div>
+        
+      </div>
       </div>
       <div>
         <label class="etiqueta-bloque" for="total">Total:</label>
         <input type="number" id="total" name="total" class="entrada-texto" [(ngModel)]="factura.total" required 
         readonly="isEditing"
-        [ngClass]="{'readonly': isEditing}">
+        [ngClass]="{'readonly': isEditing}"
+        #total="ngModel">
+        <div *ngIf="total.invalid && (total.dirty || total.touched)" class="error">
+          <div *ngIf="total.errors?.['required']">Total es requerido.</div>
+        </div>        
       </div>
-    </div>
     <div class="form-buttons">
       <button type="button" class="boton-accion" routerLink="/facturas" [ngClass]="{isEditing}">Cancelar</button>
 
@@ -151,4 +216,4 @@
       </button>
     </div>
   </form>
-</div>
+  </div>
