@@ -4,7 +4,7 @@ import { Usuario } from '../../../models/Usuario';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { LoginService } from '../../../services/login/login.service';
 @Component({
   selector: 'app-lista-usuarios',
   templateUrl: './lista-usuarios.component.html',
@@ -15,8 +15,10 @@ export class ListaUsuariosComponent implements OnInit {
   Usuario: Usuario[] = [];
  /* searchId: string = '';*/
 
-  constructor(private usuarioService: UsuarioService,private router:Router) {}
-
+  constructor(private usuarioService: UsuarioService,private router:Router,
+    private loginService:LoginService
+  ) {}
+  public dropdownOpen: { [key: string]: boolean } = {}; // Estado de los desplegables
   ngOnInit(): void {
     this.getUsers();
   }
@@ -46,8 +48,28 @@ export class ListaUsuariosComponent implements OnInit {
       });
     }
   }
-  /*addUser(): void {
-    this.router.navigate(['/usuario']); // Redirige al formulario para agregar un nuevo usuario
-  }*/
+  addUser(): void {
+    this.router.navigate(['/usuario']); 
+  }
+  toggleDropdown(key: string) {
+    // Primero, cerrar cualquier otro desplegable que esté abierto
+    for (const dropdownKey in this.dropdownOpen) {
+      if (dropdownKey !== key) {
+        this.dropdownOpen[dropdownKey] = false;
+      }
+    }
+    // Alternar el estado del desplegable actual
+    this.dropdownOpen[key] = !this.dropdownOpen[key];
+
+  }
+  logout() {
+    const logoutRealizado = this.loginService.logout();
+    if (!logoutRealizado) { 
+      return;
+    }
+    
+    console.log('Cierre de sesión realizado correctamente.')
+
+}
 
 }

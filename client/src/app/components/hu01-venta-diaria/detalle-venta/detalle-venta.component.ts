@@ -78,25 +78,25 @@ deleteDetalleVenta(id_Detalle: number): void {
 
 
 
-  toggleDropdown(key: string) {
-    // Primero, cerrar cualquier otro desplegable que esté abierto
-    for (const dropdownKey in this.dropdownOpen) {
-      if (dropdownKey !== key) {
-        this.dropdownOpen[dropdownKey] = false;
+    toggleDropdown(key: string) {
+      // Primero, cerrar cualquier otro desplegable que esté abierto
+      for (const dropdownKey in this.dropdownOpen) {
+        if (dropdownKey !== key) {
+          this.dropdownOpen[dropdownKey] = false;
+        }
       }
+      // Alternar el estado del desplegable actual
+      this.dropdownOpen[key] = !this.dropdownOpen[key];
+
     }
-    // Alternar el estado del desplegable actual
-    this.dropdownOpen[key] = !this.dropdownOpen[key];
+    logout() {
+      const logoutRealizado = this.loginService.logout();
+      if (!logoutRealizado) { 
+        return;
+      }
+      
+      console.log('Cierre de sesión realizado correctamente.')
 
   }
-  logout() {
-    const logoutRealizado = this.loginService.logout();
-    if (!logoutRealizado) { 
-      return;
-    }
-    
-    console.log('Cierre de sesión realizado correctamente.')
-
-}
 
 }

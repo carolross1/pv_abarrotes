@@ -5,6 +5,7 @@
   margin-right: 30px;
 }
 
+
 /* Estilos para el logo */
 .logo {
   height: 50px;
@@ -168,6 +169,7 @@
 }
 /* Estilos generales para la lista de facturas */
 .factura-list-container {
+ 
   margin-top: 90px; /* Espacio superior para evitar sobreposición con la barra de navegación */
   padding: 20px; /* Aumento del padding para mejor espacio interno */
   background-color: #f5f5f5; /* Fondo claro para contraste */
@@ -182,6 +184,7 @@
   flex-direction: column; /* Colocar los elementos en columna */
   align-items: center; /* Centrar los elementos horizontalmente */
   justify-content: center; /* Centrar verticalmente el contenido */
+  
 }
 
 h2 {
@@ -196,7 +199,7 @@ table {
 }
 
 thead th {
-  background-color: #5b3d99; /* Color de fondo para el encabezado */
+  background-color: #8d5ec0;  
   color: white;
   padding: 10px;
   text-align: center;

@@ -134,23 +134,26 @@ h2 {
 }
 
 .search-button {
-  padding: 10px 15px;
+  background-color: #D291BC; 
+  border-color: #D291BC;
+  padding:15px 35px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px; 
   cursor: pointer;
   font-size: 16px;
-  background-color: #5b3d99; /* Color de fondo */
-  color: white;
   display: flex;
   align-items: center;
 }
-
+  
 .search-button i {
   margin-right: 5px;
 }
 
 .search-button:hover {
-  background-color: #48257f; /* Color de fondo al pasar el mouse */
+  background-color: #D291BC; 
+  border-color: #D291BC;
+  color: #ffffff;
+  text-decoration: double;
 }
 
 .add-container {
@@ -167,19 +170,23 @@ h2 {
 }
 
 .add-button {
-  padding: 10px 15px;
+  padding: 15px 15px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  background-color: #5b3d99; /* Color de fondo */
-  color: white;
+  background-color: #D291BC; 
+  border-color: #D291BC;
   margin-left: 10px;
   margin-top: 1%;
 }
 
+
 .add-button:hover {
-  background-color: #48257f; /* Color de fondo al pasar el mouse */
+  background-color: #D291BC; 
+  border-color: #D291BC;
+  color: #ffffff;
+  text-decoration: double;
 }
 
 .edit-input {
@@ -239,11 +246,15 @@ table {
 }
 
 thead th {
-  background-color: #5b3d99; /* Color de fondo para el encabezado */
+ /* background-color: #5b3d99; /* Color de fondo para el encabezado 
   color: white;
   padding: 10px;
-  text-align: center;
-  
+  text-align: center;*/
+  background-color: #8d5ec0; 
+    color: #ffffff; 
+    padding: 10px; 
+    text-align: center; 
+    font-size: 24px; 
 
 }
 

@@ -1,10 +1,11 @@
-import { Component,OnInit} from '@angular/core';
+import { Component,OnInit, ViewChild} from '@angular/core';
 import { Factura } from '../../../models/Factura';
 import { FacturaService } from '../../../services/factura/factura.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { LoginService } from '../../../services/login/login.service';
 import { Router,ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-factura',
@@ -33,6 +34,7 @@ detallesVenta:any[]=[];
      private loginService:LoginService,
       private router:Router,
        private route: ActivatedRoute) {}
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
@@ -53,12 +55,21 @@ detallesVenta:any[]=[];
     );
   }
 
-  onSubmit() {
-    if (this.isEditing) {
+  onSubmit(form: NgForm) {
+
+        if (this.isEditing) {
       // Si estamos editando, actualizamos la factura existente
       this.facturaService.updateFactura(this.factura).subscribe(
         response => {
+          if (form.valid) {
+            console.log('Formulario válido:', this.factura);
+
           console.log('Factura actualizada:', response);
+        } else {
+
+          console.log('Formulario inválido');
+          return
+        }
   
           // Obtener detalles de la venta después de actualizar la factura
           this.facturaService.getDetallesVenta(this.factura.id_Venta).subscribe(
@@ -79,8 +90,20 @@ detallesVenta:any[]=[];
         }
       );
     } else {
+
+
+
     this.facturaService.createFactura(this.factura).subscribe(response => {
+      if (form.valid) {
+        // Aquí va tu lógica para procesar el formulario
+        console.log('Formulario válido:', this.factura);
       console.log('Factura creada:', response);
+      }
+      else {
+        
+        console.log('Formulario inválido');
+        return
+      }
       this.facturaService.getDetallesVenta(this.factura.id_Venta).subscribe(detalles=>{
         this.detallesVenta=detalles;
         const totalVenta = this.detallesVenta.reduce((acc, detalle) => acc + detalle.total_venta, 0);
@@ -88,7 +111,10 @@ detallesVenta:any[]=[];
       this.generarPDF(); // Generar el PDF después de crear la factura
       this.router.navigate(['/facturas']);
     }, error => {
+
       console.error('Error al crear el detalle:', error);
+      
+
     });
   },error =>{
 
