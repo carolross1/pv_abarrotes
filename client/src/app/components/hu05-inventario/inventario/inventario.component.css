@@ -79,7 +79,8 @@
   margin-top: 40px;
   padding: 40px; /* Espaciado interno */
   width: 85%; /* Ancho del contenedor */
-  max-width: 1000px; /* Ancho máximo para evitar que sea demasiado grande en pantallas grandes */
+  max-width: 700%; 
+  height: 630px;
   border-radius: 8px;
   background-color: #ebe8f1; /* Color de fondo coherente con las otras pantallas */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle un poco de profundidad */
@@ -91,10 +92,10 @@
   display: flex;
   flex-direction: row;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 95%;
-  max-width: 1200px;
+  max-width: 120%;
 }
 
 .inventariosfrecuentes-sidebar {
@@ -102,6 +103,8 @@
   background-color: #d0b4f1;
   border-radius: 10px 0 0 10px;
   padding: 20px;
+  height: 550px;
+  width: 270px;
 }
 
 .title-categorias {
@@ -126,6 +129,7 @@
 .crear-inventario-container input[type="text"] {
   width: 90%;
   padding: 10px;
+  height: 70px;
   margin-bottom: 10px;
   border-radius: 5px;
   border: 1px solid #bdc3c7;
@@ -176,14 +180,22 @@
 }
 
 .buttons button {
-  background-color: #5b3d99;
+  background-color: #D291BC; 
+  border-color: #D291BC;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 20px;
   cursor: pointer;
   border-radius: 5px;
+  margin-top: 2em;
 }
 
 .buttons button:hover {
-  background-color: #4a2e82;
+  background-color: #B565A7; 
+  border-color: #B565A7;
+}
+
+.error {
+  color: red;
+  font-size: 0.85em;
 }

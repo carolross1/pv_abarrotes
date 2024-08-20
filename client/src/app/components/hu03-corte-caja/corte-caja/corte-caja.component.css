@@ -89,7 +89,7 @@
   }
   
   .card-header {
-    background-color: #957DAD; 
+    background-color: #8d5ec0; 
     color: #ffffff; 
     border-radius: 15px 15px 0 0;
     padding: 10px; 
@@ -192,4 +192,9 @@
   color: #000;
   text-decoration: none;
   margin-left: 30px;
+  }
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
   }

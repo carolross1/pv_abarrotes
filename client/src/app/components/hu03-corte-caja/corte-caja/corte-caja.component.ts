@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CorteCajaService } from '../../../services/corte-caja/corte-caja.service';
 import { CorteCaja } from '../../../models/CorteCaja';
 import { LoginService } from '../../../services/login/login.service';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertaService } from '../../../services/alertas/alerta.service';
 
@@ -55,6 +55,7 @@ export class CorteCajaComponent implements OnInit {
     // Verificar si ya existe un corte abierto para este usuario
     this.corteCajaService.obtenerCorteAbierto(id_Usuario).subscribe(
         response => {
+         
             if (response && response.id_Corte) {
                 // Si hay un corte abierto, mostrar un mensaje
                this.alertaService.showNotification('Ya tienes un corte de caja abierto. Debes cerrarlo antes de iniciar uno nuevo.','error')
@@ -122,6 +123,10 @@ export class CorteCajaComponent implements OnInit {
             }
         }
     );
+    if (this.saldo_Inicial === null || this.saldo_Inicial === undefined || this.saldo_Inicial < 0) {
+      // Manejo de errores o lógica adicional si es necesario
+      return;
+    }
 }
     cerrarUltimoCorte() {
         const id_Usuario = this.id_Usuario;

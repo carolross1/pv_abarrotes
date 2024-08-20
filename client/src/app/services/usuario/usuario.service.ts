@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:3000/api/usuarios'; // Cambia la URL a la de tu backend
+  private apiUrl = 'http://localhost:3000/api/usuarios'; 
 
   constructor(private http: HttpClient) { }
 

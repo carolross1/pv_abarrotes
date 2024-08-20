@@ -1,10 +1,8 @@
 import { Component,OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario/usuario.service';
-import { Usuario } from '../../models/Usuario';
 import { Router,ActivatedRoute} from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
-
 
 @Component({
   selector: 'app-nuevo-usuario',
@@ -16,6 +14,7 @@ export class NuevoUsuarioComponent implements OnInit {
   isEdit: boolean = false;
   userId?: string;
 
+  public dropdownOpen: { [key: string]: boolean } = {}; // Estado de los desplegables
 
   constructor(private fb: FormBuilder, 
     private usuarioService: UsuarioService,
@@ -23,6 +22,7 @@ export class NuevoUsuarioComponent implements OnInit {
      private route: ActivatedRoute,
      private loginService:LoginService
     ) {
+
        // Inicialización del FormGroup
        this.createUserForm = this.fb.group({
         id_Usuario: ['', Validators.required],
@@ -37,6 +37,7 @@ export class NuevoUsuarioComponent implements OnInit {
 
   
   ngOnInit(): void {
+
     this.route.params.subscribe(params => {
       this.userId = params['id'];
       if (this.userId) {
@@ -44,9 +45,11 @@ export class NuevoUsuarioComponent implements OnInit {
         this.loadUserData(this.userId);
       }
     });
+
   }
   loadUserData(id: string): void {
     this.usuarioService.getUser(id).subscribe(user => {
+        console.log('Usuario cargado:', user); // Verifica que se cargue el usuario correcto
       if (user) {
         this.createUserForm.patchValue(user);
       }
@@ -96,6 +99,17 @@ cancel(): void {
   this.router.navigate(['/listausuario']); // Opcional: redirige a la lista de usuarios
 }
 
+toggleDropdown(key: string) {
+  // Primero, cerrar cualquier otro desplegable que esté abierto
+  for (const dropdownKey in this.dropdownOpen) {
+    if (dropdownKey !== key) {
+      this.dropdownOpen[dropdownKey] = false;
+    }
+  }
+  // Alternar el estado del desplegable actual
+  this.dropdownOpen[key] = !this.dropdownOpen[key];
+
+}
 logout() {
   const logoutRealizado = this.loginService.logout();
   if (!logoutRealizado) { 
@@ -104,5 +118,4 @@ logout() {
   
   console.log('Cierre de sesión realizado correctamente.');
 }
-
 }

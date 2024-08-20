@@ -4,6 +4,7 @@ const express_1 = require("express");
 const facturaControllers_1 = require("../controllers/facturaControllers");
 const router = (0, express_1.Router)();
 router.get('/', facturaControllers_1.getFacturas);
+router.get('/:id', facturaControllers_1.getFacturaU);
 router.post('/', facturaControllers_1.createFactura);
 router.put('/:id', facturaControllers_1.updateFactura);
 router.delete('/:id', facturaControllers_1.deleteFactura);

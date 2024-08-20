@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.obtenerTotalVenta = exports.obtenerDetallesVenta = exports.deleteFactura = exports.updateFactura = exports.createFactura = exports.getFacturas = void 0;
+exports.obtenerTotalVenta = exports.obtenerDetallesVenta = exports.deleteFactura = exports.updateFactura = exports.createFactura = exports.getFacturaU = exports.getFacturas = void 0;
 const database_1 = __importDefault(require("../database"));
 const getFacturas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -24,6 +24,22 @@ const getFacturas = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getFacturas = getFacturas;
+const getFacturaU = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const factura = yield database_1.default.query('SELECT * FROM factura WHERE id_Factura = ?', [id]);
+        if (factura.length > 0) {
+            res.json(factura[0]); // Devuelve el primer resultado, si hay más de uno
+        }
+        else {
+            res.status(404).json({ message: 'Factura no encontrada' });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ message: 'No se obtuvo la factura', error });
+    }
+});
+exports.getFacturaU = getFacturaU;
 const createFactura = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield database_1.default.query('INSERT INTO factura SET ?', [req.body]);

@@ -14,7 +14,7 @@ Carmen Catalina Delgado Manzano-->
       <div class="dropdown-container" *ngIf="dropdownOpen['ventas-compras']">
         <a routerLink="/principal"><i class="fas fa-home"></i> Ventas</a>
         <a routerLink="/pedidosaproveedor"><i class="fas fa-shopping-cart"></i> Compras</a>
-        <a routerLink="/formulariofactura"><i class="fas fa-file-invoice"></i> Factura</a>
+        <a routerLink="/facturas"><i class="fas fa-file-invoice"></i> Factura</a>
       </div>
     </div>
     
@@ -55,30 +55,41 @@ Carmen Catalina Delgado Manzano-->
   
   
   <!--CORTE DE CAJA-->
+
   <div class="centered-container">
     <div class="corte-caja-container card">
       <div class="card-header">CORTE DE CAJA</div>
       <div class="card-body center-content">
+        <form (ngSubmit)="iniciarCorte()">
         <div class="form-group">
             <label for="fecha">Fecha</label>
-            <input type="date" class="form-control" id="fecha" [(ngModel)]="fecha">
+            <input type="date" class="form-control" id="fecha" [(ngModel)]="fecha" name="fecha">
           </div>
           <div class="form-group">
             <label for="fecha">Hora</label>
-            <input type="time" class="form-control" id="hora_Inicio" [(ngModel)]="hora_Inicio">
+            <input type="time" class="form-control" id="hora_Inicio" [(ngModel)]="hora_Inicio" name="hora_Inicio">
           </div>
         <div class="form-group">
           <label for="id_Usuario">Clave Empleado</label>
-          <input type="text" class="form-control" id="id_Usuario" [(ngModel)]="id_Usuario">
+          <input type="text" class="form-control" id="id_Usuario" [(ngModel)]="id_Usuario" name="id_Usuario">
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="id_Venta_Primero">Monto inicial</label>
-            <input type="text" class="form-control" id="monto_Inical" [(ngModel)]="saldo_Inicial" >
-   <div>
-        <button type="button" class="btn btn-purple btn-block" (click)="iniciarCorte()" >Iniciar Corte</button>
+            <input type="number" class="form-control" id="monto_Inical" [(ngModel)]="saldo_Inicial"name="saldo_Inicial" min="0" required >
+            <div *ngIf="saldo_Inicial < 0" class="error">
+              <small>El monto inicial no puede ser negativo.</small>
+            </div>
+            <div *ngIf="saldo_Inicial === null || saldo_Inicial === undefined" class="error">
+              <small>El monto inicial es requerido. <p>
+                *solo se aceptan números*
+              </small>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-purple btn-block" [disabled]="saldo_Inicial < 0" >Iniciar Corte</button>
          <button (click)="cerrarUltimoCorte()" class="btn btn-danger">Cerrar Último Corte</button>
-    </div>
+    </form>
  <!-- <button (click)="obtenerCorteActual()">Obtener Corte Actual</button>-->
   <div *ngIf="showCorteDetails" class="container corte-caja-container card">
 

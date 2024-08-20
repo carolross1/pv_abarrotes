@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router'; // Asegúrate de importar Router
 import { InventarioService } from '../../../services/inventario/inventario.service';
 import { LoginService } from '../../../services/login/login.service';
+import { NgForm } from '@angular/forms';
 
 
 
@@ -27,12 +28,20 @@ export class InventarioComponent implements OnInit{
     this.inventario.usuario = currentUser.id_Usuario;
   }
 
-  crearInventario() {
+  crearInventario(form:NgForm) {
+    if (form.valid) {
+      console.log(this.inventario);
+    
     console.log('Inventario a crear:', this.inventario); // Verifica el objeto inventario
     this.inventarioService.createInventario(this.inventario).subscribe(response => {
       console.log('Respuesta del servidor:', response); // Verifica la respuesta del servidor
       this.router.navigate(['/inventariofrecuente', response.id]);
     });
+  }
+  else 
+  {
+    console.log("Inventario invalido")
+  }
   }
   dropdownOpen: { [key: string]: boolean } = {}; // Estado de los menús desplegables
   
