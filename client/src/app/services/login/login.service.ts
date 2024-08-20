@@ -32,6 +32,7 @@ export class LoginService {
   getCurrentUser() {
     return this.currentUserSubject.value;
   }
+  
    logout(): boolean {
     // Verificar si el usuario ha realizado un corte final
  const estadoCorte = localStorage.getItem('estadoCorte');

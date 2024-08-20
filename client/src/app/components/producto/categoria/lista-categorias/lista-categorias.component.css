@@ -90,7 +90,7 @@
   padding: 20px; /* Aumento del padding para mejor espacio interno */
   background-color: #f5f5f5; /* Fondo claro para contraste */
   width: 95%; /* Ajusta el ancho del contenedor */
-  max-width: 700px; /* Ancho máximo para un tamaño más contenido */
+  max-width: 1600px; /* Ancho máximo para un tamaño más contenido */
   height: auto; /* Altura automática para adaptarse al contenido */
   margin-left: auto; /* Centrando horizontalmente */
   margin-right: auto; /* Centrando horizontalmente */
@@ -124,11 +124,11 @@ h2 {
 }
 
 .search-input {
-  padding: 10px;
+  padding: 16px;
   border: 1px solid #a790cf; /* Color del borde */
   border-radius: 4px;
   width: 70%;
-  font-size: 16px;
+  font-size: 19px;
   margin-right: 10px;
   background-color: #ccbaef; /* Color de fondo */
 }

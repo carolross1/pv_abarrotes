@@ -94,18 +94,20 @@
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+    
   }
   
   .reportes-filtros label {
-    margin: 0 10px;
+    margin:  10px;
     align-self: center;
   }
   
   .reportes-filtros input {
-    padding: 5px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin: 0 10px;
+    width: 90%;
   }
   
   table {
@@ -147,4 +149,18 @@
   .total-g
   {
     background-color: rgb(222, 220, 149);
+  }
+  .sales-buttons {
+    background-color: #D291BC; 
+    border-color: #D291BC;
+    color: #ffffff;
+    border-radius: 8px; 
+    padding: 10px 20px; 
+    font-size: 16px;
+    margin-top: 2em;
+  }
+
+  .sales-buttons:hover {
+    background-color: #B565A7; 
+    border-color: #B565A7;
   }
