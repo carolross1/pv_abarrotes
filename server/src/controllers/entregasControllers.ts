@@ -3,13 +3,13 @@ import pool from '../database'; // Asegúrate de que tu archivo de conexión a l
 
 // Crear una nueva entrega
 export const crearEntrega = async (req: Request, res: Response) => {
-  const {id_Usuario, id_Proveedor, fecha, total_entrega } = req.body;
+  const {id_Usuario, id_Proveedor, fecha, total_entrega, id_Factura } = req.body;
 
   try {
     // Insertar la entrega
     const result: any = await pool.query(
-      'INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha) VALUES (?, ?, ?)',
-      [id_Usuario, id_Proveedor, fecha]
+      'INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha, id_Factura) VALUES (?, ?, ?, ?)',
+      [id_Usuario, id_Proveedor, fecha, id_Factura]
     );
 
     const lastId = result.insertId;
@@ -56,17 +56,9 @@ export const obtenerEntregaPorId = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error al obtener entrega' });
   }
 };
-export const actualizarStock = async (req: Request, res: Response) => {
-  const { codigoBarras, cantidad } = req.body;
-  try {
-    // Asume que tienes una tabla `productos` donde se actualiza el stock
-    await pool.query('UPDATE productos SET stock = stock - ? WHERE codigoBarras = ?', [cantidad, codigoBarras]);
-    res.json({ message: 'Stock actualizado' });
-  } catch (error) {
-    console.error('Error al actualizar stock:', error);
-    res.status(500).json({ message: 'Error al actualizar stock' });
-  }
-};
+
+
+
 export const eliminarEntrega = async (req: Request, res: Response) => {
   const { idEntrega } = req.params;
   try {

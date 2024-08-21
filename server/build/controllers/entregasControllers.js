@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registrarDetallesEntrega = exports.eliminarEntrega = exports.actualizarStock = exports.obtenerEntregaPorId = exports.obtenerEntregas = exports.crearEntrega = void 0;
+exports.registrarDetallesEntrega = exports.eliminarEntrega = exports.obtenerEntregaPorId = exports.obtenerEntregas = exports.crearEntrega = void 0;
 const database_1 = __importDefault(require("../database")); // Asegúrate de que tu archivo de conexión a la base de datos esté correctamente configurado
 // Crear una nueva entrega
 const crearEntrega = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id_Usuario, id_Proveedor, fecha, total_entrega } = req.body;
+    const { id_Usuario, id_Proveedor, fecha, total_entrega, id_Factura } = req.body;
     try {
         // Insertar la entrega
-        const result = yield database_1.default.query('INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha) VALUES (?, ?, ?)', [id_Usuario, id_Proveedor, fecha]);
+        const result = yield database_1.default.query('INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha, id_Factura) VALUES (?, ?, ?, ?)', [id_Usuario, id_Proveedor, fecha, id_Factura]);
         const lastId = result.insertId;
         console.log('ID autoincrementado insertado:', lastId);
         // Obtener id_Entrega usando el id autoincrementado
@@ -69,19 +69,6 @@ const obtenerEntregaPorId = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.obtenerEntregaPorId = obtenerEntregaPorId;
-const actualizarStock = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { codigoBarras, cantidad } = req.body;
-    try {
-        // Asume que tienes una tabla `productos` donde se actualiza el stock
-        yield database_1.default.query('UPDATE productos SET stock = stock - ? WHERE codigoBarras = ?', [cantidad, codigoBarras]);
-        res.json({ message: 'Stock actualizado' });
-    }
-    catch (error) {
-        console.error('Error al actualizar stock:', error);
-        res.status(500).json({ message: 'Error al actualizar stock' });
-    }
-});
-exports.actualizarStock = actualizarStock;
 const eliminarEntrega = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { idEntrega } = req.params;
     try {

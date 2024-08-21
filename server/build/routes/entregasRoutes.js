@@ -13,6 +13,4 @@ router.get('/', entregasControllers_1.obtenerEntregas);
 router.get('/:idEntrega', entregasControllers_1.obtenerEntregaPorId);
 // Ruta para eliminar una entrega por ID
 router.delete('/delete/:idEntrega', entregasControllers_1.eliminarEntrega);
-// Ruta para actualizar el stock de un producto
-router.patch('/producto/update-stock', entregasControllers_1.actualizarStock);
 exports.default = router;

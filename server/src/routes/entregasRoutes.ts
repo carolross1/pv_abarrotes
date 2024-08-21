@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { crearEntrega, registrarDetallesEntrega, obtenerEntregas, obtenerEntregaPorId, eliminarEntrega, actualizarStock } from '../controllers/entregasControllers';
+import { crearEntrega, registrarDetallesEntrega, obtenerEntregas, obtenerEntregaPorId, eliminarEntrega,  } from '../controllers/entregasControllers';
 
 const router = Router();
 
@@ -18,7 +18,6 @@ router.get('/:idEntrega', obtenerEntregaPorId);
 // Ruta para eliminar una entrega por ID
 router.delete('/delete/:idEntrega', eliminarEntrega);
 
-// Ruta para actualizar el stock de un producto
-router.patch('/producto/update-stock', actualizarStock);
+
 
 export default router;
