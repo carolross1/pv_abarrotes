@@ -32,6 +32,7 @@ export class CorteCajaComponent implements OnInit {
   fecha= '';
   hora_Inicio='';
   showCorteDetails: boolean = false;
+  isCorteAbierto: boolean = false;  // Nueva propiedad
 
   public dropdownOpen: { [key: string]: boolean } = {}; // Estado de los desplegables
 
@@ -46,6 +47,25 @@ export class CorteCajaComponent implements OnInit {
     const currentUser = this.loginService.getCurrentUser();
     this.id_Usuario= currentUser.id_Usuario;
     console.log('Usuario actual:', currentUser);
+      // Verificar si hay un corte abierto al inicializar el componente
+      this.corteCajaService.obtenerCorteAbierto(this.id_Usuario).subscribe(
+        response => {
+          if (response && response.id_Corte) {
+            this.isCorteAbierto = true; // Hay un corte abierto
+          } else {
+            this.isCorteAbierto = false; // No hay corte abierto
+          }
+        },
+        (error: HttpErrorResponse) => {
+          if (error.status === 404) {
+            this.isCorteAbierto = false; // No hay corte abierto
+          } else {
+            console.error('Error al verificar el corte abierto:', error);
+            this.alertaService.showNotification('Error al verificar el corte abierto.', 'error');
+          }
+        }
+      );
+
   }
 
   iniciarCorte(): void {
@@ -185,13 +205,8 @@ export class CorteCajaComponent implements OnInit {
     this.dropdownOpen[key] = !this.dropdownOpen[key];
   }
 
-logout() {
-    const logoutRealizado = this.loginService.logout();
-    if (!logoutRealizado) { 
-      return;
-    }
-    
-    console.log('Cierre de sesión realizado correctamente.');
+  logout() {
+    this.loginService.logout();
   }
   closeReport() {
     this.showCorteDetails = false; // Ocultar el reporte de ventas

@@ -46,7 +46,7 @@ Carmen Catalina Delgado Manzano-->
     </button>
     <div class="dropdown-container" *ngIf="dropdownOpen['otros']">
       <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
-    <a routerLink="/usuario"><i class="fas fa-users"></i> Agregar Usuario</a>
+    <a routerLink="/listausuario"><i class="fas fa-users"></i> Agregar Usuario</a>
       <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
       <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
       <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
@@ -98,7 +98,7 @@ Carmen Catalina Delgado Manzano-->
                           </td>
                           <td>{{ calcularFaltante(producto) }}</td>
                           <td>
-                            <button (click)="editarStock(producto)">Actualizar Stock</button>
+                            <button class="btn btn-purple btn-block" (click)="editarStock(producto)">Actualizar Stock</button>
                           </td>
                         </tr>
                       </tbody>

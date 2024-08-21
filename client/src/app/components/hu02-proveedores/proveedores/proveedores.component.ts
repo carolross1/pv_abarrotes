@@ -27,11 +27,6 @@ export class ListaProveedoresComponent implements OnInit {
     // Aquí puedes inicializar datos si es necesario
   }
   logout() {
-    const logoutRealizado = this.loginService.logout();
-    if (!logoutRealizado) { 
-      return;
-    }
-    
-    console.log('Cierre de sesión realizado correctamente.');
+    this.loginService.logout();
   }
 }

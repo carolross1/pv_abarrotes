@@ -59,11 +59,6 @@ export class FacturaListComponent implements OnInit {
 
   }
   logout() {
-    const logoutRealizado = this.loginService.logout();
-    if (!logoutRealizado) { 
-      return;
-    }
-    
-    console.log('Cierre de sesión realizado correctamente.');
+    this.loginService.logout();
   }
 }

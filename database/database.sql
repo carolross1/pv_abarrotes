@@ -104,6 +104,29 @@ END //
 
 DELIMITER ;
 
+
+----Trigger para Actualizar Contraseña 
+DELIMITER //
+
+CREATE TRIGGER trg_PasswordUpadate
+BEFORE UPDATE ON usuario
+FOR EACH ROW
+BEGIN
+    -- Verificar si la nueva contraseña es diferente a la antigua
+    IF NEW.contrasena != OLD.contrasena THEN
+        
+        -- Asignar un nuevo salt y hashear la nueva contraseña directamente
+        SET NEW.salt = UUID();
+        SET NEW.contrasena = HashPasswordConSalt(NEW.contrasena, NEW.salt);
+        
+    END IF;
+END //
+
+DELIMITER ;
+
+
+
+
 -- Estructura de tabla para la tabla `corte_caja`
 CREATE TABLE `corte_caja` (
   `id_Corte` int(11) NOT NULL AUTO_INCREMENT,
@@ -293,6 +316,8 @@ DELIMITER ;
 
 ---tercero
 DELIMITER //
+
+
 
 CREATE PROCEDURE proc_ActualizarDetalleVenta (
     IN p_id_Detalle INT,

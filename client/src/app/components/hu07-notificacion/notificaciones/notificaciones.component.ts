@@ -54,11 +54,6 @@ export class NotificacionesComponent implements OnInit {
     this.dropdownOpen[key] = !this.dropdownOpen[key];
   }
   logout() {
-    const logoutRealizado = this.loginService.logout();
-    if (!logoutRealizado) { 
-      return;
-    }
-    
-    console.log('Cierre de sesión realizado correctamente.');
+    this.loginService.logout();
   }
 }

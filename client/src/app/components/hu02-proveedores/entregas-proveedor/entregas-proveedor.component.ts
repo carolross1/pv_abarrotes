@@ -39,11 +39,6 @@ export class EntregasProveedorComponent {
     this.productos.push({ numeroFactura: '', recibidoPor: '', codigoProducto: '', cantidadProducto: '' });
   }
   logout() {
-    const logoutRealizado = this.loginService.logout();
-    if (!logoutRealizado) { 
-      return;
-    }
-    
-    console.log('Cierre de sesión realizado correctamente.');
+    this.loginService.logout();
   }
 }

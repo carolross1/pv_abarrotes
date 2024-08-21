@@ -45,7 +45,7 @@ Carmen Catalina Delgado Manzano-->
       </button>
       <div class="dropdown-container" *ngIf="dropdownOpen['otros']">
         <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
-      <a routerLink="/usuario"><i class="fas fa-users"></i> Agregar Usuario</a>
+      <a routerLink="/listausuario"><i class="fas fa-users"></i> Agregar Usuario</a>
         <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
         <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
         <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
@@ -88,7 +88,7 @@ Carmen Catalina Delgado Manzano-->
           </div>
         </div>
         <button type="submit" class="btn btn-purple btn-block" [disabled]="saldo_Inicial < 0" >Iniciar Corte</button>
-         <button (click)="cerrarUltimoCorte()" class="btn btn-danger">Cerrar Último Corte</button>
+        <button *ngIf="isCorteAbierto" (click)="cerrarUltimoCorte()" class="btn btn-danger">Cerrar Último Corte</button>
     </form>
  <!-- <button (click)="obtenerCorteActual()">Obtener Corte Actual</button>-->
   <div *ngIf="showCorteDetails" class="container corte-caja-container card">

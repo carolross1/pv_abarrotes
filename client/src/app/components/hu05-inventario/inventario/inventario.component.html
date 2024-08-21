@@ -44,7 +44,7 @@
     </button>
     <div class="dropdown-container" *ngIf="dropdownOpen['otros']">
       <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
-    <a routerLink="/usuario"><i class="fas fa-users"></i> Agregar Usuario</a>
+    <a routerLink="/listausuario"><i class="fas fa-users"></i> Agregar Usuario</a>
       <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
       <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
       <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
@@ -76,13 +76,12 @@
                     <div>
                       <label for="usuario">Usuario</label>
                       <input type="text" id="usuario" [(ngModel)]="inventario.usuario" name="usuario" required
-                      minlength="12" 
-                    maxlength="12" 
+                      minlength="6" 
+                    maxlength="6" 
                    pattern="[A-Z0-9]{6}" 
                       #usuario="ngModel">
         <div *ngIf="usuario.invalid && (usuario.dirty || inventarioForm .submitted)" class="error">
           <div *ngIf="usuario.errors?.['required']">El identificador del usuario es requerido.</div>
-          <div *ngIf="usuario.errors?.['pattern']">USR debe seguir el formato correcto (e.g., USR000).</div>
         </div>        
                     </div>
                     <div class="buttons">

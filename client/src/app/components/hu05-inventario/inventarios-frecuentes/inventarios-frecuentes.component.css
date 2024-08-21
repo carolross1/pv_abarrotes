@@ -79,7 +79,7 @@
     margin: 20px auto;
     background-color: #f4f4f4;
     width: 90%;
-    max-width: 1200px;
+    max-width: 140%;
     box-sizing: border-box;
     padding: 20px;
     border-radius: 10px;
@@ -92,8 +92,9 @@
     box-sizing: border-box;
 }
 .inventariosfrecuentes-main-content h2 {
-    font-size: 24px; /* Tamaño del texto coherente con otras pantallas */
-    color: #5b3d99; /* Color morado */
+    font-size: 24px; 
+    color: #5b3d99; 
+    
     text-align: center;
     margin-bottom: 20px;
   }
@@ -121,10 +122,12 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    
 }
 
 .inventory-table th {
-    background-color: #5b3d99; /* Color de fondo de los encabezados de tabla */
+  width: 12%;
+  background-color: #8d5ec0; 
     color: white;
     border: 1px solid #ccc;
     padding: 10px;
@@ -133,15 +136,38 @@
 
 .inventory-table td {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 9px;
     text-align: left;
 }
+/* Estilo para el input dentro de la tabla */
+.inventory-table input[type="number"] {
+  width: 100%; 
+  padding: 5px; 
+  border: 2px solid #e8dede; 
+  border-radius: 5px; 
+  box-sizing: border-box; 
+  font-size: 29px; 
+}
+
+.inventory-table input[type="number"]:focus {
+  border-color: #b565a7; 
+  outline: none; 
+}
+
+
+
+
+.form-group label {
+  font-size: 19px; 
+}
+
 
 .buttons {
     display: flex;
     justify-content:right;
     margin-top: 20px;
     padding: 10px;
+    
 }
 .form-control {
   width: 90%;
@@ -158,25 +184,36 @@
     margin-right: 10px;
     padding: 10px;
     cursor: pointer;
-    background-color: #5b3d99; /* Color de fondo de los botones */
-    border: none;
-    color: #fff;
-    border-radius: 4px;
+    background-color: #D291BC; 
+  border-color: #D291BC;
+  color: #ffffff;
+  border-radius: 8px; 
+  padding: 10px 20px; 
+  font-size: 19px;
 }
 
 .buttons button:hover {
-    background-color: #48257f; /* Color de fondo al pasar el mouse */
+    background-color: #B565A7; 
+  border-color: #B565A7;
 }
 
 .buttons button:last-child {
     margin-right: 0;
 }
 
-.color-body {
-    background-color: rgb(179, 142, 223); /* Color de fondo consistente */
-    height: auto;
-    border: 1px solid #ccc;
-    padding: 4px;
+.btn-purple {
+  background-color: #D291BC; 
+  border-color: #D291BC;
+  border-radius: 8px; 
+  padding: 8px 20px; 
+  font-size: 14px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+.btn-purple:hover {
+  background-color: #B565A7; 
+  border-color: #B565A7;
 }
 
 .conteiner-articulos {

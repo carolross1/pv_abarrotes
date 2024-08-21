@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from '../../../services/login/login.service';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-lista-usuarios',
   templateUrl: './lista-usuarios.component.html',
@@ -40,14 +42,33 @@ export class ListaUsuariosComponent implements OnInit {
     editUser(id: string): void {
       this.router.navigate(['/usuario/editar',id]) 
     } 
-
-  deleteUser(id: string): void {
-    if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-      this.usuarioService.deleteUser(id).subscribe(() => {
-        this.getUsers();
+    deleteUser(id: string): void {
+      Swal.fire({
+        title: '¿Estás seguro de que deseas eliminar este usuario?',
+        text: 'Esta acción no se puede deshacer',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'No, cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.usuarioService.deleteUser(id).subscribe(() => {
+            Swal.fire(
+              '¡Eliminado!',
+              'El usuario ha sido eliminado.',
+              'success'
+            );
+            this.getUsers();
+          }, error => {
+            Swal.fire(
+              'Error',
+              'Hubo un problema al eliminar el usuario.',
+              'error'
+            );
+          });
+        }
       });
     }
-  }
   addUser(): void {
     this.router.navigate(['/usuario']); 
   }
@@ -63,13 +84,7 @@ export class ListaUsuariosComponent implements OnInit {
 
   }
   logout() {
-    const logoutRealizado = this.loginService.logout();
-    if (!logoutRealizado) { 
-      return;
-    }
-    
-    console.log('Cierre de sesión realizado correctamente.')
-
-}
+    this.loginService.logout();
+  }
 
 }

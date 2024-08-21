@@ -5,7 +5,8 @@ import { ProductoService } from '../../../services/productos/producto.service';
 import { Producto } from '../../../models/Producto';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../services/login/login.service';
-
+import Swal from 'sweetalert2';
+import { AlertaService } from '../../../services/alertas/alerta.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class InventariosFrecuentesComponent implements OnInit {
     private inventarioService: InventarioService,
     private route: ActivatedRoute,
     private router: Router,
-    private loginService:LoginService
+    private loginService:LoginService,
+    private alertaService:AlertaService
   ) { }
   ngOnInit(): void {
     const idInventarioParam = this.route.snapshot.paramMap.get('id');
@@ -90,26 +92,36 @@ export class InventariosFrecuentesComponent implements OnInit {
     const cantidadFisica = producto.cantidadFisica !== undefined ? Number(producto.cantidadFisica) : 0;
     return (producto.nuevaCantidadStock !== undefined ? producto.nuevaCantidadStock : producto.cantidad_Stock) - (isNaN(cantidadFisica) ? 0 : cantidadFisica);
   }
- 
-editarStock(producto: any): void {
-    const nuevaCantidad = prompt('Ingrese la nueva cantidad en stock:', producto.cantidad_Stock);
-    if (nuevaCantidad !== null) {
-    const nuevaCantidadNumero = Number(nuevaCantidad);
-    if (!isNaN(nuevaCantidadNumero) && nuevaCantidadNumero >= 0) {
-      producto.nuevaCantidadStock = nuevaCantidadNumero;
-      console.log('Producto actualizado:', producto); // Verifica los datos aquí
-      this.productoService.updateStock(producto.id_Producto, nuevaCantidadNumero).subscribe(
-        (response) => {
-          console.log('Stock actualizado');
-        },
-        (error) => {
-          console.error('Error al actualizar stock', error);
+  editarStock(producto: any): void {
+    Swal.fire({
+      title: 'Ingrese la nueva cantidad en stock:',
+      input: 'number',
+      inputValue: producto.cantidad_Stock,
+      showCancelButton: true,
+      confirmButtonText: 'Actualizar',
+      cancelButtonText: 'Cancelar',
+      inputValidator: (value) => {
+        if (isNaN(Number(value)) || Number(value) < 0) {
+          return 'Por favor, ingrese un número válido.';
         }
-      );
-    } else {
-      alert('Por favor, ingrese un número válido.');
-    }
-  }
+        return null; // No hay error, continuar
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const nuevaCantidadNumero = Number(result.value);
+        producto.nuevaCantidadStock = nuevaCantidadNumero;
+        console.log('Producto actualizado:', producto); // Verifica los datos aquí
+        this.productoService.updateStock(producto.id_Producto, nuevaCantidadNumero).subscribe(
+          (response) => {
+            console.log('Stock actualizado');
+            this.alertaService.showNotification('Stock actualizado exitosamente.', 'success');
+          },
+          (error) => {
+            this.alertaService.showNotification('Error al actualizar stock.', 'error');
+          }
+        );
+      }
+    });
   }
   guardarDetalles(): void {
     const detallesInventario = this.productos.map(producto => ({
@@ -143,11 +155,11 @@ editarStock(producto: any): void {
   closeInventario(): void {
     this.inventarioService.closeInventario(this.idInventario).subscribe(response => {
         console.log('Respuesta del servidor:', response);
-        alert('Inventario cerrado exitosamente');
+        this.alertaService.showNotification('Inventario cerrado exitosamente.','success');
         this.router.navigate(['/inventarios']); 
       }, error => {
         console.error('Error al cerrar el inventario:', error);
-        alert('Hubo un error al cerrar el inventario.');
+        this.alertaService.showNotification('Hubo un error al cerrar el inventario.','error');
       });
   }
   guardarDetallesYcerrarInventario() {
@@ -172,11 +184,6 @@ editarStock(producto: any): void {
     this.dropdownOpen[key] = !this.dropdownOpen[key];
   }
   logout() {
-    const logoutRealizado = this.loginService.logout();
-    if (!logoutRealizado) { 
-      return;
-    }
-    
-    console.log('Cierre de sesión realizado correctamente.');
+    this.loginService.logout();
   }
 }
