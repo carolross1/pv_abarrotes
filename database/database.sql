@@ -349,3 +349,17 @@ BEGIN
 END//
 
 DELIMITER ;
+--Trigger para actualizar el stcok de productos tomando en cuenta el detalle_Entrega
+DELIMITER //
+
+CREATE TRIGGER trg_AjusteStockDetalleEntregaInsert
+AFTER INSERT ON detalle_entrega
+FOR EACH ROW
+BEGIN
+    -- Ajuste del stock en caso de inserción
+    UPDATE producto
+    SET cantidad_Stock = cantidad_Stock + NEW.cantidad
+    WHERE producto.id_Producto = NEW.id_Producto;
+END//
+
+DELIMITER ;
