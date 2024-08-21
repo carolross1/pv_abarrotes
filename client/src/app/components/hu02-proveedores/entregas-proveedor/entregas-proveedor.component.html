@@ -1,5 +1,5 @@
 <div class="navbar">
-  <!-- Logo Redirigiendo al Inicio de Sesión -->
+  <!-- Logo Redirigiendo al MENU -->
   <a href="/menu" class="logo-link">
     <img src="https://images.vexels.com/content/200165/preview/store-icon-stroke-bb4ae2.png" alt="Logo Abarrotes el Perrón" class="logo">
   </a>
@@ -50,38 +50,96 @@
   </div>
 </div>
 
-<!--REGISTRAR ENTREGAS DE PRODUCTOS-->
-<div class="container registrar-entrega-page">
-  <h1><i class="fas fa-box"></i> Registrar Entrega de Productos</h1>
+<!--PANTALLA DE ENTREGAS -->
+<div class="entregas-content">
+  <div class="entregas-title">
+    Entregas
+  </div>
 
-  <form>
-    <table>
-      <thead>
-        <tr>
-          <th>Fecha y Hora</th>
-          <td><input type="datetime-local" required></td>
-        </tr>
-        <tr>
-          <th>Número de Factura</th>
-          <th>Recibido por</th>
-          <th>Código de Producto</th>
-          <th>Cantidad de producto</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of productos; let i = index">
-          <td><input type="number" [(ngModel)]="item.numeroFactura" placeholder="Número de Factura" name="numeroFactura-{{i}}" required></td>
-          <td><input type="text" [(ngModel)]="item.recibidoPor" placeholder="Usuario que recibe" name="recibidoPor-{{i}}" required></td>
-          <td><input type="text" [(ngModel)]="item.codigoProducto" placeholder="Código de Producto" name="codigoProducto-{{i}}" required></td>
-          <td><input type="number" [(ngModel)]="item.cantidadProducto" placeholder="Cantidad de producto" name="cantidadProducto-{{i}}" required></td>
-        </tr>
-      </tbody>
-    </table>
-    <br>
-    <div class="button-group">
-      <button type="button" class="validate-btn" (click)="addRow()">Agregar Producto</button>
-      <button type="submit" class="save-btn">Guardar Información</button>
+  <!-- Fecha del Sistema y Quién Recibe -->
+  <div class="entregas-header">
+    <div class="entregas-date">
+      Fecha: {{ currentDate | date:'dd/MM/yyyy' }}
     </div>
-  </form>
-</div>
+    <div class="entregas-recibe">
+         <label>Proveedor</label>
+      <select [(ngModel)]="entrega.id_Proveedor" (change)="onProveedorChange($event)">
+        <option *ngFor="let proveedor of proveedores" [value]="proveedor.id_Proveedor">
+          {{ proveedor.nombre }}
+        </option>
+      </select>
+    </div>
+      <div>
+        <label>Quién recibe</label>
+        <input type="text" [(ngModel)]="entrega.id_Usuario" name="usuario" readonly>
 
+      </div>
+    </div>
+  <div class="entregas-barcode">
+    <div class="barcode-icon">
+      <i class="fa fa-barcode"></i>
+    </div>
+    <input 
+      type="text" 
+      class="codigo barcode-input" 
+      (keyup.enter)="onEnterKey($event)" 
+      (keyup)="onCodigoBarrasChange($event)" 
+      placeholder="Escanea o escribe el código de barras"
+    />
+  </div>
+
+  <div class="sales-table-content">
+    <div class="sales-table-container">
+      <table class="sales-table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of entregaProductos">
+            <td>{{ producto.codigo_Barras }}</td>
+            <td>{{ producto.nombre }}</td>
+            <td>
+              <input 
+                type="number" 
+                [(ngModel)]="producto.cantidad" 
+                (change)="calcularTotales()"
+                min="1"
+              />
+            </td>
+           
+            <td>
+              <input 
+                type="number" 
+                [(ngModel)]="producto.precio_Compra" 
+                (change)="calcularTotales()"
+                min="0.01" 
+                step="0.01"
+              />
+            </td>
+            <td>
+              <button (click)="eliminarProductoDeEntrega(producto.codigo_Barras)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="entregas-totals">
+    <div class="totals-left">
+      
+      <div>Total: {{ totalEntrega | currency }}</div>
+    </div>
+
+    <div class="entregas-buttons">
+      <button (click)="vaciarEntrega()">Vaciar Entrega</button>
+      <button (click)="registrarEntrega()">Registrar Entrega</button>
+    </div>
+  </div>
+</div>

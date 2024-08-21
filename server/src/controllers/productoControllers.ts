@@ -37,6 +37,15 @@ export const deleteProducto = async (req: Request, res: Response): Promise<void>
         res.status(500).json({ message: 'Error al eliminar producto', error });
     } 
 };
+// Obtener todas las categorías
+export const getCategorias = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const categorias = await pool.query('SELECT * FROM categoria'); // Ajusta la consulta según el nombre de la tabla
+        res.json(categorias);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener categorías', error });
+    }
+};
 
 export const getProductosBajoStock = async (req: Request, res: Response): Promise<void> => {
     try {

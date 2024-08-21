@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../../../services/login/login.service';
+import { FormsModule } from '@angular/forms'; // Importar FormsModule
 @Component({
   selector: 'app-pedidos-a-proveedor',
   templateUrl: './pedidos-a-proveedor.component.html',

@@ -13,6 +13,7 @@ import reportesRoutes from './routes/reportesRoutes';
 import proveedoresListRoutes from './routes/proveedores-listRoutes';
 import inventarioRoutes from './routes/inventarioRoutes';
 import usuarioRoutes from './routes/usuarioRoutes';
+import entregasRoutes from './routes/entregasRoutes';
 
 class Server{
 public app:Application;
@@ -43,6 +44,7 @@ constructor(){
         this.app.use('/api/proveedores',proveedoresListRoutes);
         this.app.use('/api/inventarios',inventarioRoutes);
         this.app.use('/api/usuarios',usuarioRoutes);
+        this.app.use('/api/entregas',entregasRoutes)
         
     }
     start():void{

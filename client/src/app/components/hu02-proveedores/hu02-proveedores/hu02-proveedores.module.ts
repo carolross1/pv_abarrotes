@@ -13,6 +13,7 @@ CancelarPedidoComponent,
 PedidosAProveedorComponent,
 EntregasProveedorComponent,
 ListaProveedoresComponent,
+EntregasProveedorComponent,
 
   ],
   imports: [
@@ -23,8 +24,8 @@ ListaProveedoresComponent,
   exports: [
     CancelarPedidoComponent,
 PedidosAProveedorComponent,
-EntregasProveedorComponent,
 ListaProveedoresComponent,
+EntregasProveedorComponent,
 
   ]
 })

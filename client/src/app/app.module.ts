@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms'; // Importa FormsModule
+import { ReactiveFormsModule } from '@angular/forms'; // Importa FormsModule
+import { FormsModule } from '@angular/forms'; // Importar FormsModule
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
@@ -21,6 +22,8 @@ import { VentaService } from './services/principal-ventas/venta.service';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 import { ListaUsuariosComponent } from './components/nuevo-usuario/lista-usuarios/lista-usuarios.component';
 import { AlertaService } from './services/alertas/alerta.service';
+import { EntregaService } from './services/entregas/entrega-proveedor.service';
+
                                                                                                                                                                                                                                                                                                                         
 
 @NgModule({
@@ -31,6 +34,7 @@ import { AlertaService } from './services/alertas/alerta.service';
 
    NuevoUsuarioComponent,
    ListaUsuariosComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,7 @@ import { AlertaService } from './services/alertas/alerta.service';
     ProductoModule,
 
   ],
-  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService,AlertaService],
+  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService,AlertaService,EntregaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

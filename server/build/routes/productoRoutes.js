@@ -10,4 +10,5 @@ router.post('/', productoControllers_1.createProducto);
 router.put('/:id', productoControllers_1.updateProducto);
 router.delete('/:id', productoControllers_1.deleteProducto);
 router.put('/actualizar-stock/:id', productoControllers_1.updateStock);
+router.get('/categorias', productoControllers_1.getCategorias);
 exports.default = router;

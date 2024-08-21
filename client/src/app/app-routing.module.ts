@@ -20,6 +20,7 @@ import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.
 import { ProductoComponent } from './components/producto/producto/producto.component';
 import { ListaCategoriasComponent } from './components/producto/categoria/lista-categorias/lista-categorias.component';
 import { ListaUsuariosComponent } from './components/nuevo-usuario/lista-usuarios/lista-usuarios.component';
+
 const routes: Routes = [
   {
     path:'',
@@ -109,7 +110,8 @@ const routes: Routes = [
   {
     path:'categoria',
     component:ListaCategoriasComponent
-  }
+  },
+ 
 ];
 
 @NgModule({

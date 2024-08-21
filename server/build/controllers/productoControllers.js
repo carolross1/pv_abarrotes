@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateStock = exports.getProductosBajoStock = exports.deleteProducto = exports.updateProducto = exports.createProducto = exports.getProductos = void 0;
+exports.updateStock = exports.getProductosBajoStock = exports.getCategorias = exports.deleteProducto = exports.updateProducto = exports.createProducto = exports.getProductos = void 0;
 const database_1 = __importDefault(require("../database"));
 const getProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -56,6 +56,17 @@ const deleteProducto = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.deleteProducto = deleteProducto;
+// Obtener todas las categorías
+const getCategorias = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const categorias = yield database_1.default.query('SELECT * FROM categoria'); // Ajusta la consulta según el nombre de la tabla
+        res.json(categorias);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error al obtener categorías', error });
+    }
+});
+exports.getCategorias = getCategorias;
 const getProductosBajoStock = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const productos = yield database_1.default.query('SELECT * FROM producto WHERE cantidad_Stock < cant_Minima');
