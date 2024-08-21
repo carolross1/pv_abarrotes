@@ -90,7 +90,7 @@
   padding: 20px; /* Aumento del padding para mejor espacio interno */
   background-color: #f5f5f5; /* Fondo claro para contraste */
   width: 95%; /* Ajusta el ancho del contenedor */
-  max-width: 700px; /* Ancho máximo para un tamaño más contenido */
+  max-width: 1600px; /* Ancho máximo para un tamaño más contenido */
   height: auto; /* Altura automática para adaptarse al contenido */
   margin-left: auto; /* Centrando horizontalmente */
   margin-right: auto; /* Centrando horizontalmente */
@@ -124,33 +124,36 @@ h2 {
 }
 
 .search-input {
-  padding: 10px;
+  padding: 16px;
   border: 1px solid #a790cf; /* Color del borde */
   border-radius: 4px;
   width: 70%;
-  font-size: 16px;
+  font-size: 19px;
   margin-right: 10px;
   background-color: #ccbaef; /* Color de fondo */
 }
 
 .search-button {
-  padding: 10px 15px;
+  background-color: #D291BC; 
+  border-color: #D291BC;
+  padding:15px 35px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px; 
   cursor: pointer;
   font-size: 16px;
-  background-color: #5b3d99; /* Color de fondo */
-  color: white;
   display: flex;
   align-items: center;
 }
-
+  
 .search-button i {
   margin-right: 5px;
 }
 
 .search-button:hover {
-  background-color: #48257f; /* Color de fondo al pasar el mouse */
+  background-color: #D291BC; 
+  border-color: #D291BC;
+  color: #ffffff;
+  text-decoration: double;
 }
 
 .add-container {
@@ -167,19 +170,23 @@ h2 {
 }
 
 .add-button {
-  padding: 10px 15px;
+  padding: 15px 15px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  background-color: #5b3d99; /* Color de fondo */
-  color: white;
+  background-color: #D291BC; 
+  border-color: #D291BC;
   margin-left: 10px;
   margin-top: 1%;
 }
 
+
 .add-button:hover {
-  background-color: #48257f; /* Color de fondo al pasar el mouse */
+  background-color: #D291BC; 
+  border-color: #D291BC;
+  color: #ffffff;
+  text-decoration: double;
 }
 
 .edit-input {
@@ -239,11 +246,15 @@ table {
 }
 
 thead th {
-  background-color: #5b3d99; /* Color de fondo para el encabezado */
+ /* background-color: #5b3d99; /* Color de fondo para el encabezado 
   color: white;
   padding: 10px;
-  text-align: center;
-  
+  text-align: center;*/
+  background-color: #8d5ec0; 
+    color: #ffffff; 
+    padding: 10px; 
+    text-align: center; 
+    font-size: 24px; 
 
 }
 

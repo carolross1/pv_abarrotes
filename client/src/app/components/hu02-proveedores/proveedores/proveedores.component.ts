@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProveedoresService } from '../../../services/proveedores.service';
-import { Proveedor } from '../../../models/Proveedores';
+import { ProveedoresService } from '../../../services/Proveedores/proveedores-list.service';
+import { Proveedor } from '../../../models/Proveedores-list';
 import { LoginService } from '../../../services/login/login.service';
 
 
@@ -13,10 +13,8 @@ import { LoginService } from '../../../services/login/login.service';
 export class ListaProveedoresComponent implements OnInit {
   mensaje: string = "EN MANTENIMIENTO, VUELVA PRONTOO!!";
 
-
-  // Estado para los desplegables (si fuera necesario en este componente)
-  dropdownOpen: { [key: string]: boolean } = {};
-
+ // Agrega una propiedad para manejar el estado de los menús desplegables
+ dropdownOpen: { [key: string]: boolean } = {};
   constructor(
     private proveedoresService: ProveedoresService,
     private router: Router,
@@ -29,11 +27,6 @@ export class ListaProveedoresComponent implements OnInit {
     // Aquí puedes inicializar datos si es necesario
   }
   logout() {
-    const logoutRealizado = this.loginService.logout();
-    if (!logoutRealizado) { 
-      return;
-    }
-    
-    console.log('Cierre de sesión realizado correctamente.');
+    this.loginService.logout();
   }
 }

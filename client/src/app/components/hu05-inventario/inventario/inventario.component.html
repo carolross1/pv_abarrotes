@@ -13,7 +13,7 @@
     <div class="dropdown-container" *ngIf="dropdownOpen['ventas-compras']">
       <a routerLink="/principal"><i class="fas fa-home"></i> Ventas</a>
       <a routerLink="/pedidosaproveedor"><i class="fas fa-shopping-cart"></i> Compras</a>
-      <a routerLink="/formulariofactura"><i class="fas fa-file-invoice"></i> Factura</a>
+      <a routerLink="/facturas"><i class="fas fa-file-invoice"></i> Factura</a>
     </div>
   </div>
   
@@ -44,7 +44,7 @@
     </button>
     <div class="dropdown-container" *ngIf="dropdownOpen['otros']">
       <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
-      <a routerLink="/gestiondescuento"><i class="fas fa-percentage"></i> Descuento Por Mayoreo</a>
+    <a routerLink="/listausuario"><i class="fas fa-users"></i> Agregar Usuario</a>
       <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
       <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
       <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
@@ -64,14 +64,25 @@
               <div class="crear-inventario-container">
                 <div>
                   <h2>Crear Inventario</h2>
-                  <form (ngSubmit)="crearInventario()">
+                  <form (ngSubmit)="crearInventario(inventarioForm)" #inventarioForm="ngForm" novalidate>
                     <div>
-                      <label>Fecha de Inicio</label>
-                      <input type="date" [(ngModel)]="inventario.fechaInicio" name="fechaInicio" required>
+                      <label for="fechaInicio">Fecha de Inicio</label>
+                      <input type="date" id="fechaInicio" [(ngModel)]="inventario.fechaInicio" name="fechaInicio" required
+                      #fechaInicio="ngModel">
+                      <div *ngIf="fechaInicio.invalid && (fechaInicio.dirty || inventarioForm.submitted)" class="error">
+                        <div *ngIf="fechaInicio.errors?.['required']">Fecha de Factura es requerida.</div>
+                      </div>
                     </div>
                     <div>
-                      <label>Usuario</label>
-                      <input type="text" [(ngModel)]="inventario.usuario" name="usuario" readonly>
+                      <label for="usuario">Usuario</label>
+                      <input type="text" id="usuario" [(ngModel)]="inventario.usuario" name="usuario" required
+                      minlength="6" 
+                    maxlength="6" 
+                   pattern="[A-Z0-9]{6}" 
+                      #usuario="ngModel">
+        <div *ngIf="usuario.invalid && (usuario.dirty || inventarioForm .submitted)" class="error">
+          <div *ngIf="usuario.errors?.['required']">El identificador del usuario es requerido.</div>
+        </div>        
                     </div>
                     <div class="buttons">
                     <button type="submit">Iniciar Inventario</button>

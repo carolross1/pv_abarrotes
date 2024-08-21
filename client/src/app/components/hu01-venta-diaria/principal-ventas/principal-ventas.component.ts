@@ -32,6 +32,7 @@
     descuentoPersonalizado: number = 0;
     private debounceTimer: any;
     message:string='';
+  errorCodigoBarras: string = ''; // Variable para el mensaje de error
     public dropdownOpen: { [key: string]: boolean } = {}; // Estado de los desplegables
 
     constructor(
@@ -79,10 +80,17 @@
 
     onCodigoBarrasChange(event: KeyboardEvent) {
       clearTimeout(this.debounceTimer);
+      const inputElement = event.target as HTMLInputElement;
+      const codigoBarras = inputElement.value.trim();
+  
+     // Validar si hay letras en el código de barras
+  if (/[a-zA-Z]/.test(codigoBarras)) {
+    this.errorCodigoBarras = 'No se aceptan letras, escribe solo números.';
+  } else {
+    this.errorCodigoBarras = ''; // Limpiar el mensaje de error si es válido
+  }
 
       this.debounceTimer = setTimeout(() => {
-        const inputElement = event.target as HTMLInputElement;
-        const codigoBarras = inputElement.value.trim();
         if (!codigoBarras) {
           return;
         }
@@ -283,11 +291,6 @@
 
   }
   logout() {
-    const logoutRealizado = this.loginService.logout();
-    if (!logoutRealizado) { 
-      return;
-    }
-    
-    console.log('Cierre de sesión realizado correctamente.');
+    this.loginService.logout();
   }
   }

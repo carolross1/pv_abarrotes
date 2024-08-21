@@ -2,12 +2,11 @@
 
 DROP DATABASE ng_punto_de_venta;
 
-
 CREATE DATABASE ng_punto_de_venta;
 USE ng_punto_de_venta; 
 
 
--- Crea la tabla Categoria //YA ESTA CORRECTA
+-- Crea la tabla Categoria 
 CREATE TABLE `categoria` (
   `id_Categoria` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
@@ -15,7 +14,7 @@ CREATE TABLE `categoria` (
   UNIQUE KEY `unique_nombre` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Crea la tabla Producto //YA ESTA CORRECTA
+-- Crea la tabla Producto 
 CREATE TABLE `producto` (
   `id_Producto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL UNIQUE,
@@ -47,6 +46,8 @@ CREATE TABLE `producto` (
   UNIQUE KEY `telefono` (`telefono`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
+
+
 
 DELIMITER //
 
@@ -103,6 +104,29 @@ END //
 
 DELIMITER ;
 
+
+----Trigger para Actualizar Contraseña 
+DELIMITER //
+
+CREATE TRIGGER trg_PasswordUpadate
+BEFORE UPDATE ON usuario
+FOR EACH ROW
+BEGIN
+    -- Verificar si la nueva contraseña es diferente a la antigua
+    IF NEW.contrasena != OLD.contrasena THEN
+        
+        -- Asignar un nuevo salt y hashear la nueva contraseña directamente
+        SET NEW.salt = UUID();
+        SET NEW.contrasena = HashPasswordConSalt(NEW.contrasena, NEW.salt);
+        
+    END IF;
+END //
+
+DELIMITER ;
+
+
+
+
 -- Estructura de tabla para la tabla `corte_caja`
 CREATE TABLE `corte_caja` (
   `id_Corte` int(11) NOT NULL AUTO_INCREMENT,
@@ -133,7 +157,7 @@ CREATE TABLE `venta` (
   UNIQUE KEY `id_Venta` (`id_Venta`),
   KEY `id_Usuario` (`id_Usuario`),
   CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`id_Usuario`) REFERENCES `usuario` (`id_Usuario`)      
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Estructura de tabla para la tabla `detalle_venta`
 CREATE TABLE `detalle_venta` (
@@ -146,9 +170,9 @@ CREATE TABLE `detalle_venta` (
   PRIMARY KEY (`id_Detalle`),
   KEY `id_Producto` (`id_Producto`),
   KEY `detalle_venta_ibfk_1` (`id_Venta`),
-  CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`id_Venta`) REFERENCES `venta` (`id_Venta`),
+  CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`id_Venta`) REFERENCES `venta` (`id_Venta`) ON DELETE CASCADE,
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_Producto`) REFERENCES `producto` (`id_Producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Estructura de tabla para la tabla `factura`
 --
@@ -211,78 +235,117 @@ CREATE TABLE `proveedor` (
   `id_Proveedor` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
   `apellidos` varchar(100) NOT NULL,
-  `telefono` varchar(13) NOT NULL UNIQUE,
+  `email`     varchar(100) NOT NULL UNIQUE,
   `empresa` varchar(100) NOT NULL,
   PRIMARY KEY (`id_Proveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
------no se aun 
-DELIMITER $$
-CREATE TRIGGER `trg_valida_email_cliente` BEFORE INSERT ON `cliente_frecuente` FOR EACH ROW BEGIN
-    DECLARE msg VARCHAR(255);
-    IF NEW.email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}$' THEN
-        SET msg = 'Correo electrónico válido';
-    ELSE
-        SET msg = 'Formato de correo electrónico inválido';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
-    END IF;
-END
-$$
+-- Tabla entrega_producto
+CREATE TABLE entrega_producto (
+    id_Entrega INT AUTO_INCREMENT PRIMARY KEY,
+    id_Usuario VARCHAR(10) NOT NULL,
+    id_Proveedor INT NOT NULL,
+    fecha DATETIME NOT NULL,
+    id_Factura INT,
+    FOREIGN KEY (id_Usuario) REFERENCES usuario(id_Usuario),
+    FOREIGN KEY (id_Proveedor) REFERENCES proveedor(id_Proveedor)
+);
+
+-- Tabla detalle_entrega
+CREATE TABLE detalle_entrega (
+    id_Entrega INT,
+    id_Producto INT NOT NULL,
+    cantidad INT NOT NULL,
+    total_Venta DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (id_Entrega, id_Producto),
+    FOREIGN KEY (id_Entrega) REFERENCES entrega_producto(id_Entrega),
+    FOREIGN KEY (id_Producto) REFERENCES producto(id_Producto)
+);
+
+-- Tabla pedido_digital 
+CREATE TABLE pedido_digital (
+    id_Pedido VARCHAR(10) PRIMARY KEY,
+    id_Proveedor INT NOT NULL,
+    fecha_Pedido DATETIME NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (id_Proveedor) REFERENCES proveedor(id_Proveedor)
+);
+
+-- Tabla detalle_pedido_digital
+CREATE TABLE detalle_pedido_digital (
+    id_Pedido VARCHAR(10) NOT NULL,
+    id_Producto INT NOT NULL,
+    cantidad INT NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (id_Pedido, id_Producto),
+    FOREIGN KEY (id_Pedido) REFERENCES pedido_digital(id_Pedido),
+    FOREIGN KEY (id_Producto) REFERENCES producto(id_Producto)
+);
+
+------------------------- probaremos con esto 
+
+DELIMITER //
+
+CREATE TRIGGER trg_AjusteStockDetalleVenta
+AFTER UPDATE ON detalle_venta
+FOR EACH ROW
+BEGIN
+    -- Ajuste del stock en caso de actualización
+    UPDATE producto
+    SET cantidad_Stock = cantidad_Stock + (OLD.cantidad - NEW.cantidad)
+    WHERE producto.id_Producto = NEW.id_Producto;
+END//
+
 DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `trg_valida_telefono_cliente` BEFORE INSERT ON `cliente_frecuente` FOR EACH ROW BEGIN
-    DECLARE msg VARCHAR(255);
-    IF NEW.telefono REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$' THEN
-        SET msg = 'Teléfono válido';
-    ELSE
-        SET msg = 'Formato de teléfono inválido';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
-    END IF;
-END
-$$
+------segundo
+
+DELIMITER //
+
+CREATE TRIGGER trg_AjusteStockDetalleVentaDelete
+AFTER DELETE ON detalle_venta
+FOR EACH ROW
+BEGIN
+    -- Ajuste del stock en caso de eliminación
+    UPDATE producto
+    SET cantidad_Stock = cantidad_Stock + OLD.cantidad
+    WHERE producto.id_Producto = OLD.id_Producto;
+END//
+
 DELIMITER ;
+
+---tercero
+DELIMITER //
 
 
 
--- Disparadores `proveedor`
---
-DELIMITER $$
-CREATE TRIGGER `trg_valida_telefono_proveedor` BEFORE INSERT ON `proveedor` FOR EACH ROW BEGIN
-    DECLARE msg VARCHAR(255);
-    IF NEW.telefono REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$' THEN
-        SET msg = 'Número de teléfono válido';
-    ELSE
-        SET msg = 'Formato de número de teléfono inválido. El formato debe ser ###-###-####';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
-    END IF;
-END
-$$
-DELIMITER ;
+CREATE PROCEDURE proc_ActualizarDetalleVenta (
+    IN p_id_Detalle INT,
+    IN p_cantidad INT,
+    IN p_id_Producto INT,
+    IN p_descuento DECIMAL(10, 2)
+)
+BEGIN
+    DECLARE p_precio_Venta DECIMAL(10, 2);
+    DECLARE p_total_venta DECIMAL(10, 2);
 
--- Disparadores `usuario`
---
-DELIMITER $$
-CREATE TRIGGER `trg_valida_email_usuario` BEFORE INSERT ON `usuario` FOR EACH ROW BEGIN
-    DECLARE msg VARCHAR(255);
-    IF NEW.email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}$' THEN
-        SET msg = 'Correo electrónico válido';
-    ELSE
-        SET msg = 'Formato de correo electrónico inválido';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
-    END IF;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `trg_valida_telefono_usuario` BEFORE INSERT ON `usuario` FOR EACH ROW BEGIN
-    DECLARE msg VARCHAR(255);
-    IF NEW.telefono REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$' THEN
-        SET msg = 'Teléfono válido';
-    ELSE
-        SET msg = 'Formato de teléfono inválido';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
-    END IF;
-END
-$$
+    -- Actualiza el detalle de la venta
+    UPDATE detalle_venta
+    SET cantidad = p_cantidad, id_Producto = p_id_Producto, descuento = p_descuento
+    WHERE id_Detalle = p_id_Detalle;
+
+    -- Obtiene el precio del producto
+    SELECT precio_Venta INTO p_precio_Venta
+    FROM producto
+    WHERE id_Producto = p_id_Producto;
+
+    -- Calcula el total de venta
+    SET p_total_venta = p_cantidad * p_precio_Venta;
+
+    -- Actualiza el total de venta en detalle_venta
+    UPDATE detalle_venta
+    SET total_venta = p_total_venta
+    WHERE id_Detalle = p_id_Detalle;
+END//
+
 DELIMITER ;

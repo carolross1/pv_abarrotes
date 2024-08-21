@@ -1,10 +1,9 @@
 import { Component,OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario/usuario.service';
-import { Usuario } from '../../models/Usuario';
 import { Router,ActivatedRoute} from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
-
+import { AlertaService } from '../../services/alertas/alerta.service';
 
 @Component({
   selector: 'app-nuevo-usuario',
@@ -16,13 +15,16 @@ export class NuevoUsuarioComponent implements OnInit {
   isEdit: boolean = false;
   userId?: string;
 
+  public dropdownOpen: { [key: string]: boolean } = {}; // Estado de los desplegables
 
   constructor(private fb: FormBuilder, 
     private usuarioService: UsuarioService,
      private router: Router,
      private route: ActivatedRoute,
-     private loginService:LoginService
+     private loginService:LoginService,
+     private alertaService:AlertaService
     ) {
+
        // Inicialización del FormGroup
        this.createUserForm = this.fb.group({
         id_Usuario: ['', Validators.required],
@@ -37,6 +39,7 @@ export class NuevoUsuarioComponent implements OnInit {
 
   
   ngOnInit(): void {
+
     this.route.params.subscribe(params => {
       this.userId = params['id'];
       if (this.userId) {
@@ -44,9 +47,11 @@ export class NuevoUsuarioComponent implements OnInit {
         this.loadUserData(this.userId);
       }
     });
+
   }
   loadUserData(id: string): void {
     this.usuarioService.getUser(id).subscribe(user => {
+        console.log('Usuario cargado:', user); // Verifica que se cargue el usuario correcto
       if (user) {
         this.createUserForm.patchValue(user);
       }
@@ -68,7 +73,7 @@ export class NuevoUsuarioComponent implements OnInit {
         this.usuarioService.updateUser(this.userId!, this.createUserForm.value).subscribe(
           response => {
             console.log('Usuario actualizado:', response);
-            alert('Usuario actualizado con éxito');
+            this.alertaService.showNotification('Usuario actualizado con éxito','success');
             this.router.navigate(['/listausuario']);
            //this.getUsers();
           },
@@ -96,13 +101,18 @@ cancel(): void {
   this.router.navigate(['/listausuario']); // Opcional: redirige a la lista de usuarios
 }
 
-logout() {
-  const logoutRealizado = this.loginService.logout();
-  if (!logoutRealizado) { 
-    return;
+toggleDropdown(key: string) {
+  // Primero, cerrar cualquier otro desplegable que esté abierto
+  for (const dropdownKey in this.dropdownOpen) {
+    if (dropdownKey !== key) {
+      this.dropdownOpen[dropdownKey] = false;
+    }
   }
-  
-  console.log('Cierre de sesión realizado correctamente.');
-}
+  // Alternar el estado del desplegable actual
+  this.dropdownOpen[key] = !this.dropdownOpen[key];
 
+}
+logout() {
+  this.loginService.logout();
+}
 }

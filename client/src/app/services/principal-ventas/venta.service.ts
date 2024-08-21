@@ -11,7 +11,7 @@ import { throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class VentaService {
-  private apiUrl = 'http://localhost:3000/api/ventas';  // Actualiza la URL según tu configuración
+  private apiUrl = 'http://localhost:3000/api/ventas';  
 
   constructor(private http: HttpClient) { }
   registrarVenta(venta: Omit<Venta, 'id_Venta'>): Observable<any> {
@@ -35,5 +35,21 @@ export class VentaService {
           return throwError(error);
         })
       );
+  }
+  deleteVenta(id_Venta: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/ventad/${id_Venta}`);
+  }
+  getVentas(): Observable<Venta[]> {
+    return this.http.get<Venta[]>(`${this.apiUrl}/lista`);
+  }
+  getDetallesVenta(id_Venta:string): Observable<DetalleVenta[]> {
+    return this.http.get<DetalleVenta[]>(`${this.apiUrl}/detalle-venta/lista/${id_Venta}`);
+  }
+  updateDetalleVenta(id_Detalle: number, detalle: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/detalle-venta/${id_Detalle}`, detalle);
+  }
+
+  deleteDetalleVenta(id_Detalle: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/detalle-venta/${id_Detalle}`);
   }
 }

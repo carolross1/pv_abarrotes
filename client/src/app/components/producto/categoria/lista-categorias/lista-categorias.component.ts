@@ -79,11 +79,6 @@ export class ListaCategoriasComponent implements OnInit {
     this.dropdownOpen[menu] = !this.dropdownOpen[menu];
   }
   logout() {
-    const logoutRealizado = this.loginService.logout();
-    if (!logoutRealizado) { 
-      return;
-    }
-    
-    console.log('Cierre de sesión realizado correctamente.');
+    this.loginService.logout();
   }
 }

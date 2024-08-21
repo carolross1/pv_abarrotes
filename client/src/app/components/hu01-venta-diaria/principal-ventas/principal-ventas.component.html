@@ -19,7 +19,7 @@
     >
       <a routerLink="/principal"><i class="fas fa-home"></i> Ventas</a>
       <a routerLink="/pedidosaproveedor"><i class="fas fa-shopping-cart"></i> Compras</a>
-      <a routerLink="/formulariofactura"><i class="fas fa-file-invoice"></i> Factura</a>
+      <a routerLink="/facturas"><i class="fas fa-file-invoice"></i> Factura</a>
     </div>
   </div>
   
@@ -74,7 +74,7 @@
       *ngIf="dropdownOpen['otros']"
     >
       <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
-      <a routerLink="/usuario"><i class="fas fa-percentage"></i> Agregar Usuario</a>
+      <a routerLink="/listausuario"><i class="fas fa-users"></i> Agregar Usuario</a>
       <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
       <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
   <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
@@ -98,13 +98,17 @@
         <div class="barcode-icon">
             <i class="fa fa-barcode"></i>
         </div>
-        <input 
+        <input
           type="text" 
           class="codigo barcode-input" 
+          [ngClass]="{'error': errorCodigoBarras}"
           (keyup.enter)="onEnterKey($event)" 
           (keyup)="onCodigoBarrasChange($event)" 
           placeholder="Escanea o escribe el código de barras"
         />
+    </div>
+    <div *ngIf="errorCodigoBarras" class="error-message">
+      {{ errorCodigoBarras }}
     </div>
   
     <div class="sales-table-content">

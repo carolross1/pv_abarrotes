@@ -11,7 +11,7 @@
       <div class="dropdown-container" *ngIf="dropdownOpen['ventas-compras']">
         <a routerLink="/principal"><i class="fas fa-home"></i> Ventas</a>
         <a routerLink="/pedidosaproveedor"><i class="fas fa-shopping-cart"></i> Compras</a>
-        <a routerLink="/formulariofactura"><i class="fas fa-file-invoice"></i> Factura</a>
+        <a routerLink="/facturas"><i class="fas fa-file-invoice"></i> Factura</a>
       </div>
     </div>
     
@@ -42,7 +42,7 @@
       </button>
       <div class="dropdown-container" *ngIf="dropdownOpen['otros']">
         <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
-        <a routerLink="/gestiondescuento"><i class="fas fa-percentage"></i> Descuento Por Mayoreo</a>
+      <a routerLink="/listausuario"><i class="fas fa-users"></i> Agregar Usuario</a>
         <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
         <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
         <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
@@ -59,8 +59,11 @@
       <input type="date" id="fechaDesde" [(ngModel)]="fechaDesde" name="fechaDesde">
       <label for="fechaHasta">Hasta:</label>
       <input type="date" id="fechaHasta" [(ngModel)]="fechaHasta" name="fechaHasta">
-      <button (click)="obtenerReportes(fechaDesde,fechaHasta)">Obtener Reportes</button>
     </div>
+      <div>
+      <button class="sales-buttons" (click)="obtenerReportes(fechaDesde,fechaHasta)">Obtener Reportes</button>
+    </div>
+  
   
     <table>
       <thead>

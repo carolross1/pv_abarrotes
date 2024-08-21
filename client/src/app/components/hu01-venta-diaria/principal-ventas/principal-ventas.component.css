@@ -93,8 +93,8 @@
 }
 
 .sales-title {
-    background-color: rgb(92, 10, 185);
-    padding: 0.5em 0.5em;
+    background-color: rgb(156, 105, 215);
+    padding: .8em 0.5em;
     text-align: center;
     font-weight: bold;
     border-radius: 5px;
@@ -113,15 +113,16 @@
     cursor: pointer;
     position: relative;
     color: white;
+
 }
 
 .notification-badge {
     background-color: red;
     color: white;
     border-radius: 50%;
-    padding: 0.3em 0.5em;
-    font-size: 0.75em;
-    position: absolute;
+    padding: 0.5em 0.7em;
+    font-size: 1.75em;
+    position:inherit;
     top: -20px;
     right: -20px;
 }
@@ -131,9 +132,9 @@
 }
 
 .barcode-input {
-    font-size: 1.3em;
+    font-size: 1.6em;
     padding: 0.5em;
-    width: 100%;
+    width: 100%; 
 }
 
 .sales-table-content {
@@ -149,6 +150,7 @@
     width: 100%;
     max-width: 500px;
     box-sizing: border-box;
+    max-height: 40px;
 }
 
 .sales-barcode .barcode-icon {
@@ -156,12 +158,12 @@
 }
 
 .sales-barcode input {
-    padding: 0.5em;
-    border: 1px solid #BDBDBD;
+    padding: 0.9em;
+    border: 3px solid #BDBDBD;
     border-radius: 5px;
     width: 100%;
-    max-width: 272px;
-    font-size: 1em;
+    max-width: 500px;
+    font-size: 1.6em;
 }
 
 .sales-table-container {
@@ -177,7 +179,7 @@
 }
 
 .sales-table thead {
-    background-color: rgb(92, 10, 185);
+    background-color: rgb(156, 105, 215);
     color: white;
     position: sticky;
     top: 0;
@@ -240,13 +242,24 @@
 
 .sales-buttons button, 
 .sales-buttons select {
-    background-color: #5b3d99;
+    background-color: #D291BC; 
+    border-color: #e490c8; 
+    padding:15px 35px;
     border: none;
-    padding: 0.5em;
-    border-radius: 10px;
+
+    border-radius: 8px; 
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 1.9em;
 }
+
+.sales-buttons button:hover, 
+.sales-buttons select:hover {
+        background-color: #D291BC; 
+        border-color: #D291BC;
+        color: #ffffff;
+        text-decoration: double;
+      }
+      
 
 .sales-bottom-buttons {
     display: flex;
@@ -272,10 +285,19 @@
 }
 
 .sales-bottom-buttons button:hover {
-    background-color: #88408e;
+    background-color: #18bc93;
 }
 
 .barcode-icon .fa-barcode {
-    font-size: 1.8em;
+    font-size: 3.8em;
 }
-
+.error {
+    border-radius: 2px solid red; /* Cambia el borde a rojo */
+    background-color: #e79a9a; /* Opcional: fondo ligeramente rojo */
+  }
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    font-size:larger;
+  }
