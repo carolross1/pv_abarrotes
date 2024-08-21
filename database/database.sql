@@ -257,7 +257,7 @@ CREATE TABLE detalle_entrega (
     id_Entrega INT,
     id_Producto INT NOT NULL,
     cantidad INT NOT NULL,
-    total_Venta DECIMAL(10,2) NOT NULL,
+    total_entrega DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id_Entrega, id_Producto),
     FOREIGN KEY (id_Entrega) REFERENCES entrega_producto(id_Entrega),
     FOREIGN KEY (id_Producto) REFERENCES producto(id_Producto)
