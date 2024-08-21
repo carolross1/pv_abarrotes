@@ -265,7 +265,7 @@ export class EntregasProveedorComponent implements OnInit {
     const isProductosValid = Array.isArray(this.entregaProductos) && this.entregaProductos.length > 0;
   
     // Verifica que todos los campos sean válidos
-    return isIdFacturaValid && isProveedorValid && isProductosValid;
+    return isIdFacturaValid && isProveedorValid && isProductosValid
   }
   
 }

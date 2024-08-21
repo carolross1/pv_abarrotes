@@ -87,7 +87,7 @@
   [(ngModel)]="entrega.id_Factura" 
   name="id_Factura" 
   required 
-  placeholder="ID de Factura" 
+  placeholder="Número de Factura" 
   (input)="onIdFacturaChange($event)"
   min="1"
 />
@@ -101,7 +101,7 @@
       class="codigo barcode-input" 
       (keyup.enter)="onEnterKey($event)" 
       (keyup)="onCodigoBarrasChange($event)" 
-      placeholder="Escanea o escribe el código de barras"
+      placeholder="Código de barras"
       required
     />
     <div *ngIf="!entregaProductos.length" class="error-message">

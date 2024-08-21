@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { crearEntrega, registrarDetallesEntrega, obtenerEntregas, obtenerEntregaPorId, eliminarEntrega,  } from '../controllers/entregasControllers';
+import { crearEntrega, registrarDetallesEntrega, obtenerEntregas, obtenerEntregaPorId, eliminarEntrega,} from '../controllers/entregasControllers';
 
 const router = Router();
 

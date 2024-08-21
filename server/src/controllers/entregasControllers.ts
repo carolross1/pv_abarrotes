@@ -99,7 +99,7 @@ export const registrarDetallesEntrega = async (req: Request, res: Response) => {
     res.status(200).json({ success: true, message: 'Detalles de entrega registrados con éxito' });
   } catch (error) {
     await pool.query('ROLLBACK'); // Revertir transacción en caso de error
-    console.error('Error al registrar detalles de entrega:', error);
+    console.error('Error al registrar los detalles de entrega:', error);
     res.status(500).json({ message: 'Error al registrar los detalles de entrega' });
   }
 };

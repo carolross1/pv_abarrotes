@@ -102,7 +102,7 @@ const registrarDetallesEntrega = (req, res) => __awaiter(void 0, void 0, void 0,
     }
     catch (error) {
         yield database_1.default.query('ROLLBACK'); // Revertir transacción en caso de error
-        console.error('Error al registrar detalles de entrega:', error);
+        console.error('Error al registrar los detalles de entrega:', error);
         res.status(500).json({ message: 'Error al registrar los detalles de entrega' });
     }
 });
