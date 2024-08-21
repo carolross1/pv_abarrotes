@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/Usuario';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { Observable,throwError} from 'rxjs';
+import { catchError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +13,12 @@ export class UsuarioService {
 
   // Crear un nuevo usuario
   createUser(user: Usuario): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/create`, user);
+    return this.http.post<any>(`${this.apiUrl}/create`, user)
+    .pipe(
+      catchError(error => {
+        return throwError(error);
+      })
+    );
   }
 
   // Obtener todos los usuarios
@@ -28,7 +33,12 @@ export class UsuarioService {
 
   // Actualizar un usuario
   updateUser(id_Usuario: string,user:Usuario): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id_Usuario}`, user);
+    return this.http.put<any>(`${this.apiUrl}/${id_Usuario}`, user)
+    .pipe(
+      catchError(error => {
+        return throwError(error);
+      })
+    );
   }
 
   // Eliminar un usuario

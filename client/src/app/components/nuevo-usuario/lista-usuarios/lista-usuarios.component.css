@@ -81,7 +81,6 @@ table {
     border-collapse: collapse;
     margin-bottom: 20px;
     margin-top: 30px;
-      background-color: #f5d9fa;  
   
     }
     .main-container{
@@ -90,10 +89,10 @@ table {
       margin: 60px auto; /* Centra el contenedor horizontalmente y ajusta el margen superior */
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      max-width: 1200px; /* Ajusta el ancho máximo del contenedor */
+      max-width: 1600px; /* Ajusta el ancho máximo del contenedor */
     }
     thead th {
-      background-color: #5b3d99;
+      background-color: #8d5ec0;
       color: white;
       padding: 10px;
       text-align: center;
@@ -104,24 +103,43 @@ table {
       border-bottom: 1px solid #ccc;
     }
     
-    tbody tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
-    
     tbody tr:hover {
-      background-color: #f1f1f1;
+      background-color: #ecc9f3;
     }
     
     td button {
       margin-right: 5px;
     }
-    
     .edit-button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
       background-color: #007bff;
+      color: white;
+      margin-left: 13%;
+  
+    }
+    
+    .edit-button:hover {
+      background-color: #0056b3;
     }
     
     .delete-button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
       background-color: #dc3545;
+      color: white;
+      margin-left: 20%;
+
+    }
+    
+    .delete-button:hover {
+      background-color: #c82333;
     }
     
     .search-container {
@@ -143,7 +161,6 @@ table {
       margin-left: 17em;
       background-color: #ccbaef; /* Color de fondo */
       align-items: center;
-    
     }
     
     .search-button {

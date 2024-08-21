@@ -102,7 +102,7 @@
   justify-content: center; /* Centrar verticalmente el contenido */
 }
 .container {
-  margin-top: 60px;
+  margin-top: 6 0px;
   padding:50px;
   margin: 20px;
   font-family: Arial, sans-serif;
@@ -246,10 +246,6 @@ table {
 }
 
 thead th {
- /* background-color: #5b3d99; /* Color de fondo para el encabezado 
-  color: white;
-  padding: 10px;
-  text-align: center;*/
   background-color: #8d5ec0; 
     color: #ffffff; 
     padding: 10px; 
