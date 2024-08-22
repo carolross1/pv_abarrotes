@@ -13,7 +13,7 @@ export class ListaProveedoresComponent implements OnInit {
   proveedores: Proveedor[] = [];
   nombreProveedor: string = '';
   apellidoProveedor: string = '';
-  correoProveedor: string | null = null;
+  emailProveedor: string | null = null;
   empresaProveedor: string = '';
   searchTerm: string = '';
   dropdownOpen: { [key: string]: boolean } = {};
@@ -31,11 +31,11 @@ export class ListaProveedoresComponent implements OnInit {
     });
   }
   addProveedor(): void {
-    if (this.nombreProveedor.trim() && this.apellidoProveedor.trim() && this.correoProveedor !== null && this.empresaProveedor.trim()) {
+    if (this.nombreProveedor.trim() && this.apellidoProveedor.trim() && this.emailProveedor !== null && this.empresaProveedor.trim()) {
       const newProveedor: Omit<Proveedor, 'id_Proveedor'> = {
         nombre: this.nombreProveedor,
         apellidos: this.apellidoProveedor,
-        correo: this.correoProveedor,
+        email: this.emailProveedor,
         empresa: this.empresaProveedor,
         editing: false // Asignar false como valor por defecto
       };
@@ -56,7 +56,7 @@ export class ListaProveedoresComponent implements OnInit {
   resetForm(): void {
     this.nombreProveedor = '';
     this.apellidoProveedor = '';
-    this.correoProveedor = null;
+    this.emailProveedor = null;
     this.empresaProveedor = '';
   }
 

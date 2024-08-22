@@ -5,7 +5,7 @@ export interface Proveedor {
     id_Proveedor: number;
     nombre: string;
     apellidos: string;
-    correo: string;
+    email: string;
     empresa: string;
     editing: boolean;
   }

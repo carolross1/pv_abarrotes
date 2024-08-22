@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms'; // Importa FormsModule
 import { FormsModule } from '@angular/forms'; // Importar FormsModule
@@ -27,6 +28,7 @@ import { FacturaListComponent } from './components/hu01-venta-diaria/factura-lis
 import { FacturaDetailComponent } from './components/hu01-venta-diaria/factura-detail/factura-detail.component';
 import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/venta-list.component';
 import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-venta/detalle-venta.component';
+import { PedidoService } from './services/pedido/pedidosProveedor.service';
                                                                                                                                                                                                                                                                                                                   
 
 @NgModule({
@@ -44,6 +46,7 @@ import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-ve
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -59,7 +62,7 @@ import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-ve
     ProductoModule,
 
   ],
-  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService,AlertaService,EntregaService],
+  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService,AlertaService,EntregaService, PedidoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
