@@ -43,7 +43,7 @@
         Otros <i class="fas fa-chevron-down"></i>
       </button>
       <div class="dropdown-container" *ngIf="dropdownOpen['otros']">
-        <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
+        <a routerLink="/ventas"><i class="fas fa-ticket"></i> Ticket</a>
       <a routerLink="/listausuario"><i class="fas fa-users"></i> Agregar Usuario</a>
         <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
         <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
@@ -59,7 +59,10 @@
     <h1 class="my-4">Gestión de Productos</h1>
 
     <!-- Formulario para agregar/editar productos -->
-    <form (ngSubmit)="guardarProducto()" #productoForm="ngForm" class="mb-4">
+    <form (ngSubmit)="guardarProducto(productoForm)" #productoForm="ngForm" class="mb-4">
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
       <!-- Campos del formulario -->
       <div class="form-group-row">
         <div class="form-group">
@@ -72,9 +75,10 @@
         
         <div class="form-group">
           <label for="codigo_Barras">Código de barras</label>
-          <input type="number" id="codigo_Barras" [(ngModel)]="producto.codigo_Barras" name="codigo_Barras" class="form-control" required #codigo_Barras="ngModel" />
+          <input type="number" id="codigo_Barras" [(ngModel)]="producto.codigo_Barras" name="codigo_Barras" class="form-control" required min="1" (input)="validateInput($event)" #codigo_Barras="ngModel" />
           <div *ngIf="codigo_Barras.invalid && (codigo_Barras.dirty || codigo_Barras.touched)" class="text-danger">
             <div *ngIf="codigo_Barras.errors?.['required']">El código de barras es obligatorio</div>
+            <div *ngIf="inputError" class="text-danger">Solo se aceptan números.</div>
           </div>
         </div>
       </div>
@@ -92,17 +96,19 @@
         
         <div class="form-group">
           <label for="precio_Compra">Precio de Compra</label>
-          <input type="number" id="precio_Compra" [(ngModel)]="producto.precio_Compra" name="precio_Compra" class="form-control" required #precioCompra="ngModel" />
+          <input type="number" id="precio_Compra" [(ngModel)]="producto.precio_Compra" name="precio_Compra" class="form-control" required min="1" (input)="validateInput($event)" #precioCompra="ngModel" />
           <div *ngIf="precioCompra.invalid && (precioCompra.dirty || precioCompra.touched)" class="text-danger">
             <div *ngIf="precioCompra.errors?.['required']">El precio de compra es obligatorio.</div>
+            <div *ngIf="inputError" class="text-danger">Solo se aceptan números.</div>
           </div>
         </div>
     
         <div class="form-group">
           <label for="precio_Venta">Precio de Venta</label>
-          <input type="number" id="precio_Venta" [(ngModel)]="producto.precio_Venta" name="precio_Venta" class="form-control" required #precioVenta="ngModel" />
+          <input type="number" id="precio_Venta" [(ngModel)]="producto.precio_Venta" name="precio_Venta" class="form-control" required  min="1" (input)="validateInput($event)" #precioVenta="ngModel" />
           <div *ngIf="precioVenta.invalid && (precioVenta.dirty || precioVenta.touched)" class="text-danger">
             <div *ngIf="precioVenta.errors?.['required']">El precio de venta es obligatorio.</div>
+            <div *ngIf="inputError" class="text-danger">Solo se aceptan números.</div>
           </div>
         </div>
       </div>
@@ -110,18 +116,21 @@
       <div class="form-group-row">
         <div class="form-group">
           <label for="cantidad_Stock">Cantidad en Stock</label>
-          <input type="number" id="cantidad_Stock" [(ngModel)]="producto.cantidad_Stock" name="cantidad_Stock" class="form-control" required min="1" #cantidadStock="ngModel" />
+          <input type="number" id="cantidad_Stock" [(ngModel)]="producto.cantidad_Stock" name="cantidad_Stock" class="form-control" required min="1" step="1"(input)="validateInput($event)" #cantidadStock="ngModel" />
           <div *ngIf="cantidadStock.invalid && (cantidadStock.dirty || cantidadStock.touched)" class="text-danger">
             <div *ngIf="cantidadStock.errors?.['required']">La cantidad en stock es obligatoria.</div>
             <div *ngIf="cantidadStock.errors?.['min']">La cantidad en stock no puede ser menor o igual a 0.</div>
+            <div *ngIf="inputError" class="text-danger">Solo se aceptan números.</div>
+            
           </div> 
         </div>
         
         <div class="form-group">
           <label for="cant_Minima">Cantidad Mínima</label>
-          <input type="number" id="cant_Minima" [(ngModel)]="producto.cant_Minima" name="cant_Minima" class="form-control" required #cantMinima="ngModel" />
+          <input type="number" id="cant_Minima" [(ngModel)]="producto.cant_Minima" name="cant_Minima" class="form-control" required  min="1" step="1"(input)="validateInput($event)" #cantMinima="ngModel" />
           <div *ngIf="cantMinima.invalid && (cantMinima.dirty || cantMinima.touched)" class="text-danger">
             <div *ngIf="cantMinima.errors?.['required']">La cantidad mínima es obligatoria.</div>
+                      <div *ngIf="inputError" class="text-danger">Solo se aceptan números.</div>
           </div>
         </div>
       </div>
@@ -170,8 +179,8 @@
           <td>{{ producto.cantidad_Stock }}</td>
           <td>{{ producto.cant_Minima }}</td>
           <td>
-            <button class="btn btn-warning btn-sm" (click)="editarProducto(producto)">Editar</button>
-            <button class="btn btn-danger btn-sm" (click)="borrarProducto(producto.id_Producto)">Eliminar</button>
+            <button   *ngIf="tipoUsuario === 'Admin'" class="btn btn-warning btn-sm" (click)="editarProducto(producto)">Editar</button>
+            <button   *ngIf="tipoUsuario === 'Admin'" class="btn btn-danger btn-sm" (click)="borrarProducto(producto.id_Producto)">Eliminar</button>
           </td>
         </tr>
       </tbody>

@@ -74,7 +74,7 @@
       class="dropdown-container" 
       *ngIf="dropdownOpen['otros']"
     >
-      <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
+     <a routerLink="/ventas"><i class="fas fa-ticket-alt"></i> Ticket</a>
       <a routerLink="/listausuario"><i class="fas fa-users"></i> Agregar Usuario</a>
       <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
       <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
@@ -87,7 +87,7 @@
 <form [formGroup]="createUserForm" autocomplete="off" (ngSubmit)="onSubmit()">
     <div>
       <label for="id_Usuario">ID Usuario:</label>
-      <input id="id_Usuario" formControlName="id_Usuario" />
+      <input id="id_Usuario" formControlName="id_Usuario"  [readonly]="isEdit"  [ngClass]="{'highlighted': isEdit}" />
       <div *ngIf="createUserForm.get('id_Usuario')?.invalid && (createUserForm.get('id_Usuario')?.touched || createUserForm.get('id_Usuario')?.dirty)">
         <small *ngIf="createUserForm.get('id_Usuario')?.errors?.['required']">ID Usuario es obligatorio.</small>
       </div>
@@ -96,7 +96,7 @@
     <div>
       <label for="nombre" autocomplete="off">Nombre:</label>
       <input id="nombre" formControlName="nombre" />
-      <div *ngIf="createUserForm.get('nombre')?.invalid && (createUserForm.get('nombre')?.touched || createUserForm.get('nombre')?.dirty)">
+      <div *ngIf="createUserForm.get('nombre')?.invalid && (createUserForm.get('nombre')?.touched || createUserForm.get('nombre')?.dirty)"class="error-message">
         <small *ngIf="createUserForm.get('nombre')?.errors?.['required']">Nombre es obligatorio.</small>
       </div>
     </div>
@@ -104,7 +104,7 @@
     <div>
       <label for="apellido">Apellido:</label>
       <input id="apellido" formControlName="apellido" />
-      <div *ngIf="createUserForm.get('apellido')?.invalid && (createUserForm.get('apellido')?.touched || createUserForm.get('apellido')?.dirty)">
+      <div *ngIf="createUserForm.get('apellido')?.invalid && (createUserForm.get('apellido')?.touched || createUserForm.get('apellido')?.dirty)"class="error-message">
         <small *ngIf="createUserForm.get('apellido')?.errors?.['required']">Apellido es obligatorio.</small>
       </div>
     </div>
@@ -112,7 +112,7 @@
     <div>
       <label for="telefono">Teléfono:</label>
       <input id="telefono" formControlName="telefono" />
-      <div *ngIf="createUserForm.get('telefono')?.invalid && (createUserForm.get('telefono')?.touched || createUserForm.get('telefono')?.dirty)">
+      <div *ngIf="createUserForm.get('telefono')?.invalid && (createUserForm.get('telefono')?.touched || createUserForm.get('telefono')?.dirty)"class="error-message">
         <small *ngIf="createUserForm.get('telefono')?.errors?.['required']">Teléfono es obligatorio.</small>
         <small *ngIf="createUserForm.get('telefono')?.errors?.['pattern']">Teléfono debe ser un número válido de 10 a 13 dígitos.</small>
       </div>
@@ -121,7 +121,7 @@
     <div>
       <label for="email">Email:</label>
       <input id="email" formControlName="email" />
-      <div *ngIf="createUserForm.get('email')?.invalid && (createUserForm.get('email')?.touched || createUserForm.get('email')?.dirty)">
+      <div *ngIf="createUserForm.get('email')?.invalid && (createUserForm.get('email')?.touched || createUserForm.get('email')?.dirty)"class="error-message">
         <small *ngIf="createUserForm.get('email')?.errors?.['required']">Email es obligatorio.</small>
         <small *ngIf="createUserForm.get('email')?.errors?.['email']">Email no es válido.</small>
       </div>
@@ -130,7 +130,7 @@
     <div>
       <label for="contrasena">Contraseña:</label>
       <input id="contrasena" type="password" formControlName="contrasena" />
-      <div *ngIf="createUserForm.get('contrasena')?.invalid && (createUserForm.get('contrasena')?.touched || createUserForm.get('contrasena')?.dirty)">
+      <div *ngIf="createUserForm.get('contrasena')?.invalid && (createUserForm.get('contrasena')?.touched || createUserForm.get('contrasena')?.dirty)"class="error-message"class="error-message">
         <small *ngIf="createUserForm.get('contrasena')?.errors?.['required']">Contraseña es obligatoria.</small>
         <small *ngIf="createUserForm.get('contrasena')?.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</small>
         <small *ngIf="createUserForm.get('contrasena')?.errors?.['pattern']">La contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial.</small>
@@ -144,14 +144,18 @@
         <option value="Usuario">Empleado</option>
         <option value="Admin">Admin</option>
       </select>
-      <div *ngIf="createUserForm.get('tipo_Usuario')?.invalid && (createUserForm.get('tipo_Usuario')?.touched || createUserForm.get('tipo_Usuario')?.dirty)">
+      <div *ngIf="createUserForm.get('tipo_Usuario')?.invalid && (createUserForm.get('tipo_Usuario')?.touched || createUserForm.get('tipo_Usuario')?.dirty)"class="error-message">
         <small *ngIf="createUserForm.get('tipo_Usuario')?.errors?.['required']">Tipo de Usuario es obligatorio.</small>
       </div>
     </div>
     <div>
+      <div *ngIf="errorMessage">
+        <p class="error">{{ errorMessage }}</p>
+      </div>
       <button type="submit" [disabled]="createUserForm.invalid">
         {{ isEdit ? 'Actualizar Usuario' : 'Registrar Usuario' }}
       </button>
       <button type="button" class="cancelar" (click)="cancel()">Cancelar</button>
-  </div>
+    </div>
+  
   </form>

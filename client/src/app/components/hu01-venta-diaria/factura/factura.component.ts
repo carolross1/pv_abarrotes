@@ -26,7 +26,7 @@ export class FacturaComponent implements OnInit {
     total: 0
   };
 detallesVenta:any[]=[];
-
+errorMessage=""
   dropdownOpen: { [key: string]: boolean } = {}; 
   isEditing: boolean = false; 
 
@@ -93,36 +93,42 @@ detallesVenta:any[]=[];
 
 
 
-    this.facturaService.createFactura(this.factura).subscribe(response => {
-      if (form.valid) {
-        // Aquí va tu lógica para procesar el formulario
-        console.log('Formulario válido:', this.factura);
-      console.log('Factura creada:', response);
+      this.facturaService.createFactura(this.factura).subscribe(
+        response => {
+            if (form.valid) {
+                console.log('Formulario válido:', this.factura);
+                console.log('Factura creada:', response);
+                this.handlePostSubmitActions();
+            } else {
+                console.log('Formulario inválido');
+            }
+        },
+        error => {
+            if (error.status === 400 && error.error.message.includes('Ya existe una factura para este ticket')) {
+                this.errorMessage = '**Ya existe una factura para este ticket. Por favor, utiliza un ticket diferente**';
+            } else {
+                this.errorMessage = 'Error al crear la factura: ' + (error.error?.message || 'Ha ocurrido un error inesperado.');
+            }
+            console.error('Error al crear la factura:', error);
+        }
+    );
+}
+}
+handlePostSubmitActions() {
+  this.facturaService.getDetallesVenta(this.factura.id_Venta).subscribe(
+      detalles => {
+          this.detallesVenta = detalles;
+          const totalVenta = this.detallesVenta.reduce((acc, detalle) => acc + detalle.total_venta, 0);
+          this.factura.total = totalVenta;
+          this.generarPDF(); // Generar el PDF después de crear la factura
+          this.router.navigate(['/facturas']);
+      },
+      error => {
+          console.error('Error al obtener los detalles de la venta:', error);
       }
-      else {
-        
-        console.log('Formulario inválido');
-        return
-      }
-      this.facturaService.getDetallesVenta(this.factura.id_Venta).subscribe(detalles=>{
-        this.detallesVenta=detalles;
-        const totalVenta = this.detallesVenta.reduce((acc, detalle) => acc + detalle.total_venta, 0);
-        this.factura.total = totalVenta;
-      this.generarPDF(); // Generar el PDF después de crear la factura
-      this.router.navigate(['/facturas']);
-    }, error => {
-
-      console.error('Error al crear el detalle:', error);
-      
-
-    });
-  },error =>{
-
-  console.error('error al crear la factura',error);
+  );
 }
-);
-}
-}
+
 actualizarTotal() {
   if (this.factura.id_Venta) {
     this.facturaService.getTotalPorTicket(this.factura.id_Venta).subscribe(response => {

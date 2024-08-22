@@ -13,6 +13,7 @@ export class DetalleVentaComponent implements OnInit {
  
   detallesVenta: any[] = []; // Array para almacenar los detalles de la venta
   id_Venta: string=''
+  tipoUsuario: string | null = null;
 
   // Agrega una propiedad para manejar el estado de los menús desplegables
    dropdownOpen: { [key: string]: boolean } = {};
@@ -27,6 +28,12 @@ export class DetalleVentaComponent implements OnInit {
   ngOnInit(): void {
     this.id_Venta = this.route.snapshot.paramMap.get('id_Venta')!;
     this.getDetallesVenta(this.id_Venta);
+    this.loginService.currentUser$.subscribe(user => {
+      if (user) {
+        this.tipoUsuario = user.tipo_Usuario; // Aquí obtienes el tipo de usuario
+        console.log('Usuario logueado:', user);
+      }
+    });
   }
 
   getDetallesVenta(id_Venta: string): void {
@@ -49,15 +56,22 @@ export class DetalleVentaComponent implements OnInit {
   }
 
   saveDetalleVenta(detalle: any): void {
+    if (detalle.cantidad <= 0) {
+      this.alertaService.showNotification('La cantidad debe ser mayor que cero.', 'error');
+      return;
+    }
+  
     const updatedDetalle = {
         cantidad: detalle.cantidad,
         id_Producto: detalle.id_Producto,
         descuento: detalle.descuento
     };
 
+
     console.log('ID Detalle:', detalle.id_Detalle);
 this.ventaService.updateDetalleVenta(detalle.id_Detalle,updatedDetalle)
   .subscribe(response => {
+
     console.log('Detalle de venta actualizado', response);
     detalle.editing = false; // Salir del modo de edición
     this.getDetallesVenta(this.id_Venta);
@@ -65,6 +79,8 @@ this.ventaService.updateDetalleVenta(detalle.id_Detalle,updatedDetalle)
     console.error('Error al actualizar el detalle de venta', error);
   });
 }
+
+
 
 deleteDetalleVenta(id_Detalle: number): void {
     this.ventaService.deleteDetalleVenta(id_Detalle)

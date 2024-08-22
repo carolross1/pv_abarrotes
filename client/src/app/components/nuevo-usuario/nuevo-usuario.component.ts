@@ -4,6 +4,7 @@ import { UsuarioService } from '../../services/usuario/usuario.service';
 import { Router,ActivatedRoute} from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import { AlertaService } from '../../services/alertas/alerta.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-nuevo-usuario',
@@ -14,6 +15,7 @@ export class NuevoUsuarioComponent implements OnInit {
   createUserForm: FormGroup;
   isEdit: boolean = false;
   userId?: string;
+  errorMessage: string | undefined;
 
   public dropdownOpen: { [key: string]: boolean } = {}; // Estado de los desplegables
 
@@ -22,7 +24,8 @@ export class NuevoUsuarioComponent implements OnInit {
      private router: Router,
      private route: ActivatedRoute,
      private loginService:LoginService,
-     private alertaService:AlertaService
+     private alertaService:AlertaService,
+     private http: HttpClient
     ) {
 
        // Inicialización del FormGroup
@@ -66,37 +69,46 @@ export class NuevoUsuarioComponent implements OnInit {
     }
   }*/
 
-  onSubmit(): void {
-    if (this.createUserForm.valid) {
-      console.log('Formulario enviado con datos:', this.createUserForm.value);
-      if (this.isEdit) {
-        this.usuarioService.updateUser(this.userId!, this.createUserForm.value).subscribe(
-          response => {
-            console.log('Usuario actualizado:', response);
-            this.alertaService.showNotification('Usuario actualizado con éxito','success');
-            this.router.navigate(['/listausuario']);
-           //this.getUsers();
-          },
-          error => {
-            console.error('Error al actualizar el usuario:', error);
-          }
-        );
-      } else {
-      this.usuarioService.createUser(this.createUserForm.value).subscribe(
-        response => {
-          console.log('Usuario creado:', response);
-          this.router.navigate(['/listausuario']); 
-          alert('Nuevo usuario registrado con éxito');
-         // this.getUsers();
-        },
-        error => {
-          console.error('Error al crear el usuario:', error);
+    onSubmit(): void {
+      if (this.createUserForm.valid) {
+        console.log('Formulario enviado con datos:', this.createUserForm.value);
+    
+        if (this.isEdit) {
+          this.usuarioService.updateUser(this.userId!, this.createUserForm.value).subscribe(
+            response => {
+              console.log('Usuario actualizado:', response);
+              this.alertaService.showNotification('Usuario actualizado con éxito', 'success');
+              this.router.navigate(['/listausuario']);
+            },
+            error => {
+              console.error('Error al actualizar el usuario:', error);
+              this.handleError(error);
+            }
+          );
+        } else {
+          this.usuarioService.createUser(this.createUserForm.value).subscribe(
+            response => {
+              console.log('Usuario creado:', response);
+              this.router.navigate(['/listausuario']);
+              alert('Nuevo usuario registrado con éxito');
+            },
+            error => {
+              console.error('Error al crear el usuario:', error);
+              this.handleError(error);
+            }
+          );
         }
-      );
+      }
     }
-  }
-}
-  
+    handleError(error: any): void {
+      if (error.status === 400) { // Asumiendo que el error de duplicación es un 400 Bad Request
+
+          this.errorMessage = error.error.message; 
+    
+      } else {
+        this.alertaService.showNotification('Error inesperado. Inténtelo de nuevo más tarde.', 'error');
+      }
+    }
 cancel(): void {
   this.router.navigate(['/listausuario']); // Opcional: redirige a la lista de usuarios
 }

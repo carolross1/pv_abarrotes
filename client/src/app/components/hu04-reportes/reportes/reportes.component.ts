@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ReporteService } from '../../../services/reportes/reportes.service';
 import { Reportes } from '../../../models/Reportes';
 import { LoginService } from '../../../services/login/login.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-reportes',
   templateUrl: './reportes.component.html',
@@ -37,10 +37,17 @@ export class ReportesComponent {
         this.calcularTotalGanancias();
       },
       error => {
+        // Mostrar un mensaje más específico al usuario
+        const errorMessage = error.error?.error || 'Ocurrió un error al obtener los reportes.';
+        Swal.fire({
+          title: 'Error',
+          text: errorMessage,
+          icon: 'error'
+        });
         console.error('Error obteniendo reportes:', error);
       }
     );
-}
+  }
 
 calcularTotalGanancias() {
   this.totalGanancias = this.reportes.reduce((sum, reporte) => sum + reporte.ganancias, 0);

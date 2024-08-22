@@ -19,11 +19,24 @@ const database_1 = __importDefault(require("../database"));
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_Usuario, nombre, apellido, telefono, email, contrasena, tipo_Usuario } = req.body;
     try {
-        const result = yield database_1.default.query('INSERT INTO usuario (id_Usuario, nombre, apellido, telefono, email, contrasena, tipo_Usuario) VALUES (?, ?, ?, ?, ?, ?, ?)', [id_Usuario, nombre, apellido, telefono, email, contrasena, tipo_Usuario]);
+        yield database_1.default.query('INSERT INTO usuario (id_Usuario, nombre, apellido, telefono, email, contrasena, tipo_Usuario) VALUES (?, ?, ?, ?, ?, ?, ?)', [id_Usuario, nombre, apellido, telefono, email, contrasena, tipo_Usuario]);
         res.status(201).json({ message: 'Usuario creado exitosamente' });
     }
     catch (error) {
-        res.status(500).json({ message: 'Error al crear el usuario', error });
+        if (error.code === 'ER_DUP_ENTRY') {
+            if (error.sqlMessage.includes('email')) {
+                res.status(400).json({ message: '**El correo electrónico ya está en uso**' });
+            }
+            else if (error.sqlMessage.includes('telefono')) {
+                res.status(400).json({ message: '**El número de teléfono ya está en uso**' });
+            }
+            else {
+                res.status(400).json({ message: '**El ID de usuario ya está en uso**' });
+            }
+        }
+        else {
+            res.status(500).json({ message: '**Error al crear el usuario**', error });
+        }
     }
 });
 exports.createUser = createUser;
@@ -69,7 +82,20 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
     }
     catch (error) {
-        res.status(500).json({ message: 'Error al actualizar el usuario', error });
+        if (error.code === 'ER_DUP_ENTRY') {
+            if (error.sqlMessage.includes('email')) {
+                res.status(400).json({ message: 'El correo electrónico ya está en uso' });
+            }
+            else if (error.sqlMessage.includes('telefono')) {
+                res.status(400).json({ message: 'El número de teléfono ya está en uso' });
+            }
+            else {
+                res.status(400).json({ message: 'Error de duplicación de entrada' });
+            }
+        }
+        else {
+            res.status(500).json({ message: 'Error al actualizar el usuario', error });
+        }
     }
 });
 exports.updateUser = updateUser;
@@ -77,7 +103,9 @@ exports.updateUser = updateUser;
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
+        // Ejecutar la consulta DELETE
         const result = yield database_1.default.query('DELETE FROM usuario WHERE id_Usuario = ?', [id]);
+        // Verificar si se afectaron filas
         if (result.affectedRows > 0) {
             res.json({ message: 'Usuario eliminado exitosamente' });
         }
@@ -86,7 +114,21 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
     }
     catch (error) {
-        res.status(500).json({ message: 'Error al eliminar el usuario', error });
+        // Manejar el error SQL de manera segura
+        if (error && typeof error === 'object') {
+            const sqlError = error;
+            if (sqlError.code === 'ER_ROW_IS_REFERENCED_2') {
+                res.status(400).json({ message: 'No se puede eliminar el usuario porque tiene referencias en otras tablas.' });
+            }
+            else {
+                // Errores generales del servidor
+                res.status(500).json({ message: 'Error al eliminar el usuario', error: sqlError.message || 'Error desconocido' });
+            }
+        }
+        else {
+            // Manejo de errores no estándar
+            res.status(500).json({ message: 'Error desconocido' });
+        }
     }
 });
 exports.deleteUser = deleteUser;

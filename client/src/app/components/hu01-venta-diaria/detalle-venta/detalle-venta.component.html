@@ -74,7 +74,7 @@
       class="dropdown-container" 
       *ngIf="dropdownOpen['otros']"
     >
-      <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
+      <a routerLink="/ventas"><i class="fas fa-ticket-alt"></i> Ticket</a>
       <a routerLink="/listausuario"><i class="fas fa-users"></i> Agregar Usuario</a>
       <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
       <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
@@ -118,17 +118,23 @@
                   <ng-container *ngIf="!detalle.editing"> {{ detalle.cantidad }}
                 </ng-container>
                 <ng-container *ngIf="detalle.editing">
-                  <input [(ngModel)]="detalle.cantidad" class="edit-input">
+                  <input type="number" [(ngModel)]="detalle.cantidad" class="edit-input" required min="1" #cantidad="ngModel">
+                  <div *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)" class="text-danger">
+                    <div *ngIf="cantidad.errors?.['required']">La cantidad en stock es obligatoria.</div>
+                    <div *ngIf="cantidad.errors?.['min']">La cantidad en stock no puede ser menor o igual a 0.</div>
+                  </div> 
+
+                  
                   
                   <button (click)="saveDetalleVenta(detalle)" class="save-button">Guardar</button>
             </ng-container>
           </td>
           <td>{{ detalle.total_venta| currency }}</td>
           <td>
-            <button (click)="editDetalleVenta(detalle)" class="edit-button">✎</button>
+            <button *ngIf="tipoUsuario === 'Admin'"  (click)="editDetalleVenta(detalle)" class="edit-button">✎</button>
           </td>
           <td>
-            <button (click)="deleteDetalleVenta(detalle.id_Detalle!)" class="delete-button">🗑</button>
+            <button *ngIf="tipoUsuario === 'Admin'"  (click)="deleteDetalleVenta(detalle.id_Detalle!)" class="delete-button">🗑</button>
           </td>
 </tr>
 </tbody>

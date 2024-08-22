@@ -11,6 +11,7 @@ import { LoginService } from '../../../services/login/login.service';
 })
 export class FacturaListComponent implements OnInit {
   facturas: Factura[] = [];
+  tipoUsuario: string | null = null; 
   
  // Agrega una propiedad para manejar el estado de los menús desplegables
  dropdownOpen: { [key: string]: boolean } = {};
@@ -20,6 +21,12 @@ export class FacturaListComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarFacturas();
+    this.loginService.currentUser$.subscribe(user => {
+      if (user) {
+        this.tipoUsuario = user.tipo_Usuario; // Aquí obtienes el tipo de usuario
+        console.log('Usuario logueado:', user);
+      }
+    });
   }
 
   cargarFacturas(): void {

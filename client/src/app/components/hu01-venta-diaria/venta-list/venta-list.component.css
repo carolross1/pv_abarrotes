@@ -116,7 +116,7 @@ table {
 }
 
 thead th {
-  background-color: #5b3d99; /* Color de fondo para el encabezado */
+  background-color: #8d5ec0; 
   color: white;
   padding: 10px;
   text-align: center;
@@ -133,7 +133,7 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr:hover {
-  background-color: #f1f1f1;
+  background-color: #efcef1;
 }
 
 td button {
