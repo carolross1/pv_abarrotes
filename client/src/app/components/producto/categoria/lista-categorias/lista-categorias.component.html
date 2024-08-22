@@ -75,7 +75,7 @@
       <h2>Crear nueva categoria</h2> 
       <input type="text" [(ngModel)]="nombreCategoria" placeholder="Nombre de la nueva categoría" class="search-input">
       <div *ngIf="errorMessage">
-        <p class="error">{{ errorMessage }}</p>
+        <p class="error">{{ errorMessage}}</p>
       </div>
       <button (click)="addCategoria()" class="add-button">Nueva categoría</button>
     </div>

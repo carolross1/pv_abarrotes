@@ -104,7 +104,7 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const { id } = req.params;
     try {
         // Ejecutar la consulta DELETE
-        const [result] = yield database_1.default.query('DELETE FROM usuario WHERE id_Usuario = ?', [id]);
+        const result = yield database_1.default.query('DELETE FROM usuario WHERE id_Usuario = ?', [id]);
         // Verificar si se afectaron filas
         if (result.affectedRows > 0) {
             res.json({ message: 'Usuario eliminado exitosamente' });

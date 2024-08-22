@@ -86,7 +86,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
   const { id } = req.params;
   try {
     // Ejecutar la consulta DELETE
-    const [result]: any = await pool.query('DELETE FROM usuario WHERE id_Usuario = ?', [id]);
+    const result: any = await pool.query('DELETE FROM usuario WHERE id_Usuario = ?', [id]);
     
     // Verificar si se afectaron filas
     if (result.affectedRows > 0) {

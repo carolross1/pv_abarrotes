@@ -43,6 +43,7 @@ export class ListaUsuariosComponent implements OnInit {
       this.router.navigate(['/usuario/editar',id]) 
     } 
     deleteUser(id: string): void {
+      console.log(id)
       Swal.fire({
         title: '¿Estás seguro de que deseas eliminar este usuario?',
         text: 'Esta acción no se puede deshacer',
@@ -59,7 +60,7 @@ export class ListaUsuariosComponent implements OnInit {
                 'El usuario ha sido eliminado exitosamente.',
                 'success'
               );
-              this.getUsers(); // Actualizar la lista de usuarios
+              this.getUsers();
             },
             (error: any) => {
               // Manejo de errores específicos
