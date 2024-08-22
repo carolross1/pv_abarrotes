@@ -22,6 +22,7 @@ import { FacturaListComponent } from './components/hu01-venta-diaria/factura-lis
 import { FacturaDetailComponent } from './components/hu01-venta-diaria/factura-detail/factura-detail.component';
 import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/venta-list.component';
 import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-venta/detalle-venta.component';
+import { AdminGuard,AuthGuard } from './services/autenticacion/guarda.guard';
 const routes: Routes = [
   {
     path:'',
@@ -57,6 +58,7 @@ const routes: Routes = [
   {
     path:'cortedecaja',
     component:CorteCajaComponent,
+    
   },
   {
     path:'entregasproveedor', 
@@ -85,7 +87,8 @@ const routes: Routes = [
   }, 
   {
     path:'reportes', 
-    component:ReportesComponent
+    component:ReportesComponent,
+    canActivate: [AdminGuard]
   },
   {
     path:'crear-factura', 
@@ -110,11 +113,13 @@ const routes: Routes = [
   },
   {
     path:'listausuario',
-    component:ListaUsuariosComponent
+    component:ListaUsuariosComponent,
+    canActivate: [AdminGuard]
   },
   {
     path:'usuario/editar/:id',
-    component:NuevoUsuarioComponent
+    component:NuevoUsuarioComponent,
+    canActivate: [AdminGuard]
   },
   {
     path:'productos',
