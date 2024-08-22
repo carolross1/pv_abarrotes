@@ -35,6 +35,8 @@ export class ProductoComponent implements OnInit {
   mostrarProductos: boolean = false;
   errorMessage=""
   inputError = false;
+  tipoUsuario: string | null = null;
+
 
   validateInput(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -63,6 +65,12 @@ private router:Router) { }
   ngOnInit() {
     this.cargarProductos();
     this.getCategorias();
+    this.loginService.currentUser$.subscribe(user => {
+      if (user) {
+        this.tipoUsuario = user.tipo_Usuario; // Aquí obtienes el tipo de usuario
+        console.log('Usuario logueado:', user);
+      }
+    });
   }
   
   cargarProductos() {

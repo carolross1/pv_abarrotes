@@ -30,7 +30,7 @@ export class AutenticacionService {
 
   isAdmin(): boolean {
     const user = this.getCurrentUser();
-    return user && user.tipo_usuario === 'administrador';
+    return user && user.tipo_Usuario === 'Admin';
   }
 
   // Puedes agregar más métodos según sea necesario

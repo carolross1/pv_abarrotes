@@ -110,7 +110,7 @@
 </button>
 <button (click)="editarFactura(factura.id_Factura!)"class="edit-button">✎
 </button>
-<button  (click)="eliminarFactura(factura.id_Factura!)"class="delete-button">🗑
+<button *ngIf="tipoUsuario === 'Admin'"  (click)="eliminarFactura(factura.id_Factura!)"class="delete-button">🗑
 </button>
 </td>
 </tr>

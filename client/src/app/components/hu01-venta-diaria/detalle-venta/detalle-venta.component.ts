@@ -13,6 +13,7 @@ export class DetalleVentaComponent implements OnInit {
  
   detallesVenta: any[] = []; // Array para almacenar los detalles de la venta
   id_Venta: string=''
+  tipoUsuario: string | null = null;
 
   // Agrega una propiedad para manejar el estado de los menús desplegables
    dropdownOpen: { [key: string]: boolean } = {};
@@ -27,6 +28,12 @@ export class DetalleVentaComponent implements OnInit {
   ngOnInit(): void {
     this.id_Venta = this.route.snapshot.paramMap.get('id_Venta')!;
     this.getDetallesVenta(this.id_Venta);
+    this.loginService.currentUser$.subscribe(user => {
+      if (user) {
+        this.tipoUsuario = user.tipo_Usuario; // Aquí obtienes el tipo de usuario
+        console.log('Usuario logueado:', user);
+      }
+    });
   }
 
   getDetallesVenta(id_Venta: string): void {

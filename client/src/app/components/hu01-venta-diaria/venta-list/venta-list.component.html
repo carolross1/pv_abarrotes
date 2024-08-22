@@ -105,7 +105,7 @@
                 <td>{{ venta.total_ventas | currency:'MXN':'symbol':'1.2-2' }}</td> 
                 
                 <td>
-<button  (click)="eliminarVenta(venta.id_Venta!)"class="delete-button">🗑
+<button *ngIf="tipoUsuario === 'Admin'"(click)="eliminarVenta(venta.id_Venta!)"class="delete-button">🗑
 </button>
 <button (click)="verDetalle(venta.id_Venta)">
                      <i class="fas fa-eye edit-icon"></i>

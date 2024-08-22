@@ -36,7 +36,7 @@ export class AdminGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.isAdmin()) {
-      return true;  // Permite el acceso a la ruta
+      return true; 
     } else {
       Swal.fire({
         icon: 'error',

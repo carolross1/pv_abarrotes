@@ -131,10 +131,10 @@
           </td>
           <td>{{ detalle.total_venta| currency }}</td>
           <td>
-            <button (click)="editDetalleVenta(detalle)" class="edit-button">✎</button>
+            <button *ngIf="tipoUsuario === 'Admin'"  (click)="editDetalleVenta(detalle)" class="edit-button">✎</button>
           </td>
           <td>
-            <button (click)="deleteDetalleVenta(detalle.id_Detalle!)" class="delete-button">🗑</button>
+            <button *ngIf="tipoUsuario === 'Admin'"  (click)="deleteDetalleVenta(detalle.id_Detalle!)" class="delete-button">🗑</button>
           </td>
 </tr>
 </tbody>

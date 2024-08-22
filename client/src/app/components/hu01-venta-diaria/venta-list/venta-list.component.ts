@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class VentaListComponent implements OnInit{
 
 ventas: any[] = [];
+tipoUsuario: string | null = null;
 
  // Agrega una propiedad para manejar el estado de los menús desplegables
  dropdownOpen: { [key: string]: boolean } = {};
@@ -22,6 +23,12 @@ constructor(private ventaService:VentaService,private loginService:LoginService,
 
 ngOnInit(): void {
   this.cargarVentas();
+  this.loginService.currentUser$.subscribe(user => {
+    if (user) {
+      this.tipoUsuario = user.tipo_Usuario; // Aquí obtienes el tipo de usuario
+      console.log('Usuario logueado:', user);
+    }
+  });
 }
 
 cargarVentas(): void {

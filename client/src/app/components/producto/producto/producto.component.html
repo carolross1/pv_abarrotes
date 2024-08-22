@@ -179,8 +179,8 @@
           <td>{{ producto.cantidad_Stock }}</td>
           <td>{{ producto.cant_Minima }}</td>
           <td>
-            <button class="btn btn-warning btn-sm" (click)="editarProducto(producto)">Editar</button>
-            <button class="btn btn-danger btn-sm" (click)="borrarProducto(producto.id_Producto)">Eliminar</button>
+            <button   *ngIf="tipoUsuario === 'Admin'" class="btn btn-warning btn-sm" (click)="editarProducto(producto)">Editar</button>
+            <button   *ngIf="tipoUsuario === 'Admin'" class="btn btn-danger btn-sm" (click)="borrarProducto(producto.id_Producto)">Eliminar</button>
           </td>
         </tr>
       </tbody>
