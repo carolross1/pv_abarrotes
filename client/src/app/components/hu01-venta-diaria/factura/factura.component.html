@@ -41,7 +41,7 @@
       Otros <i class="fas fa-chevron-down"></i>
     </button>
     <div class="dropdown-container" *ngIf="dropdownOpen['otros']">
-      <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
+     <a routerLink="/ventas"><i class="fas fa-ticket-alt"></i> Ticket</a>
       <a routerLink="/listausuario"><i class="fas fa-percentage"></i> Agregar usuario</a>
       <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
       <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
@@ -206,6 +206,9 @@
         <div *ngIf="total.invalid && (total.dirty || facturaForm.submitted)" class="error">
           <div *ngIf="total.errors?.['required']">Total es requerido.</div>
         </div>        
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
       </div>
     <div class="form-buttons">
       <button type="button" class="boton-accion" routerLink="/facturas" [ngClass]="{isEditing}">Cancelar</button>

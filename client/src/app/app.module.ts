@@ -54,7 +54,7 @@ import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-ve
     Hu06ClienteFrecuenteModule,
     Hu07NotificacionModule,
     ProductoServiceModule, 
-    ProductoModule,
+    ProductoModule
 
   ],
   providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService,AlertaService],

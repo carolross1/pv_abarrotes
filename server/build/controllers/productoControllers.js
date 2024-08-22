@@ -26,11 +26,32 @@ const getProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.getProductos = getProductos;
 const createProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // Intentar insertar el nuevo producto
         yield database_1.default.query('INSERT INTO producto SET ?', [req.body]);
         res.json({ message: 'Producto creado' });
     }
     catch (error) {
-        res.status(500).json({ message: 'Error al crear producto', error });
+        // Manejo de errores SQL
+        if (error && typeof error === 'object') {
+            const sqlError = error;
+            if (sqlError.code === 'ER_DUP_ENTRY') {
+                if (sqlError.sqlMessage.includes('nombre')) {
+                    res.status(400).json({ message: '**El nombre del producto ya existe.Por favor, utiliza un nombre diferente.***' });
+                }
+                else if (sqlError.sqlMessage.includes('codigo_barras')) {
+                    res.status(400).json({ message: '**El código de barras ya está en uso. Por favor, utiliza un código diferente.**' });
+                }
+                else {
+                    res.status(400).json({ message: '**Entrada duplicada. Verifique los datos**' });
+                }
+            }
+            else {
+                res.status(500).json({ message: 'Error al crear producto', error: sqlError.message || 'Error desconocido' });
+            }
+        }
+        else {
+            res.status(500).json({ message: 'Error desconocido' });
+        }
     }
 });
 exports.createProducto = createProducto;

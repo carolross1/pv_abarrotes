@@ -163,10 +163,11 @@ h1{
   height: 40%;
   padding: 14px;
   border-radius: 4px;
-  border: 3px solid #e8dede;
+  border: 3px solid #a3a2a2;
   border-radius: 10px;
   display: block;
   font-size: 1.4em;
+  
 }
 
 .btn-success {
@@ -256,4 +257,9 @@ h1{
     flex-direction: column;
     align-items: flex-start;
   }
+}
+.alert-danger{
+  color: red;
+  font-weight: bold;
+  font-size: 1.3em;
 }

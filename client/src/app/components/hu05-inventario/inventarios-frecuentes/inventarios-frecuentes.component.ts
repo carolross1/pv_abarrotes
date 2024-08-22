@@ -115,6 +115,7 @@ export class InventariosFrecuentesComponent implements OnInit {
           (response) => {
             console.log('Stock actualizado');
             this.alertaService.showNotification('Stock actualizado exitosamente.', 'success');
+
           },
           (error) => {
             this.alertaService.showNotification('Error al actualizar stock.', 'error');

@@ -103,7 +103,9 @@ exports.updateUser = updateUser;
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const result = yield database_1.default.query('DELETE FROM usuario WHERE id_Usuario = ?', [id]);
+        // Ejecutar la consulta DELETE
+        const [result] = yield database_1.default.query('DELETE FROM usuario WHERE id_Usuario = ?', [id]);
+        // Verificar si se afectaron filas
         if (result.affectedRows > 0) {
             res.json({ message: 'Usuario eliminado exitosamente' });
         }
@@ -112,7 +114,21 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
     }
     catch (error) {
-        res.status(500).json({ message: 'Error al eliminar el usuario', error });
+        // Manejar el error SQL de manera segura
+        if (error && typeof error === 'object') {
+            const sqlError = error;
+            if (sqlError.code === 'ER_ROW_IS_REFERENCED_2') {
+                res.status(400).json({ message: 'No se puede eliminar el usuario porque tiene referencias en otras tablas.' });
+            }
+            else {
+                // Errores generales del servidor
+                res.status(500).json({ message: 'Error al eliminar el usuario', error: sqlError.message || 'Error desconocido' });
+            }
+        }
+        else {
+            // Manejo de errores no estándar
+            res.status(500).json({ message: 'Error desconocido' });
+        }
     }
 });
 exports.deleteUser = deleteUser;

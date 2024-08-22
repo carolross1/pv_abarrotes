@@ -86,9 +86,9 @@
   border: 3px solid rgb(235, 227, 227);
   border-radius: 10px;
   padding: 8px;
-  margin: 50px auto;
-  max-width: 90%; /* Ajusta el ancho máximo del contenedor */
-  width: 500px; /* Ancho reducido para una visualización más compacta */
+  margin: 20px auto;
+  max-width: 90%; 
+  width: 500px; 
   box-sizing: border-box;
   max-height: 1500px;
 }
@@ -125,12 +125,11 @@
   min-width: calc(50% - 10px); /* Ancho mínimo para dos columnas en horizontal */
 }
 
-/* Estilos para los botones del formulario */
 .form-buttons {
   display: flex;
-  justify-content: center; /* Centra los botones horizontalmente */
-  gap: 10px; /* Espacio entre los botones */
-  margin-top: 20px; /* Espacio superior de los botones */
+  justify-content: center; 
+  gap: 10px; 
+  margin-top: 20px; 
 }
 
 .boton-accion {
@@ -141,7 +140,7 @@
   padding: 10px 20px; 
   font-size: 16px;
   display: block;
-  margin-top: 2em;
+  margin-top: 0.3em;
   margin-left: 0;
 }
 .boton-accion:hover{
@@ -179,5 +178,10 @@
 }
 .error {
   color: red;
+  font-size: 0.85em;
+}
+.alert-danger{
+  color: red;
+  font-weight: bold;
   font-size: 0.85em;
 }

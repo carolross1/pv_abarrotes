@@ -25,12 +25,16 @@ export const getFacturaU = async (req: Request, res: Response): Promise<void> =>
 
 
 export const createFactura = async (req: Request, res: Response): Promise<void> => {
-    try {
-        await pool.query('INSERT INTO factura SET ?', [req.body]);
-        res.json({ message: 'Factura creada' });
-    } catch (error) {
-        res.status(500).json({ message: 'Error al crear factura', error });
-    }
+  try {
+      await pool.query('INSERT INTO factura SET ?', [req.body]);
+      res.json({ message: 'Factura creada' });
+  } catch (error: any) {
+      if (error.code === 'ER_DUP_ENTRY') {
+          res.status(400).json({ message: 'Ya existe una factura para este ticket. Por favor, utiliza un ticket diferente.', error });
+      } else {
+          res.status(500).json({ message: 'Error al crear factura', error });
+      }
+  }
 };
 
 export const updateFactura = async (req: Request, res: Response): Promise<void> => {

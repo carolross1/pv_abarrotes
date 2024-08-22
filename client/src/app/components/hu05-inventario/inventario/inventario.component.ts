@@ -3,6 +3,7 @@ import { Router } from '@angular/router'; // Asegúrate de importar Router
 import { InventarioService } from '../../../services/inventario/inventario.service';
 import { LoginService } from '../../../services/login/login.service';
 import { NgForm } from '@angular/forms';
+import { AlertaService } from '../../../services/alertas/alerta.service';
 
 
 
@@ -19,7 +20,8 @@ export class InventarioComponent implements OnInit{
   constructor(
     private inventarioService: InventarioService,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private alertaService:AlertaService
   ) { }
 
   ngOnInit(): void {
@@ -35,14 +37,20 @@ export class InventarioComponent implements OnInit{
     console.log('Inventario a crear:', this.inventario); // Verifica el objeto inventario
     this.inventarioService.createInventario(this.inventario).subscribe(response => {
       console.log('Respuesta del servidor:', response); // Verifica la respuesta del servidor
+     
+      const mensaje = `Se registró el inventario con éxito. Fecha de inicio: ${this.inventario.fechaInicio}`;
+      console.log('Mensaje de notificación:', mensaje); // Verifica el mensaje de notificación
+      
+      this.alertaService.showNotification(mensaje, 'success');
       this.router.navigate(['/inventariofrecuente', response.id]);
+    }, error => {
+      console.error('Error al crear el inventario:', error); // Maneja cualquier error
+      this.alertaService.showNotification('Hubo un error al registrar el inventario.', 'error');
     });
+  } else {
+    console.log('Inventario inválido');
   }
-  else 
-  {
-    console.log("Inventario invalido")
-  }
-  }
+}
   dropdownOpen: { [key: string]: boolean } = {}; // Estado de los menús desplegables
   
   toggleDropdown(key: string): void {

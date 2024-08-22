@@ -49,15 +49,22 @@ export class DetalleVentaComponent implements OnInit {
   }
 
   saveDetalleVenta(detalle: any): void {
+    if (detalle.cantidad <= 0) {
+      this.alertaService.showNotification('La cantidad debe ser mayor que cero.', 'error');
+      return;
+    }
+  
     const updatedDetalle = {
         cantidad: detalle.cantidad,
         id_Producto: detalle.id_Producto,
         descuento: detalle.descuento
     };
 
+
     console.log('ID Detalle:', detalle.id_Detalle);
 this.ventaService.updateDetalleVenta(detalle.id_Detalle,updatedDetalle)
   .subscribe(response => {
+
     console.log('Detalle de venta actualizado', response);
     detalle.editing = false; // Salir del modo de edición
     this.getDetallesVenta(this.id_Venta);
@@ -65,6 +72,8 @@ this.ventaService.updateDetalleVenta(detalle.id_Detalle,updatedDetalle)
     console.error('Error al actualizar el detalle de venta', error);
   });
 }
+
+
 
 deleteDetalleVenta(id_Detalle: number): void {
     this.ventaService.deleteDetalleVenta(id_Detalle)

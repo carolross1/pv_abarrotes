@@ -270,3 +270,8 @@ tbody tr:hover {
 td button {
   margin-right: 5px;
 }
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}

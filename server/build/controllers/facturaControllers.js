@@ -46,7 +46,12 @@ const createFactura = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.json({ message: 'Factura creada' });
     }
     catch (error) {
-        res.status(500).json({ message: 'Error al crear factura', error });
+        if (error.code === 'ER_DUP_ENTRY') {
+            res.status(400).json({ message: 'Ya existe una factura para este ticket. Por favor, utiliza un ticket diferente.', error });
+        }
+        else {
+            res.status(500).json({ message: 'Error al crear factura', error });
+        }
     }
 });
 exports.createFactura = createFactura;

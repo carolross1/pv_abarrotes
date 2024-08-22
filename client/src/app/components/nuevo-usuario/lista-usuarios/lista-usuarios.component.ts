@@ -52,20 +52,25 @@ export class ListaUsuariosComponent implements OnInit {
         cancelButtonText: 'No, cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.usuarioService.deleteUser(id).subscribe(() => {
-            Swal.fire(
-              '¡Eliminado!',
-              'El usuario ha sido eliminado.',
-              'success'
-            );
-            this.getUsers();
-          }, error => {
-            Swal.fire(
-              'Error',
-              'Hubo un problema al eliminar el usuario.',
-              'error'
-            );
-          });
+          this.usuarioService.deleteUser(id).subscribe(
+            () => {
+              Swal.fire(
+                '¡Eliminado!',
+                'El usuario ha sido eliminado exitosamente.',
+                'success'
+              );
+              this.getUsers(); // Actualizar la lista de usuarios
+            },
+            (error: any) => {
+              // Manejo de errores específicos
+              const errorMessage = error.error?.message || 'Ocurrió un error al eliminar el usuario.';
+              Swal.fire(
+                'Error',
+                errorMessage,
+                'error'
+              );
+            }
+          );
         }
       });
     }

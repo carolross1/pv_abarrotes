@@ -85,13 +85,28 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   try {
-    const result = await pool.query('DELETE FROM usuario WHERE id_Usuario = ?', [id]);
+    // Ejecutar la consulta DELETE
+    const [result]: any = await pool.query('DELETE FROM usuario WHERE id_Usuario = ?', [id]);
+    
+    // Verificar si se afectaron filas
     if (result.affectedRows > 0) {
       res.json({ message: 'Usuario eliminado exitosamente' });
     } else {
       res.status(404).json({ message: 'Usuario no encontrado' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Error al eliminar el usuario', error });
+    // Manejar el error SQL de manera segura
+    if (error && typeof error === 'object') {
+      const sqlError = error as any;
+      if (sqlError.code === 'ER_ROW_IS_REFERENCED_2') {
+        res.status(400).json({ message: 'No se puede eliminar el usuario porque tiene referencias en otras tablas.' });
+      } else {
+        // Errores generales del servidor
+        res.status(500).json({ message: 'Error al eliminar el usuario', error: sqlError.message || 'Error desconocido' });
+      }
+    } else {
+      // Manejo de errores no estándar
+      res.status(500).json({ message: 'Error desconocido' });
+    }
   }
 };
