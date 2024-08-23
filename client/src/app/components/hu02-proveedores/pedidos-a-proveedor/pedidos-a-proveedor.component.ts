@@ -23,8 +23,8 @@ export class PedidosProveedorComponent implements OnInit {
   correo: string = ''; // Añadido para almacenar el correo del proveedor
   compra: PedidoProveedor = {
     id_Proveedor: 0,
-    fecha: this.currentDate,
-    estado: 'enviado',
+    fecha_Pedido: this.currentDate,
+   
     detalles: [],
     total: 0
   };
@@ -45,8 +45,9 @@ export class PedidosProveedorComponent implements OnInit {
     this.cargarProveedores();
     const currentUser = this.loginService.getCurrentUser() || {};
     this.compra.id_Proveedor = this.compra.id_Proveedor || 0;
-    this.compra.fecha = this.currentDate;
-    this.compra.estado = 'Enviado';
+    this.compra.fecha_Pedido = this.currentDate;
+    
+ 
   }
 
   cargarProductos(): void {
@@ -122,27 +123,41 @@ export class PedidosProveedorComponent implements OnInit {
   }
 
   agregarProductoACompra(producto: Producto, cantidad: number): void {
+    // Calcula el total del detalle basado en el precio y la cantidad
+    const totalDetalle = producto.precio_Compra * cantidad;
+  
+    // Crea el detalle del pedido con el total calculado
     const detalle: DetallePedido = {
       id_Pedido: this.compra.id_Pedido || 0,
       id_Producto: producto.id_Producto,
       cantidad: cantidad,
-      codigo_Barras: producto.codigo_Barras,
       nombre: producto.nombre,
-      precio: producto.precio_Compra * cantidad
+      codigo_Barras: producto.codigo_Barras,
+      precio: producto.precio_Compra,
+      total: totalDetalle // Asigna el total calculado
     };
+  
+    // Agrega el detalle al pedido
     this.compra.detalles.push(detalle);
+  
+    // Llama a calcularTotales después de agregar el producto
     this.calcularTotales();
-    if (!this.compra.estado) {
-      this.compra.estado = 'Pendiente';
-    }
   }
+  
 
   calcularTotales(): void {
+    // Calcula el total sumando el total de cada detalle
     this.totalCompra = this.compra.detalles.reduce((total, detalle) => {
-      return total + detalle.precio;
+      // Calcula el total por detalle (precio * cantidad)
+      const detalleTotal = detalle.precio * (detalle.cantidad ?? 0);
+      // Suma el total del detalle al total general
+      return total + detalleTotal;
     }, 0);
+    
+    // Actualiza el total del pedido
     this.compra.total = this.totalCompra;
   }
+  
 
   eliminarProductoDeCompra(idProducto: number): void {
     this.compra.detalles = this.compra.detalles.filter(detalle => detalle.id_Producto !== idProducto);
@@ -152,30 +167,41 @@ export class PedidosProveedorComponent implements OnInit {
   vaciarCompra(): void {
     this.compra = {
       id_Proveedor: 0,
-      fecha: new Date(),
-      estado: 'Enviado',
+      fecha_Pedido: new Date(),
       detalles: [],
       total: 0
     };
     this.totalCompra = 0;
   }
 
-  registrarCompra(): void {
+  registrarPedido(): void {
     if (this.isFormValid()) {
       this.pedidoService.registrarPedido(this.compra).subscribe({
         next: response => {
           console.log('Respuesta del servidor al registrar pedido:', response);
           const idPedido = response.idPedido;
-
+  
           // Registrar detalles del pedido
           const detallesPedido$ = this.compra.detalles.map(detalle => {
-            return this.pedidoService.registrarDetallesPedido(detalle).toPromise();
+            // Construir el detalle del pedido
+            const detallePedido: DetallePedido = {
+              id_Pedido: idPedido, // Utilizar el idPedido devuelto para los detalles
+              id_Producto: detalle.id_Producto,
+              nombre: detalle.nombre,
+              precio: detalle.precio,
+              codigo_Barras: detalle.codigo_Barras,
+              cantidad: detalle.cantidad ?? 0,
+              total: detalle.total ?? 0
+            };
+  
+            // Devolver el observable para cada detalle del pedido
+            return this.pedidoService.registrarDetallesPedido(detallePedido).toPromise();
           });
-
+  
           Promise.all(detallesPedido$).then(() => {
             // Vacía el pedido después de registrar todos los detalles
             this.vaciarCompra();
-
+  
             // Mostrar notificación de éxito
             Swal.fire({
               icon: 'success',
@@ -185,7 +211,7 @@ export class PedidosProveedorComponent implements OnInit {
             });
           }).catch(error => {
             console.error('Error al registrar el detalle del pedido:', error);
-
+  
             // Mostrar notificación de fallo
             Swal.fire({
               icon: 'error',
@@ -197,7 +223,7 @@ export class PedidosProveedorComponent implements OnInit {
         },
         error: error => {
           console.error('Error al registrar el pedido:', error);
-
+  
           // Mostrar notificación de fallo
           Swal.fire({
             icon: 'error',
@@ -211,9 +237,9 @@ export class PedidosProveedorComponent implements OnInit {
       this.alertaService.showNotification('Por favor, complete todos los campos requeridos antes de registrar el pedido.', 'warning');
     }
   }
-
+  
   isFormValid(): boolean {
-    return this.compra.id_Proveedor > 0 && this.compra.detalles.length > 0 && !!this.compra.estado;
+    return this.compra.id_Proveedor > 0 && this.compra.detalles.length > 0 
   }
 
   toggleDropdown(key: string): void {
@@ -230,6 +256,6 @@ export class PedidosProveedorComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.registrarCompra();
+    this.registrarPedido();
   }
 }

@@ -76,19 +76,6 @@
     </div>
 
     <p>Correo del proveedor: {{ correo }}</p>
-  <form (ngSubmit)="submitForm()">
-    <!-- Otros campos del formulario -->
-
-    <label for="estado">Estado:</label>
-    <select id="estado" [(ngModel)]="compra.estado" name="estado" required>
-        <option value="Pendiente">Pendiente</option>
-        <option value="Enviado">Enviado</option>
-        <option value="Recibido">Recibido</option>
-        <option value="Cancelado">Cancelado</option>
-        <!-- Agrega más opciones según tu necesidad -->
-    </select>
-
-</form>
 
 
   <!-- Sección de Código de Barras -->
@@ -164,7 +151,7 @@
 
     <div class="compra-buttons">
       <button (click)="vaciarCompra()">Vaciar Compra</button>
-      <button (click)="registrarCompra()" [disabled]="!isFormValid()">Registrar Compra</button>
+      <button (click)="registrarPedido()" [disabled]="!isFormValid()">Registrar Compra</button>
     </div>
   </div>
 </div>

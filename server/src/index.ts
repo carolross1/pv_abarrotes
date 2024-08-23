@@ -15,6 +15,10 @@ import inventarioRoutes from './routes/inventarioRoutes';
 import usuarioRoutes from './routes/usuarioRoutes';
 import entregasRoutes from './routes/entregasRoutes';
 import pedidosRoutes from './routes/pedidosProveedorRoutes'
+import dotenv from 'dotenv';
+import { enviarCorreo } from './controllers/pedidoProveedorControllers';
+dotenv.config();
+
 
 class Server{
 public app:Application;
@@ -47,6 +51,7 @@ constructor(){
         this.app.use('/api/usuarios',usuarioRoutes);
         this.app.use('/api/entregas',entregasRoutes);
         this.app.use('/api/pedidos', pedidosRoutes);
+        
         
     }
     start():void{

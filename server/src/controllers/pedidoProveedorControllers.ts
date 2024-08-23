@@ -34,13 +34,13 @@ export const enviarCorreo = async (req: Request, res: Response) => {
 };
 
 export const registrarPedido = async (req: Request, res: Response) => {
-  const { id_Proveedor, fecha, estado } = req.body;
+  const { id_Proveedor, fecha_Pedido, total } = req.body;
 
   try {
     // Insertar el pedido y obtener el ID generado automáticamente
     const result: any = await pool.query(
-      'INSERT INTO pedido (id_Proveedor, fecha, estado) VALUES (?, ?, ?)',
-      [id_Proveedor, fecha, estado]
+      'INSERT INTO pedido_digital (id_Proveedor, fecha_Pedido, total) VALUES (?, ?, ?)',
+      [id_Proveedor, fecha_Pedido, total]
     );
 
     // Obtener el ID autogenerado del pedido
@@ -61,7 +61,7 @@ export const registrarPedido = async (req: Request, res: Response) => {
 
 export const obtenerPedidos = async (req: Request, res: Response) => {
   try {
-    const pedidos = await pool.query('SELECT * FROM pedido');
+    const pedidos = await pool.query('SELECT * FROM pedido_digital');
     res.json(pedidos);
   } catch (error) {
     console.error('Error al obtener pedidos:', error);
@@ -72,7 +72,7 @@ export const obtenerPedidos = async (req: Request, res: Response) => {
 export const obtenerPedidoPorId = async (req: Request, res: Response) => {
   const { idPedido } = req.params;
   try {
-    const pedido = await pool.query('SELECT * FROM pedido WHERE id_Pedido = ?', [idPedido]);
+    const pedido = await pool.query('SELECT * FROM pedido_digital WHERE id_Pedido = ?', [idPedido]);
     if (Array.isArray(pedido) && pedido.length > 0) {
       res.json(pedido[0]);
     } else {
@@ -87,7 +87,7 @@ export const obtenerPedidoPorId = async (req: Request, res: Response) => {
 export const eliminarPedido = async (req: Request, res: Response) => {
   const { idPedido } = req.params;
   try {
-    await pool.query('DELETE FROM pedido WHERE id_Pedido = ?', [idPedido]);
+    await pool.query('DELETE FROM pedido_digital WHERE id_Pedido = ?', [idPedido]);
     res.json({ message: 'Pedido eliminado' });
   } catch (error) {
     console.error('Error al eliminar pedido:', error);
@@ -104,31 +104,32 @@ export const registrarDetallesPedido = async (req: Request, res: Response) => {
     detalles = [detalles];
   }
 
-  const { id_Pedido } = detalles[0]; // Usamos el primer detalle para obtener el id_Pedido
-  
+  // Usamos el primer detalle para obtener el id_Pedido
+  const { id_Pedido } = detalles[0]; 
+
   // Verificar que el id_Pedido es válido
   if (!id_Pedido || id_Pedido === 0) {
     return res.status(400).json({ message: 'El id_Pedido no es válido.' });
   }
 
   try {
-    // Verificar que el id_Pedido existe en la tabla pedido
-    const pedido = await pool.query('SELECT id_Pedido FROM pedido WHERE id_Pedido = ?', [id_Pedido]);
+    // Verificar que el id_Pedido existe en la tabla pedido_digital
+    const pedido = await pool.query('SELECT id_Pedido FROM pedido_digital WHERE id_Pedido = ?', [id_Pedido]);
 
     if (pedido.length === 0) {
-      return res.status(400).json({ message: 'El id_Pedido no existe en la tabla pedido' });
+      return res.status(400).json({ message: 'El id_Pedido no existe en la tabla pedido_digital.' });
     }
 
     // Usa una transacción para asegurar la integridad
     await pool.query('START TRANSACTION'); // Iniciar transacción
 
     for (const detalle of detalles) {
-      const { id_Producto, cantidad, precio } = detalle;
-      console.log('Insertando detalle:', id_Pedido, id_Producto, cantidad, precio);
+      const { id_Producto, cantidad, total } = detalle;
+      console.log('Insertando detalle:', id_Pedido, id_Producto, cantidad, total);
 
       await pool.query(
-        'INSERT INTO detalle_pedido (id_Pedido, id_Producto, cantidad, precio) VALUES (?, ?, ?, ?)',
-        [id_Pedido, id_Producto, cantidad, precio]
+        'INSERT INTO detalle_pedido_digital (id_Pedido, id_Producto, cantidad, total) VALUES (?, ?, ?, ?)',
+        [id_Pedido, id_Producto, cantidad, total]
       );
     }
 
@@ -140,11 +141,10 @@ export const registrarDetallesPedido = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error al registrar los detalles de pedido' });
   }
 };
-
 export const obtenerDetallesPedido = async (req: Request, res: Response) => {
   const { idPedido } = req.params;
   try {
-    const detalles = await pool.query('SELECT * FROM detalle_pedido WHERE id_Pedido = ?', [idPedido]);
+    const detalles = await pool.query('SELECT * FROM detalle_pedido_digital WHERE id_Pedido = ?', [idPedido]);
     res.json(detalles);
   } catch (error) {
     console.error('Error al obtener detalles del pedido:', error);

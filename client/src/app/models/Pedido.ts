@@ -5,20 +5,21 @@ export type PedidoCreacion = Omit<PedidoProveedor, 'id_Pedido'>;
 export interface PedidoProveedor {
   id_Pedido?: number;
   id_Proveedor: number;
-  fecha: Date;
+  fecha_Pedido: Date;
   total: number;
-  correo?: string;
-  estado?:string;
+
   detalles: DetallePedido[];
 }
 
 
 export interface DetallePedido {
   id_Detalle?: number; // ID autoincremental, opcional
-  codigo_Barras:number
   id_Pedido: number; // Relacionado con el pedido
   id_Producto: number; // Relacionado con el producto
-  nombre: string;
+  total: number;
   cantidad: number; // Cantidad del producto
-  precio: number; // Total de la compra de este producto
+  nombre:string;
+  codigo_Barras:number;
+  precio: number;
+
 }

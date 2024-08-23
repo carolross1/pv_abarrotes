@@ -45,10 +45,10 @@ const enviarCorreo = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.enviarCorreo = enviarCorreo;
 const registrarPedido = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id_Proveedor, fecha, estado } = req.body;
+    const { id_Proveedor, fecha_Pedido, total } = req.body;
     try {
         // Insertar el pedido y obtener el ID generado automáticamente
-        const result = yield database_1.default.query('INSERT INTO pedido (id_Proveedor, fecha, estado) VALUES (?, ?, ?)', [id_Proveedor, fecha, estado]);
+        const result = yield database_1.default.query('INSERT INTO pedido_digital (id_Proveedor, fecha_Pedido, total) VALUES (?, ?, ?)', [id_Proveedor, fecha_Pedido, total]);
         // Obtener el ID autogenerado del pedido
         const lastId = result.insertId;
         console.log('ID autoincrementado insertado:', lastId);
@@ -68,7 +68,7 @@ const registrarPedido = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.registrarPedido = registrarPedido;
 const obtenerPedidos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const pedidos = yield database_1.default.query('SELECT * FROM pedido');
+        const pedidos = yield database_1.default.query('SELECT * FROM pedido_digital');
         res.json(pedidos);
     }
     catch (error) {
@@ -80,7 +80,7 @@ exports.obtenerPedidos = obtenerPedidos;
 const obtenerPedidoPorId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { idPedido } = req.params;
     try {
-        const pedido = yield database_1.default.query('SELECT * FROM pedido WHERE id_Pedido = ?', [idPedido]);
+        const pedido = yield database_1.default.query('SELECT * FROM pedido_digital WHERE id_Pedido = ?', [idPedido]);
         if (Array.isArray(pedido) && pedido.length > 0) {
             res.json(pedido[0]);
         }
@@ -97,7 +97,7 @@ exports.obtenerPedidoPorId = obtenerPedidoPorId;
 const eliminarPedido = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { idPedido } = req.params;
     try {
-        yield database_1.default.query('DELETE FROM pedido WHERE id_Pedido = ?', [idPedido]);
+        yield database_1.default.query('DELETE FROM pedido_digital WHERE id_Pedido = ?', [idPedido]);
         res.json({ message: 'Pedido eliminado' });
     }
     catch (error) {
@@ -113,23 +113,24 @@ const registrarDetallesPedido = (req, res) => __awaiter(void 0, void 0, void 0, 
     if (!Array.isArray(detalles)) {
         detalles = [detalles];
     }
-    const { id_Pedido } = detalles[0]; // Usamos el primer detalle para obtener el id_Pedido
+    // Usamos el primer detalle para obtener el id_Pedido
+    const { id_Pedido } = detalles[0];
     // Verificar que el id_Pedido es válido
     if (!id_Pedido || id_Pedido === 0) {
         return res.status(400).json({ message: 'El id_Pedido no es válido.' });
     }
     try {
-        // Verificar que el id_Pedido existe en la tabla pedido
-        const pedido = yield database_1.default.query('SELECT id_Pedido FROM pedido WHERE id_Pedido = ?', [id_Pedido]);
+        // Verificar que el id_Pedido existe en la tabla pedido_digital
+        const pedido = yield database_1.default.query('SELECT id_Pedido FROM pedido_digital WHERE id_Pedido = ?', [id_Pedido]);
         if (pedido.length === 0) {
-            return res.status(400).json({ message: 'El id_Pedido no existe en la tabla pedido' });
+            return res.status(400).json({ message: 'El id_Pedido no existe en la tabla pedido_digital.' });
         }
         // Usa una transacción para asegurar la integridad
         yield database_1.default.query('START TRANSACTION'); // Iniciar transacción
         for (const detalle of detalles) {
-            const { id_Producto, cantidad, precio } = detalle;
-            console.log('Insertando detalle:', id_Pedido, id_Producto, cantidad, precio);
-            yield database_1.default.query('INSERT INTO detalle_pedido (id_Pedido, id_Producto, cantidad, precio) VALUES (?, ?, ?, ?)', [id_Pedido, id_Producto, cantidad, precio]);
+            const { id_Producto, cantidad, total } = detalle;
+            console.log('Insertando detalle:', id_Pedido, id_Producto, cantidad, total);
+            yield database_1.default.query('INSERT INTO detalle_pedido_digital (id_Pedido, id_Producto, cantidad, total) VALUES (?, ?, ?, ?)', [id_Pedido, id_Producto, cantidad, total]);
         }
         yield database_1.default.query('COMMIT'); // Confirmar transacción
         res.status(200).json({ success: true, message: 'Detalles de pedido registrados con éxito' });
@@ -144,7 +145,7 @@ exports.registrarDetallesPedido = registrarDetallesPedido;
 const obtenerDetallesPedido = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { idPedido } = req.params;
     try {
-        const detalles = yield database_1.default.query('SELECT * FROM detalle_pedido WHERE id_Pedido = ?', [idPedido]);
+        const detalles = yield database_1.default.query('SELECT * FROM detalle_pedido_digital WHERE id_Pedido = ?', [idPedido]);
         res.json(detalles);
     }
     catch (error) {
