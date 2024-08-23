@@ -234,6 +234,7 @@ CREATE TABLE entrega_producto (
     FOREIGN KEY (id_Proveedor) REFERENCES proveedor(id_Proveedor)
 );
 
+
 -- Tabla detalle_entrega
 CREATE TABLE detalle_entrega (
     id_Entrega INT,
