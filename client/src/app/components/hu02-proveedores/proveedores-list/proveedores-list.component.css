@@ -192,6 +192,10 @@ table tbody tr:hover {
   cursor: pointer;
   font-size: 14px;
 }
+.save-button {
+  margin-left: 35px;
+  margin-right: auto;
+}
 
 .edit-button:hover, .delete-button:hover, .save-button:hover {
   background-color: #D291BC; /* Color de fondo al pasar el ratón */
