@@ -30,6 +30,10 @@ export class UsuarioService {
   getUser(id: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
   }
+    // Obtener el usuario actual (si existe un endpoint para esto)
+    getCurrentUser(): Observable<Usuario> {
+      return this.http.get<Usuario>(`${this.apiUrl}/current`); // Asegúrate de que este endpoint sea correcto
+    }
 
   // Actualizar un usuario
   updateUser(id_Usuario: string,user:Usuario): Observable<any> {

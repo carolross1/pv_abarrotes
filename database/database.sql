@@ -239,7 +239,7 @@ CREATE TABLE detalle_entrega (
     id_Entrega INT,
     id_Producto INT NOT NULL,
     cantidad INT NOT NULL,
-    total_Venta DECIMAL(10,2) NOT NULL,
+    total_entrega DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id_Entrega, id_Producto),
     FOREIGN KEY (id_Entrega) REFERENCES entrega_producto(id_Entrega),
     FOREIGN KEY (id_Producto) REFERENCES producto(id_Producto)
@@ -247,7 +247,7 @@ CREATE TABLE detalle_entrega (
 
 -- Tabla pedido_digital 
 CREATE TABLE pedido_digital (
-    id_Pedido VARCHAR(10) PRIMARY KEY,
+    id_Pedido INT AUTO_INCREMENT PRIMARY KEY,
     id_Proveedor INT NOT NULL,
     fecha_Pedido DATETIME NOT NULL,
     total DECIMAL(10, 2) NOT NULL,
@@ -256,7 +256,7 @@ CREATE TABLE pedido_digital (
 
 -- Tabla detalle_pedido_digital
 CREATE TABLE detalle_pedido_digital (
-    id_Pedido VARCHAR(10) NOT NULL,
+    id_Pedido INT NOT NULL,
     id_Producto INT NOT NULL,
     cantidad INT NOT NULL,
     total DECIMAL(10, 2) NOT NULL,
@@ -328,6 +328,20 @@ BEGIN
     UPDATE detalle_venta
     SET total_venta = p_total_venta
     WHERE id_Detalle = p_id_Detalle;
+END//
+
+DELIMITER ;
+--Trigger para actualizar el stcok de productos tomando en cuenta el detalle_Entrega
+DELIMITER //
+
+CREATE TRIGGER trg_AjusteStockDetalleEntregaInsert
+AFTER INSERT ON detalle_entrega
+FOR EACH ROW
+BEGIN
+    -- Ajuste del stock en caso de inserción
+    UPDATE producto
+    SET cantidad_Stock = cantidad_Stock + NEW.cantidad
+    WHERE producto.id_Producto = NEW.id_Producto;
 END//
 
 DELIMITER ;

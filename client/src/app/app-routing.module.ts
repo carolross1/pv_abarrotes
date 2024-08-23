@@ -9,7 +9,7 @@ import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/sign
 import { InventariosFrecuentesComponent } from './components/hu05-inventario/inventarios-frecuentes/inventarios-frecuentes.component';
 import { EntregasProveedorComponent } from './components/hu02-proveedores/entregas-proveedor/entregas-proveedor.component';
 import { LoginComponent } from './components/login/login.component';
-import { PedidosAProveedorComponent } from './components/hu02-proveedores/pedidos-a-proveedor/pedidos-a-proveedor.component';
+import { PedidosProveedorComponent } from './components/hu02-proveedores/pedidos-a-proveedor/pedidos-a-proveedor.component';
 import { CancelarPedidoComponent } from './components/hu02-proveedores/cancelar-pedido/cancelar-pedido.component';
 import { ReportesComponent } from './components/hu04-reportes/reportes/reportes.component';
 import { ListaProveedoresComponent } from './components/hu02-proveedores/proveedores-list/proveedores-list.component';
@@ -72,7 +72,7 @@ const routes: Routes = [
   },
   {
     path:'pedidosaproveedor', 
-    component:PedidosAProveedorComponent
+    component:PedidosProveedorComponent
   },
  
   {
@@ -131,7 +131,8 @@ const routes: Routes = [
   {
     path:'categoria',
     component:ListaCategoriasComponent
-  }
+  },
+ 
 ];
 
 @NgModule({
