@@ -148,6 +148,20 @@ export class CorteCajaComponent implements OnInit {
       return;
     }
 }
+obtenerCorteActual(): void {
+  this.corteCajaService.obtenerCorteActual().subscribe(
+    data => {
+      this.corteActual = data;
+      console.log('Corte actual obtenido:', this.corteActual);
+      this.showCorteDetails = true;
+    },
+    error => {
+      console.error('Error al obtener el corte actual:', error);
+    }
+  );
+}
+
+
     cerrarUltimoCorte() {
         const id_Usuario = this.id_Usuario;
         console.log('ES EL ID CORRECTO',id_Usuario);
@@ -155,16 +169,20 @@ export class CorteCajaComponent implements OnInit {
         this.corteCajaService.obtenerCorteAbierto(id_Usuario).subscribe(
             response => {
                 const id_Corte = response.id_Corte;
+                const id_Usuario= response.id_Usuario; 
     
                 // Ahora, enviar el id_Corte para cerrar el corte
-                this.corteCajaService.cerrarCorte({ id_Corte }).subscribe(
+                this.corteCajaService.cerrarCorte({ id_Corte,id_Usuario }).subscribe(
                     response => {
+                      this.obtenerCorteActual();
                         if (response.success) {
+                          this.obtenerCorteActual();
                           this.alertaService.showNotification('Corte cerrado con éxito','success')
+                          
                          
                         } else {
                           this.alertaService.showNotification('Corte cerrado con éxito','success')
-                            this.obtenerCorteActual();
+                          this.obtenerCorteActual();
                         }
                     },
                     error => {
@@ -180,19 +198,7 @@ export class CorteCajaComponent implements OnInit {
         );
     }
     
-    obtenerCorteActual(): void {
-        this.corteCajaService.obtenerCorteActual().subscribe(
-          data => {
-            this.corteActual = data;
-            console.log('Corte actual obtenido:', this.corteActual);
-            this.showCorteDetails = true;
-          },
-          error => {
-            console.error('Error al obtener el corte actual:', error);
-          }
-        );
-      }
-    
+ 
 
   toggleDropdown(key: string) {
     // Primero, cerrar cualquier otro desplegable que esté abierto

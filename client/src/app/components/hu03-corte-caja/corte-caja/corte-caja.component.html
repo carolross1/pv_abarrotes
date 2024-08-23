@@ -90,7 +90,7 @@ Carmen Catalina Delgado Manzano-->
         <button type="submit" class="btn btn-purple btn-block" [disabled]="saldo_Inicial < 0" >Iniciar Corte</button>
         <button *ngIf="isCorteAbierto" (click)="cerrarUltimoCorte()" class="btn btn-danger">Cerrar Último Corte</button>
     </form>
- <!-- <button (click)="obtenerCorteActual()">Obtener Corte Actual</button>-->
+ <!--<button (click)="obtenerCorteActual()">Obtener Corte Actual</button>-->
   <div *ngIf="showCorteDetails" class="container corte-caja-container card">
 
     <div class="card-header">Corte Actual</div>
@@ -104,7 +104,7 @@ Carmen Catalina Delgado Manzano-->
                 <th>Hora DE TERMINO: </th>
                 <th>Saldo Inicial:</th>
                 <th>ingresos:</th>
-                <th>egresos:</th>
+                <!--<th>egresos:</th>-->
                 <th>Saldo FINAL: </th>
               
 </tr>
@@ -117,7 +117,7 @@ Carmen Catalina Delgado Manzano-->
     <td>{{ corteActual.hora_Fin }}</td>
     <td>{{ corteActual.saldo_Inicial | currency }}</td>
     <td>{{ corteActual.ingresos | currency }}</td>
-    <td>{{corteActual.egresos | currency }}</td>
+    <!--<td>{{corteActual.egresos | currency }}</td>-->
     <td>{{ corteActual.saldo_Final| currency }}</td>
    
 </tr>

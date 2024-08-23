@@ -20,7 +20,7 @@ export class CorteCajaService {
     return this.http.post(`${this.apiUrl}/iniciar-corte`, corte);
   }
  
-  cerrarCorte(corte: { id_Corte: number }): Observable<any> {
+  cerrarCorte(corte: { id_Corte: number,id_Usuario:string}): Observable<any> {
     return this.http.post(`${this.apiUrl}/cerrar-corte`, corte);
   }
 
