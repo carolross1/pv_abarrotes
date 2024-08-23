@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProveedoresService } from '../../../services/Proveedores/proveedores-list.service';
 import { Proveedor } from '../../../models/Proveedores-list';
 import { LoginService } from '../../../services/login/login.service';
+import { FormsModule } from '@angular/forms'; // Importar FormsModule
 
 @Component({
   selector: 'app-proveedores-list',
@@ -12,7 +13,7 @@ export class ListaProveedoresComponent implements OnInit {
   proveedores: Proveedor[] = [];
   nombreProveedor: string = '';
   apellidoProveedor: string = '';
-  telefonoProveedor: number | null = null;
+  emailProveedor: string | null = null;
   empresaProveedor: string = '';
   searchTerm: string = '';
   dropdownOpen: { [key: string]: boolean } = {};
@@ -30,11 +31,11 @@ export class ListaProveedoresComponent implements OnInit {
     });
   }
   addProveedor(): void {
-    if (this.nombreProveedor.trim() && this.apellidoProveedor.trim() && this.telefonoProveedor !== null && this.empresaProveedor.trim()) {
+    if (this.nombreProveedor.trim() && this.apellidoProveedor.trim() && this.emailProveedor !== null && this.empresaProveedor.trim()) {
       const newProveedor: Omit<Proveedor, 'id_Proveedor'> = {
         nombre: this.nombreProveedor,
         apellidos: this.apellidoProveedor,
-        telefono: this.telefonoProveedor.toString(),
+        email: this.emailProveedor,
         empresa: this.empresaProveedor,
         editing: false // Asignar false como valor por defecto
       };
@@ -55,7 +56,7 @@ export class ListaProveedoresComponent implements OnInit {
   resetForm(): void {
     this.nombreProveedor = '';
     this.apellidoProveedor = '';
-    this.telefonoProveedor = null;
+    this.emailProveedor = null;
     this.empresaProveedor = '';
   }
 

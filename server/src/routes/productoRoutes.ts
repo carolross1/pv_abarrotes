@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getProductos, createProducto, updateProducto, deleteProducto,updateStock} from '../controllers/productoControllers';
+import { getProductos, createProducto, updateProducto, deleteProducto,updateStock, getCategorias} from '../controllers/productoControllers';
 import { getProductosBajoStock} from '../controllers/productoControllers';
 
 const router = Router();
@@ -10,5 +10,6 @@ router.post('/', createProducto);
 router.put('/:id', updateProducto);
 router.delete('/:id', deleteProducto);
 router.put('/actualizar-stock/:id', updateStock);
+router.get('/categorias', getCategorias);
 
 export default router;

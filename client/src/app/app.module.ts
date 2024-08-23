@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms'; // Importa FormsModule
+import { ReactiveFormsModule } from '@angular/forms'; // Importa FormsModule
+import { FormsModule } from '@angular/forms'; // Importar FormsModule
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
@@ -20,10 +22,12 @@ import { VentaService } from './services/principal-ventas/venta.service';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 import { ListaUsuariosComponent } from './components/nuevo-usuario/lista-usuarios/lista-usuarios.component';
 import { AlertaService } from './services/alertas/alerta.service';
+import { EntregaService } from './services/entregas/entrega-proveedor.service';
 import { FacturaListComponent } from './components/hu01-venta-diaria/factura-list/factura-list.component';
 import { FacturaDetailComponent } from './components/hu01-venta-diaria/factura-detail/factura-detail.component';
 import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/venta-list.component';
 import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-venta/detalle-venta.component';
+import { PedidoService } from './services/pedido/pedidosProveedor.service';
                                                                                                                                                                                                                                                                                                                   
 
 @NgModule({
@@ -41,6 +45,7 @@ import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-ve
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -55,7 +60,7 @@ import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-ve
     ProductoModule
 
   ],
-  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService,AlertaService],
+  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService,AlertaService,EntregaService, PedidoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

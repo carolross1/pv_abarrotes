@@ -72,7 +72,7 @@
           <h2>Crear nuevo proveedor</h2> 
           <input type="text" [(ngModel)]="nombreProveedor" placeholder="Nombre del nuevo Proveedor" class="search-input">
           <input type="text" [(ngModel)]="apellidoProveedor" placeholder="Apellidos del nuevo Proveedor" class="search-input">
-          <input type="text" [(ngModel)]="telefonoProveedor" placeholder="Número teléfonico" class="search-input">
+          <input type="text" [(ngModel)]="emailProveedor" placeholder="Correo Electronico" class="search-input">
           <input type="text" [(ngModel)]="empresaProveedor" placeholder="Empresa" class="search-input">
           <button (click)="addProveedor()" class="add-button">Nuevo proveedor </button>
         </div>
@@ -83,7 +83,7 @@
               <th>Nombre(s)</th>
               <th>Apellido(s)</th>
               <th>Teléfono</th>
-              <th>Empresa</th>
+              <th>Correo Electronico</th>
               <th>Editar</th>
               <th>Eliminar</th>
             </tr>
@@ -105,9 +105,9 @@
               </td>
               
               <td>
-                <ng-container *ngIf="!proveedor.editing">{{ proveedor.telefono }}</ng-container>
+                <ng-container *ngIf="!proveedor.editing">{{ proveedor.email }}</ng-container>
                 <ng-container *ngIf="proveedor.editing">
-                  <input [(ngModel)]="proveedor.telefono" class="edit-input">
+                  <input [(ngModel)]="proveedor.email" class="edit-input">
                 </ng-container>
               </td>
               
