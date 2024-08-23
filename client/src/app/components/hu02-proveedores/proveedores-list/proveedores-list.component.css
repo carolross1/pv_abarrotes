@@ -87,7 +87,7 @@
 
 /* Estilos para los botones de búsqueda y agregar */
 .search-button, .add-button {
-  background-color: #5b3d99; /* Color de fondo del botón */
+  background-color: #D291BC;
   color: #fff; /* Color del texto del botón */
   border: none;
   padding: 8px 16px;
@@ -96,11 +96,11 @@
 }
 
 .search-button:hover, .add-button:hover {
-  background-color: #4a2a7e; /* Color de fondo del botón al pasar el ratón */
+  background-color: #b87da4; /* Color de fondo del botón al pasar el ratón */
 }
 /* Botón de agregar */
 .add-button {
-  background-color: #5b3d99; /* Color de fondo */
+  background-color: #D291BC; /* Color de fondo */
   color: white;
   padding: 8px 12px;
   border: none;
@@ -113,7 +113,7 @@
 }
 
 .add-button:hover {
-  background-color: #48257f; /* Color de fondo al pasar el mouse */
+  background-color: #b87da4; /* Color de fondo al pasar el mouse */
 }
 /* Estilos para los inputs del formulario */
 .search-input, .edit-input, .add-input {
@@ -141,7 +141,7 @@
 
 /* Botón de agregar */
 .add-button {
-  background-color: #5b3d99; /* Color de fondo */
+  background-color: #D291BC; /* Color de fondo */
   color: white;
   padding: 8px 12px;
   border: none;
@@ -153,7 +153,7 @@
 }
 
 .add-button:hover {
-  background-color: #48257f; /* Color de fondo al pasar el mouse */
+  background-color: #b87da4; /* Color de fondo al pasar el mouse */
 }
 
 /* Estilos para la tabla de proveedores */
@@ -184,7 +184,7 @@ table tbody tr:hover {
 
 /* Estilos para los botones de editar y eliminar */
 .edit-button, .delete-button, .save-button {
-  background-color: #5b3d99;
+  background-color: #D291BC;
   color: #fff;
   border: none;
   padding: 8px 12px;
@@ -194,7 +194,7 @@ table tbody tr:hover {
 }
 
 .edit-button:hover, .delete-button:hover, .save-button:hover {
-  background-color: #4a2a7e; /* Color de fondo al pasar el ratón */
+  background-color: #D291BC; /* Color de fondo al pasar el ratón */
 }
 
 /* Estilos específicos para botones */
@@ -278,7 +278,7 @@ h2 {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
- background-color: #5b3d99; /* Color de fondo */
+  background-color: #D291BC;/* Color de fondo */
   color: white;
   display: flex;
   align-items: center;
@@ -289,5 +289,5 @@ h2 {
 }
 
 .search-button:hover {
-  background-color: #48257f; /* Color de fondo al pasar el mouse */
+  background-color: #b87da4; /* Color de fondo al pasar el mouse */
 }

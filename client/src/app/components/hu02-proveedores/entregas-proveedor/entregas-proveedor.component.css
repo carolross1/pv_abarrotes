@@ -89,7 +89,11 @@
     margin-top: 150px; /* Ajusta el margen superior para separarlo del navbar */
     overflow: hidden;
 }
-
+h2 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #48257f; /* Color del texto */
+  }
 /* Título de la página de entregas */
 .entregas-title {
     color: #5b3d99;
@@ -221,7 +225,7 @@
 }
 
 .entregas-buttons button, .sales-table-content button {
-    background-color: #5b3d99;
+    background-color: #D291BC;
     color: white;
     padding: 12px 24px; /* Aumenta el padding para botones más visibles */
     border: none;
@@ -231,7 +235,7 @@
 }
 
 .entregas-buttons button:hover, .sales-table-content button:hover {
-    background-color: #48257f;
+    background-color: #D291BC;
 }
 
 /* Botón de eliminar en la tabla */
