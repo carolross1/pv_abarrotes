@@ -101,9 +101,10 @@
   align-items: center; /* Centrar los elementos horizontalmente */
   justify-content: center; /* Centrar verticalmente el contenido */
 }
+
 .container {
   margin-top: 6 0px;
-  padding:50px;
+  padding:80px;
   margin: 20px;
   font-family: Arial, sans-serif;
 }
