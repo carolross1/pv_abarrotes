@@ -2,44 +2,39 @@
 .logo-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-right: 20px;
+  justify-content: center; /* Centra el logo horizontalmente */
+  margin-right: 30px; /* Ajusta el margen para mover el contenedor a la derecha */
 }
 
 /* Estilos para el logo */
 .logo {
-  height: 40px;
-  width: auto;
+  height: 50px; /* Ajusta la altura del logo */
+  width: auto; /* Mantiene la proporción de la imagen */
 }
 
 .navbar {
   display: flex;
   flex-wrap: wrap;
   background-color: #5b3d99;
-  padding: 8px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  justify-content: flex-start;
-  align-items: center;
+  padding: 10px;
 }
 
 .nav-group {
   position: relative;
-  margin-right: 8px;
+  margin-right: 10px;
 }
 
 .dropdown-btn {
   background-color: #5b3d99;
   color: #fff;
   border: none;
-  padding: 8px;
+  padding: 10px;
   text-align: center;
   cursor: pointer;
   border-radius: 5px;
   display: flex;
   align-items: center;
+  font-size: 24px;
 }
 
 .dropdown-btn i {
@@ -54,19 +49,20 @@
   position: absolute;
   top: 100%;
   left: 0;
-  min-width: 140px;
+  min-width: 240px;
   z-index: 1;
-  max-height: 250px;
-  overflow-y: auto;
 }
 
 .dropdown-container a {
   display: block;
-  padding: 8px;
+  padding: 10px;
   color: #333;
   text-decoration: none;
   border-bottom: 1px solid #ccc;
+  font-size: 22px;
 }
+
+
 
 .dropdown-container a:hover {
   background-color: #bfa8e3;
@@ -74,6 +70,12 @@
 
 .dropdown-btn.active + .dropdown-container {
   display: block;
+}
+/* Ensuring responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: column;
+  }
 }
 
 /* Estilos para los mensajes de advertencia */
