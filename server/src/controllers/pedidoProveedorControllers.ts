@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import pool from '../database'; // Asegúrate de que tu archivo de conexión a la base de datos esté correctamente configurado
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-dotenv.config();
+
 
 // Configuración del transporte de correo
 const transporter = nodemailer.createTransport({

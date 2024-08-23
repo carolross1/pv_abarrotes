@@ -15,8 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.obtenerDetallesPedido = exports.registrarDetallesPedido = exports.eliminarPedido = exports.obtenerPedidoPorId = exports.obtenerPedidos = exports.registrarPedido = exports.enviarCorreo = void 0;
 const database_1 = __importDefault(require("../database")); // Asegúrate de que tu archivo de conexión a la base de datos esté correctamente configurado
 const nodemailer_1 = __importDefault(require("nodemailer"));
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
 // Configuración del transporte de correo
 const transporter = nodemailer_1.default.createTransport({
     service: 'gmail',

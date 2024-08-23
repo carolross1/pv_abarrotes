@@ -19,8 +19,6 @@ const inventarioRoutes_1 = __importDefault(require("./routes/inventarioRoutes"))
 const usuarioRoutes_1 = __importDefault(require("./routes/usuarioRoutes"));
 const entregasRoutes_1 = __importDefault(require("./routes/entregasRoutes"));
 const pedidosProveedorRoutes_1 = __importDefault(require("./routes/pedidosProveedorRoutes"));
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
