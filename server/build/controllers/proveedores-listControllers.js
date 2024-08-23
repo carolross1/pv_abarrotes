@@ -26,9 +26,9 @@ const getProveedores = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.getProveedores = getProveedores;
 const addProveedor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id_Proveedor, nombre, apellidos, telefono, empresa } = req.body;
+    const { id_Proveedor, nombre, apellidos, email, empresa } = req.body;
     try {
-        yield database_1.default.query('INSERT INTO proveedor (id_Proveedor, nombre, apellidos, telefono, empresa) VALUES (?, ?, ?, ?, ?)', [id_Proveedor, nombre, apellidos, telefono, empresa]);
+        yield database_1.default.query('INSERT INTO proveedor (id_Proveedor, nombre, apellidos, email, empresa) VALUES (?, ?, ?, ?, ?)', [id_Proveedor, nombre, apellidos, email, empresa]);
         return res.status(201).json({ message: 'Proveedor agregado exitosamente' });
     }
     catch (err) {
@@ -51,17 +51,17 @@ const deleteProveedor = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.deleteProveedor = deleteProveedor;
 const updateProveedor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_Proveedor } = req.params;
-    const { nombre, apellidos, telefono, empresa } = req.body;
+    const { nombre, apellidos, email, empresa } = req.body;
     // Asegúrate de que id_Proveedor sea un número válido
     if (!id_Proveedor || isNaN(Number(id_Proveedor))) {
         return res.status(400).json({ error: 'ID del proveedor no válido' });
     }
     // Verifica que todos los campos necesarios estén presentes
-    if (!nombre || !apellidos || !telefono || !empresa) {
+    if (!nombre || !apellidos || !email || !empresa) {
         return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
     try {
-        const [updateResult] = yield database_1.default.query('UPDATE proveedor SET nombre = ?, apellidos = ?, telefono = ?, empresa = ? WHERE id_Proveedor = ?', [nombre, apellidos, telefono, empresa, id_Proveedor]);
+        const [updateResult] = yield database_1.default.query('UPDATE proveedor SET nombre = ?, apellidos = ?, email = ?, empresa = ? WHERE id_Proveedor = ?', [nombre, apellidos, email, empresa, id_Proveedor]);
         if (updateResult.affectedRows === 0) {
             return res.status(404).json({ error: 'Proveedor no encontrado' });
         }
