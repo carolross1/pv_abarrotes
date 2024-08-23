@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriaService } from '../../../../services/categoria/categoria.service';
-import { Categoria } from '../../../../models/Categoria';
-import { LoginService } from '../../../../services/login/login.service';
+import { CategoriaService } from '../../../services/categoria/categoria.service';
+import { Categoria } from '../../../models/Categoria';
+import { LoginService } from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-lista-categorias',
@@ -13,6 +13,7 @@ export class ListaCategoriasComponent implements OnInit {
   nombreCategoria: string = '';
   searchTerm: string = '';
   dropdownOpen: { [key: string]: boolean } = {};
+  errorMessage: string | undefined;
 
   constructor(private categoriaService: CategoriaService,private loginService:LoginService) {}
 
@@ -27,21 +28,27 @@ export class ListaCategoriasComponent implements OnInit {
   }
 
   addCategoria(): void {
+    this.errorMessage = '';
     if (this.nombreCategoria.trim()) {
       const newCategoria: Categoria = { nombre: this.nombreCategoria };
       this.categoriaService.addCategoria(newCategoria).subscribe(
         () => {
-          this.getCategorias(); // Volver a obtener la lista actualizada
-          this.nombreCategoria = ''; // Limpiar el campo de entrada
+          this.getCategorias(); 
+          this.nombreCategoria = ''; 
         },
         error => {
-          console.error('Error al agregar categoría', error);
+          if (error.status === 500) { 
+            this.errorMessage = 'La categoría ya existe, ingresa otro nombre';
+          } else {
+            console.error('Error al agregar categoría', error);
+          }
         }
       );
     } else {
       console.error('El nombre de la categoría no puede estar vacío.');
     }
   }
+
 
   searchCategorias(): void {
     if (this.searchTerm.trim()) {

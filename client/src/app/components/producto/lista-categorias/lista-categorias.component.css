@@ -40,8 +40,8 @@
   border-radius: 5px;
   display: flex;
   align-items: center;
+  font-size: 24px;
 }
-
 .dropdown-btn i {
   margin-left: 5px;
 }
@@ -66,8 +66,8 @@
   color: #333;
   text-decoration: none;
   border-bottom: 1px solid #ccc;
+  font-size: 22px;
 }
-
 .dropdown-container a:hover {
   background-color: #bfa8e3;
 }
@@ -102,7 +102,7 @@
   justify-content: center; /* Centrar verticalmente el contenido */
 }
 .container {
-  margin-top: 60px;
+  margin-top: 6 0px;
   padding:50px;
   margin: 20px;
   font-family: Arial, sans-serif;
@@ -246,10 +246,6 @@ table {
 }
 
 thead th {
- /* background-color: #5b3d99; /* Color de fondo para el encabezado 
-  color: white;
-  padding: 10px;
-  text-align: center;*/
   background-color: #8d5ec0; 
     color: #ffffff; 
     padding: 10px; 
@@ -273,4 +269,9 @@ tbody tr:hover {
 
 td button {
   margin-right: 5px;
+}
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
 }

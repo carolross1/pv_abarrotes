@@ -1,5 +1,5 @@
 .menu-container {
-  background-color: #E0BBE4;
+  background-color: #ccbaef;
   padding: 0px;
   height: 100vh;
   display: flex;
@@ -23,7 +23,7 @@
 }
 
 .menu-header h1 {
-  color: #957DAD;
+  color: #5b3d99;
   text-align: center;
   flex-grow: 1;
 }
@@ -36,7 +36,7 @@
 }
 
 .menu-item {
-  background-color: #957DAD;
+  background-color: #8673ab;
   border-radius: 20px;
   padding: 35px;
   text-align: center;

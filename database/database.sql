@@ -213,24 +213,6 @@ CREATE TABLE `detalle_inventario` (
   FOREIGN KEY (`id_Producto`) REFERENCES `producto`(`id_Producto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-CREATE TABLE `cliente_frecuente` (
-  `id_Cliente` INT AUTO_INCREMENT NOT NULL,
-  `nombre` VARCHAR(80) NOT NULL,
-  `apellidos` VARCHAR(50) NOT NULL,
-  `email` VARCHAR(100) UNIQUE,
-  `telefono` VARCHAR(13) NOT NULL UNIQUE,
-  PRIMARY KEY (`id_Cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `venta_cliente_frecuente` (
-  `id_Cliente` INT NOT NULL,
-  `id_Venta` VARCHAR(8) NOT NULL,
-  PRIMARY KEY (`id_Cliente`, `id_Venta`),
-  FOREIGN KEY (`id_Cliente`) REFERENCES `cliente_frecuente`(`id_Cliente`),
-  FOREIGN KEY (`id_Venta`) REFERENCES `venta`(`id_Venta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE TABLE `proveedor` (
   `id_Proveedor` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,

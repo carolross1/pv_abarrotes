@@ -4,6 +4,9 @@
     <img src="https://images.vexels.com/content/200165/preview/store-icon-stroke-bb4ae2.png" alt="Logo Abarrotes el Perrón" class="logo">
   </a>
   
+
+
+
   <div class="nav-group">
     <button class="dropdown-btn" [ngClass]="{'active': dropdownOpen['ventas-compras']}" (click)="toggleDropdown('ventas-compras')">
       Ventas & Compras <i class="fas fa-chevron-down"></i>
@@ -11,7 +14,8 @@
     <div class="dropdown-container" *ngIf="dropdownOpen['ventas-compras']">
       <a routerLink="/principal"><i class="fas fa-home"></i> Ventas</a>
       <a routerLink="/pedidosaproveedor"><i class="fas fa-shopping-cart"></i> Compras</a>
-      <a routerLink="/formulariofactura"><i class="fas fa-file-invoice"></i> Factura</a>
+      <a routerLink="/facturas"><i class="fas fa-file-invoice"></i> Factura</a>
+
     </div>
   </div>
   
@@ -41,8 +45,8 @@
       Otros <i class="fas fa-chevron-down"></i>
     </button>
     <div class="dropdown-container" *ngIf="dropdownOpen['otros']">
-      <a routerLink="/clientesfrecuentes"><i class="fas fa-users"></i> Clientes Frecuentes</a>
-      <a routerLink="/gestiondescuento"><i class="fas fa-percentage"></i> Descuento Por Mayoreo</a>
+     <a routerLink="/ventas"><i class="fas fa-ticket-alt"></i> Ticket</a>
+    <a routerLink="/listausuario"><i class="fas fa-users"></i> Agregar Usuario</a>
       <a routerLink="/productos"><i class="fas fa-box"></i> Agregar Productos</a>
       <a routerLink="/categoria"><i class="fas fa-tags"></i> Categorías</a>
       <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
@@ -50,37 +54,57 @@
   </div>
 </div>
 
-<!--CLIENTES FRECUENTES-->
+<!--LISTA DE CATEGORIAS-->
 <div class="main-container">
-  <h2 class="list-h2-mod">Lista de Clientes Frecuentes</h2>
-  <div class="client-list-container">
-    <table class="client-list-mod" id="client-list">
+  <div class="container">
+    <h2>Lista de categorías</h2>
+    
+    <!-- Campo para buscar categorías -->
+     <!-- Campo para buscar categorías -->
+  <div class="search-container">
+    <div class="search-input-container">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" class="search-input" (input)="searchCategorias()">
+      <button (click)="searchCategorias()" class="search-button">
+        <i class="fa fa-search"></i> Buscar
+      </button>
+    </div>
+      </div>
+
+    <!-- Campo para agregar una nueva categoría -->
+    <div class="add-container">
+      <h2>Crear nueva categoria</h2> 
+      <input type="text" [(ngModel)]="nombreCategoria" placeholder="Nombre de la nueva categoría" class="search-input">
+      <div *ngIf="errorMessage">
+        <p class="error">{{ errorMessage}}</p>
+      </div>
+      <button (click)="addCategoria()" class="add-button">Nueva categoría</button>
+    </div>
+    
+    <table>
       <thead>
         <tr>
-          <th>Clave</th>
           <th>Nombre</th>
-          <th>Correo Electrónico</th>
-          <th>Teléfono</th>
-          <th>Frecuencia</th>
-          <th>Acciones</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let client of clients; let i = index">
-          <td>{{ client.customerKey }}</td>
-          <td>{{ client.name }}</td>
-          <td>{{ client.email }}</td>
-          <td>{{ client.phone }}</td>
-          <td>{{ client.frequency }}</td>
+        <tr *ngFor="let categoria of categorias">
           <td>
-            <button class="button-mod update-button-mod" (click)="updateClient(i)">Actualizar</button>
-            <button class="button-mod delete-button-mod" (click)="deleteClient(i)">Eliminar</button>
+            <ng-container *ngIf="!categoria.editing">{{ categoria.nombre }}</ng-container>
+            <ng-container *ngIf="categoria.editing">
+              <input [(ngModel)]="categoria.nombre" class="edit-input">
+              <button (click)="saveCategoria(categoria)" class="save-button">Guardar</button>
+            </ng-container>
+          </td>
+          <td>
+            <button (click)="editCategoria(categoria)" class="edit-button">✎</button>
+          </td>
+          <td>
+            <button (click)="deleteCategoria(categoria.id_Categoria!)" class="delete-button">🗑</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
-
-
-

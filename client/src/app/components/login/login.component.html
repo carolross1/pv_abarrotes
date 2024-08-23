@@ -16,6 +16,9 @@
         <div class="textbox">
           <input type="password" id="contrasena" [(ngModel)]="contrasena" name="contrasena" placeholder="Ingrese contraseña" required>
         </div>
+        <div *ngIf="errorMessage">
+          <p class="error">{{ errorMessage }}</p>
+        </div>
         <button type="submit">Iniciar Sesión</button>
       </form>
    

@@ -12,18 +12,17 @@ import { LoginComponent } from './components/login/login.component';
 import { PedidosProveedorComponent } from './components/hu02-proveedores/pedidos-a-proveedor/pedidos-a-proveedor.component';
 import { CancelarPedidoComponent } from './components/hu02-proveedores/cancelar-pedido/cancelar-pedido.component';
 import { ReportesComponent } from './components/hu04-reportes/reportes/reportes.component';
-import { ClientesFrecuentesComponent } from './components/hu06-cliente-frecuente/clientes-frecuentes/clientes-frecuentes.component';
-import { ListaClientesFrecuentesComponent } from './components/hu06-cliente-frecuente/lista-clientes-frecuentes/lista-clientes-frecuentes.component'; 
 import { ListaProveedoresComponent } from './components/hu02-proveedores/proveedores-list/proveedores-list.component';
 import { FacturaComponent } from './components/hu01-venta-diaria/factura/factura.component';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 import { ProductoComponent } from './components/producto/producto/producto.component';
-import { ListaCategoriasComponent } from './components/producto/categoria/lista-categorias/lista-categorias.component';
+import { ListaCategoriasComponent } from './components/producto/lista-categorias/lista-categorias.component';
 import { ListaUsuariosComponent } from './components/nuevo-usuario/lista-usuarios/lista-usuarios.component';
 import { FacturaListComponent } from './components/hu01-venta-diaria/factura-list/factura-list.component';
 import { FacturaDetailComponent } from './components/hu01-venta-diaria/factura-detail/factura-detail.component';
 import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/venta-list.component';
 import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-venta/detalle-venta.component';
+import { AdminGuard,AuthGuard } from './services/autenticacion/guarda.guard';
 const routes: Routes = [
   {
     path:'',
@@ -48,9 +47,11 @@ const routes: Routes = [
   },
   { path: 'inventariofrecuente/:id', 
     component: InventariosFrecuentesComponent, 
+    canActivate: [AdminGuard]
   },
   { path: 'inventarios', 
     component: InventarioComponent, 
+    canActivate: [AdminGuard]
   },
   {
     path:'notificacion', 
@@ -59,6 +60,7 @@ const routes: Routes = [
   {
     path:'cortedecaja',
     component:CorteCajaComponent,
+    
   },
   {
     path:'entregasproveedor', 
@@ -87,16 +89,9 @@ const routes: Routes = [
   }, 
   {
     path:'reportes', 
-    component:ReportesComponent
+    component:ReportesComponent,
+    canActivate: [AdminGuard]
   },
-  {
-    path:'clientesfrecuentes', 
-    component:ClientesFrecuentesComponent
-  },
-  {
-    path:'listaclientesf', 
-    component:ListaClientesFrecuentesComponent
-  }, 
   {
     path:'crear-factura', 
     component:FacturaComponent
@@ -116,15 +111,18 @@ const routes: Routes = [
 
   {
     path:'usuario',
-    component:NuevoUsuarioComponent
+    component:NuevoUsuarioComponent,
+    canActivate: [AdminGuard]
   },
   {
     path:'listausuario',
-    component:ListaUsuariosComponent
+    component:ListaUsuariosComponent,
+    canActivate: [AdminGuard]
   },
   {
     path:'usuario/editar/:id',
-    component:NuevoUsuarioComponent
+    component:NuevoUsuarioComponent,
+    canActivate: [AdminGuard]
   },
   {
     path:'productos',

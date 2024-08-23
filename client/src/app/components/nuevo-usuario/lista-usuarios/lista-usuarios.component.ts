@@ -43,6 +43,7 @@ export class ListaUsuariosComponent implements OnInit {
       this.router.navigate(['/usuario/editar',id]) 
     } 
     deleteUser(id: string): void {
+      console.log(id)
       Swal.fire({
         title: '¿Estás seguro de que deseas eliminar este usuario?',
         text: 'Esta acción no se puede deshacer',
@@ -52,20 +53,25 @@ export class ListaUsuariosComponent implements OnInit {
         cancelButtonText: 'No, cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.usuarioService.deleteUser(id).subscribe(() => {
-            Swal.fire(
-              '¡Eliminado!',
-              'El usuario ha sido eliminado.',
-              'success'
-            );
-            this.getUsers();
-          }, error => {
-            Swal.fire(
-              'Error',
-              'Hubo un problema al eliminar el usuario.',
-              'error'
-            );
-          });
+          this.usuarioService.deleteUser(id).subscribe(
+            () => {
+              Swal.fire(
+                '¡Eliminado!',
+                'El usuario ha sido eliminado exitosamente.',
+                'success'
+              );
+              this.getUsers();
+            },
+            (error: any) => {
+              // Manejo de errores específicos
+              const errorMessage = error.error?.message || 'Ocurrió un error al eliminar el usuario.';
+              Swal.fire(
+                'Error',
+                errorMessage,
+                'error'
+              );
+            }
+          );
         }
       });
     }
