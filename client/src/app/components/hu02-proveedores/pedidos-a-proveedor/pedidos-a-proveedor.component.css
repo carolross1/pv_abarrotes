@@ -88,6 +88,11 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+h2 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #48257f; /* Color del texto */
+  }
 
 .compras-title {
     color: #48257f;
@@ -182,7 +187,7 @@
 }
 
 .compra-buttons button {
-    background-color: #5b3d99;
+    background-color: #D291BC;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -191,5 +196,5 @@
 }
 
 .compra-buttons button:hover {
-    background-color: #48257f;
+    background-color: #D291BC;
 }
