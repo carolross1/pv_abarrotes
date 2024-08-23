@@ -83,11 +83,12 @@
 </div>
 </div>
 
+<div class="proveedor-table-container">
 <div class="proveedor-container">
   <div class="container">
     <h2>Lista de Proveedores</h2>
     
-    <!-- Campo para buscar categorías -->
+    <!-- Campo para buscar proveedor -->
     <div class="search-container">
       <div class="search-input-container">
         <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" class="search-input" (input)="searchProveedores()">
@@ -97,7 +98,7 @@
       </div>
     </div>
 
-    <!-- Campo para agregar una nueva categoría -->
+    <!-- Campo para agregar un nuevo proveedor -->
     <div class="add-container">
       <div>
         <p>Nombre del proveedor:</p>
@@ -128,53 +129,55 @@
       </button>
     </div>
     
+ <!-- Tabla de proveedores -->
+ <table>
+  <thead>
+    <tr>
+      <th>Nombre(s)</th>
+      <th>Apellido(s)</th>
+      <th>Teléfono</th>
+      <th>Correo Electrónico</th>
+      <th>Editar</th>
+     <th>Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let proveedor of proveedores">
+      <td>
+        <ng-container *ngIf="!proveedor.editing">{{ proveedor.nombre }}</ng-container>
+        <ng-container *ngIf="proveedor.editing">
+          <input [(ngModel)]="proveedor.nombre" class="edit-input" required>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!proveedor.editing">{{ proveedor.apellidos }}</ng-container>
+        <ng-container *ngIf="proveedor.editing">
+          <input [(ngModel)]="proveedor.apellidos" class="edit-input" required>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!proveedor.editing">{{ proveedor.email }}</ng-container>
+        <ng-container *ngIf="proveedor.editing">
+          <input [(ngModel)]="proveedor.email" class="edit-input" required email>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!proveedor.editing">{{ proveedor.empresa }}</ng-container>
+        <ng-container *ngIf="proveedor.editing">
+          <input [(ngModel)]="proveedor.empresa" class="edit-input" required>
+        </ng-container>
+      </td>
+      <td>
+        <button (click)="editProveedor(proveedor)" class="edit-button">✎</button>
+      </td>
+      <td>
+        <button (click)="deleteProveedor(proveedor.id_Proveedor!)" class="delete-button">🗑</button>
+      </td>
+     <td><button (click)="saveProveedor(proveedor)" class="save-button">Guardar</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
 
-    <!-- Tabla de proveedores -->
-    <table>
-      <thead>
-        <tr>
-          <th>Nombre(s)</th>
-          <th>Apellido(s)</th>
-          <th>Teléfono</th>
-          <th>Correo Electrónico</th>
-          <th>Editar</th>
-         <th>Eliminar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let proveedor of proveedores">
-          <td>
-            <ng-container *ngIf="!proveedor.editing">{{ proveedor.nombre }}</ng-container>
-            <ng-container *ngIf="proveedor.editing">
-              <input [(ngModel)]="proveedor.nombre" class="edit-input" required>
-            </ng-container>
-          </td>
-          <td>
-            <ng-container *ngIf="!proveedor.editing">{{ proveedor.apellidos }}</ng-container>
-            <ng-container *ngIf="proveedor.editing">
-              <input [(ngModel)]="proveedor.apellidos" class="edit-input" required>
-            </ng-container>
-          </td>
-          <td>
-            <ng-container *ngIf="!proveedor.editing">{{ proveedor.email }}</ng-container>
-            <ng-container *ngIf="proveedor.editing">
-              <input [(ngModel)]="proveedor.email" class="edit-input" required email>
-            </ng-container>
-          </td>
-          <td>
-            <ng-container *ngIf="!proveedor.editing">{{ proveedor.empresa }}</ng-container>
-            <ng-container *ngIf="proveedor.editing">
-              <input [(ngModel)]="proveedor.empresa" class="edit-input" required>
-            </ng-container>
-          </td>
-          <td>
-            <button (click)="editProveedor(proveedor)" class="edit-button">✎</button>
-          </td>
-          <td>
-            <button (click)="deleteProveedor(proveedor.id_Proveedor!)" class="delete-button">🗑</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 </div>

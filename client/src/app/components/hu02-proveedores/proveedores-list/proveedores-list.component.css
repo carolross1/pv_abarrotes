@@ -94,6 +94,18 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.proveedor-table-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  margin: auto; /* Centra el contenedor horizontalmente */
+  max-width: 1200px; /* Ajusta el ancho máximo para centrado */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade una sombra más sutil */
+  margin-top: 80px; /* Ajusta el margen superior para separarlo del navbar */
+  overflow: hidden;
+  
+
+}
 
 .search-button:hover, .add-button:hover {
   background-color: #b87da4; /* Color de fondo del botón al pasar el ratón */
@@ -191,6 +203,10 @@ table tbody tr:hover {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+}
+.save-button {
+  margin-left: 35px;
+  margin-right: auto;
 }
 
 .edit-button:hover, .delete-button:hover, .save-button:hover {
