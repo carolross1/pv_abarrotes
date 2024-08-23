@@ -16,10 +16,10 @@ export const getProveedores = async (req: Request, res: Response): Promise<Respo
 };
 
 export const addProveedor = async (req: Request, res: Response): Promise<Response> => {
-    const { id_Proveedor, nombre, apellidos, telefono, empresa } = req.body;
+    const { id_Proveedor, nombre, apellidos, email, empresa } = req.body;
     try {
-        await pool.query('INSERT INTO proveedor (id_Proveedor, nombre, apellidos, telefono, empresa) VALUES (?, ?, ?, ?, ?)', 
-        [id_Proveedor, nombre, apellidos, telefono, empresa]);
+        await pool.query('INSERT INTO proveedor (id_Proveedor, nombre, apellidos, email, empresa) VALUES (?, ?, ?, ?, ?)', 
+        [id_Proveedor, nombre, apellidos, email, empresa]);
         return res.status(201).json({ message: 'Proveedor agregado exitosamente' });
     } catch (err) {
         const error = err as CustomError;
@@ -41,7 +41,7 @@ export const deleteProveedor = async (req: Request, res: Response): Promise<Resp
 
 export const updateProveedor = async (req: Request, res: Response): Promise<Response> => {
     const { id_Proveedor } = req.params;
-    const { nombre, apellidos, telefono, empresa } = req.body;
+    const { nombre, apellidos, email, empresa } = req.body;
 
     // Asegúrate de que id_Proveedor sea un número válido
     if (!id_Proveedor || isNaN(Number(id_Proveedor))) {
@@ -49,14 +49,14 @@ export const updateProveedor = async (req: Request, res: Response): Promise<Resp
     }
 
     // Verifica que todos los campos necesarios estén presentes
-    if (!nombre || !apellidos || !telefono || !empresa) {
+    if (!nombre || !apellidos || !email || !empresa) {
         return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
     try {
         const [updateResult] = await pool.query(
-            'UPDATE proveedor SET nombre = ?, apellidos = ?, telefono = ?, empresa = ? WHERE id_Proveedor = ?', 
-            [nombre, apellidos, telefono, empresa, id_Proveedor]
+            'UPDATE proveedor SET nombre = ?, apellidos = ?, email = ?, empresa = ? WHERE id_Proveedor = ?', 
+            [nombre, apellidos, email, empresa, id_Proveedor]
         );
         
         if (updateResult.affectedRows === 0) {
