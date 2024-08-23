@@ -12,13 +12,16 @@
     width: auto; /* Mantiene la proporción de la imagen */
 }
 
+/* Estilos para la barra de navegación */
 .navbar {
     display: flex;
     flex-wrap: wrap;
     background-color: #5b3d99;
     padding: 10px;
+    align-items: center; /* Centra verticalmente los elementos dentro de la barra */
 }
 
+/* Estilos para los grupos de navegación */
 .nav-group {
     position: relative;
     margin-right: 10px;
@@ -68,73 +71,116 @@
     display: block;
 }
 
-/* Ensuring responsiveness */
+/* Asegurando la responsividad */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
     }
 }
 
-/* Estilos para COMPRAS */
-.pedidos-page {
+/* Estilos para la página de compras */
+.compras-content {
     padding: 20px;
     background-color: #f9f9f9;
     margin: 80px auto; /* Centra el contenedor horizontalmente y agrega margen superior */
     max-width: 900px; /* Ajusta el ancho máximo para centrar el contenedor */
-    border-radius: 8px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    height: auto; /* Ajusta la altura al contenido */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.pedidos-page h1 {
+.compras-title {
     color: #48257f;
     font-size: 2em;
     text-align: center; /* Centra el título horizontalmente */
+    margin-bottom: 20px; /* Espacio debajo del título */
 }
 
-.pedidos-page form {
+.compras-header {
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 20px 0; /* Ajusta el margen superior e inferior */
+    margin-bottom: 20px; /* Espacio debajo del header */
 }
 
-.pedidos-page table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+.compras-date {
+    font-size: 1.2em;
+    color: #333;
 }
 
-.pedidos-page th,
-.pedidos-page td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
+.entregas-recibe {
+    margin-top: 10px;
 }
 
-.pedidos-page th {
-    background-color: #5b3d99;
-    color: white;
+.entregas-recibe label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-.pedidos-page input {
+.entregas-recibe select {
     width: 100%;
     padding: 10px;
-    margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
-.pedidos-page .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+.error-message {
+    color: red;
+    font-size: 0.9em;
 }
 
-.validate-btn,
-.save-btn {
+.compra-barcode {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.barcode-icon {
+    margin-right: 10px;
+}
+
+.barcode-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.compra-table-content {
+    margin-top: 20px;
+}
+
+.compra-table-container {
+    overflow-x: auto; /* Permite desplazamiento horizontal en dispositivos pequeños */
+}
+
+.compra-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.compra-table th,
+.compra-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.compra-table th {
+    background-color: #5b3d99;
+    color: white;
+}
+
+.compra-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.compra-buttons button {
     background-color: #5b3d99;
     color: white;
     padding: 10px 20px;
@@ -143,7 +189,6 @@
     cursor: pointer;
 }
 
-.validate-btn:hover,
-.save-btn:hover {
+.compra-buttons button:hover {
     background-color: #48257f;
 }

@@ -112,7 +112,7 @@ export class PedidoService {
 
   // Método para enviar el correo al proveedor
   enviarCorreoProveedor(correo: string, mensaje: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/enviar-correo`, { correo, mensaje })
+    return this.http.post<any>(`${this.apiUrl}/enviar-correo`, { destinatario: correo, asunto: 'Asunto del Correo', mensaje })
       .pipe(
         tap(response => console.log('Respuesta del servidor al enviar correo:', response)),
         catchError(error => {

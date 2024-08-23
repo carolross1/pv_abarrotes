@@ -222,6 +222,10 @@ CREATE TABLE `proveedor` (
   PRIMARY KEY (`id_Proveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--Edita el campo email para que sea UNIQUE
+ALTER TABLE proveedor
+ADD UNIQUE (email);
+
 
 -- Tabla entrega_producto
 CREATE TABLE entrega_producto (
@@ -233,6 +237,7 @@ CREATE TABLE entrega_producto (
     FOREIGN KEY (id_Usuario) REFERENCES usuario(id_Usuario),
     FOREIGN KEY (id_Proveedor) REFERENCES proveedor(id_Proveedor)
 );
+
 
 -- Tabla detalle_entrega
 CREATE TABLE detalle_entrega (
