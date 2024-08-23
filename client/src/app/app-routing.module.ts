@@ -16,7 +16,7 @@ import { ListaProveedoresComponent } from './components/hu02-proveedores/proveed
 import { FacturaComponent } from './components/hu01-venta-diaria/factura/factura.component';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 import { ProductoComponent } from './components/producto/producto/producto.component';
-import { ListaCategoriasComponent } from './components/producto/categoria/lista-categorias/lista-categorias.component';
+import { ListaCategoriasComponent } from './components/producto/lista-categorias/lista-categorias.component';
 import { ListaUsuariosComponent } from './components/nuevo-usuario/lista-usuarios/lista-usuarios.component';
 import { FacturaListComponent } from './components/hu01-venta-diaria/factura-list/factura-list.component';
 import { FacturaDetailComponent } from './components/hu01-venta-diaria/factura-detail/factura-detail.component';
@@ -47,9 +47,11 @@ const routes: Routes = [
   },
   { path: 'inventariofrecuente/:id', 
     component: InventariosFrecuentesComponent, 
+    canActivate: [AdminGuard]
   },
   { path: 'inventarios', 
     component: InventarioComponent, 
+    canActivate: [AdminGuard]
   },
   {
     path:'notificacion', 
@@ -109,7 +111,8 @@ const routes: Routes = [
 
   {
     path:'usuario',
-    component:NuevoUsuarioComponent
+    component:NuevoUsuarioComponent,
+    canActivate: [AdminGuard]
   },
   {
     path:'listausuario',

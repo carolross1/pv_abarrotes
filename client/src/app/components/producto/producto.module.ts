@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ProductoComponent } from './producto/producto.component';
 import { ProductoService } from '../../services/productos/producto.service';
 import { RouterModule } from '@angular/router';
-import { ListaCategoriasComponent } from './categoria/lista-categorias/lista-categorias.component';
+import { ListaCategoriasComponent } from './lista-categorias/lista-categorias.component';
 import { CategoriaService } from '../../services/categoria/categoria.service';
 
 
@@ -19,6 +19,7 @@ import { CategoriaService } from '../../services/categoria/categoria.service';
     BrowserModule,
     RouterModule,
     FormsModule,
+
   ],
   providers: [ProductoService,CategoriaService], 
   exports: [

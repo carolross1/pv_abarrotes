@@ -33,6 +33,7 @@
   border-radius: 5px;
   display: flex;
   align-items: center;
+  font-size: 24px;
 }
 
 .dropdown-btn i {
@@ -57,7 +58,10 @@
   color: #333;
   text-decoration: none;
   border-bottom: 1px solid #ccc;
+  font-size: 22px;
 }
+
+
 
 .dropdown-container a:last-child {
   border-bottom: none;

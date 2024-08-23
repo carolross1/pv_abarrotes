@@ -75,10 +75,25 @@
         
         <div class="form-group">
           <label for="codigo_Barras">Código de barras</label>
-          <input type="number" id="codigo_Barras" [(ngModel)]="producto.codigo_Barras" name="codigo_Barras" class="form-control" required min="1" (input)="validateInput($event)" #codigo_Barras="ngModel" />
+          <input 
+            type="number" 
+            id="codigo_Barras" 
+            [(ngModel)]="producto.codigo_Barras" 
+            name="codigo_Barras" 
+            class="form-control" 
+            required 
+            min="1"
+            minlength="12" 
+            maxlength="13"
+            (input)="validateInputCode($event)" 
+            #codigo_Barras="ngModel" 
+          />
           <div *ngIf="codigo_Barras.invalid && (codigo_Barras.dirty || codigo_Barras.touched)" class="text-danger">
-            <div *ngIf="codigo_Barras.errors?.['required']">El código de barras es obligatorio</div>
-            <div *ngIf="inputError" class="text-danger">Solo se aceptan números.</div>
+            <div *ngIf="codigo_Barras.errors?.['required']">El código de barras es obligatorio.</div>
+            <div *ngIf="codigo_Barras.errors?.['minlength']">El código de barras debe tener al menos 12 dígitos.</div>
+            <div *ngIf="codigo_Barras.errors?.['maxlength']">El código de barras no puede tener más de 13 dígitos.</div>
+            <div *ngIf="codigo_Barras.errors?.['pattern']">Solo se aceptan números.</div>
+            <div *ngIf="cantidadStock.errors?.['min']">El codigo de barras no puede ser menor o igual a 0.</div>
           </div>
         </div>
       </div>
@@ -86,8 +101,10 @@
       <div class="form-group-row">
         <div class="form-group">
           <label for="id_Categoria">Categoría</label>
-          <select id="id_Categoria" [(ngModel)]="producto.id_Categoria" name="id_Categoria" class="form-control" required #idCategoria="ngModel">
+          <select id="id_Categoria" [(ngModel)]="producto.id_Categoria" name="id_Categoria" class="form-control" required #idCategoria="ngModel" >
+            <option value=""  [selected]="!producto.id_Categoria">Selecciona una categoría</option>
             <option *ngFor="let categoria of categorias" [value]="categoria.id_Categoria">{{ categoria.nombre }}</option>
+         
           </select>
           <div *ngIf="idCategoria.invalid && (idCategoria.dirty || idCategoria.touched)" class="text-danger">
             <div *ngIf="idCategoria.errors?.['required']">La categoría es obligatoria.</div>
@@ -100,6 +117,7 @@
           <div *ngIf="precioCompra.invalid && (precioCompra.dirty || precioCompra.touched)" class="text-danger">
             <div *ngIf="precioCompra.errors?.['required']">El precio de compra es obligatorio.</div>
             <div *ngIf="inputError" class="text-danger">Solo se aceptan números.</div>
+            <div *ngIf="cantidadStock.errors?.['min']">El precio  de compra no puede ser menor o igual a 0</div>
           </div>
         </div>
     
@@ -109,6 +127,7 @@
           <div *ngIf="precioVenta.invalid && (precioVenta.dirty || precioVenta.touched)" class="text-danger">
             <div *ngIf="precioVenta.errors?.['required']">El precio de venta es obligatorio.</div>
             <div *ngIf="inputError" class="text-danger">Solo se aceptan números.</div>
+            <div *ngIf="cantidadStock.errors?.['min']">El precio de venta no puede ser menor o igual a 0.</div>
           </div>
         </div>
       </div>
@@ -130,13 +149,14 @@
           <input type="number" id="cant_Minima" [(ngModel)]="producto.cant_Minima" name="cant_Minima" class="form-control" required  min="1" step="1"(input)="validateInput($event)" #cantMinima="ngModel" />
           <div *ngIf="cantMinima.invalid && (cantMinima.dirty || cantMinima.touched)" class="text-danger">
             <div *ngIf="cantMinima.errors?.['required']">La cantidad mínima es obligatoria.</div>
+            <div *ngIf="cantidadStock.errors?.['min']">La cantidad mínima no puede ser menor o igual a 0.</div>
                       <div *ngIf="inputError" class="text-danger">Solo se aceptan números.</div>
           </div>
         </div>
       </div>
       <br>
     
-      <button type="submit" class="btn btn-primary" [disabled]="productoForm.invalid">{{ editando ? 'Actualizar' : 'Agregar' }}</button>
+      <button type="submit" class="btn btn-primary">{{ editando ? 'Actualizar' : 'Agregar' }}</button>
       <button type="button" class="btn btn-secondary mt-3" (click)="cancelarEdicion()" *ngIf="editando">Cancelar</button>
     </form>
   

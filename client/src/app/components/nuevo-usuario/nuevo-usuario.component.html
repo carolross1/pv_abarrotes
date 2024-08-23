@@ -84,7 +84,7 @@
 </div>
 </div>
 
-<form [formGroup]="createUserForm" autocomplete="off" (ngSubmit)="onSubmit()">
+<form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
     <div>
       <label for="id_Usuario">ID Usuario:</label>
       <input id="id_Usuario" formControlName="id_Usuario"  [readonly]="isEdit"  [ngClass]="{'highlighted': isEdit}" />
@@ -152,7 +152,7 @@
       <div *ngIf="errorMessage">
         <p class="error">{{ errorMessage }}</p>
       </div>
-      <button type="submit" [disabled]="createUserForm.invalid">
+      <button type="submit">
         {{ isEdit ? 'Actualizar Usuario' : 'Registrar Usuario' }}
       </button>
       <button type="button" class="cancelar" (click)="cancel()">Cancelar</button>

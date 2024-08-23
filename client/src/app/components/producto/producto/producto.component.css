@@ -43,7 +43,9 @@
   border-radius: 5px;
   display: flex;
   align-items: center;
+  font-size: 24px;
 }
+
 
 .dropdown-btn i {
   margin-left: 5px;
@@ -71,7 +73,9 @@
   color: #333;
   text-decoration: none;
   border-bottom: 1px solid #ccc;
+  font-size: 22px;
 }
+
 
 .dropdown-container a:hover {
   background-color: #bfa8e3;
@@ -156,23 +160,14 @@ h1{
   min-width: 200px; /* Ancho mínimo para mantener una buena apariencia */
 }
 
-
-
 .form-control {
   width: 90%;
-  height: 40%;
-  padding: 14px;
+  padding: 18px;
   border-radius: 4px;
   border: 3px solid #a3a2a2;
   border-radius: 10px;
-  display: block;
-  font-size: 1.4em;
+  font-size: 1.5em;
   
-}
-
-.btn-success {
-  background-color: #28a745;
-  border-color: #49bd51;
 }
 
 .btn-secondary {
@@ -199,6 +194,16 @@ h1{
 .btn-primary {
   background-color: #D291BC; 
   border-color: #D291BC;
+  color: #ffffff;
+  border-radius: 8px; 
+  padding: 10px 50px; 
+  font-size: 21px;
+  display: block;
+  margin: 0 auto;
+}
+.btn-primary:hover {
+  background-color: #280c1f; 
+  border-color: #470832;
   color: #ffffff;
   border-radius: 8px; 
   padding: 10px 50px; 
@@ -262,4 +267,20 @@ h1{
   color: red;
   font-weight: bold;
   font-size: 1.3em;
+}
+
+/* Aumenta el tamaño de la letra para las etiquetas */
+.form-group label {
+  font-size: 20px; /* Cambia a tu preferencia */
+  color: #0b0b0b; /* Color del texto */
+}
+
+/* Aumenta el tamaño de la letra para los campos de entrada y el select */
+.form-control {
+  font-size: 27px; /* Cambia a tu preferencia */
+}
+/* Cambia el tamaño y color del texto para los mensajes de error */
+.text-danger {
+  font-size: 20px; /* Cambia a tu preferencia */
+  color: #ff0000; /* Color rojo para el error */
 }
