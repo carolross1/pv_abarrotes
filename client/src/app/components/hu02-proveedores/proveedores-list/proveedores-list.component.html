@@ -83,11 +83,12 @@
 </div>
 </div>
 
+<div class="proveedor-table-container">
 <div class="proveedor-container">
   <div class="container">
     <h2>Lista de Proveedores</h2>
     
-    <!-- Campo para buscar categorías -->
+    <!-- Campo para buscar proveedor -->
     <div class="search-container">
       <div class="search-input-container">
         <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre" class="search-input" (input)="searchProveedores()">
@@ -97,7 +98,7 @@
       </div>
     </div>
 
-    <!-- Campo para agregar una nueva categoría -->
+    <!-- Campo para agregar un nuevo proveedor -->
     <div class="add-container">
       <div>
         <p>Nombre del proveedor:</p>
@@ -177,4 +178,6 @@
   </tbody>
 </table>
 </div>
+</div>
+
 </div>
