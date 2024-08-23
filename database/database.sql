@@ -247,7 +247,7 @@ CREATE TABLE detalle_entrega (
 
 -- Tabla pedido_digital 
 CREATE TABLE pedido_digital (
-    id_Pedido VARCHAR(10) PRIMARY KEY,
+    id_Pedido INT AUTO_INCREMENT PRIMARY KEY,
     id_Proveedor INT NOT NULL,
     fecha_Pedido DATETIME NOT NULL,
     total DECIMAL(10, 2) NOT NULL,
@@ -256,7 +256,7 @@ CREATE TABLE pedido_digital (
 
 -- Tabla detalle_pedido_digital
 CREATE TABLE detalle_pedido_digital (
-    id_Pedido VARCHAR(10) NOT NULL,
+    id_Pedido INT NOT NULL,
     id_Producto INT NOT NULL,
     cantidad INT NOT NULL,
     total DECIMAL(10, 2) NOT NULL,
