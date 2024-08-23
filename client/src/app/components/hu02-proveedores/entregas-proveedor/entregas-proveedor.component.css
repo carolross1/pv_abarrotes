@@ -212,7 +212,7 @@ h2 {
 }
 
 .sales-table th {
-    background-color: #5b3d99;
+    background-color: #8d5ec0; 
     color: white;
 }
 
@@ -262,4 +262,8 @@ h2 {
     .entregas-content {
         padding: 10px;
         margin-top: 70px; /* Ajusta el margen superior para adaptarse a la barra de navegación fija */
+    }
+    .error-message{
+color: red;
+
     }
