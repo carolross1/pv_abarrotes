@@ -181,6 +181,7 @@ export class CorteCajaComponent implements OnInit {
                 );
             },
             error => {
+
                 console.error('Error al obtener el corte abierto:', error);
                 this.alertaService.showNotification('Error al cerrar el corte.','error');
             }
