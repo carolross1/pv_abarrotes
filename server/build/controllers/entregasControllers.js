@@ -16,10 +16,10 @@ exports.registrarDetallesEntrega = exports.eliminarEntrega = exports.obtenerEntr
 const database_1 = __importDefault(require("../database")); // Asegúrate de que tu archivo de conexión a la base de datos esté correctamente configurado
 // Crear una nueva entrega
 const crearEntrega = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id_Usuario, id_Proveedor, fecha, total_entrega, id_Factura } = req.body;
+    const { id_Usuario, id_Proveedor, fecha, hora, total_entrega, id_Factura } = req.body;
     try {
         // Insertar la entrega en la tabla 'entrega_producto'
-        const result = yield database_1.default.query('INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha, id_Factura) VALUES (?, ?, ?, ?)', [id_Usuario, id_Proveedor, fecha, id_Factura]);
+        const result = yield database_1.default.query('INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha, hora, id_Factura) VALUES (?, ?, ?, ?, ?)', [id_Usuario, id_Proveedor, fecha, hora, total_entrega, id_Factura]);
         // Obtener el ID autoincrementado del resultado de la consulta
         const idEntrega = result.insertId;
         console.log('ID autoincrementado insertado:', idEntrega);

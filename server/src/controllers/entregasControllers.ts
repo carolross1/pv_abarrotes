@@ -3,13 +3,13 @@ import pool from '../database'; // Asegúrate de que tu archivo de conexión a l
 
 // Crear una nueva entrega
 export const crearEntrega = async (req: Request, res: Response) => {
-  const { id_Usuario, id_Proveedor, fecha, total_entrega, id_Factura } = req.body;
+  const { id_Usuario, id_Proveedor, fecha, hora, total_entrega, id_Factura } = req.body;
 
   try {
     // Insertar la entrega en la tabla 'entrega_producto'
     const result: any = await pool.query(
-      'INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha, id_Factura) VALUES (?, ?, ?, ?)',
-      [id_Usuario, id_Proveedor, fecha, id_Factura]
+      'INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha, hora, id_Factura) VALUES (?, ?, ?, ?, ?)',
+      [id_Usuario, id_Proveedor, fecha, hora, total_entrega, id_Factura]
     );
 
     // Obtener el ID autoincrementado del resultado de la consulta
