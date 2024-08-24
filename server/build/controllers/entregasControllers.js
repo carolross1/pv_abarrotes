@@ -18,21 +18,19 @@ const database_1 = __importDefault(require("../database")); // Asegúrate de que
 const crearEntrega = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_Usuario, id_Proveedor, fecha, total_entrega, id_Factura } = req.body;
     try {
-        // Insertar la entrega
+        // Insertar la entrega en la tabla 'entrega_producto'
         const result = yield database_1.default.query('INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha, id_Factura) VALUES (?, ?, ?, ?)', [id_Usuario, id_Proveedor, fecha, id_Factura]);
-        const lastId = result.insertId;
-        console.log('ID autoincrementado insertado:', lastId);
-        // Obtener id_Entrega usando el id autoincrementado
-        const entregaResult = yield database_1.default.query('SELECT id_Entrega FROM entrega_producto WHERE id_Entrega = ?', [lastId]);
-        console.log('Resultado de la consulta de recuperación:', entregaResult);
-        if (Array.isArray(entregaResult) && entregaResult.length > 0) {
-            const idEntrega = entregaResult[0].id_Entrega;
-            console.log('ID de la entrega recuperado:', idEntrega);
-            res.json({ idEntrega });
+        // Obtener el ID autoincrementado del resultado de la consulta
+        const idEntrega = result.insertId;
+        console.log('ID autoincrementado insertado:', idEntrega);
+        if (idEntrega) {
+            // Si el ID fue correctamente generado, responde con el ID de la entrega
+            res.status(200).json({ idEntrega });
         }
         else {
-            console.error('No se encontró el id_Entrega para el id:', lastId);
-            res.status(500).json({ message: 'No se pudo recuperar el ID de la entrega.' });
+            // Si no se pudo obtener el ID, lanza un error
+            console.error('No se pudo obtener el ID de la entrega.');
+            res.status(500).json({ message: 'Error al crear la entrega.' });
         }
     }
     catch (error) {

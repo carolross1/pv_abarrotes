@@ -40,9 +40,9 @@ const obtenerCorteAbierto = (req, res) => __awaiter(void 0, void 0, void 0, func
     try {
         const { id_Usuario } = req.params;
         console.log('Recibiendo solicitud para obtener corte abierto:', req.params.id_Usuario);
-        const result = yield database_1.default.query('SELECT id_Corte FROM corte_caja WHERE id_Usuario = ? AND cerrado = FALSE', [id_Usuario]);
+        const result = yield database_1.default.query('SELECT id_Corte, id_Usuario FROM corte_caja WHERE id_Usuario = ? AND cerrado = FALSE', [id_Usuario]);
         if (result.length > 0) {
-            res.json({ id_Corte: result[0].id_Corte });
+            res.json({ id_Corte: result[0].id_Corte, id_Usuario: result[0].id_Usuario });
         }
         else {
             res.status(404).json({ message: 'No se encontró un corte abierto para este usuario.' });
@@ -59,6 +59,7 @@ const cerrarCorte = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         const { id_Corte, id_Usuario } = req.body;
         console.log('ID de Corte recibido:', id_Corte);
+        console.log('aqui tambien va el usauro', id_Usuario);
         // Obtener el saldo inicial
         const corteResult = yield connection.query('SELECT saldo_Inicial FROM corte_caja WHERE id_Corte = ?', [id_Corte]);
         console.log('Resultado de la consulta de saldo inicial:', corteResult);
@@ -71,13 +72,19 @@ const cerrarCorte = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 var _a;
                 const connection = yield database_1.default.getConnection();
                 try {
+                    console.log('este es el id:', id_Corte);
+                    console.log('esste es el usuario:', id_Usuario);
                     // Calcular ingresos desde la tabla de DetalleVenta
                     const ingresosResult = yield connection.query(`SELECT SUM(dv.total_venta) AS total_ventas
-                        FROM detalle_venta as dv
-                        INNER JOIN venta as v
-                        ON dv.id_Venta = v.id_Venta
-                        WHERE DATE(v.fecha) =  (SELECT DATE(fecha) FROM corte_caja WHERE id_Corte = ?)`, [id_Corte]);
+                        FROM venta as v
+                        INNER JOIN detalle_venta as dv
+                        ON v.id_Venta = dv.id_Venta
+                        WHERE DATE(v.fecha) = (
+                            SELECT DATE(fecha) FROM corte_caja WHERE id_Corte = ?
+                        ) AND v.id_Usuario = ?`, [id_Corte, id_Usuario]);
                     console.log('Resultado de la consulta de ingresos:', ingresosResult);
+                    // Verifica el formato de resultados de ingresos
+                    console.log('Formato de resultados de ingresos:', ingresosResult);
                     const totalIngresos = ((_a = ingresosResult[0]) === null || _a === void 0 ? void 0 : _a.total_ventas) || 0;
                     console.log('Total de Ingresos:', totalIngresos);
                     // Calcular egresos desde la tabla de entregas
@@ -85,7 +92,7 @@ const cerrarCorte = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                          FROM detalle_entrega AS d
                          INNER JOIN entrega_producto AS e ON d.id_Entrega = e.id_Entrega
                          WHERE DATE(e.fecha) = (
-                             SELECT DATE(fecha) FROM corte_caja WHERE id_Corte = ?
+                             SELECT DATE(c.fecha) FROM corte_caja AS c WHERE c.id_Corte = ?
                          )
                          AND e.id_Usuario = ?`, [id_Corte, id_Usuario]);
                     console.log('Resultado de la consulta de egresos:', egresosResult);

@@ -3,31 +3,28 @@ import pool from '../database'; // Asegúrate de que tu archivo de conexión a l
 
 // Crear una nueva entrega
 export const crearEntrega = async (req: Request, res: Response) => {
-  const {id_Usuario, id_Proveedor, fecha, total_entrega, id_Factura } = req.body;
+  const { id_Usuario, id_Proveedor, fecha, total_entrega, id_Factura } = req.body;
 
   try {
-    // Insertar la entrega
+    // Insertar la entrega en la tabla 'entrega_producto'
     const result: any = await pool.query(
       'INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha, id_Factura) VALUES (?, ?, ?, ?)',
       [id_Usuario, id_Proveedor, fecha, id_Factura]
     );
 
-    const lastId = result.insertId;
-    console.log('ID autoincrementado insertado:', lastId);
+    // Obtener el ID autoincrementado del resultado de la consulta
+    const idEntrega = result.insertId;
+    console.log('ID autoincrementado insertado:', idEntrega);
 
-    // Obtener id_Entrega usando el id autoincrementado
-    const entregaResult: any = await pool.query('SELECT id_Entrega FROM entrega_producto WHERE id_Entrega = ?', [lastId]);
-
-    console.log('Resultado de la consulta de recuperación:', entregaResult);
-
-    if (Array.isArray(entregaResult) && entregaResult.length > 0) {
-      const idEntrega = entregaResult[0].id_Entrega;
-      console.log('ID de la entrega recuperado:', idEntrega);
-      res.json({ idEntrega });
+    if (idEntrega) {
+      // Si el ID fue correctamente generado, responde con el ID de la entrega
+      res.status(200).json({ idEntrega });
     } else {
-      console.error('No se encontró el id_Entrega para el id:', lastId);
-      res.status(500).json({ message: 'No se pudo recuperar el ID de la entrega.' });
+      // Si no se pudo obtener el ID, lanza un error
+      console.error('No se pudo obtener el ID de la entrega.');
+      res.status(500).json({ message: 'Error al crear la entrega.' });
     }
+
   } catch (error) {
     console.error('Error al crear la entrega:', error);
     res.status(500).json({ message: 'Error al crear la entrega' });

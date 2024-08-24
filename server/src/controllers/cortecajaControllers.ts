@@ -29,12 +29,12 @@ export const obtenerCorteAbierto = async (req: Request, res: Response): Promise<
         const { id_Usuario } = req.params;
         console.log('Recibiendo solicitud para obtener corte abierto:', req.params.id_Usuario);
         const result = await pool.query(
-            'SELECT id_Corte FROM corte_caja WHERE id_Usuario = ? AND cerrado = FALSE',
+            'SELECT id_Corte, id_Usuario FROM corte_caja WHERE id_Usuario = ? AND cerrado = FALSE',
             [id_Usuario]
         );
 
         if (result.length > 0) {
-            res.json({ id_Corte: result[0].id_Corte });
+            res.json({ id_Corte: result[0].id_Corte , id_Usuario:result[0].id_Usuario});
         } else {
             res.status(404).json({ message: 'No se encontró un corte abierto para este usuario.' });
         }
@@ -49,6 +49,7 @@ export const cerrarCorte = async (req: Request, res: Response): Promise<void> =>
         const { id_Corte,id_Usuario  } = req.body;
 
         console.log('ID de Corte recibido:', id_Corte);
+        console.log('aqui tambien va el usauro',id_Usuario)
 
         // Obtener el saldo inicial
         const corteResult = await connection.query('SELECT saldo_Inicial FROM corte_caja WHERE id_Corte = ?', [id_Corte]);
@@ -63,19 +64,25 @@ export const cerrarCorte = async (req: Request, res: Response): Promise<void> =>
             setImmediate(async () => {
                 const connection = await pool.getConnection(); 
                 try {
+                    console.log('este es el id:',id_Corte);
+                    console.log('esste es el usuario:',id_Usuario);
+
                     // Calcular ingresos desde la tabla de DetalleVenta
                     const ingresosResult = await connection.query(
                         `SELECT SUM(dv.total_venta) AS total_ventas
-                        FROM detalle_venta as dv
-                        INNER JOIN venta as v
-                        ON dv.id_Venta = v.id_Venta
-                        WHERE DATE(v.fecha) =  (SELECT DATE(fecha) FROM corte_caja WHERE id_Corte = ?)`,
-                        [id_Corte]
+                        FROM venta as v
+                        INNER JOIN detalle_venta as dv
+                        ON v.id_Venta = dv.id_Venta
+                        WHERE DATE(v.fecha) = (
+                            SELECT DATE(fecha) FROM corte_caja WHERE id_Corte = ?
+                        ) AND v.id_Usuario = ?`,
+                        [id_Corte, id_Usuario]
                     );
                     console.log('Resultado de la consulta de ingresos:', ingresosResult);
-
-                    const totalIngresos = ingresosResult[0]?.total_ventas || 0;
-                    console.log('Total de Ingresos:', totalIngresos);
+// Verifica el formato de resultados de ingresos
+console.log('Formato de resultados de ingresos:', ingresosResult);
+const totalIngresos = ingresosResult[0]?.total_ventas || 0;
+console.log('Total de Ingresos:', totalIngresos);
 
                     // Calcular egresos desde la tabla de entregas
                     const egresosResult = await connection.query(
@@ -83,7 +90,7 @@ export const cerrarCorte = async (req: Request, res: Response): Promise<void> =>
                          FROM detalle_entrega AS d
                          INNER JOIN entrega_producto AS e ON d.id_Entrega = e.id_Entrega
                          WHERE DATE(e.fecha) = (
-                             SELECT DATE(fecha) FROM corte_caja WHERE id_Corte = ?
+                             SELECT DATE(c.fecha) FROM corte_caja AS c WHERE c.id_Corte = ?
                          )
                          AND e.id_Usuario = ?`,
                         [id_Corte,id_Usuario]
