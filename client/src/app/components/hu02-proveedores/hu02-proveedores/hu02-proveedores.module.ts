@@ -14,6 +14,7 @@ PedidosProveedorComponent,
 EntregasProveedorComponent,
 ListaProveedoresComponent,
 EntregasProveedorComponent,
+ListaProveedoresComponent,
 
   ],
   imports: [

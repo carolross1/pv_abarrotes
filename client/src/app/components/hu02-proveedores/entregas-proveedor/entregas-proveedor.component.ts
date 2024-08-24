@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../../../services/productos/producto.service';
 import { EntregaService } from '../../../services/entregas/entrega-proveedor.service';
@@ -79,12 +80,8 @@ export class EntregasProveedorComponent implements OnInit {
     if (codigoBarras) {
       const producto = this.productos.find(p => p.codigo_Barras.toString() === codigoBarras);
       if (producto) {
-        if (producto.cantidad_Stock > 0) {
-          this.agregarProductoAEntrega(producto, 1);
-          inputElement.value = '';
-        } else {
-          this.alertaService.showNotification('El producto está agotado y no se puede agregar a la entrega.', 'warning');
-        }
+        this.agregarProductoAEntrega(producto, 1); // Permitir agregar el producto con cantidad 1 (puede ajustarse si es necesario)
+        inputElement.value = '';
       } else {
         this.alertaService.showNotification('Producto no encontrado.', 'warning');
       }
@@ -102,12 +99,8 @@ export class EntregasProveedorComponent implements OnInit {
       }
       const producto = this.productos.find(p => p.codigo_Barras.toString() === codigoBarras);
       if (producto) {
-        if (producto.cantidad_Stock > 0) {
-          this.agregarProductoAEntrega(producto, 1); // Cantidad 1
-          inputElement.value = '';
-        } else {
-          this.alertaService.showNotification('El producto está agotado y no se puede agregar a la entrega.', 'error');
-        }
+        this.agregarProductoAEntrega(producto, 1); // Cantidad 1
+        inputElement.value = '';
       } else {
         this.alertaService.showNotification('Producto no encontrado.', 'error');
       }
@@ -115,11 +108,7 @@ export class EntregasProveedorComponent implements OnInit {
   }
 
   agregarProductoAEntrega(producto: Producto, cantidad: number) {
-    if (producto.cantidad_Stock < cantidad) {
-      this.alertaService.showNotification('No hay suficiente stock del producto para la cantidad solicitada.', 'error');
-      return;
-    }
-
+    // Aquí permitimos agregar el producto incluso si la cantidad en stock es cero
     const productoEnEntrega = this.entregaProductos.find(p => p.codigo_Barras === producto.codigo_Barras);
     if (productoEnEntrega) {
       productoEnEntrega.cantidad = (productoEnEntrega.cantidad || 0) + cantidad;
@@ -240,6 +229,7 @@ export class EntregasProveedorComponent implements OnInit {
   logout() {
     this.loginService.logout();
   }
+  
   onIdFacturaChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     const value = inputElement.value;
@@ -255,17 +245,6 @@ export class EntregasProveedorComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-    // Asegúrate de que id_Factura sea un número mayor a 0
-    const isIdFacturaValid = typeof this.entrega.id_Factura === 'number' && this.entrega.id_Factura > 0;
-    
-    // Asegúrate de que id_Proveedor sea un número (o no sea null)
-    const isProveedorValid = typeof this.entrega.id_Proveedor === 'number' && this.entrega.id_Proveedor !== null;
-    
-    // Asegúrate de que entregaProductos sea un array con longitud mayor a 0
-    const isProductosValid = Array.isArray(this.entregaProductos) && this.entregaProductos.length > 0;
-  
-    // Verifica que todos los campos sean válidos
-    return isIdFacturaValid && isProveedorValid && isProductosValid
+    return this.entrega.id_Proveedor !== 0 && this.entrega.id_Factura > 0 && this.entregaProductos.length > 0;
   }
-  
 }

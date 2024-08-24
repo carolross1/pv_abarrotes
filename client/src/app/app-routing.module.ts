@@ -22,7 +22,8 @@ import { FacturaListComponent } from './components/hu01-venta-diaria/factura-lis
 import { FacturaDetailComponent } from './components/hu01-venta-diaria/factura-detail/factura-detail.component';
 import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/venta-list.component';
 import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-venta/detalle-venta.component';
-import { AdminGuard,AuthGuard } from './services/autenticacion/guarda.guard';
+import { authGuard } from './services/autenticacion/auth.guard';
+
 const routes: Routes = [
   {
     path:'',
@@ -31,7 +32,9 @@ const routes: Routes = [
   },
   {
     path:'principal',
-    component:PrincipalVentasComponent
+    component:PrincipalVentasComponent,
+    canActivate: [authGuard],
+    data: { tipo_Usuario: 'Empleado' } 
   },
   {
     path:'ventas',
@@ -47,11 +50,13 @@ const routes: Routes = [
   },
   { path: 'inventariofrecuente/:id', 
     component: InventariosFrecuentesComponent, 
-    canActivate: [AdminGuard]
+    canActivate: [authGuard],
+    data: { tipo_Usuario: 'Admin' } 
   },
   { path: 'inventarios', 
     component: InventarioComponent, 
-    canActivate: [AdminGuard]
+    canActivate: [authGuard],
+    data: { tipo_Usuario: 'Admin' } 
   },
   {
     path:'notificacion', 
@@ -60,6 +65,8 @@ const routes: Routes = [
   {
     path:'cortedecaja',
     component:CorteCajaComponent,
+    canActivate: [authGuard],
+    data: { tipo_Usuario: 'Empleado' } 
     
   },
   {
@@ -90,7 +97,8 @@ const routes: Routes = [
   {
     path:'reportes', 
     component:ReportesComponent,
-    canActivate: [AdminGuard]
+    canActivate: [authGuard],
+    data: { tipo_Usuario: 'Admin' } 
   },
   {
     path:'crear-factura', 
@@ -112,17 +120,20 @@ const routes: Routes = [
   {
     path:'usuario',
     component:NuevoUsuarioComponent,
-    canActivate: [AdminGuard]
+    canActivate: [authGuard],
+    data: { tipo_Usuario: 'Admin' } 
   },
   {
     path:'listausuario',
     component:ListaUsuariosComponent,
-    canActivate: [AdminGuard]
+    canActivate: [authGuard],
+    data: { tipo_Usuario: 'Admin' } 
   },
   {
     path:'usuario/editar/:id',
     component:NuevoUsuarioComponent,
-    canActivate: [AdminGuard]
+    canActivate: [authGuard],
+    data: { tipo_Usuario: 'Admin' } 
   },
   {
     path:'productos',

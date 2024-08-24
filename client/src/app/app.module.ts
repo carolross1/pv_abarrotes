@@ -27,8 +27,7 @@ import { FacturaListComponent } from './components/hu01-venta-diaria/factura-lis
 import { FacturaDetailComponent } from './components/hu01-venta-diaria/factura-detail/factura-detail.component';
 import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/venta-list.component';
 import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-venta/detalle-venta.component';
-import { PedidoService } from './services/pedido/pedidosProveedor.service';
-                                                                                                                                                                                                                                                                                                                  
+import { PedidoService } from './services/pedido/pedidosProveedor.service';                                                                                                                                                                                                                                                                                                           
 
 @NgModule({
   declarations: [

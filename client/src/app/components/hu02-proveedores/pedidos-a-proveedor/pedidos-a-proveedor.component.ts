@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../../../services/productos/producto.service';
 import { PedidoService } from '../../../services/pedido/pedidosProveedor.service';
@@ -77,51 +78,27 @@ export class PedidosProveedorComponent implements OnInit {
       this.correo = 'Proveedor no encontrado'; // Mensaje alternativo en caso de no encontrar el proveedor
     }
   }
+ 
   
-
-  onCodigoBarrasChange(event: KeyboardEvent): void {
-    clearTimeout(this.debounceTimer);
-
-    this.debounceTimer = setTimeout(() => {
-      const inputElement = event.target as HTMLInputElement;
-      const codigoBarras = inputElement.value.trim();
-      if (!codigoBarras) {
-        return;
-      }
-      const producto = this.productos.find(p => p.codigo_Barras.toString() === codigoBarras);
-      if (producto) {
-        if (producto.cantidad_Stock > 0) {
-          this.agregarProductoACompra(producto, 1); // Cantidad 1
-          inputElement.value = '';
-        } else {
-          this.alertaService.showNotification('El producto está agotado y no se puede agregar al pedido.', 'error');
-        }
-      } else {
-        this.alertaService.showNotification('Producto no encontrado.', 'error');
-      }
-    }, 700);
-  }
 
   onEnterKey(event: Event): void {
     const keyboardEvent = event as KeyboardEvent;
     const inputElement = keyboardEvent.target as HTMLInputElement;
     const codigoBarras = inputElement.value.trim();
-
+    console.log('Código de barras ingresado:', codigoBarras); // Verifica el código de barras ingresado
+  
     if (codigoBarras) {
       const producto = this.productos.find(p => p.codigo_Barras.toString() === codigoBarras);
+      console.log('Producto encontrado:', producto); // Verifica el producto encontrado
       if (producto) {
-        if (producto.cantidad_Stock > 0) {
-          this.agregarProductoACompra(producto, 1);
-          inputElement.value = '';
-        } else {
-          this.alertaService.showNotification('El producto está agotado y no se puede agregar al pedido.', 'warning');
-        }
+        this.agregarProductoACompra(producto, 1);
+        inputElement.value = '';
       } else {
         this.alertaService.showNotification('Producto no encontrado.', 'warning');
       }
     }
   }
-
+  
   agregarProductoACompra(producto: Producto, cantidad: number): void {
     // Calcula el total del detalle basado en el precio y la cantidad
     const totalDetalle = producto.precio_Compra * cantidad;
@@ -144,6 +121,7 @@ export class PedidosProveedorComponent implements OnInit {
     this.calcularTotales();
   }
   
+  
 
   calcularTotales(): void {
     // Calcula el total sumando el total de cada detalle
@@ -159,11 +137,11 @@ export class PedidosProveedorComponent implements OnInit {
   }
   
 
-  eliminarProductoDeCompra(codigo_Barras: number): void {
-    this.compra.detalles = this.compra.detalles.filter(detalle => detalle.codigo_Barras !== codigo_Barras);
+  eliminarProductoDeCompra(idProducto: number): void {
+    this.compra.detalles = this.compra.detalles.filter(detalle => detalle.codigo_Barras !== idProducto);
     this.calcularTotales();
   }
- 
+
   vaciarCompra(): void {
     this.compra = {
       id_Proveedor: 0,
@@ -173,7 +151,24 @@ export class PedidosProveedorComponent implements OnInit {
     };
     this.totalCompra = 0;
   }
+  onCodigoBarrasChange(event: KeyboardEvent) {
+    clearTimeout(this.debounceTimer);
 
+    this.debounceTimer = setTimeout(() => {
+      const inputElement = event.target as HTMLInputElement;
+      const codigoBarras = inputElement.value.trim();
+      if (!codigoBarras) {
+        return;
+      }
+      const producto = this.productos.find(p => p.codigo_Barras.toString() === codigoBarras);
+      if (producto) {
+        this.agregarProductoACompra(producto, 1); // Cantidad 1
+        inputElement.value = '';
+      } else {
+        this.alertaService.showNotification('Producto no encontrado.', 'error');
+      }
+    }, 700);
+  }
   registrarPedido(): void {
     if (this.isFormValid()) {
       this.pedidoService.registrarPedido(this.compra).subscribe({
