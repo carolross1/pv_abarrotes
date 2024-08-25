@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../../../services/productos/producto.service';
 import { EntregaService } from '../../../services/entregas/entrega-proveedor.service';
@@ -35,6 +34,7 @@ export class EntregasProveedorComponent implements OnInit {
     id_Proveedor: 0,
     id_Factura: 0,
     fecha: new Date(),
+    hora: '', // Añadido
     total: 0,
     id_Usuario: ''
   };
@@ -208,6 +208,7 @@ export class EntregasProveedorComponent implements OnInit {
       id_Proveedor: 0,
       id_Factura: 0,
       fecha: new Date(),
+      hora: '', // Añadido
       total: 0,
       id_Usuario: this.currentUser.id_Usuario
     };
@@ -234,17 +235,15 @@ export class EntregasProveedorComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     const value = inputElement.value;
 
-    // Asegúrate de que solo se ingresen números y que el valor sea mayor a 0
-    if (/^\d+$/.test(value)) {
+    // Asegúrate de que solo se ingresen números y que el valor sea válido
+    if (/^\d*$/.test(value)) {
       this.entrega.id_Factura = parseInt(value, 10);
     } else {
-      inputElement.value = ''; // Limpia el campo si no es un número
       this.entrega.id_Factura = 0;
-      // Opcionalmente, muestra un mensaje de error aquí
     }
   }
 
   isFormValid(): boolean {
-    return this.entrega.id_Proveedor !== 0 && this.entrega.id_Factura > 0 && this.entregaProductos.length > 0;
+    return !!this.entrega.id_Proveedor && !!this.entrega.id_Factura && !!this.entrega.fecha && !!this.entrega.hora;
   }
 }
