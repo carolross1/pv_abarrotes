@@ -56,14 +56,11 @@ export class EntregasProveedorComponent implements OnInit {
     this.entrega.id_Usuario = currentUser.id_Usuario;
     this.entrega.id_Proveedor = this.currentUser.id_Usuario || 0;
     this.entrega.fecha = this.currentDate;
-     // Obtener la fecha actual
-  this.entrega.fecha = this.currentDate;
 
-  // Obtener la hora actual y formatearla en HH:mm
-  const hours = this.currentDate.getHours().toString().padStart(2, '0');
-  const minutes = this.currentDate.getMinutes().toString().padStart(2, '0');
-  this.entrega.hora = `${hours}:${minutes}`;
-
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    this.entrega.hora = `${hours}:${minutes}`;
   }
 
   cargarProductos() {

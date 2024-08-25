@@ -69,7 +69,7 @@ const cerrarCorte = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             res.json({ message: 'Corte cerrado con un saldo inicial:', saldo_Inicial });
             // Procesamiento adicional en segundo plano
             setImmediate(() => __awaiter(void 0, void 0, void 0, function* () {
-                var _a;
+                var _a, _b;
                 const connection = yield database_1.default.getConnection();
                 try {
                     console.log('este es el id:', id_Corte);
@@ -87,16 +87,24 @@ const cerrarCorte = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                     console.log('Formato de resultados de ingresos:', ingresosResult);
                     const totalIngresos = ((_a = ingresosResult[0]) === null || _a === void 0 ? void 0 : _a.total_ventas) || 0;
                     console.log('Total de Ingresos:', totalIngresos);
+                    console.log('este es el id:', id_Corte);
+                    console.log('esste es el usuario:', id_Usuario);
                     // Calcular egresos desde la tabla de entregas
                     const egresosResult = yield connection.query(`SELECT SUM(d.total_Entrega) AS totalEgresos
                          FROM detalle_entrega AS d
                          INNER JOIN entrega_producto AS e ON d.id_Entrega = e.id_Entrega
-                         WHERE DATE(e.fecha) = (
-                             SELECT DATE(c.fecha) FROM corte_caja AS c WHERE c.id_Corte = ?
-                         )
-                         AND e.id_Usuario = ?`, [id_Corte, id_Usuario]);
+                         INNER JOIN corte_caja AS c ON DATE(e.fecha) = DATE(c.fecha)
+                         WHERE c.id_Corte = ?
+                         AND e.id_Usuario = ?
+                         AND (
+                             (c.hora_Fin IS NULL AND TIME(e.hora) >= TIME(c.hora_Inicio)) 
+                             OR 
+                             (c.hora_Fin IS NOT NULL AND TIME(e.hora) BETWEEN TIME(c.hora_Inicio) AND TIME(c.hora_Fin))
+                         )`, [id_Corte, id_Usuario]);
+                    console.log('este es el id:', id_Corte);
+                    console.log('esste es el usuario:', id_Usuario);
                     console.log('Resultado de la consulta de egresos:', egresosResult);
-                    const totalEgresos = egresosResult[0].totalEgresos || 0;
+                    const totalEgresos = ((_b = egresosResult[0]) === null || _b === void 0 ? void 0 : _b.totalEgresos) || 0;
                     console.log('Total de Egresos:', totalEgresos);
                     // Calcular el saldo final
                     const saldo_Final = saldo_Inicial + totalIngresos - totalEgresos;
