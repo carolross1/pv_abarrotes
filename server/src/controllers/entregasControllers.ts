@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import pool from '../database'; // Asegúrate de que tu archivo de conexión a la base de datos esté correctamente configurado
+import pool from '../database';
 
 // Crear una nueva entrega
 export const crearEntrega = async (req: Request, res: Response) => {

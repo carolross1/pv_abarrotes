@@ -56,6 +56,14 @@ export class EntregasProveedorComponent implements OnInit {
     this.entrega.id_Usuario = currentUser.id_Usuario;
     this.entrega.id_Proveedor = this.currentUser.id_Usuario || 0;
     this.entrega.fecha = this.currentDate;
+     // Obtener la fecha actual
+  this.entrega.fecha = this.currentDate;
+
+  // Obtener la hora actual y formatearla en HH:mm
+  const hours = this.currentDate.getHours().toString().padStart(2, '0');
+  const minutes = this.currentDate.getMinutes().toString().padStart(2, '0');
+  this.entrega.hora = `${hours}:${minutes}`;
+
   }
 
   cargarProductos() {
@@ -151,7 +159,7 @@ export class EntregasProveedorComponent implements OnInit {
 
           // Registrar detalles de la entrega
           const detallesEntrega$ = this.entregaProductos.map(producto => {
-            const totalProducto = producto.precio_Venta * (producto.cantidad ?? 0);
+            const totalProducto = producto.precio_Compra * (producto.cantidad ?? 0);
 
             const detalleEntrega: DetalleEntrega = {
               id_Entrega: idEntrega,
