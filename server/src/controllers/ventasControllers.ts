@@ -3,13 +3,13 @@ import pool from '../database';
 import { idText } from 'typescript';
 
 export const createVenta = async (req: Request, res: Response) => {
-  const { id_Usuario, fecha, metodo_Pago, caja } = req.body;
+  const { id_Usuario, fecha, metodo_Pago, caja, hora} = req.body;
 
   try {
     // Insertar la venta
     const result: any = await pool.query(
-      'INSERT INTO venta (id_Usuario, fecha, metodo_Pago, caja) VALUES (?, ?, ?, ?)',
-      [id_Usuario, fecha, metodo_Pago, caja]
+      'INSERT INTO venta (id_Usuario, fecha, metodo_Pago, caja,hora) VALUES (?, ?, ?, ?,?)',
+      [id_Usuario, fecha, metodo_Pago, caja,hora]
     );
 
     const lastId = result.insertId;

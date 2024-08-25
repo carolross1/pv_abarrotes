@@ -3,9 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CorteCaja } from '../../models/CorteCaja';
 
-
-
-
 @Injectable({
   providedIn: 'root'
 })

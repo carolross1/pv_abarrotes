@@ -186,11 +186,13 @@
       registrarVenta(generarTicket: boolean) {
         const currentUser = this.loginService.getCurrentUser();
         console.log('Usuario actual:', currentUser);
+        const horaActual = new Date().toTimeString().split(' ')[0]; // Formato HH:MM:SS
         const venta: Omit<Venta, 'id_Venta'> = {
           id_Usuario:currentUser.id_Usuario, // Usar el ID del usuario actual
           fecha: new Date(),
           metodo_Pago: this.formaPago = "Efectivo",
-          caja: 1
+          caja: 1,
+          hora:horaActual
         };
       
       this.ventaService.registrarVenta(venta).subscribe({

@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDetallesVenta = exports.deleteVenta = exports.deleteDetalleVenta = exports.updateDetalleVenta = exports.getVentas = exports.registrarDetallesVenta = exports.createVenta = void 0;
 const database_1 = __importDefault(require("../database"));
 const createVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id_Usuario, fecha, metodo_Pago, caja } = req.body;
+    const { id_Usuario, fecha, metodo_Pago, caja, hora } = req.body;
     try {
         // Insertar la venta
-        const result = yield database_1.default.query('INSERT INTO venta (id_Usuario, fecha, metodo_Pago, caja) VALUES (?, ?, ?, ?)', [id_Usuario, fecha, metodo_Pago, caja]);
+        const result = yield database_1.default.query('INSERT INTO venta (id_Usuario, fecha, metodo_Pago, caja,hora) VALUES (?, ?, ?, ?,?)', [id_Usuario, fecha, metodo_Pago, caja, hora]);
         const lastId = result.insertId;
         console.log('ID autoincrementado insertado:', lastId);
         // Obtener id_Venta usando el id autoincrementado
