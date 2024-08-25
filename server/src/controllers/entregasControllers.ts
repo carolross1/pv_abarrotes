@@ -9,7 +9,7 @@ export const crearEntrega = async (req: Request, res: Response) => {
     // Insertar la entrega en la tabla 'entrega_producto'
     const result: any = await pool.query(
       'INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha, hora, id_Factura) VALUES (?, ?, ?, ?, ?)',
-      [id_Usuario, id_Proveedor, fecha, hora, total_entrega, id_Factura]
+      [id_Usuario, id_Proveedor, fecha, hora, id_Factura]
     );
 
     // Obtener el ID autoincrementado del resultado de la consulta
