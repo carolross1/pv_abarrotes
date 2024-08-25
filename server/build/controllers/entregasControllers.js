@@ -17,6 +17,7 @@ const database_1 = __importDefault(require("../database"));
 // Crear una nueva entrega
 const crearEntrega = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_Usuario, id_Proveedor, fecha, hora, total_entrega, id_Factura } = req.body;
+
     try {
         // Insertar la entrega en la tabla 'entrega_producto'
         const result = yield database_1.default.query('INSERT INTO entrega_producto (id_Usuario, id_Proveedor, fecha, hora, id_Factura) VALUES (?, ?, ?, ?, ?)', [id_Usuario, id_Proveedor, fecha, hora, id_Factura]);

@@ -237,6 +237,9 @@ CREATE TABLE entrega_producto (
     FOREIGN KEY (id_Usuario) REFERENCES usuario(id_Usuario),
     FOREIGN KEY (id_Proveedor) REFERENCES proveedor(id_Proveedor)
 );
+ALTER TABLE entrega_producto
+MODIFY fecha DATE,
+ADD COLUMN hora TIME;
 
 
 -- Tabla detalle_entrega
