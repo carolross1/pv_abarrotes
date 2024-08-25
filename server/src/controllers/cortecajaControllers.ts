@@ -84,20 +84,31 @@ console.log('Formato de resultados de ingresos:', ingresosResult);
 const totalIngresos = ingresosResult[0]?.total_ventas || 0;
 console.log('Total de Ingresos:', totalIngresos);
 
+console.log('este es el id:',id_Corte);
+console.log('esste es el usuario:',id_Usuario);
+
                     // Calcular egresos desde la tabla de entregas
                     const egresosResult = await connection.query(
-                       `SELECT SUM(d.total_Entrega) AS totalEgresos
+                        `SELECT SUM(d.total_Entrega) AS totalEgresos
                          FROM detalle_entrega AS d
                          INNER JOIN entrega_producto AS e ON d.id_Entrega = e.id_Entrega
-                         WHERE DATE(e.fecha) = (
-                             SELECT DATE(c.fecha) FROM corte_caja AS c WHERE c.id_Corte = ?
-                         )
-                         AND e.id_Usuario = ?`,
-                        [id_Corte,id_Usuario]
+                         INNER JOIN corte_caja AS c ON DATE(e.fecha) = DATE(c.fecha)
+                         WHERE c.id_Corte = ?
+                         AND e.id_Usuario = ?
+                         AND (
+                             (c.hora_Fin IS NULL AND TIME(e.hora) >= TIME(c.hora_Inicio)) 
+                             OR 
+                             (c.hora_Fin IS NOT NULL AND TIME(e.hora) BETWEEN TIME(c.hora_Inicio) AND TIME(c.hora_Fin))
+                         )`,
+                        [id_Corte, id_Usuario]
                     );
+                    console.log('este es el id:',id_Corte);
+                    console.log('esste es el usuario:',id_Usuario);
+
+
                     console.log('Resultado de la consulta de egresos:', egresosResult);
 
-                    const totalEgresos = egresosResult[0].totalEgresos || 0;
+                    const totalEgresos = egresosResult[0]?.totalEgresos || 0;
                     console.log('Total de Egresos:', totalEgresos);
 
                     // Calcular el saldo final
