@@ -159,6 +159,12 @@ CREATE TABLE `venta` (
   CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`id_Usuario`) REFERENCES `usuario` (`id_Usuario`)      
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+ALTER TABLE venta
+MODIFY fecha DATE,
+ADD COLUMN hora TIME;
+
+
 -- Estructura de tabla para la tabla `detalle_venta`
 CREATE TABLE `detalle_venta` (
   `id_Detalle` int(11) NOT NULL AUTO_INCREMENT,

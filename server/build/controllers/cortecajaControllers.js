@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.obtenerCorteActual = exports.cerrarCorte = exports.obtenerCorteAbierto = exports.iniciarCorte = void 0;
+exports.obtenerCorteActual = exports.obtenerCorteAbierto = exports.cerrarCorte = exports.iniciarCorte = void 0;
 const database_1 = __importDefault(require("../database"));
 const iniciarCorte = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const connection = yield database_1.default.getConnection();
@@ -36,24 +36,6 @@ const iniciarCorte = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.iniciarCorte = iniciarCorte;
-const obtenerCorteAbierto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { id_Usuario } = req.params;
-        console.log('Recibiendo solicitud para obtener corte abierto:', req.params.id_Usuario);
-        const result = yield database_1.default.query('SELECT id_Corte, id_Usuario FROM corte_caja WHERE id_Usuario = ? AND cerrado = FALSE', [id_Usuario]);
-        if (result.length > 0) {
-            res.json({ id_Corte: result[0].id_Corte, id_Usuario: result[0].id_Usuario });
-        }
-        else {
-            res.status(404).json({ message: 'No se encontró un corte abierto para este usuario.' });
-        }
-    }
-    catch (error) {
-        console.error('Error al obtener el corte abierto:', error);
-        res.status(500).json({ message: 'Error al obtener el corte abierto', error });
-    }
-});
-exports.obtenerCorteAbierto = obtenerCorteAbierto;
 const cerrarCorte = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const connection = yield database_1.default.getConnection();
     try {
@@ -76,12 +58,16 @@ const cerrarCorte = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                     console.log('esste es el usuario:', id_Usuario);
                     // Calcular ingresos desde la tabla de DetalleVenta
                     const ingresosResult = yield connection.query(`SELECT SUM(dv.total_venta) AS total_ventas
-                        FROM venta as v
-                        INNER JOIN detalle_venta as dv
-                        ON v.id_Venta = dv.id_Venta
-                        WHERE DATE(v.fecha) = (
-                            SELECT DATE(fecha) FROM corte_caja WHERE id_Corte = ?
-                        ) AND v.id_Usuario = ?`, [id_Corte, id_Usuario]);
+                       FROM venta AS v
+                 INNER JOIN detalle_venta AS dv ON v.id_Venta = dv.id_Venta
+                  INNER JOIN corte_caja AS c ON DATE(v.fecha) = DATE(c.fecha)
+            WHERE c.id_Corte = ?
+             AND v.id_Usuario = ?
+              AND (
+           (c.hora_Fin IS NULL AND TIME(v.hora) >= TIME(c.hora_Inicio))
+           OR
+           (c.hora_Fin IS NOT NULL AND TIME(v.hora) BETWEEN TIME(c.hora_Inicio) AND TIME(c.hora_Fin))
+       )`, [id_Corte, id_Usuario]);
                     console.log('Resultado de la consulta de ingresos:', ingresosResult);
                     // Verifica el formato de resultados de ingresos
                     console.log('Formato de resultados de ingresos:', ingresosResult);
@@ -89,18 +75,17 @@ const cerrarCorte = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                     console.log('Total de Ingresos:', totalIngresos);
                     console.log('este es el id:', id_Corte);
                     console.log('esste es el usuario:', id_Usuario);
-                    // Calcular egresos desde la tabla de entregas
-                    const egresosResult = yield connection.query(`SELECT SUM(d.total_Entrega) AS totalEgresos
-                         FROM detalle_entrega AS d
-                         INNER JOIN entrega_producto AS e ON d.id_Entrega = e.id_Entrega
-                         INNER JOIN corte_caja AS c ON DATE(e.fecha) = DATE(c.fecha)
-                         WHERE c.id_Corte = ?
-                         AND e.id_Usuario = ?
-                         AND (
-                             (c.hora_Fin IS NULL AND TIME(e.hora) >= TIME(c.hora_Inicio)) 
-                             OR 
-                             (c.hora_Fin IS NOT NULL AND TIME(e.hora) BETWEEN TIME(c.hora_Inicio) AND TIME(c.hora_Fin))
-                         )`, [id_Corte, id_Usuario]);
+                    const egresosResult = yield connection.query(`SELECT SUM(d.total_entrega) AS totalEgresos
+     FROM detalle_entrega AS d
+     INNER JOIN entrega_producto AS e ON d.id_Entrega = e.id_Entrega
+     INNER JOIN corte_caja AS c ON DATE(e.fecha) = DATE(c.fecha)
+     WHERE c.id_Corte = ?
+     AND e.id_Usuario = ?
+     AND (
+         (c.hora_Fin IS NULL AND TIME(e.hora) >= TIME(c.hora_Inicio)) 
+         OR 
+         (c.hora_Fin IS NOT NULL AND TIME(e.hora) BETWEEN TIME(c.hora_Inicio) AND TIME(c.hora_Fin))
+     )`, [id_Corte, id_Usuario]);
                     console.log('este es el id:', id_Corte);
                     console.log('esste es el usuario:', id_Usuario);
                     console.log('Resultado de la consulta de egresos:', egresosResult);
@@ -139,6 +124,24 @@ const cerrarCorte = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.cerrarCorte = cerrarCorte;
+const obtenerCorteAbierto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id_Usuario } = req.params;
+        console.log('Recibiendo solicitud para obtener corte abierto:', req.params.id_Usuario);
+        const result = yield database_1.default.query('SELECT id_Corte, id_Usuario FROM corte_caja WHERE id_Usuario = ? AND cerrado = FALSE', [id_Usuario]);
+        if (result.length > 0) {
+            res.json({ id_Corte: result[0].id_Corte, id_Usuario: result[0].id_Usuario });
+        }
+        else {
+            res.status(404).json({ message: 'No se encontró un corte abierto para este usuario.' });
+        }
+    }
+    catch (error) {
+        console.error('Error al obtener el corte abierto:', error);
+        res.status(500).json({ message: 'Error al obtener el corte abierto', error });
+    }
+});
+exports.obtenerCorteAbierto = obtenerCorteAbierto;
 const obtenerCorteActual = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const connection = yield database_1.default.getConnection();
     try {
