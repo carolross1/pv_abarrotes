@@ -148,6 +148,19 @@ export class CorteCajaComponent implements OnInit {
       return;
     }
 }
+obtenerCorteActual(): void {
+  this.corteCajaService.obtenerCorteActual().subscribe(
+    data => {
+      this.corteActual = data;
+      console.log('Corte actual obtenido:', this.corteActual);
+      this.showCorteDetails = true;
+      console.log("Esto es lo que se recibe :",this.corteActual)
+    },
+    error => {
+      console.error('Error al obtener el corte actual:', error);
+    }
+  );
+}
 
     cerrarUltimoCorte() {
         const id_Usuario = this.id_Usuario;
@@ -181,25 +194,13 @@ export class CorteCajaComponent implements OnInit {
                 );
             },
             error => {
+
                 console.error('Error al obtener el corte abierto:', error);
                 this.alertaService.showNotification('Error al cerrar el corte.','error');
             }
         );
     }
-    obtenerCorteActual(): void {
-      this.corteCajaService.obtenerCorteActual().subscribe(
-        data => {
-          this.corteActual = data;
-          console.log('Corte actual obtenido:', this.corteActual);
-          this.showCorteDetails = true;
-          console.log("Esto es lo que se recibe :",this.corteActual)
-        },
-        error => {
-          console.error('Error al obtener el corte actual:', error);
-        }
-      );
-    }
- 
+
 
   toggleDropdown(key: string) {
     // Primero, cerrar cualquier otro desplegable que esté abierto

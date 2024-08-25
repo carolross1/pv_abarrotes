@@ -74,7 +74,7 @@
         <label class="etiqueta-bloque" for="rfc">RFC:</label>
         <input type="text" id="rfc" name="rfc" class="entrada-texto" [(ngModel)]="factura.RFC" required
         minlength="12" 
-        maxlength="12" 
+        maxlength="13" 
         pattern="[A-Z0-9]{12}" 
         #rfc="ngModel">
         <div *ngIf="rfc.invalid && (rfc.dirty || facturaForm.submitted)" class="error">
