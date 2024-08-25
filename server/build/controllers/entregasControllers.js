@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registrarDetallesEntrega = exports.eliminarEntrega = exports.obtenerEntregaPorId = exports.obtenerEntregas = exports.crearEntrega = void 0;
-const database_1 = __importDefault(require("../database")); // Asegúrate de que tu archivo de conexión a la base de datos esté correctamente configurado
+const database_1 = __importDefault(require("../database"));
 // Crear una nueva entrega
 const crearEntrega = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id_Usuario, id_Proveedor, fecha, hora, total_entrega, id_Factura } = req.body;

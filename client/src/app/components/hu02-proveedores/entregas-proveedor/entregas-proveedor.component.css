@@ -161,6 +161,11 @@ h2 {
     border-radius: 6px; /* Aumenta el border-radius para esquinas más redondeadas */
     font-size: 16px; /* Aumenta el tamaño de la fuente para mejor legibilidad */
 }
+.totals-left{margin-top: 15px;
+    margin-left: 200px;
+    color: #48257f;
+    font-style: oblique;
+}
 
 /* Estilos para el código de barras */
 .entregas-barcode {
