@@ -3,6 +3,7 @@ import { UsuarioService } from '../../../services/usuario/usuario.service';
 import { Usuario } from '../../../models/Usuario';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from '../../../services/login/login.service';
 import Swal from 'sweetalert2';

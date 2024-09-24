@@ -5,6 +5,7 @@ import { Router,ActivatedRoute} from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import { AlertaService } from '../../services/alertas/alerta.service';
 import { HttpClient } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-nuevo-usuario',

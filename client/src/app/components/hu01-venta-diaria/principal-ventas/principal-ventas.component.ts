@@ -145,20 +145,22 @@
         }
       );
     }
-
     pagar() {
       console.log('pagando');
+    
+      // Validar si hay productos en el carrito
       if (this.ventaProductos.length === 0) {
         this.message = 'No hay productos en el carrito. No se puede realizar el pago.';
         this.alertaService.showNotification('No hay productos en el carrito. No se puede realizar el pago.', 'error');
         return;
       }
-
+    
+      // Validar si la cantidad recibida es suficiente
       if (this.recibido >= this.totalVenta) {
         this.cambio = this.recibido - this.totalVenta;
         this.cambioFinal = this.cambio;
-
-        // Actualiza el stock en el servidor
+    
+        // Actualizar el stock en el servidor
         this.ventaProductos.forEach(producto => {
           const productoEnStock = this.productos.find(p => p.codigo_Barras === producto.codigo_Barras);
           if (productoEnStock) {
@@ -166,7 +168,8 @@
             this.actualizarStockProducto(producto.id_Producto, nuevaCantidad);
           }
         });
-      
+    
+        // Preguntar si se desea generar un ticket
         Swal.fire({
           title: '¿Deseas generar un ticket?',
           icon: 'question',
@@ -175,13 +178,38 @@
           cancelButtonText: 'No'
         }).then((result) => {
           const generarTicket = result.isConfirmed;
-          this.registrarVenta(generarTicket);
+    
+          // Si la venta es directa, registrarla
+          if (generarTicket) {
+            this.registrarVenta(true);  // Registra la venta y genera el ticket
+          }
+    
+          // Preguntar si desea realizar un pedido (redirigir a dirección y pago)
+          Swal.fire({
+            title: '¿Deseas realizar un pedido?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+          }).then((pedidoResult) => {
+            if (pedidoResult.isConfirmed) {
+              // Redirigir a la página de dirección y métodos de pago
+              this.router.navigate(['/direccion-pago']);
+            } else {
+              // Si no se realiza el pedido, se procede solo con la venta
+              this.registrarVenta(false); // Registra la venta sin generar ticket adicional
+            }
+          });
         });
-  
+    
       } else {
         this.alertaService.showNotification('La cantidad recibida es menor al total de la venta', 'warning');
       }
     }
+    pedido() {
+      this.router.navigate(['/direccion-pago']);
+    }
+    
   
       registrarVenta(generarTicket: boolean) {
         const currentUser = this.loginService.getCurrentUser();

@@ -22,6 +22,7 @@ import { FacturaListComponent } from './components/hu01-venta-diaria/factura-lis
 import { FacturaDetailComponent } from './components/hu01-venta-diaria/factura-detail/factura-detail.component';
 import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/venta-list.component';
 import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-venta/detalle-venta.component';
+import { DireccionPagoComponent } from './components/hu01-venta-diaria/direccion-pago/direccion-pago.component';
 import { authGuard } from './services/autenticacion/auth.guard';
 
 const routes: Routes = [
@@ -143,6 +144,10 @@ const routes: Routes = [
     path:'categoria',
     component:ListaCategoriasComponent
   },
+  {
+    path: 'direccion-pago', component: DireccionPagoComponent 
+  },
+  
  
 ];
 
