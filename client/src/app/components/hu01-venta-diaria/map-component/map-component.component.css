@@ -1,0 +1,10 @@
+.custom-icon-store {
+    color: orange; /* Cambia el color del ícono de la tienda */
+    font-size: 40px; /* Aumenta el tamaño del ícono */
+  }
+  
+  .custom-icon-user {
+    color: red; /* Cambia el color del ícono de usuario */
+    font-size: 40px; /* Aumenta el tamaño del ícono */
+  }
+  

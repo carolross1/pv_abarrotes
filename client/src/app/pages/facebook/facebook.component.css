@@ -1,0 +1,49 @@
+.container {
+    text-align: center;
+}
+
+.reds-container {
+    display: flex; /* Cambia a flexbox */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: flex-start; /* Alinea los elementos al inicio del eje vertical */
+    width: 100%;
+    max-width: 1200px; /* Aumenta el ancho máximo */
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.fb-container {
+    margin: 0 10px; /* Espaciado horizontal entre los contenedores */
+    flex: 1; /* Hace que los contenedores crezcan y se adapten */
+    max-width: 600px; /* Aumenta el ancho máximo */
+}
+
+.fb-page {
+    border: 1px solid #ddd; /* Agrega un borde opcional */
+    border-radius: 8px; /* Bordes redondeados */
+    width: 100%; /* Asegúrate de que ocupe todo el contenedor */
+}
+
+.logout-container {
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+.logout-btn {
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambia el cursor a puntero */
+    font-size: 24px; /* Tamaño del ícono */
+    color: #5b3d99; /* Color del ícono */
+}
+
+.title {
+    margin-top: 40px; /* Espaciado superior */
+    margin-bottom: 20px; /* Espaciado inferior */
+    font-size: 24px; /* Tamaño de fuente */
+    color: #5b3d99; /* Color del texto */
+    text-align: center; /* Centrar el texto */
+}
+
+.logout-btn:hover {
+    color: #48257f; /* Color del ícono al pasar el mouse */
+}

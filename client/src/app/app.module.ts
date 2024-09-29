@@ -29,7 +29,10 @@ import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/ve
 import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-venta/detalle-venta.component';
 import { PedidoService } from './services/pedido/pedidosProveedor.service';
 import { DireccionPagoComponent } from './components/hu01-venta-diaria/direccion-pago/direccion-pago.component';
-import { MapComponent } from './components/hu01-venta-diaria/map-component/map-component.component';                                                                                                                                                                                                                                                                                                           
+import { MapComponent } from './components/hu01-venta-diaria/map-component/map-component.component';   
+import { PedidosClienteService } from './services/pedidoCliente/pedidosCliente.service';
+import { FacebookComponent } from './pages/facebook/facebook.component';
+import { RedesSocialesComponent } from './redes-sociales/redes-sociales.component'                                                                                                                                                                                                                                                                                                      
 
 @NgModule({
   declarations: [
@@ -44,6 +47,8 @@ import { MapComponent } from './components/hu01-venta-diaria/map-component/map-c
    DetalleVentaComponent,
    DireccionPagoComponent,
    MapComponent,
+   FacebookComponent,
+   RedesSocialesComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +67,7 @@ import { MapComponent } from './components/hu01-venta-diaria/map-component/map-c
     ProductoModule
 
   ],
-  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService,AlertaService,EntregaService, PedidoService],
+  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService,AlertaService,EntregaService, PedidoService,PedidosClienteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
