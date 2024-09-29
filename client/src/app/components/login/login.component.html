@@ -8,6 +8,11 @@
    <div class="login-box index-page">
       <img src="https://images.vexels.com/content/200165/preview/store-icon-stroke-bb4ae2.png" alt="Logo Abarrotes el Perrón" class="logo">
       <h1>ABARROTES EL PERRÓN</h1>
+      <div class="icon-container">
+        <i class="fas fa-map-marker-alt icon" (click)="pedido()" title="Ver Ubicación de la tienda"></i>
+        <i class="fab fa-facebook icon" (click)="redes()" title="Nuestras redes sociales"></i>
+    </div>
+    
       <h2>Iniciar Sesión</h2>
       <form (ngSubmit)="login()">
         <div class="textbox">

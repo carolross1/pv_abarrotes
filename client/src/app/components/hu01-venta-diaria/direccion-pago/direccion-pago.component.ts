@@ -1,53 +1,22 @@
-import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { MapComponent } from '../map-component/map-component.component';  // Asegúrate de la ruta correcta
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'; // Importamos Router para la navegación
 
 @Component({
-  selector: 'app-direccion-pago',
-  templateUrl: './direccion-pago.component.html',
-  styleUrls: ['./direccion-pago.component.css']
+    selector: 'app-direccion-pago',
+    templateUrl: './direccion-pago.component.html',
+    styleUrls: ['./direccion-pago.component.css']
 })
-export class DireccionPagoComponent {
-  direccion: string = '';
-  metodoPago: string = '';
-  nombreCliente: string = '';
-  telefono: string = '';
-  productos: string = '';
-  notas: string = ''; 
-  dropdownOpen: { [key: string]: boolean } = {}; 
+export class DireccionPagoComponent implements OnInit {
 
-  @ViewChild(MapComponent) mapComponent!: MapComponent; // Referencia al componente del mapa
+    constructor(private router: Router) {}
 
-  constructor(private router: Router) {}
-
-  confirmarPedido() {
-    if (!this.direccion || !this.metodoPago) {
-      alert('Por favor, complete todos los campos.');
-      return;
+    ngOnInit(): void {
+        // Aquí puedes inicializar cualquier otra lógica si es necesario
     }
 
-    // Calcular la ruta después de confirmar el pedido
-    this.mapComponent.direccion = this.direccion; // Pasar la dirección al componente del mapa
-    this.mapComponent.calculateRouteToDireccion(); // Calcular la ruta
-
-    console.log('Confirmando pedido...');
-    console.log('Dirección:', this.direccion);
-    console.log('Método de pago:', this.metodoPago);
-
-    this.router.navigate(['/confirmacion-pedido']);
-  }
-
-  toggleDropdown(key: string) {
-    for (const dropdownKey in this.dropdownOpen) {
-      if (dropdownKey !== key) {
-        this.dropdownOpen[dropdownKey] = false;
-      }
+    // Método para manejar el cierre de sesión o regresar al login
+    logout() {
+        // Redirige al usuario a la página de inicio de sesión
+        this.router.navigate(['/login']);
     }
-    this.dropdownOpen[key] = !this.dropdownOpen[key];
-  }
-
-  logout() {
-    console.log('Cerrando sesión...');
-    this.router.navigate(['/login']);
-  }
 }
