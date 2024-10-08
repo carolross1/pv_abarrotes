@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms'; // Importa FormsModule
 import { FormsModule } from '@angular/forms'; // Importar FormsModule
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Hu01VentaDiariaModule } from './components/hu01-venta-diaria/hu01-venta-diaria/hu01-venta-diaria.module';
 import { Hu02ProveedoresModule } from './components/hu02-proveedores/hu02-proveedores/hu02-proveedores.module';
 import { Hu03CorteCajaModule } from './components/hu03-corte-caja/hu03-corte-caja/hu03-corte-caja.module';
@@ -15,7 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { Hu07NotificacionModule } from './components/hu07-notificacion/hu07-notificacion/hu07-notificacion.module';
 import { ProveedoresService } from './services/Proveedores/proveedores-list.service';
-import { ProductoServiceModule} from './services/productos/productos.module';
+import { ProductoServiceModule } from './services/productos/productos.module';
 import { ProductoModule } from './components/producto/producto.module';
 import { ProductoService } from './services/productos/producto.service';
 import { VentaService } from './services/principal-ventas/venta.service';
@@ -32,23 +32,23 @@ import { DireccionPagoComponent } from './components/hu01-venta-diaria/direccion
 import { MapComponent } from './components/hu01-venta-diaria/map-component/map-component.component';   
 import { PedidosClienteService } from './services/pedidoCliente/pedidosCliente.service';
 import { FacebookComponent } from './pages/facebook/facebook.component';
-import { RedesSocialesComponent } from './redes-sociales/redes-sociales.component'                                                                                                                                                                                                                                                                                                      
+import { RedesSocialesComponent } from './redes-sociales/redes-sociales.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-   MenuComponent,
-   LoginComponent,
-   NuevoUsuarioComponent,
-   ListaUsuariosComponent,
-   FacturaListComponent,
-   FacturaDetailComponent,
-   VentaListComponent,
-   DetalleVentaComponent,
-   DireccionPagoComponent,
-   MapComponent,
-   FacebookComponent,
-   RedesSocialesComponent,
+    MenuComponent,
+    LoginComponent,
+    NuevoUsuarioComponent,
+    ListaUsuariosComponent,
+    FacturaListComponent,
+    FacturaDetailComponent,
+    VentaListComponent,
+    DetalleVentaComponent,
+    DireccionPagoComponent,
+    MapComponent,
+    FacebookComponent,
+    RedesSocialesComponent
   ],
   imports: [
     BrowserModule,
@@ -63,11 +63,19 @@ import { RedesSocialesComponent } from './redes-sociales/redes-sociales.componen
     Hu04ReportesModule,
     Hu05InventarioModule,
     Hu07NotificacionModule,
-    ProductoServiceModule, 
+    ProductoServiceModule,
     ProductoModule
-
   ],
-  providers: [ProveedoresService,ProductoServiceModule,ProductoService,VentaService,AlertaService,EntregaService, PedidoService,PedidosClienteService],
+  providers: [
+    ProveedoresService,
+    ProductoServiceModule,
+    ProductoService,
+    VentaService,
+    AlertaService,
+    EntregaService,
+    PedidoService,
+    PedidosClienteService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
