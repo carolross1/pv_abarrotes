@@ -34,7 +34,7 @@ export class FacebookComponent implements OnInit {
 
       script.onload = () => {
         (<any>window).FB.init({
-          appId: 'your-app-id', // Reemplaza con tu ID de aplicación
+          appId: '910935567565163', // Reemplaza con tu ID de aplicación
           xfbml: true,
           version: 'v12.0'
         });

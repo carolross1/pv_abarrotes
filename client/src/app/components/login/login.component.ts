@@ -52,12 +52,18 @@ export class LoginComponent {
     );
   }
 
+  loginWithFacebook(): void {
+    // Redirigir a la ruta de autenticación de Facebook en el backend
+    window.location.href = 'http://localhost:3000/auth/facebook';  // Ajusta esta URL según tu configuración
+  }
+
   // Método para navegar a la página "direccion-pago"
   pedido() {
     this.router.navigate(['/ubicacion']);
   }
-    // Método para navegar a la página "direccion-pago"
-    redes() {
-      this.router.navigate(['/redes-sociales']);
-    }
+  
+  // Método para navegar a la página "direccion-pago"
+  redes() {
+    this.router.navigate(['/redes-sociales']);
+  }
 }
