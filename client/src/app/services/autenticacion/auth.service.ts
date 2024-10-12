@@ -42,7 +42,7 @@ export class AuthService {
           apellido: '',
           telefono: '',
           email: email,
-          tipo_Usuario: 'Admin' // O 'EMPLOYEE'
+          tipo_Usuario: 'Admin' // O 'empleado'
         };
         console.log('Usuario autenticado:', user); // Verifica los datos del usuario
         this.userSubject.next(user);
