@@ -33,6 +33,7 @@ import { MapComponent } from './components/hu01-venta-diaria/map-component/map-c
 import { PedidosClienteService } from './services/pedidoCliente/pedidosCliente.service';
 import { FacebookComponent } from './pages/facebook/facebook.component';
 import { RedesSocialesComponent } from './redes-sociales/redes-sociales.component';
+import { LoginFacebookComponent } from './login-facebook/login-facebook.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { RedesSocialesComponent } from './redes-sociales/redes-sociales.componen
     DireccionPagoComponent,
     MapComponent,
     FacebookComponent,
-    RedesSocialesComponent
+    RedesSocialesComponent,
+    LoginFacebookComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ import { RedesSocialesComponent } from './redes-sociales/redes-sociales.componen
     Hu05InventarioModule,
     Hu07NotificacionModule,
     ProductoServiceModule,
-    ProductoModule
+    ProductoModule,
+
   ],
   providers: [
     ProveedoresService,
@@ -74,7 +77,8 @@ import { RedesSocialesComponent } from './redes-sociales/redes-sociales.componen
     AlertaService,
     EntregaService,
     PedidoService,
-    PedidosClienteService
+    PedidosClienteService,
+    LoginFacebookComponent
   ],
   bootstrap: [AppComponent]
 })
