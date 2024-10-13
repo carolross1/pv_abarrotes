@@ -35,6 +35,7 @@ import { FacebookComponent } from './pages/facebook/facebook.component';
 import { RedesSocialesComponent } from './redes-sociales/redes-sociales.component';
 import { LoginFacebookComponent } from './login-facebook/login-facebook.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,8 @@ import { LoginFacebookComponent } from './login-facebook/login-facebook.componen
     MapComponent,
     FacebookComponent,
     RedesSocialesComponent,
-    LoginFacebookComponent
+    LoginFacebookComponent,
+
   ],
   imports: [
     BrowserModule,

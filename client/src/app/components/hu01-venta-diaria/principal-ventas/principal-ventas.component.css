@@ -62,7 +62,22 @@
     font-size: 22px;
 }
 
+/* Estilos para el botón de Pagar con PayPal */
+.paypal-button {
+    background-color: #0070ba; /* Color azul típico de PayPal */
+    color: #000000; /* Color del texto en blanco */
+    border: none; /* Sin borde */
+    padding: 15px 35px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    font-size: 1.5em; /* Tamaño de fuente */
+    transition: background-color 0.3s; /* Transición suave para el cambio de color */
+    margin: 10px 0; /* Margen superior e inferior */
+}
 
+.paypal-button:hover {
+    background-color: #005f8a; /* Color más oscuro al pasar el ratón */
+}
 
 .dropdown-container a:hover {
     background-color: #bfa8e3;
@@ -71,12 +86,28 @@
 .dropdown-btn.active + .dropdown-container {
     display: block;
 }
+
 /* Ensuring responsiveness */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
     }
+
+    .dropdown-btn {
+        font-size: 20px; /* Tamaño de fuente más pequeño en móviles */
+        padding: 8px; /* Menos espaciado interno */
+    }
+
+    .dropdown-container a {
+        font-size: 18px; /* Tamaño de fuente más pequeño en móviles */
+    }
+
+    .paypal-button {
+        padding: 10px 20px; /* Menos espaciado interno en móviles */
+        font-size: 1.2em; /* Tamaño de fuente más pequeño en móviles */
+    }
 }
+
 /*----------------------------------------------------------------------------------------------*/
 
 /* Estilos para el contenido de ventas */
@@ -117,7 +148,6 @@
     cursor: pointer;
     position: relative;
     color: white;
-
 }
 
 .notification-badge {
@@ -126,7 +156,7 @@
     border-radius: 50%;
     padding: 0.5em 0.7em;
     font-size: 1.75em;
-    position:inherit;
+    position: inherit;
     top: -20px;
     right: -20px;
 }
@@ -248,22 +278,22 @@
 .sales-buttons select {
     background-color: #D291BC; 
     border-color: #e490c8; 
-    padding:15px 35px;
+    padding: 15px 35px;
     border: none;
-
     border-radius: 8px; 
     cursor: pointer;
     font-size: 1.9em;
+    flex: 1; /* Asegura que los botones se expandan equitativamente */
+    margin: 5px; /* Margen entre botones */
 }
 
 .sales-buttons button:hover, 
 .sales-buttons select:hover {
-        background-color: #D291BC; 
-        border-color: #D291BC;
-        color: #ffffff;
-        text-decoration: double;
-      }
-      
+    background-color: #D291BC; 
+    border-color: #D291BC;
+    color: #ffffff;
+    text-decoration: double;
+}
 
 .sales-bottom-buttons {
     display: flex;
@@ -295,13 +325,8 @@
 .barcode-icon .fa-barcode {
     font-size: 3.8em;
 }
+
 .error {
     border-radius: 2px solid red; /* Cambia el borde a rojo */
-    background-color: #e79a9a; /* Opcional: fondo ligeramente rojo */
-  }
-  .error-message {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-    font-size:larger;
-  }
+    background-color: #FAD2D2; /* Color de fondo rojo claro */
+}
