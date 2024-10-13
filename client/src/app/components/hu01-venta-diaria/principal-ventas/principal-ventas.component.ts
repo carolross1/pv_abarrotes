@@ -56,7 +56,13 @@
     cargarProductos() {
       this.productoService.getProductos().subscribe(data => this.productos = data);
     }
+    mostrarPago: boolean = false; // Nueva propiedad para controlar la visibilidad
 
+    // Aquí puedes agregar otros métodos y propiedades de tu componente
+  
+    togglePaypalPayment() {
+      this.mostrarPago = !this.mostrarPago; // Cambia la visibilidad
+    }
     onEnterKey(event: Event) {
       const keyboardEvent = event as KeyboardEvent;
       const inputElement = keyboardEvent.target as HTMLInputElement;

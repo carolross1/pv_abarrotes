@@ -1,0 +1,32 @@
+#paypal-button-container {
+    display: flex;                            /* Utiliza flexbox para centrar el contenido */
+    justify-content: center;                  /* Centra horizontalmente el contenido */
+    align-items: center;                      /* Centra verticalmente el contenido */
+    margin: 20px auto;                       /* Espacio superior e inferior, centrado en la página */
+    padding: 20px;                           /* Espaciado interno */
+    border: 2px solid #5b3d99;               /* Borde de color primario */
+    border-radius: 10px;                     /* Bordes redondeados */
+    background-color: #f8f9fa;               /* Color de fondo suave */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+    transition: transform 0.3s;              /* Transición suave para el efecto hover */
+    max-width: 400px;                        /* Ancho máximo para el contenedor */
+}
+
+#paypal-button-container:hover {
+    transform: scale(1.02);                  /* Escala del contenedor al pasar el mouse */
+}
+
+button {
+    background-color: #5b3d99;               /* Color de fondo del botón */
+    color: white;                             /* Color del texto */
+    border: none;                             /* Sin borde */
+    border-radius: 5px;                      /* Bordes redondeados del botón */
+    padding: 10px 20px;                      /* Espaciado interno del botón */
+    cursor: pointer;                          /* Cambia el cursor al pasar el mouse */
+    font-size: 16px;                         /* Tamaño de la fuente */
+    transition: background-color 0.3s;      /* Transición suave para el color de fondo */
+}
+
+button:hover {
+    background-color: #48257f;                /* Color de fondo del botón al pasar el mouse */
+}
