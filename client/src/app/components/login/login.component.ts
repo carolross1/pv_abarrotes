@@ -66,4 +66,17 @@ export class LoginComponent {
   redes() {
     this.router.navigate(['/redes-sociales']);
   }
+    // Método para navegar a la página "weather"
+  clima() {
+      this.router.navigate(['/weather']);
+    }
+        // Método para navegar a la página "cocktail"
+  cocteles() {
+       this.router.navigate(['/cocktail']);
+    }
+            // Método para navegar a la página "spotify"
+  musica() {
+    this.router.navigate(['/spotify']);
+ }
+  
 }

@@ -24,6 +24,9 @@ import { VentaListComponent } from './components/hu01-venta-diaria/venta-list/ve
 import { DetalleVentaComponent } from './components/hu01-venta-diaria/detalle-venta/detalle-venta.component';
 import { DireccionPagoComponent } from './components/hu01-venta-diaria/direccion-pago/direccion-pago.component';
 import { RedesSocialesComponent } from './redes-sociales/redes-sociales.component';
+import { CocktailsComponent } from './components/cocktails/cocktails.component';
+import { SpotifyComponent } from './spotify/spotify.component';
+import { WeatherComponent } from './components/weather/weather.component';
 import { authGuard } from './services/autenticacion/auth.guard';
 
 const routes: Routes = [
@@ -38,6 +41,18 @@ const routes: Routes = [
     canActivate: [authGuard],
     data: { tipo_Usuario: 'Empleado' } 
   },
+  {
+path: 'cocktail',
+component: CocktailsComponent
+
+  },
+  {
+     path: 'spotify', component: SpotifyComponent 
+  },
+  {
+    path: 'callback', component: SpotifyComponent
+ },
+
   {
     path:'ventas',
     component:VentaListComponent
@@ -86,6 +101,11 @@ const routes: Routes = [
   {
     path:'pedidosaproveedor', 
     component:PedidosProveedorComponent
+  },
+  {
+    path:'weather',
+    component:WeatherComponent
+
   },
  
   {

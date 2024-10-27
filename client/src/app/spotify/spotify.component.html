@@ -1,0 +1,27 @@
+<div class="spotify-container">
+  <i class="fas fa-arrow-left logout-icon" (click)="logout()" title="Regresar al Login"></i>
+  <button class="login-button" (click)="loginWithSpotify()">Iniciar sesión con Spotify</button>
+
+  <div *ngIf="playlists.length > 0">
+    <h2>Mis Playlists</h2>
+    <ul class="playlist-list">
+      <li *ngFor="let playlist of playlists" class="playlist-item">
+        <div class="playlist-card">
+          <img [src]="playlist.images[0]?.url" alt="{{playlist.name}}" class="playlist-image" />
+          <div class="playlist-details">
+            <h3>{{playlist.name}}</h3>
+            <p>{{playlist.description}}</p>
+            <button class="play-button" (click)="showPreview(playlist.external_urls.spotify)">
+              Vista previa
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Contenedor para el reproductor embebido -->
+  <div *ngIf="previewUrl" class="spotify-preview">
+    <iframe [src]="previewUrl" width="300" height="380" frameborder="0" allow="encrypted-media"></iframe>
+  </div>
+</div>

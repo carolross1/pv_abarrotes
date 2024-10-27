@@ -31,6 +31,7 @@
     transform: scale(1.1); /* Aumenta el tamaño al pasar el mouse */
 }
 
+
 .index-page h1 {
     color: #5b3d99;
     font-size: 24px;
@@ -67,7 +68,7 @@
     border-radius: 8px; 
     padding: 10px 20px; /* Ajuste del padding */
     font-size: 16px;
-    width: 100%; /* Ajustar a 100% para ocupar todo el espacio */
+    width: 90%; /* Ajustar a 100% para ocupar todo el espacio */
     cursor: pointer; /* Cambiar cursor */
     transition: background-color 0.3s; /* Suavizar el cambio de color */
 }
