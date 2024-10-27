@@ -1,0 +1,31 @@
+<div class="weather-container">
+  <i class="fas fa-arrow-left logout-icon" (click)="logout()" title="Regresar al Login"></i>
+  
+  <h1>Clima</h1>
+  
+  <div class="input-container">
+    <input [(ngModel)]="city" placeholder="Ingresa el nombre de la ciudad" />
+    <button (click)="getWeather()">Obtener Clima</button>
+  </div>
+  
+  <div *ngIf="weatherData" class="weather-widget">
+    <div class="weather-header">
+      <h2>{{ weatherData.name }}, {{ cityInfo.country }}</h2>
+      <img 
+        [src]="'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png'" 
+        alt="Ícono del Clima" 
+        class="weather-icon" 
+      />
+    </div>
+    
+    <p class="temperature">{{ weatherData.main.temp }} °C</p>
+    <p class="description">{{ weatherData.weather[0].description | titlecase }}</p>
+    
+    <div class="additional-info">
+      <p>Humedad: {{ weatherData.main.humidity }}%</p>
+      <p>Velocidad del Viento: {{ weatherData.wind.speed }} m/s</p>
+      <p>País: {{ cityInfo.country }}</p>
+      <p>Coordenadas: Latitud {{ cityInfo.coord.lat }}, Longitud {{ cityInfo.coord.lon }}</p>
+    </div>
+  </div>
+</div>

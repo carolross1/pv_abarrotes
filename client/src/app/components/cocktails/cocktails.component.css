@@ -1,0 +1,135 @@
+.cocktail-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    color: #5b3d99;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logout-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.logout-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.logout-btn i {
+    color: #5b3d99; /* Color de la flecha */
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.search-input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.search-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #5b3d99;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #48257f;
+}
+
+.cocktail-results-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.cocktail-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cocktail-item {
+    flex: 0 1 calc(33.33% - 20px);
+    box-sizing: border-box;
+}
+
+.cocktail-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+}
+
+.cocktail-img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.cocktail-info {
+    text-align: left;
+}
+
+.cocktail-info h3 {
+    font-size: 22px;
+    color: #5b3d99;
+    margin-bottom: 10px;
+}
+
+.cocktail-info p {
+    font-size: 16px;
+    color: #555;
+}
+
+.cocktail-info h4 {
+    font-size: 18px;
+    color: #5b3d99;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.cocktail-info ul {
+    padding-left: 20px;
+}
+
+/* Centrado del cóctel aleatorio */
+.random-cocktail {
+    margin-top: 0px;
+    display: flex;
+    justify-content: center; /* Centramos horizontalmente */
+    text-align: center;
+}
+
+.random-cocktail .cocktail-card {
+    margin: 0 auto;
+    max-width: 400px;
+}

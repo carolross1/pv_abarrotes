@@ -1,0 +1,124 @@
+/* Contenedor principal */
+.spotify-container {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 60px;
+  text-align: center;
+  padding: 20px;
+  background-color: #f3f4f6; /* Fondo más claro */
+  color: #333333; /* Texto oscuro */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+}
+
+/* Icono de logout */
+.logout-icon {
+  font-size: 24px;
+  color: #333333;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  transition: color 0.3s ease;
+}
+
+.logout-icon:hover {
+  color: #1db954;
+}
+
+/* Botón de login */
+.login-button {
+  background-color: #1db954;
+  color: #ffffff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 50px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-button:hover {
+  background-color: #1ed760;
+  transform: translateY(-2px);
+}
+
+/* Lista de playlists */
+.playlist-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+/* Item de la lista */
+.playlist-item {
+  margin: 15px 0;
+  transition: transform 0.3s ease;
+}
+
+.playlist-item:hover {
+  transform: scale(1.02);
+}
+
+/* Tarjeta de playlist */
+.playlist-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cccccc; /* Bordes claros */
+  padding: 25px;
+  border-radius: 10px;
+  background-color: #ffffff; /* Fondo claro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Imagen de la playlist */
+.playlist-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  margin-right: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Detalles de la playlist */
+.playlist-details h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #333333;
+}
+
+.playlist-details p {
+  font-size: 14px;
+  color: #666666;
+  margin: 5px 0;
+}
+
+/* Botón de reproducción */
+.play-button {
+  background-color: #1db954;
+  color: #ffffff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.play-button:hover {
+  background-color: #1ed760;
+  transform: translateY(-2px);
+}
+
+/* Contenedor de vista previa de Spotify */
+.spotify-preview {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 60px;
+  background-color: #e9ecef; /* Fondo claro */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}

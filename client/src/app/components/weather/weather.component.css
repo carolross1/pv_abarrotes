@@ -1,0 +1,121 @@
+
+.weather-container {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 90px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    background: #f5f5f5; /* Color de fondo gris claro*/
+    transition: background 0.5s ease;
+  }
+  .logout-icon {
+    font-size: 24px; /* Tamaño del ícono */
+    color: #5b3d99; /* Color del ícono */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    transition: color 0.3s; /* Añade una transición suave */
+  }
+  
+  .logout-icon:hover {
+    color: #48257f; /* Cambia color al pasar el mouse */
+  }
+  
+  h1 {
+    text-align: center;
+    color: #000000; /*Color del título gris oscuro*/
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+  }
+  
+  .input-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 60%;
+    margin-right: 10px;
+    outline: none;
+    border: 2px solid #e590f8; /*Borde gris*/
+  }
+  
+  button {
+    padding: 10px 15px;
+    background-color: #dc79f3; /*Color del botón gris*/
+    color: white;
+    border: none;
+    text-decoration: wavy;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #df95cc; /*Color del botón al pasar el mouse*/
+  }
+  
+  .weather-widget {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  .weather-header {
+    display: flex;
+    justify-content: space-between; /*Para colocar la imagen a la derecha*/
+    align-items: center;
+  }
+  
+  .weather-icon {
+    width: 90px; /*Tamaño del ícono*/
+    height: auto;
+  }
+  
+  .temperature {
+    font-size: 3rem;
+    margin: 10px 0;
+    color: #876cd8; /*Color de la temperatura*/
+  }
+  
+  .description {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #743574; /*Color de la descripción*/
+  }
+  
+  .additional-info {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #743574; /*Color de la información adicional*/
+  }
+  
+  @media (max-width: 600px) {
+    .weather-container {
+      max-width: 100%;
+      padding: 15px;
+    }
+  
+    input {
+      width: 70%;
+    }
+  
+    button {
+      width: 30%;
+    }
+  
+    .temperature {
+      font-size: 2.5rem; /*Tamaño más pequeño en pantallas pequeñas*/
+    }
+  
+    .weather-icon {
+      width: 60px; /*Tamaño más pequeño en pantallas pequeñas*/
+    }
+  }
+  

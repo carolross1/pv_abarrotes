@@ -34,6 +34,9 @@ import { PedidosClienteService } from './services/pedidoCliente/pedidosCliente.s
 import { FacebookComponent } from './pages/facebook/facebook.component';
 import { RedesSocialesComponent } from './redes-sociales/redes-sociales.component';
 import { LoginFacebookComponent } from './login-facebook/login-facebook.component';
+import { WeatherComponent } from './components/weather/weather.component';
+import { CocktailsComponent } from './components/cocktails/cocktails.component';
+import { SpotifyComponent } from './spotify/spotify.component';
 
 
 @NgModule({
@@ -52,6 +55,9 @@ import { LoginFacebookComponent } from './login-facebook/login-facebook.componen
     FacebookComponent,
     RedesSocialesComponent,
     LoginFacebookComponent,
+    WeatherComponent,
+    CocktailsComponent,
+    SpotifyComponent,
 
   ],
   imports: [

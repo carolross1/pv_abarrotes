@@ -1,0 +1,58 @@
+<div class="cocktail-container">
+  <div class="logout-container">
+    <button (click)="logout()" class="logout-btn">
+      <i class="fas fa-arrow-left"></i> <!-- Ícono de Font Awesome -->
+    </button>
+ 
+  </div>
+
+  <!-- Campo de búsqueda con estilos -->
+  <h2 class="title">Buscar Cócteles</h2>
+  <div class="search-container">
+  
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Busca tu cóctel favorito" class="search-input"/>
+    <button (click)="searchCocktails()" class="search-button">Buscar</button>
+  </div>
+
+  <!-- Contenedor de cócteles -->
+  <div class="cocktail-results-container">
+    <ul class="cocktail-list" *ngIf="cocktails.length > 0">
+      <li class="cocktail-item" *ngFor="let cocktail of cocktails">
+        <div class="cocktail-card">
+          <img [src]="cocktail.strDrinkThumb" alt="{{ cocktail.strDrink }}" class="cocktail-img" />
+          <div class="cocktail-info">
+            <h3>{{ cocktail.strDrink }}</h3>
+            <p>{{ cocktail.strInstructions }}</p>
+            
+            <!-- Mostrar ingredientes -->
+            <h4>Ingredientes:</h4>
+            <ul>
+              <li *ngFor="let ingredient of getIngredients(cocktail)">
+                {{ ingredient }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="random-cocktail" *ngIf="randomCocktail">
+      <div class="cocktail-card random-centered">
+        <h2>Cóctel recomendado para tí</h2>
+        <img [src]="randomCocktail.strDrinkThumb" alt="{{ randomCocktail.strDrink }}" class="cocktail-img" />
+        <div class="cocktail-info">
+          <h3>{{ randomCocktail.strDrink }}</h3>
+          <p>{{ randomCocktail.strInstructions }}</p>
+          
+          <!-- Mostrar ingredientes del cóctel aleatorio -->
+          <h4>Ingredientes:</h4>
+          <ul>
+            <li *ngFor="let ingredient of getIngredients(randomCocktail)">
+              {{ ingredient }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
