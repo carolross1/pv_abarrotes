@@ -37,6 +37,7 @@ import { LoginFacebookComponent } from './login-facebook/login-facebook.componen
 import { WeatherComponent } from './components/weather/weather.component';
 import { CocktailsComponent } from './components/cocktails/cocktails.component';
 import { SpotifyComponent } from './spotify/spotify.component';
+import { ChatbaseComponent } from './chatbase/chatbase.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { SpotifyComponent } from './spotify/spotify.component';
     WeatherComponent,
     CocktailsComponent,
     SpotifyComponent,
+    ChatbaseComponent,
 
   ],
   imports: [

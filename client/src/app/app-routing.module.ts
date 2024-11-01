@@ -26,6 +26,7 @@ import { DireccionPagoComponent } from './components/hu01-venta-diaria/direccion
 import { RedesSocialesComponent } from './redes-sociales/redes-sociales.component';
 import { CocktailsComponent } from './components/cocktails/cocktails.component';
 import { SpotifyComponent } from './spotify/spotify.component';
+import { ChatbaseComponent } from './chatbase/chatbase.component';
 import { WeatherComponent } from './components/weather/weather.component';
 import { authGuard } from './services/autenticacion/auth.guard';
 
@@ -49,6 +50,9 @@ component: CocktailsComponent
   {
      path: 'spotify', component: SpotifyComponent 
   },
+  {
+    path: 'chat', component: ChatbaseComponent 
+ },
   {
     path: 'callback', component: SpotifyComponent
  },

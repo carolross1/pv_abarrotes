@@ -1,0 +1,27 @@
+/* Ajustes generales para el contenedor del chatbot */
+iframe[src*="chatbase.co"] {
+    width: 400px !important; /* Ancho del contenedor del chatbot */
+    height: 600px !important; /* Altura del contenedor del chatbot */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3); /* Sombra para darle profundidad */
+    overflow: hidden;
+  }
+  
+  /* Estilos de botón flotante (si se usa) */
+  .chatbase-button {
+    background-color: #673ab7 !important; /* Fondo del botón */
+    color: #ffffff !important; /* Color del ícono o texto en el botón */
+    width: 60px !important; /* Tamaño del botón flotante */
+    height: 60px !important;
+    bottom: 20px; /* Posición desde la parte inferior */
+    right: 20px; /* Posición desde la parte derecha */
+    border-radius: 50%; /* Forma circular del botón */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra del botón */
+  }
+  
+  /* Cambia el color del icono de envío si se permite personalización interna */
+  .chatbase-button-icon {
+    fill: #ff4081 !important; /* Color del icono dentro del botón */
+    font-size: 24px; /* Tamaño del icono */
+  }
+  
