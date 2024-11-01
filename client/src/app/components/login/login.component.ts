@@ -78,5 +78,10 @@ export class LoginComponent {
   musica() {
     this.router.navigate(['/spotify']);
  }
+            // Método para navegar a la página "chat"
+  chat() {
+    this.router.navigate(['/chat']);
+           }
+            
   
 }
