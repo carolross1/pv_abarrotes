@@ -7,6 +7,9 @@ const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const passport_1 = __importDefault(require("passport"));
+const dotenv_1 = __importDefault(require("dotenv"));
+// Configurar dotenv para cargar variables de entorno
+dotenv_1.default.config();
 // Importar las rutas
 const cortecajaRoutes_1 = __importDefault(require("./routes/cortecajaRoutes"));
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
@@ -21,7 +24,7 @@ const inventarioRoutes_1 = __importDefault(require("./routes/inventarioRoutes"))
 const usuarioRoutes_1 = __importDefault(require("./routes/usuarioRoutes"));
 const entregasRoutes_1 = __importDefault(require("./routes/entregasRoutes"));
 const pedidosProveedorRoutes_1 = __importDefault(require("./routes/pedidosProveedorRoutes"));
-const authRoutes_1 = __importDefault(require("./routes/authRoutes")); // Importa las rutas de autenticación
+const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -34,7 +37,7 @@ class Server {
         this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: false }));
-        this.app.use(passport_1.default.initialize()); // Inicializa Passport
+        this.app.use(passport_1.default.initialize());
     }
     routes() {
         this.app.use('/', indexRoutes_1.default);
@@ -50,7 +53,7 @@ class Server {
         this.app.use('/api/usuarios', usuarioRoutes_1.default);
         this.app.use('/api/entregas', entregasRoutes_1.default);
         this.app.use('/api/pedidos', pedidosProveedorRoutes_1.default);
-        this.app.use('/auth', authRoutes_1.default); // Agregar rutas de autenticación con Facebook
+        this.app.use('/auth', authRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
