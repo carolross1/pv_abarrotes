@@ -33,12 +33,11 @@ import { MapComponent } from './components/hu01-venta-diaria/map-component/map-c
 import { PedidosClienteService } from './services/pedidoCliente/pedidosCliente.service';
 import { FacebookComponent } from './pages/facebook/facebook.component';
 import { RedesSocialesComponent } from './redes-sociales/redes-sociales.component';
-import { LoginFacebookComponent } from './login-facebook/login-facebook.component';
+//import { LoginFacebookComponent } from './login-facebook/login-facebook.component';
 import { WeatherComponent } from './components/weather/weather.component';
 import { CocktailsComponent } from './components/cocktails/cocktails.component';
 import { SpotifyComponent } from './spotify/spotify.component';
 import { ChatbaseComponent } from './chatbase/chatbase.component';
-
 
 @NgModule({
   declarations: [
@@ -55,12 +54,12 @@ import { ChatbaseComponent } from './chatbase/chatbase.component';
     MapComponent,
     FacebookComponent,
     RedesSocialesComponent,
-    LoginFacebookComponent,
+    //LoginFacebookComponent,
     WeatherComponent,
     CocktailsComponent,
     SpotifyComponent,
     ChatbaseComponent,
-
+   
   ],
   imports: [
     BrowserModule,
@@ -88,7 +87,7 @@ import { ChatbaseComponent } from './chatbase/chatbase.component';
     EntregaService,
     PedidoService,
     PedidosClienteService,
-    LoginFacebookComponent
+    //LoginFacebookComponent
   ],
   bootstrap: [AppComponent]
 })

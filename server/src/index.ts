@@ -1,7 +1,11 @@
-import express, { Application } from 'express';
+import express, { Application } from 'express'; 
 import morgan from 'morgan';
 import cors from 'cors';
 import passport from 'passport';
+import dotenv from 'dotenv';
+
+// Configurar dotenv para cargar variables de entorno
+dotenv.config();
 
 // Importar las rutas
 import cortecajaRoutes from './routes/cortecajaRoutes';
@@ -17,7 +21,7 @@ import inventarioRoutes from './routes/inventarioRoutes';
 import usuarioRoutes from './routes/usuarioRoutes';
 import entregasRoutes from './routes/entregasRoutes';
 import pedidosRoutes from './routes/pedidosProveedorRoutes';
-import authRoutes from './routes/authRoutes';  // Importa las rutas de autenticación
+import authRoutes from './routes/authRoutes';
 
 class Server {
     public app: Application;
@@ -34,7 +38,7 @@ class Server {
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: false }));
-        this.app.use(passport.initialize());  // Inicializa Passport
+        this.app.use(passport.initialize());
     }
 
     routes(): void {
@@ -51,7 +55,7 @@ class Server {
         this.app.use('/api/usuarios', usuarioRoutes);
         this.app.use('/api/entregas', entregasRoutes);
         this.app.use('/api/pedidos', pedidosRoutes);
-        this.app.use('/auth', authRoutes);  // Agregar rutas de autenticación con Facebook
+        this.app.use('/auth', authRoutes);
     }
 
     start(): void {
