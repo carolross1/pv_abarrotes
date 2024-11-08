@@ -1,0 +1,32 @@
+<!-- src/app/pages/moneda/moneda.component.html -->
+<div class="moneda-bubble" (click)="toggleFields()">
+    <i class="fas fa-exchange-alt icon"></i>
+  </div>
+  
+  <div *ngIf="isFieldsVisible" class="currency-selection">
+    <label for="amount">Cantidad:</label>
+    <input
+      type="number"
+      id="amount"
+      [(ngModel)]="amount"
+      (input)="onAmountChange()"
+      min="0"
+    />
+  
+    <label for="currencyFrom">Selecciona la moneda de origen:</label>
+    <select id="currencyFrom" [(ngModel)]="selectedCurrencyFrom" (change)="onCurrencyChange()">
+      <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+    </select>
+  
+    <label for="currencyTo">Selecciona la moneda de destino:</label>
+    <select id="currencyTo" [(ngModel)]="selectedCurrencyTo" (change)="onCurrencyChange()">
+      <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+    </select>
+  
+    <div class="exchange-rate-card" *ngIf="convertedAmount !== null">
+      <p class="rate-title">Cantidad convertida a {{ selectedCurrencyTo }}:</p>
+      <p class="rate-value">{{ convertedAmount | number:'1.2-2' }}</p>
+    </div>
+  
+    <div class="error-message" *ngIf="error">{{ error }}</div>
+  </div>

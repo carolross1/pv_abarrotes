@@ -7,11 +7,13 @@ import { FacturaComponent } from '../factura/factura.component';
 import { Hu07NotificacionModule } from '../../hu07-notificacion/hu07-notificacion/hu07-notificacion.module';
 import { PaypalPaymentComponent } from '../../../paypal-payment/paypal-payment.component';
 
+
 @NgModule({
   declarations: [
     PrincipalVentasComponent,
     FacturaComponent,
     PaypalPaymentComponent // Asegúrate de que esté declarado aquí
+    
   ],
   imports: [
     CommonModule,

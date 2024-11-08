@@ -6,6 +6,6 @@ export interface Usuario {
     telefono: string; // Nuevo campo
     email: string;    // Nuevo campo
     tipo_Usuario: string; // Nuevo campo
-    foto_perfil: string; 
+    
 }
   

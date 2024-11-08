@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@abacritt/angularx-social-login": "^2.3.0",
     "@angular/animations": "^17.3.0",
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
@@ -20,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
     "@fortawesome/fontawesome-free": "^6.6.0",
+    "axios": "^1.7.7",
     "countries-list": "^3.1.1",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",

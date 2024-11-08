@@ -1,0 +1,20 @@
+<div>
+    <i class="fas fa-arrow-left logout-icon" (click)="logout()" title="Regresar al Login"></i>
+  
+    <input [(ngModel)]="searchTermCustom" placeholder="Buscar..." />
+    <button (click)="searchCustom()">Buscar</button>
+  </div>
+  
+  <div *ngIf="customSearchResults.length > 0">
+    <h3>Resultados de la búsqueda:</h3>
+    <ul>
+      <li *ngFor="let result of customSearchResults">
+        <a [href]="result.link" target="_blank">{{ result.title }}</a>
+        <p>{{ result.snippet }}</p>
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="customSearchResults.length === 0">
+    <p>No hay resultados para mostrar.</p>
+  </div>
