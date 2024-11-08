@@ -151,4 +151,9 @@ export class LoginComponent implements OnInit {
   chat() {
     this.router.navigate(['/chat']);
   }
+  busqueda() {
+    this.router.navigate(['/buscador']);
+  }
+ 
+  
 }

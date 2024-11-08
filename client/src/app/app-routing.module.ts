@@ -29,6 +29,8 @@ import { SpotifyComponent } from './spotify/spotify.component';
 import { ChatbaseComponent } from './chatbase/chatbase.component';
 import { WeatherComponent } from './components/weather/weather.component';
 import { authGuard } from './services/autenticacion/auth.guard';
+import { SearchComponent } from './search/search.component';
+
 
 const routes: Routes = [
   {
@@ -53,6 +55,9 @@ component: CocktailsComponent
   {
     path: 'chat', component: ChatbaseComponent 
  },
+ {
+ path: 'buscador', component: SearchComponent 
+},
   {
     path: 'callback', component: SpotifyComponent
  },

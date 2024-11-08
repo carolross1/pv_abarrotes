@@ -38,6 +38,8 @@ import { WeatherComponent } from './components/weather/weather.component';
 import { CocktailsComponent } from './components/cocktails/cocktails.component';
 import { SpotifyComponent } from './spotify/spotify.component';
 import { ChatbaseComponent } from './chatbase/chatbase.component';
+import { SearchComponent } from './search/search.component';
+import { MonedaComponent } from './moneda/moneda.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { ChatbaseComponent } from './chatbase/chatbase.component';
     CocktailsComponent,
     SpotifyComponent,
     ChatbaseComponent,
+    SearchComponent,
+    MonedaComponent,
    
   ],
   imports: [
