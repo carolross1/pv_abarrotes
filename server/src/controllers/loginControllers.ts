@@ -6,12 +6,12 @@ export const login = async (req: Request, res: Response) => {
 
   try {
     // Obtener el salt, el ID del usuario y la foto de perfil
-    const result = await pool.query('SELECT id_Usuario, salt, contrasena, tipo_Usuario, fotoPerfil FROM usuario WHERE email = ?', [usuario]);
+    const result = await pool.query('SELECT id_Usuario, salt, contrasena, tipo_Usuario FROM usuario WHERE email = ?', [usuario]);
     if (result.length === 0) {
       return res.status(401).json({ success: false, message: '**Email o contraseña incorrectos***' });
     }
 
-    const { id_Usuario, salt, contrasena: hashedPassword, tipo_Usuario, foto_perfil } = result[0];
+    const { id_Usuario, salt, contrasena: hashedPassword, tipo_Usuario } = result[0];
 
     // Verificar la contraseña
     const hash = await pool.query('SELECT HashPasswordConSalt(?, ?) AS hash', [contrasena, salt]);
@@ -27,7 +27,7 @@ export const login = async (req: Request, res: Response) => {
         id_Usuario, 
         nombre: usuario, 
         tipo_Usuario, 
-        foto_perfil // Agregar la foto de perfil aquí
+         // Agregar la foto de perfil aquí
       } 
     });
   } catch (error) {
