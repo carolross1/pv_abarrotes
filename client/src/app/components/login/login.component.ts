@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import { AlertaService } from '../../services/alertas/alerta.service';
+import Swal from 'sweetalert2';
+
+// Declarar la variable global `FB` para que TypeScript no marque error
+declare var FB: any;
 
 @Component({
   selector: 'app-login',
@@ -21,7 +25,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Cargar el SDK de Facebook
+    // Cargar el SDK de Facebook al inicializar el componente
     this.loadFacebookSDK();
   }
 
@@ -57,8 +61,32 @@ export class LoginComponent implements OnInit {
 
   // Método simplificado para iniciar sesión con Facebook
   loginWithFacebook(): void {
-    // Redirige directamente al backend para manejar la autenticación de Facebook
-    window.location.href = 'http://localhost:3000/auth/facebook';
+    FB.login((response: any) => {
+      if (response.authResponse) {
+        // Obtener los datos del perfil de Facebook
+        FB.api('/me', { fields: 'name,email,picture' }, (profileData: any) => {
+          // Mostrar la información del perfil con SweetAlert
+          Swal.fire({
+            title: 'Perfil de Facebook',
+            text: `Nombre: ${profileData.name}\nEmail: ${profileData.email}`,
+            imageUrl: profileData.picture.data.url,
+            imageWidth: 100,
+            imageHeight: 100,
+            imageAlt: 'Foto de perfil',
+            confirmButtonText: 'CONTINUAR'
+          });
+
+          // Aquí podrías realizar el proceso de autenticación en tu backend
+          // y redirigir al usuario según su rol o cualquier otra lógica.
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo iniciar sesión con Facebook'
+        });
+      }
+    }, { scope: 'public_profile,email' });
   }
 
   // Método para cargar el SDK de Facebook
@@ -73,6 +101,15 @@ export class LoginComponent implements OnInit {
     const js: HTMLScriptElement = d.createElement(s) as HTMLScriptElement;
     js.id = id;
     js.src = "https://connect.facebook.net/en_US/sdk.js";
+
+    js.onload = () => {
+      FB.init({
+        appId: 'TU_APP_ID_DE_FACEBOOK', // Asegúrate de reemplazar esto con tu ID de app de Facebook
+        cookie: true,
+        xfbml: true,
+        version: 'v15.0'
+      });
+    };
 
     if (fjs && fjs.parentNode) {
       fjs.parentNode.insertBefore(js, fjs);
