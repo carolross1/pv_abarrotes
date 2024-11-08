@@ -3,8 +3,12 @@ import passport from 'passport';
 import { Strategy as FacebookStrategy, Profile } from 'passport-facebook';
 import jwt from 'jsonwebtoken';
 import pool from '../database';
+import { facebookAuth, facebookCallback } from '../controllers/authControllers';
 
 const router = Router();
+router.get('/auth/facebook', facebookAuth);
+router.get('/auth/facebook/callback', facebookCallback);
+
 
 // Credenciales de la App de Facebook
 const FACEBOOK_APP_ID = '910935567565163';

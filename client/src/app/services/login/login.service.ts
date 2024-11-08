@@ -14,9 +14,9 @@ export interface LogoutResponse {
   providedIn: 'root'
 })
 export class LoginService {
-  
+
   private apiUrl = 'http://localhost:3000/api/login';
-  private facebookAuthUrl = 'http://localhost:3000/auth/facebook'; // Ruta para la autenticación de Facebook
+  private facebookAuthUrl = 'http://localhost:3000/auth/facebook'; // Ruta para redireccionar a Facebook
 
   private currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$ = this.currentUserSubject.asObservable();
@@ -33,12 +33,11 @@ export class LoginService {
     return this.http.post<any>(this.apiUrl, body);
   }
 
- // En el servicio LoginService
-loginWithFacebook(accessToken: string): Observable<any> {
-  const url = `${this.apiUrl}/facebook`;
-  return this.http.post<any>(url, { accessToken });
-}
-
+  // Método para iniciar sesión con Facebook
+  loginWithFacebook() {
+    // Redirigir a la URL de autenticación de Facebook
+    window.location.href = this.facebookAuthUrl;
+  }
 
   // Guardar el usuario actual en el BehaviorSubject
   setCurrentUser(user: any) {
@@ -69,7 +68,6 @@ loginWithFacebook(accessToken: string): Observable<any> {
           }).then(() => {
             this.router.navigate(['/cortedecaja']);
           });
-          
           return false; 
         } else {
           this.finalizarSesion();
@@ -97,7 +95,6 @@ loginWithFacebook(accessToken: string): Observable<any> {
 
   private finalizarSesion(): void {
     localStorage.removeItem('token');
-    sessionStorage.removeItem('token');
     this.currentUserSubject.next(null); // Limpiar el usuario actual
     this.router.navigate(['/login']);
   }

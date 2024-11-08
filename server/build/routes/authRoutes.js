@@ -17,7 +17,10 @@ const passport_1 = __importDefault(require("passport"));
 const passport_facebook_1 = require("passport-facebook");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const database_1 = __importDefault(require("../database"));
+const authControllers_1 = require("../controllers/authControllers");
 const router = (0, express_1.Router)();
+router.get('/auth/facebook', authControllers_1.facebookAuth);
+router.get('/auth/facebook/callback', authControllers_1.facebookCallback);
 // Credenciales de la App de Facebook
 const FACEBOOK_APP_ID = '910935567565163';
 const FACEBOOK_APP_SECRET = '99997de41e2c41f398dc91ec9db4d2a2';
